@@ -1,0 +1,34 @@
+{
+  "name": "tsm-application",
+  "version": "0.0.1",
+  "description": "admin manager for alienjs",
+  "main": "client.js",
+  "config": {
+    "serverAddress": "http://127.0.0.1:4000/"
+  },
+  "build": {
+    "app-bundle-id": "your.id",
+    "app-category-type": "your.app.category.type",
+    "iconUrl": "(windows only) A URL to an ICO file to use as the application icon, see details below"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jaxchow/alienjs-client.git"
+  },
+  "keywords": [
+    "web",
+    "client"
+  ],
+  "author": "jaxchow@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaxchow/alienjs-client/issues"
+  },
+  "homepage": "https://github.com/jaxchow/alienjs-client#readme",
+  "devDependencies": {
+  },
+  "dependencies": {
+	"koa2-cors": "^2.0.3",
+    "koa2-proxy": "^1.1.3"
+  }
+}

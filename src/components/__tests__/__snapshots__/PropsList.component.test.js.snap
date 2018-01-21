@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PropList component 1`] = `
+<ul
+  className="props-list"
+/>
+`;
+
+exports[`render with children 1`] = `
+<ul
+  className="props-list"
+>
+  <li
+    className="props-item"
+  >
+    <label
+      className="props-label"
+    >
+      姓名
+      :
+    </label>
+    一个人玩
+  </li>
+  <li
+    className="props-item"
+  >
+    <label
+      className="props-label"
+    >
+      性别
+      :
+    </label>
+    男
+  </li>
+</ul>
+`;
+
+exports[`render with dynamic items 1`] = `
+<ul
+  className="props-list"
+>
+  <li
+    className="props-item"
+  >
+    <label
+      className="props-label"
+    >
+      姓名
+      :
+    </label>
+    一个人玩
+  </li>
+  <li
+    className="props-item"
+  >
+    <label
+      className="props-label"
+    >
+      性别
+      :
+    </label>
+    男
+  </li>
+  <li
+    className="props-item"
+  >
+    <label
+      className="props-label"
+    >
+      age
+      :
+    </label>
+    19
+  </li>
+</ul>
+`;

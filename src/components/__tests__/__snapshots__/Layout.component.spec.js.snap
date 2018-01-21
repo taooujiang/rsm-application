@@ -1,0 +1,255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`测试layout布局组件 测试组件props传递 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="layout"
+    style={
+        Object {
+            "bottom": "0",
+            "display": "flex",
+            "flex": "1",
+            "flexDirection": "column",
+            "left": "0",
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": "0",
+            "top": "0",
+          }
+    }
+/>,
+  "nodes": Array [
+    <div
+      className="layout"
+      style={
+            Object {
+                  "bottom": "0",
+                  "display": "flex",
+                  "flex": "1",
+                  "flexDirection": "column",
+                  "left": "0",
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": "0",
+                  "top": "0",
+                }
+      }
+/>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_context": Object {},
+      "_currentElement": <Layout
+        direction="column"
+        position={false}
+/>,
+      "_instance": Layout {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "direction": "column",
+          "position": false,
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceProps": [Function],
+          "enqueueReplacePropsInternal": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetProps": [Function],
+          "enqueueSetPropsInternal": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+        },
+      },
+      "_mountOrder": 7,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": Object {
+        "_currentElement": <div
+          className="layout"
+          style={
+                    Object {
+                              "bottom": "0",
+                              "display": "flex",
+                              "flex": "1",
+                              "flexDirection": "column",
+                              "left": "0",
+                              "overflow": "hidden",
+                              "position": "absolute",
+                              "right": "0",
+                              "top": "0",
+                            }
+          }
+/>,
+        "_renderedOutput": <div
+          className="layout"
+          style={
+                    Object {
+                              "bottom": "0",
+                              "display": "flex",
+                              "flex": "1",
+                              "flexDirection": "column",
+                              "left": "0",
+                              "overflow": "hidden",
+                              "position": "absolute",
+                              "right": "0",
+                              "top": "0",
+                            }
+          }
+/>,
+      },
+      "_rootNodeID": ".6",
+      "_topLevelWrapper": null,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Layout
+    direction="column"
+    position={false}
+/>,
+}
+`;
+
+exports[`测试layout布局组件 测试组件错误props传递 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="layout"
+    style={
+        Object {
+            "bottom": "0",
+            "display": "flex",
+            "flex": "1",
+            "flexDirection": "row",
+            "left": "0",
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": "0",
+            "top": "0",
+          }
+    }
+/>,
+  "nodes": Array [
+    <div
+      className="layout"
+      style={
+            Object {
+                  "bottom": "0",
+                  "display": "flex",
+                  "flex": "1",
+                  "flexDirection": "row",
+                  "left": "0",
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": "0",
+                  "top": "0",
+                }
+      }
+/>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_context": Object {},
+      "_currentElement": <Layout
+        direction="row"
+        position={false}
+/>,
+      "_instance": Layout {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "direction": "row",
+          "position": false,
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceProps": [Function],
+          "enqueueReplacePropsInternal": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetProps": [Function],
+          "enqueueSetPropsInternal": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+        },
+      },
+      "_mountOrder": 8,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": Object {
+        "_currentElement": <div
+          className="layout"
+          style={
+                    Object {
+                              "bottom": "0",
+                              "display": "flex",
+                              "flex": "1",
+                              "flexDirection": "row",
+                              "left": "0",
+                              "overflow": "hidden",
+                              "position": "absolute",
+                              "right": "0",
+                              "top": "0",
+                            }
+          }
+/>,
+        "_renderedOutput": <div
+          className="layout"
+          style={
+                    Object {
+                              "bottom": "0",
+                              "display": "flex",
+                              "flex": "1",
+                              "flexDirection": "row",
+                              "left": "0",
+                              "overflow": "hidden",
+                              "position": "absolute",
+                              "right": "0",
+                              "top": "0",
+                            }
+          }
+/>,
+      },
+      "_rootNodeID": ".7",
+      "_topLevelWrapper": null,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Layout
+    direction="row"
+    position={false}
+/>,
+}
+`;

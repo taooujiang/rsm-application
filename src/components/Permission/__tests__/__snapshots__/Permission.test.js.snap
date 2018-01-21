@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Permission component 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": Array [
+    <span>
+      has
+</span>,
+  ],
+  "nodes": Array [
+    Array [
+      <span>
+        has
+</span>,
+    ],
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_context": Object {},
+      "_currentElement": <Permission
+        expression={true}
+>
+        <span>
+                has
+        </span>
+</Permission>,
+      "_instance": Permission {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "children": <span>
+            has
+</span>,
+          "expression": true,
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceProps": [Function],
+          "enqueueReplacePropsInternal": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetProps": [Function],
+          "enqueueSetPropsInternal": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": Object {
+        "_currentElement": Array [
+          <span>
+            has
+</span>,
+        ],
+        "_renderedOutput": Array [
+          <span>
+            has
+</span>,
+        ],
+      },
+      "_rootNodeID": ".0",
+      "_topLevelWrapper": null,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Permission
+    expression={true}
+>
+    <span>
+        has
+    </span>
+</Permission>,
+}
+`;
+
+exports[`Permission component is empty 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": null,
+  "nodes": Array [
+    null,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_context": Object {},
+      "_currentElement": <Permission
+        expression={false}
+>
+        <span>
+                has
+        </span>
+</Permission>,
+      "_instance": Permission {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "children": <span>
+            has
+</span>,
+          "expression": false,
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceProps": [Function],
+          "enqueueReplacePropsInternal": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetProps": [Function],
+          "enqueueSetPropsInternal": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+        },
+      },
+      "_mountOrder": 2,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": Object {
+        "_currentElement": null,
+        "_renderedOutput": null,
+      },
+      "_rootNodeID": ".1",
+      "_topLevelWrapper": null,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Permission
+    expression={false}
+>
+    <span>
+        has
+    </span>
+</Permission>,
+}
+`;
