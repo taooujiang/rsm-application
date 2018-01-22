@@ -3,7 +3,7 @@
 * @Date:   2016-03-03T11:14:41+08:00
 * @Email:  jaxchow@gmail.com
  * @Last modified by:
- * @Last modified time: 2018-01-18T14:28:59+08:00
+ * @Last modified time: 2018-01-22T09:46:22+08:00
 * @description:  connect state to view props for redux
 */
 
@@ -25,11 +25,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-let CalendarPickerContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(CalendarView)
+let CalendarContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(CalendarView)
 let InterviewFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(InterviewFormView)
 let Container = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(InterviewListView)
 
 
-export {CalendarPickerContainer,InterviewFormContainer}
+export {CalendarContainer,InterviewFormContainer}
 
 export default Container;
