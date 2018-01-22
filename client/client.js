@@ -77,7 +77,7 @@ function initialize () {
       createWindow()
     }
   })
-  const proxy = require('./proxy')
+//  const proxy = require('./proxy')
 }
 
 // Make this app a single instance app.
