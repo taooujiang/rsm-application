@@ -27,8 +27,8 @@ export function createTypes(CONSTANTS){
     return {type: CONSTANTS.SAVE_ITEM, payload:{item}}
   }
 
-  function saveList(items, total) {
-    return {type: CONSTANTS.SAVE_LIST,payload:{ list:items, total}}
+  function saveList(list, total) {
+    return {type: CONSTANTS.SAVE_LIST,payload:{ list, total}}
   }
 
   function listItem(idx, offset) {

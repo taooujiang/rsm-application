@@ -10,7 +10,7 @@ import {
   Icon,
 } from 'antd'
 import moment from 'moment';
-
+import {Link} from 'react-router'
 import PageView from 'components/Page'
 import AdvancedSearchForm from 'components/AdvancedSearch'
 import TagSelect from 'components/TagSelect'
@@ -36,10 +36,22 @@ export default class JobListView extends PageView {
   renderToolbar() {
     let {actions} = this.props;
     const menu = (
-      <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1" ><Icon type="taobao" />智联招聘</Menu.Item>
-        <Menu.Item key="2" ><Icon type="gitlab" />前程无忧</Menu.Item>
-        <Menu.Item key="3"><Icon type="qq" />58同城</Menu.Item>
+      <Menu>
+        <Menu.Item key="1" >
+          <Link to="/job/iframe/zhaopin">
+            <Icon type="taobao" />智联招聘
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2" >
+          <Link to="/job/iframe/51job">
+            <Icon type="gitlab" />前程无忧
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <Link to="/job/iframe/58">
+            <Icon type="qq" />58同城
+          </Link>
+        </Menu.Item>
       </Menu>
     );
     return (

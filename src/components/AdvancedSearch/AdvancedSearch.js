@@ -21,8 +21,17 @@ const Option = Select.Option
 export default class AdvancedSearchForm extends React.Component {
   state = {
     expand: false,
-    placeHolder:"请输入"
+    defKeyType:null,
+    placeHolder:""
   };
+
+  constructor(props) {
+    super(props);
+    let {label}=props.keysOption.pop()
+    // this.state({
+    //   placeHolder:`请输入${label}`
+    // })
+  }
 
   handleSearch = (values) => {
      let {filterSubmitHandler} = this.props
@@ -125,8 +134,9 @@ export default class AdvancedSearchForm extends React.Component {
 
   renderKeyCatalog() {
     let {keysOption} = this.props
+    // let {label,value}=props.keysOption.pop()
     return(
-        <Select onSelect={this.onTypeChange.bind(this)} style={{ width: '20%' }}>
+        <Select defaultValue="jobName" onSelect={this.onTypeChange.bind(this)} style={{ width: '20%' }}>
           {
             keysOption.map((it) => {
               return (
@@ -135,6 +145,22 @@ export default class AdvancedSearchForm extends React.Component {
             })
           }
         </Select>
+    )
+  }
+
+  renderKeyword(){
+    let {placeHolder,children} = this.state
+    return (
+      <Row gutter={20}>
+        <Col span={1} ></Col>
+        <Col span={12} key="fixhead">
+            <Input.Group compact>
+              {this.renderKeyCatalog()}
+              <Input placeholder={placeHolder} style={{ width: '70%' }}/>
+              <Button htmlType="submit" icon="search" />
+            </Input.Group>
+        </Col>
+      </Row>
     )
   }
 
@@ -151,25 +177,7 @@ export default class AdvancedSearchForm extends React.Component {
     return (
       <div className="advanced-search-panel">
         <AdvancedForm className="advanced-search-form" onSubmit={this.handleSearch}>
-          {
-          <Row gutter={20}>
-            <Col span={1} ></Col>
-            <Col span={12} key="fixhead">
-                <Input.Group compact>
-                  {this.renderKeyCatalog()}
-                  <Input placeholder={placeHolder} style={{ width: '70%' }}/>
-                  <Button htmlType="submit" icon="search" />
-                  {/*
-                  <Dropdown.Button htmlType="submit" type="primary" overlay={menu} style={{
-                    width: '10%'
-                  }}>
-                    搜索
-                  </Dropdown.Button>
-                    */}
-                </Input.Group>
-            </Col>
-          </Row>
-          }
+          { this.renderKeyword() }
           <Row gutter={20}>{  this.getFields()}</Row>
         </AdvancedForm>
         <div className="advanced-search-toolbar">

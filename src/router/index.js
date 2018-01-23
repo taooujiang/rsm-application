@@ -38,6 +38,7 @@ const dynamicInterviewRoutes=(partialNextState, cb) => {
 		},'Interview')
 }
 
+
 const dynamicJobRoutes=(partialNextState, cb) => {
 		require.ensure([], (require) => {
 			cb(null,[require('app_modules/Job/').Routes])
@@ -85,6 +86,11 @@ const dynamicSettingsRoutes=(partialNextState, cb) => {
 		},'Settings')
 }
 
+const dynamicCreditRoutes=(partialNextState, cb) => {
+		require.ensure([], (require) => {
+			cb(null,[require('app_modules/Credit/').Routes])
+		},'Credit')
+}
 
 function authLogin(nextState, replaceState) {
   const token = sessionStorage.getItem('token')
@@ -164,6 +170,10 @@ export default function AppRouter() {
           path: 'settings',
           breadcrumbName: "系统设置",
           getChildRoutes: dynamicSettingsRoutes
+			},{
+          path: 'credit',
+          breadcrumbName: "诚信库",
+          getChildRoutes:dynamicCreditRoutes
 			},{
 					 path: '403',
 					 breadcrumbName: "没有访问权限",
