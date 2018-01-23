@@ -8,7 +8,7 @@ let Routes = (
     <IndexRoute component={Container}/>
     <Route path="list" components={Container}/>
     <Route path="detail" components={DetailContainer}/>
-    <Route path="iframe" components={iframeContainer}/>
+    <Route path="iframe/:type" components={iframeContainer}/>
   </Router>
 )
 

@@ -19,6 +19,7 @@ import interviewReducer from '../app_modules/Interview/reducer'
 import resumeReducer from '../app_modules/Resume/reducer'
 import eliteReducer from '../app_modules/Elite/reducer'
 import reportReducer from '../app_modules/Report/reducer'
+import creditReducer from '../app_modules/Credit/reducer'
 import tabListResult from '../layout/reduce'
 
 const reducers = combineReducers(Object.assign({}, {
@@ -32,6 +33,7 @@ const reducers = combineReducers(Object.assign({}, {
   jobReducer,
   resumeReducer,
   eliteReducer,
+  creditReducer,
   reportReducer,
   settingsReducer
 }, {routing: routerReducer}));

@@ -122,11 +122,6 @@ export default class MemberListView extends PageView {
               <ButtonGroupExt onClick={this.handlerMenu}>
                   <Button icon="delete" actionkey="del">删除</Button>
                   <Button icon="edit" actionkey="edit">编辑</Button>
-                  <Button icon="plus-circle-o" actionkey="a1">添加</Button>
-                  <Button icon="plus-circle-o" actionkey="a2">添加</Button>
-                  <Button icon="plus-circle-o" actionkey="a3">添加</Button>
-                  <Button icon="plus-circle-o" actionkey="a4">添加</Button>
-                  <Button icon="plus-circle-o" actionkey="a5">添加</Button>
               </ButtonGroupExt>
             )
           }
@@ -159,7 +154,6 @@ export default class MemberListView extends PageView {
           {this.renderToolbar()}
           {this.renderTableList()}
         </Pane>
-        {props.children}
       </Layout>
     )
   }

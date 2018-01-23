@@ -12,11 +12,13 @@ const CONSTANTS = createConstants('member', [
   'fetch_success',
   'fetch_failure',
 ])
+console.log(CONSTANTS)
 export default CONSTANTS
 //TODO: 调整命名及常量定义
 let {
   getItem,listItem,saveItem,saveList,fetchFailure,fetchRequest,fetchSuccess
 } = createTypes(CONSTANTS)
+
 
 export function addRoute(){
   return dispatch => dispatch(routerActions.replace("/member/add"))
@@ -38,8 +40,9 @@ export function listAction(value) {
       dispatch(fetchSuccess('tableSpin'))
       //console.log(json.list)
       dispatch(saveList(json.list, json.page))
+
     }).catch(ex => {
-      return dispatch(fetchFailure('formSpin',ex))
+      return dispatch(fetchFailure('tableSpin',ex))
     })
   }
 }

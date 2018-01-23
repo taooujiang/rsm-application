@@ -64,7 +64,7 @@ export default class PageView extends Component {
    */
   componentWillMount() {
     let {actions} = this.props;
-    actions.listAction();
+  //  actions.listAction();
   }
   /**
    * [onSubmit 默认提交搜索过滤]
@@ -198,44 +198,6 @@ export default class PageView extends Component {
     )
   }
 
-  /**
-   * 渲染列表组件
-   * @return {null} [description]
-   */
-
-  renderTableList() {
-    let {reduce} = this.props
-    let {spins:{tableSpin}} = reduce
-    let list = [...reduce.map.values()]
-    let tableConf = {
-      rowKey: 'id',
-      rowSelection: {
-        onChange: this.onSelectChange.bind(this)
-      },
-      dataSource: list,
-      spins: loading,
-      columns: [
-        {
-          type: 'selection'
-        }, {
-          label: "操作",
-          prop: "id",
-          width: 100,
-          render: (data) => {
-            return (
-              <span>
-                <Button type="text" size="small" onClick={() => this.handleEditRoute(data.name)}>查看</Button>
-                <Button type="text" size="small" onClick={() => this.handleEditRoute(data.name)}>编辑</Button>
-              </span>
-            )
-          }
-        }
-      ]
-    }
-    return (<Table style={{
-      width: '100%'
-    }} {...tableConf}/>)
-  }
 
   /**
    * 渲染对话框组件

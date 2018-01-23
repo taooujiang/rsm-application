@@ -4,7 +4,7 @@ import mockjs,{Random} from 'mockjs'
 
 var hourTimestamp=60*60*100;
 let result=mockjs.mock({
-  'list|8': [{
+  'list|10': [{
       'id|+1': 1,
       'name': () => {
         return Random.cname();
