@@ -21,7 +21,7 @@ class InterView extends Component{
                    <Meta
                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                        title="Card title"
-                       description="This is the description"
+                       description="This is the description11"
                      />
                    </Card>
                 </List.Item>
