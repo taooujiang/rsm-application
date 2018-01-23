@@ -3,7 +3,7 @@ import API from './api'
 import {routerActions, push, replace} from 'react-router-redux'
 import createConstants,{dispatchHandler,createTypes} from 'app-utils/CreateConstants'
 
-const CONSTANTS = createConstants('resume', [
+const CONSTANTS = createConstants('credit', [
   'get_list',
   'sync_list',
   'save_list',
@@ -20,7 +20,7 @@ let {
 
 
 export function listRoute() {
-  return dispatch => dispatch(routerActions.replace('/interview'))
+  return dispatch => dispatch(routerActions.replace('/credit'))
 }
 
 export function backRoute() {

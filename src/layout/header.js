@@ -93,8 +93,10 @@ export default class HeaderSide extends React.Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="7">
-            <Icon type="pie-chart" />
+            <Link to="credit">
+              <Icon type="pie-chart" />
             <span>诚信库</span>
+            </Link>
           </Menu.Item>
           <Menu.SubMenu key="8" title={<span><Icon type="appstore" /><span>统计分析</span></span>}>
             <Menu.Item key="8-1">
