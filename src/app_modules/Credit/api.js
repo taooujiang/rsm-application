@@ -12,7 +12,7 @@ export default class API extends FetchAPI {
   }
 
   fetchList(params) {
-    return this.fetchGet(`${APP_SERVER}/resume/`, {body: JSON.stringify(params)}).catch(this.fetchCatch)
+    return this.fetchGet(`${APP_SERVER}/credit`, {body: JSON.stringify(params)}).catch(this.fetchCatch)
   }
 
   fetchSync(params) {

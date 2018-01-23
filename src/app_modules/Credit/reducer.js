@@ -26,7 +26,7 @@ let initialState = {
   item: new Object(),
   msg: new Object(),
   status: new Map(),
-  key: 'jobId'
+  key: 'id'
 }
 
 function reducer(state = initialState, {type, payload}) {

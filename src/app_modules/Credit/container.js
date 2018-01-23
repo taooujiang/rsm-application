@@ -10,12 +10,12 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
-import InterviewListView from './InterviewList.view'
-import InterviewFormView from './InterviewForm.view'
+import CreditListView from './CreditList.view'
+import CreditFormView from './CreditForm.view'
 import * as actions from './action'
 
 const mapStateToProps = (state) => {
-  return {reduce: state.interviewReducer,appConfig:state.appReducer}
+  return {reduce: state.creditReducer,appConfig:state.appReducer}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -24,10 +24,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-let InterviewFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(InterviewFormView)
-let Container = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(InterviewListView)
+let CreditFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(CreditFormView)
+let Container = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(CreditListView)
 
 
-export {InterviewFormContainer}
+export {CreditFormContainer}
 
 export default Container;

@@ -23,7 +23,7 @@ const Option = Select.Option
 const {TextArea} = Input
 
 
-class InterviewForm extends Component {
+class CreditForm extends Component {
   renderSelectOption(data,idx){
     return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
   }
@@ -54,7 +54,7 @@ class InterviewForm extends Component {
   }
 }
 
-class InterviewFormView extends Component {
+class CreditFormView extends Component {
   submit = (values) => {
     console.log(values)
   }
@@ -71,13 +71,13 @@ class InterviewFormView extends Component {
     let {params, reduce,saveRef} = this.props;
     let model = {}
     return (
-      <InterviewForm onSubmit={this.submitForm} initialValues={model} savemRef={saveRef}>
+      <CreditForm onSubmit={this.submitForm} initialValues={model} savemRef={saveRef}>
         <Button.Group>
           <Button htmlType="submit">保存</Button>
         </Button.Group>
-      </InterviewForm>
+      </CreditForm>
     )
   }
 }
 
-export default InterviewFormView
+export default CreditFormView

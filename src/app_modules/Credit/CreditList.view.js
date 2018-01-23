@@ -16,7 +16,7 @@ import CalendarPicker from 'components/CalendarPicker'
 import Permission from 'components/Permission'
 const Option = Select.Option
 
-export default class InterviewListView extends PageView {
+export default class CreditListView extends PageView {
 
   constructor(props) {
     super(props);
@@ -75,11 +75,11 @@ export default class InterviewListView extends PageView {
   renderTableList() {
     let that=this;
     let {reduce} = this.props
-    let {spins:{tableSpin},page} = reduce
+    let {spins:{tableSpin},page,key} = reduce
     let list = [...reduce.list.values()]
     let tableConf = {
       loading: tableSpin,
-      rowKey: 'jobId',
+      rowKey: key,
       columns: [
         {
           type: 'selection'
@@ -112,7 +112,7 @@ export default class InterviewListView extends PageView {
           width: 180
         }, {
           title: "操作",
-          dataIndex: "jobId",
+          dataIndex: key,
           render: (id) => {
             return (
               <ButtonGroupExt onClick={(args)=>this.handlerTableMenu(id,args)}>
