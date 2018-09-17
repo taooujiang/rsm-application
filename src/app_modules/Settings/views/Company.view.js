@@ -3,7 +3,7 @@ import NestedComponent from 'app/decorators/NestedComponent'
 import { Button, Card, } from "antd"
 import PageView from 'app/components/Page'
 import DataTable from 'app/components/DataTable'
-import ButtonGroupExt from 'app/components/ButtonGroupExt'
+import ButtonGroups from 'app/components/ButtonGroups'
 
 
 @NestedComponent()
@@ -15,9 +15,9 @@ export default class CompanyView extends PageView {
 
 	renderToolbar() {
 		return (
-			<Button.Group>
-				<Button type="primary" onClick={this.handleAdd.bind(this)}>添加</Button>
-			</Button.Group>
+			<ButtonGroups>
+				<Button type="primary" permission="company" onClick={this.handleAdd.bind(this)}>添加</Button>
+			</ButtonGroups>
 		)
 	}
 	handleAdd() {
@@ -69,10 +69,10 @@ export default class CompanyView extends PageView {
 				dataIndex: 'action',
 				key: 'action',
 				render: (text, record) => (
-					<ButtonGroupExt onClick={this.handleBtnGroupClick.bind(this,record)}>
-							<Button icon="edit" actionkey="editRoute" >编辑</Button>
-							<Button icon="delete" disabled={record.isDefault?true:false} actionkey="deleteCompanyAction" confirm="确认删除？">删除</Button>
-					</ButtonGroupExt>
+					<ButtonGroups handleClick={this.handleBtnGroupClick.bind(this,record)}>
+							<Button icon="edit" permission="company" actionkey="editRoute"  tooltext="编辑"/>
+							<Button icon="delete" permission="company" disabled={record.isDefault?true:false} actionkey="deleteCompanyAction" confirm="确认删除"  tooltext="删除"/>
+					</ButtonGroups>
 				),
 			}],
 		}
