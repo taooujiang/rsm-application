@@ -237,7 +237,7 @@ export function listResumeJobAction(value){
 export function listSearchAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
-    return new API().fetchList(value).then(json => {
+    return new API().fetchClientList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       dispatch(saveList(json))
     }).catch(ex => {

@@ -1661,7 +1661,7 @@ export class PersonOffer extends Component{
   renderWhich(){
     let {info,resumeId,actions,item,detailType} = this.props
     if(detailType == 3){
-      return <div className="list-no-data no-offer-record">暂无offer记录</div>
+      return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
   }
@@ -1672,7 +1672,7 @@ export class PersonOffer extends Component{
 }
 class PersonOfferShow extends Component{
   render(){
-    let {info} = this.props
+    let {info,reSend} = this.props
     return (
       <div>
         <BaseInfoItem label="offer" info='已发送'/>
@@ -1681,10 +1681,13 @@ class PersonOfferShow extends Component{
         <BaseInfoItem label="收件人" info={info.mailTo}/>
         <BaseInfoItem label="邮件主题" info={info.mailSubject}/>
         <div dangerouslySetInnerHTML={{__html: info.mailContent}} />
-        <Button onClick={this.props.handleEdit} style={{float:"right"}}>再发一封</Button>
+        { reSend ? <Button onClick={this.props.handleEdit} style={{float:"right"}}>再发一封</Button> : null}
       </div>
     )
   }
+}
+PersonOfferShow.defaultProps = {
+  reSend:true
 }
 class PersonOfferEdit extends FormPage{
   state={

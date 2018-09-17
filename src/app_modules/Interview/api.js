@@ -27,7 +27,7 @@ export default class API extends FetchAPI {
 		return this.fetchPost(`${APP_SERVER}/interview/refuse`, { body: params })
 	}
 	fetchCount(params) {
-		return this.fetchPost(`${APP_SERVER}/interview/countJson`, { body: params })
+		return this.fetchPost(`${APP_SERVER}/interviewPlan/countJson`, { body: params })
 	}
 	fetchDelay(params) {
 		return this.fetchPost(`${APP_SERVER}/interviewPlan/changeTime`, { body: params })

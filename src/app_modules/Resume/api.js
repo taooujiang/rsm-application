@@ -14,6 +14,9 @@ export default class API extends FetchAPI {
   fetchList(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/listPageJson`, {body: params})
   }
+  fetchClientList(params) {
+      return this.fetchPostList(`${APP_SERVER}/resumeLibrary/clientListPageJson`, {body: params})
+  }
   fetchListCount(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/statusNumJson`, {body: params})
   }

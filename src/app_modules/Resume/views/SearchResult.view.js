@@ -31,7 +31,7 @@ export default class ResumeSearchListView extends PageView {
   }
   componentDidMount() {
     let {actions,router,params:{type,text}} = this.props
-    actions.listSearchAction({[type]:text,searchInClient:1})
+    actions.listSearchAction({[type]:text})
     //actions.listSearchAction({name:"张",searchInClient:1})
   }
 
