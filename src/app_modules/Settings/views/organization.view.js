@@ -24,6 +24,7 @@ import ErrorBoundary from 'app/components/ErrorBoundary'
 import NestedComponent from 'app/decorators/NestedComponent'
 import PageView from 'app/components/Page'
 import ButtonGroupExt from 'app/components/ButtonGroupExt'
+import ButtonGroups from 'app/components/ButtonGroups'
 import styles from './styles.less'
 
 const {TreeNode} = Tree
@@ -68,10 +69,10 @@ export default class OrganizationView extends PageView {
 				renderNode={
 					(data)=> <TreeNode key={data.key} title={
 						<label>{data.text||data.title}
-						<ButtonGroupExt onClick={this.handleMenu.bind(self,data.value)}>
-							<Button actionkey="editRoute"  icon="edit">编辑</Button>
-							<Button actionkey="deleteOrgAction" icon="delete" confirm="是否确认删除">删除</Button>
-						</ButtonGroupExt>
+						<ButtonGroups handleClick={this.handleMenu.bind(self,data.value)}>
+							<Button actionkey="editRoute"  icon="edit" permission="dept" tooltext="编辑" size="small"/>
+							<Button actionkey="deleteOrgAction" icon="delete" permission="dept" confirm="是否确认删除" tooltext="删除" size="small"/>
+						</ButtonGroups>
 						{data.names?data.names.map((value)=>(<Tag><Icon type="user"/>{value}</Tag>)):null}
 					</label>}
 				/>}

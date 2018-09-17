@@ -128,7 +128,7 @@
   .radio-group-nav{
     position: absolute;
     top: -70px;
-    left: 200px;
+    // left: 200px;
     width: 350px;
     .ant-radio-button-wrapper{
       padding: 0 50px;
@@ -149,8 +149,28 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-	overflow: auto;
+  overflow: auto;
+  .ant-list-item{
+    border-bottom: 1px solid #e8e8e8!important;
+    .ant-list-item-meta-title{
+      margin-bottom:10px;
+    }
+  }
 	.ant-list-item-meta-description pre{
 		white-space: normal;
 	}
+}
+
+.template-form{
+  .advanced-search-form{
+    >.ant-row{
+      position: relative;
+      .ant-row+.ant-row{
+        position: absolute;
+        top:0px;
+        left: 50%;
+        margin-left: -175px;
+      }
+    }
+  }
 }

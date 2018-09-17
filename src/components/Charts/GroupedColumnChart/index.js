@@ -57,7 +57,7 @@ export default class GroupedColumnChart extends Component {
         <Tooltip crosshairs={{ type: "y" }} />
         <Geom
           type="interval"
-          size={30}
+          size={18}
           position="type*num"
           color={"name"}
           adjust={[{ type: "dodge", marginRatio: 1 / 32 }]}

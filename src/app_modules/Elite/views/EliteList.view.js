@@ -260,7 +260,7 @@ export default class EliteListView extends PageView {
       target: { value }
     } = values;
 
-    actions.listAction({ ...params, type: value });
+    // actions.listAction({ ...params, type: value });
   }
   renderOptions(it) {
     return (
