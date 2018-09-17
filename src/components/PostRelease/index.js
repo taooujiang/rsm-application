@@ -457,7 +457,7 @@ class JobRules extends Component{
                   extra={
                   <ButtonGroups handleClick={this.handleClick.bind(this,item.id)}>
                     <Button actionkey="jump2ResetAction">重新分配</Button>
-                    <Button actionkey="cancleLinkAction" confirm="结束招聘该职位后，该职位下将不会接收新简历">取消关联</Button>
+                    <Button actionkey="cancleLinkAction" confirm="确定取消关联后入库的此类简历，将不再进入此职位">取消关联</Button>
                   </ButtonGroups>
                 }>
                   <div>简历邮箱：{item.originalEmail}</div>

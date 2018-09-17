@@ -28,7 +28,7 @@ let Routes = (
       <Route path="jobrelease(/:jobId)/:max/:step" components={JobPostReleaseContainer} breadcrumbName="职位发布">
         <Route path="changeCharger" components={ChangeChargerFormContainer} breadcrumbName="修改负责人"/>
         <Route path="changeFeeder" components={ChangeFeederFormContainer} breadcrumbName="修改面试官"/>
-        <Route path="reset" components={JobResetContainer} breadcrumbName="修改面试官"/>
+        <Route path="reset" components={JobResetContainer} breadcrumbName="重新分配"/>
       </Route>
 
     <Route path="search" components={SearchJobContainer} />

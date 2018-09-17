@@ -38,7 +38,7 @@ export default class JobResetForm extends FormPage{
     }
   }
   componentDidMount(){
-    new FetchAPI().fetch(`${APP_SERVER}/jobNew/getJobList`,{
+    new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll`,{
       method:'GET'
     }).then((json) => {
         this.setState({
@@ -49,7 +49,7 @@ export default class JobResetForm extends FormPage{
   }
 
   changeDept(value){
-    new FetchAPI().fetch(`${APP_SERVER}/jobNew/getJobList?groupId=${value}`,{
+    new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll?groupId=${value}`,{
       method:'GET'
     }).then((json) => {
         this.setState({
@@ -103,6 +103,7 @@ export default class JobResetForm extends FormPage{
         <FormItem style={{marginBottom:0}}>
           <Input type="hidden" name="id" defaultValue={keys}/>
         </FormItem>
+        <h4>修改之后入库的此类简历将自动进入新职位</h4>
           <Row>
                 <FormItem {...formFullItemLayout}>
                   <TreeSelect
