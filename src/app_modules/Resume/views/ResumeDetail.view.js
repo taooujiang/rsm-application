@@ -84,7 +84,7 @@ class ResumeDetail extends Component{
         }
         if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
           if(nextProps.location.state && nextProps.location.state.key=="reload"){
-            actions.itemAction({id:resumeId})
+            actions.itemAction({id:resumeId,time:new Date().getTime()})
           }
         }
     }

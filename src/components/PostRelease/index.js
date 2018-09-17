@@ -525,7 +525,7 @@ export default class PostRelease extends Component{
         </TabPane>
         <TabPane tab={<span><Icon type="setting" />渠道设置</span>} key="3" disabled={ max < 3} className="thirdStep-panel">
             <ChannelAdJobRule {...this.props} rules={rules}/>
-            <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button>
+            {addFlag ? <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button> : null}
         </TabPane>
       </Tabs>
     )

@@ -38,7 +38,7 @@ class AddForm extends Component{
     renderChannels(){
         let {channels} = this.props
         let channelList = [...channels.values()]
-        console.log(channelList)
+        console.log("inside",channelList,"channels",channels)
         return channelList && channelList.map((it,idx)=>{
             return(
                 <Row gutter={12} key={idx} style={{lineHeight:"40px"}}>
@@ -163,7 +163,7 @@ export default class SyncChannel extends FormPage {
     }
     render() {
         let {appConfig:{channels}} = this.props
-        //console.log(channels)
+        console.log("outside",channels)
         return (
             <Spin tip="Loading..." spinning={false}>
                 <AddForm handleSubmit={this.onSubmit}  saveFormRef={this.saveFormRef} channels={channels}>

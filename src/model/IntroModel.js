@@ -20,7 +20,7 @@ Object.assign(Intro.fields,BaseModel.fields,{
   ageStr:attr({
     fieldName:"age",
     get:(val)=>{
-      return val + "岁"
+      return val ? val + "岁" : ''
     },
   }),
   sexStr:attr({

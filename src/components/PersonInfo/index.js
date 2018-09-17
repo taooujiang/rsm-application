@@ -71,7 +71,10 @@ function translateTimeToMoment(time){
 function toStrings(str){
   return str ? str + "" : ""
 }
-
+/*返回时间戳*/
+function timestamp(){
+  return new Date().getTime()
+}
 /*转为字符串数组*/
 function arrayToString(array){
   return array && array.map(it=>toStrings(it))
@@ -1844,7 +1847,7 @@ export class PersonOptionRecord extends Component{
       }
       if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
         if(nextProps.location.state && nextProps.location.state.key=="reload"){
-          actions.getOptionAction({resumeId:nextProps.resumeId})
+          actions.getOptionAction({resumeId:nextProps.resumeId,time:timestamp()})
         }
       }
   }
@@ -1940,7 +1943,7 @@ export class PersonFeedRecord extends Component{
       }
       if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
         if(nextProps.location.state && nextProps.location.state.key=="reload"){
-          actions.getFeedDataAction({resumeId:nextProps.resumeId})
+          actions.getFeedDataAction({resumeId:nextProps.resumeId,time:timestamp()})
         }
       }
   }
@@ -2069,9 +2072,7 @@ export class ExtraInformation extends Component{
   // handlerDelete
     const {actions,resumeId}=this.props
     actions.deleteAdditionInfoAction({id}).then(()=>{
-      setTimeout(()=>{
-        actions.fetchAdditionInfoAction({"resumeId":resumeId})
-      },2000)
+      actions.fetchAdditionInfoAction({"resumeId":resumeId})
     })
   }
   handleImg(url){
@@ -2100,7 +2101,7 @@ export class ExtraInformation extends Component{
       header={<div>信息登记表</div>}
 
       footer={<FileUpload accept="image/*" beforeUpload={this.beforeUpload}  text="上传信息登记表" action={`/fileUpload/file/uploadResumeAttr?resumeId=${resumeId}&s=`} uploadType="1" onChange={()=>{}} onSuccess={()=>{
-        setTimeout(()=>{actions.fetchAdditionInfoAction({"resumeId":resumeId})},2000)
+        actions.fetchAdditionInfoAction({"resumeId":resumeId,time:timestamp()})
       }}>
         <Button>上传信息登记表</Button>
         </FileUpload>}
@@ -2145,17 +2146,13 @@ export class ExtraInformation extends Component{
         editid:"",
         newItem:undefined
       })
-      setTimeout(()=>{
-        actions.listLinkAction({"resumeId":resumeId})
-      },2000)
+        actions.listLinkAction({"resumeId":resumeId,time:timestamp()})
     })
   }
   handlerDelete(id){
     const {actions,resumeId}=this.props
     actions.deleteLinkAction({id}).then(()=>{
-      setTimeout(()=>{
-        actions.listLinkAction({"resumeId":resumeId})
-      },2000)
+        actions.listLinkAction({"resumeId":resumeId,time:timestamp()})
     })
   }
   renderLinksList(){

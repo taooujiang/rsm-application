@@ -59,11 +59,13 @@ class FeedbackForm extends Component{
     }
     setObjFn(array,value){
       let {interviewer} = this.state
-      let json = array.filter((it,idx)=>{
-        return it.interviewerId == value
-      })[0]
+       let json = array.filter((it,idx)=>{
+          return it.interviewerId == value
+        })[0]
+
+
       this.setState({
-        obj:json||{},
+        obj: json || array[0],
         interviewer: interviewer || array[0].interviewerId
       })
 
@@ -91,6 +93,7 @@ class FeedbackForm extends Component{
       planId,
     } = this.props
     let {obj,interviewer} = this.state
+    console.log(obj,interviewer)
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>
@@ -98,6 +101,9 @@ class FeedbackForm extends Component{
         </FormItem>
         <FormItem>
           <Input type="hidden" name="interviewPlanId" defaultValue={planId}/>
+        </FormItem>
+        <FormItem>
+          <Input type="hidden" name="isFeedback" defaultValue={obj.isFeedback}/>
         </FormItem>
         <FormItem>
           <Input type="hidden"  name="id" defaultValue={obj.id}/>
@@ -123,11 +129,15 @@ export default class FeedbackFormView extends FormPage{
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router,location} = this.props;
-    actions.feedBackSaveAction(values).then(()=>{
-      setTimeout(()=>{
-        actions.backRouteReload(router,location)
-      },2000)
-    })
+    if(values.isFeedback == 1){
+      actions.backRoute(router)
+    }else{
+      actions.feedBackSaveAction(values).then(()=>{
+        setTimeout(()=>{
+          actions.backRouteReload(router,location)
+        },2000)
+      })
+    }
   }
   render() {
     let {params, reduce:{feedBack},location:{state:{interviewer,planId}}} = this.props;
