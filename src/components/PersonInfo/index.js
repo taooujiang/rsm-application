@@ -556,6 +556,10 @@ export class PersonTabBaseInfo extends Component{
             <Button type="default" htmlType="button" onClick={this.renderOrigin.bind(this)}>标准简历 <Icon type="right" /></Button>
           </div>
   }
+  urlIsHtml(url){
+    let urlTarget = url
+    return urlTarget.split(".").pop() == "html"
+  }
   render(){
     let {info , actions ,id ,detailType} = this.props
     let {resumeInfo,objectives,jobs,projects,educations,languages,credentials,trainings} = info
@@ -594,9 +598,9 @@ export class PersonTabBaseInfo extends Component{
       )
     }else if(showType == 2){//原始简历
       return (
-        <div className="personBaseInfoPanel">
+        <div className="personBaseInfoPanel" style={{height:"99%"}}>
           {this.renderToolbar()}
-          <img src={sourceUrl} alt="暂无数据" className="resume-orign-img"/>
+          {this.urlIsHtml(sourceUrl) ? <iframe src={sourceUrl} width="100%" height="100%" style={{border:"none"}}></iframe> : <img src={sourceUrl} alt="暂无数据" className="resume-orign-img"/>}
         </div>
       )
     }else if(showType == 3){
