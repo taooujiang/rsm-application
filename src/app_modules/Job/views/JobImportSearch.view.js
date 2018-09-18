@@ -179,6 +179,7 @@ export default class JobListView extends PageView {
 
     handleImport(e){
       e.preventDefault()
+      let that = this
       let {actions,router,reduce:{params}} = this.props
       this.form.validateFieldsAndScroll({force:true},(err,values) => {
          if (err) {
@@ -188,6 +189,7 @@ export default class JobListView extends PageView {
            message.warning("请选择导入的职位！",5)
            return
          }
+         this.form.setFieldsValue({jobIdList:""})
          this.setState({
            btnDis:true
          })
@@ -274,17 +276,22 @@ export default class JobListView extends PageView {
           />
         )
     }
+    renderCheckGroup(arr){
+      return (
+        <FormItem>
+          <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
+            {this.renderJobUninitList()}
+          </Checkbox.Group>
+        </FormItem>
+      )
+    }
     renderSearchList(){
       let {reduce:{loc_list , pub_list}} = this.props
       let arr = pub_list ? pub_list.map(it=>it.channelId) : []
       if(loc_list.length ||  pub_list.length){
         return (
           <div>
-            <FormItem>
-              <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
-                {this.renderJobUninitList()}
-              </Checkbox.Group>
-            </FormItem>
+            {this.renderCheckGroup(arr)}
             {this.renderJobList()}
           </div>
         )
