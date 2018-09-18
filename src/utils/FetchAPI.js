@@ -143,7 +143,7 @@ export default class FetchAPI {
     }))
   }
 	fetchPostDownload(url,params){
-    return  this.fetchPost(url,params).then(res => res.blob().then(blob=>{
+    return  this.fetchPostList(url,params).then(res => res.blob().then(blob=>{
       var a = document.createElement('a');
       var url = window.URL.createObjectURL(blob);   // 获取 blob 本地文件连接 (blob 为纯二进制对象，不能够直接保存到磁盘上)
       var filename = res.headers.get('Content-Disposition');
