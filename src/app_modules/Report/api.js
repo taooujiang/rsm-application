@@ -83,7 +83,7 @@ export default class API extends FetchAPI {
 	}
 	// 通信统计
 	fetchCallReport(params) {
-    return this.fetchPostList(`${APP_SERVER}/reportCallRecord/listDetailJson`, {body: params})
+    return this.fetchPostList(`${APP_SERVER}/reportCallRecord/listJson`, {body: params})
 	}
 	// 备注统计
 	fetchRemarkReport(params) {

@@ -35,7 +35,7 @@ export default class ReportListView extends PageView {
       >
         <CalendarPicker
           label="统计时间"
-          name="time"
+          name="inputDateStr"
           defaultValue={this.state.defaultDate}
         />
       </AdvancedSearchForm>
@@ -47,7 +47,7 @@ export default class ReportListView extends PageView {
       routeParams: { type }
     } = this.props;
     const { defaultDate } = this.state;
-    actions.callReportAction({ time: defaultDate });
+    actions.callReportAction({ inputDateStr: defaultDate });
   }
   exportExcel() {
     const { actions } = this.props;
