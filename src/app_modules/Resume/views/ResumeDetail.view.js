@@ -20,6 +20,7 @@ import WrapperComponent from "app/decorators/WrapperComponent"
 import NestedComponent from 'app/decorators/NestedComponent'
 import PersonInfo,{PersonTabBaseInfo,PersonOffer,PersonOption,PersonRemarks,PersonCommunitcate,PersonOptionRecord,PersonFeedRecord,ExtraInformation} from 'app/components/PersonInfo'
 import DictUtils from 'app-utils/DictUtils'
+import { permissionStyle } from "app/utils/ConfigUtils";
 import SmartLink from 'app/components/SmartLink'
 import Layout,{Fixed,Pane} from 'app/components/Layout'
 
@@ -58,8 +59,9 @@ export default class PersonInfoDetail extends Component{
         return <ResumeDetail {...this.props} detailType={3}/>
     }else if(pathname.indexOf("elite") >= 0 && type == 4){//诚信
         return <ResumeDetail {...this.props} detailType={4}/>
+    }else{
+      return <ResumeDetail {...this.props} detailType={2}/>
     }
-
   }
 }
 
@@ -134,7 +136,7 @@ class ResumeDetail extends Component{
     }
 
   render (){
-    let {dispatch ,actions,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
+    let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
     let {status,name,libType,filingReason} = item
     let detailType = this.translateLib(libType)
     return (
@@ -233,7 +235,7 @@ class PersonInfoPanelHead extends Component{
     //console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
     return (
       <div className="person-info-head">
-        <Button className="delete-btn" onClick={this.handleDelete.bind(this,info)}><Icon type="delete" /></Button>
+        <Button className="delete-btn" style={permissionStyle("deleteResume")} onClick={this.handleDelete.bind(this,info)}><Icon type="delete" /></Button>
         <Row gutter={12}>
           <span className="headInfoName">{info.name}</span>
           <span className="hasApply">已申请{info.resumes&&info.resumes.length}个职位</span>

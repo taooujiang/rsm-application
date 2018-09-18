@@ -57,7 +57,7 @@ export default class MemberDetail extends Detail {
 										<PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} />
 									</TabPane>
 									<TabPane tab="面试记录" key="2">
-										<PersonFeedRecord actions={actions} resumeId={resumeId} info={feedInfo} />
+										<PersonFeedRecord actions={actions} detailType={10} resumeId={resumeId} info={feedInfo} />
 									</TabPane>
 									<TabPane tab="offer记录" key="3">
 										<PersonOffer actions={actions} resumeId={resumeId} info={offer} item={item} status={status}/>

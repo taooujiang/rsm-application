@@ -23,7 +23,9 @@ import {
 import moment from 'moment'
 import {FormPage} from 'app/components/Page'
 import  FetchAPI from 'app/utils/FetchAPI'
+import {TreeSelectPicker} from 'app/components/TreeView'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
+
 const Option = Select.Option
 const RadioGroup = Radio.Group;
 const TreeNode=Tree.TreeNode
@@ -52,6 +54,7 @@ export default class JobResetForm extends FormPage{
     new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll?groupId=${value}`,{
       method:'GET'
     }).then((json) => {
+      this.form.setFieldsValue({jobId:""})
         this.setState({
           dept:json.list||[]
         });
@@ -61,9 +64,6 @@ export default class JobResetForm extends FormPage{
   renderHrOption(data,idx){
     return (<Select.Option value={data.jobId} key={idx}>{data.jobTitle}</Select.Option>)
   }
-  renderTreeData(item){
-    return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id},this.loopTreeData(item.children))
-  }
 
   handleSubmit(values){
     let {actions,router,location} = this.props;
@@ -72,16 +72,6 @@ export default class JobResetForm extends FormPage{
       setTimeout(function(){
         actions.backRouteReload(router,location)
       },2000)
-    })
-  }
-  loopTreeData(data){
-    let that = this
-    return data.map((item) => {
-      if (item.children && item.children.length) {
-        return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id},this.loopTreeData(item.children))
-      }else{
-        return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id})
-      }
     })
   }
 
@@ -106,19 +96,19 @@ export default class JobResetForm extends FormPage{
         <h4>修改之后入库的此类简历将自动进入新职位</h4>
           <Row>
                 <FormItem {...formFullItemLayout}>
-                  <TreeSelect
-                    label="选择部门"
+                  <TreeSelectPicker
+                    label="招聘部门"
                     name="groupId"
                     fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
                     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                    renderItem={this.renderTreeData.bind(this)}
                     placeholder="选择部门"
                     treeDefaultExpandAll
                     onChange={this.changeDept.bind(this)}
+                    rules={[{required:true,message:"部门不可为空"}]}
                   />
                 </FormItem>
                 <FormItem {...formFullItemLayout}>
-                  <Select name="jobId" label="选择职位" placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption}/>
+                  <Select name="jobId" label="选择职位" placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption} rules={[{required:true,message:"职位不可为空"}]}/>
                 </FormItem>
           </Row>
       </BaseForm>

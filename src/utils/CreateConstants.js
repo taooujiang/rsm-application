@@ -106,6 +106,8 @@ function filterPath(path){
       return "/dashboard"
   }else if(path.indexOf("/resume/distrib/") >=0){
     return filterPathSpec(path,2)
+  }else if(path.indexOf("/resume/search") >=0){
+    return filterPathSpec(path,2)
   }else if(path.indexOf("/log/1") >=0){
     return filterPathSpec(path,2)
   }else{

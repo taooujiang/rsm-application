@@ -15,28 +15,28 @@ global['openChannelLink']=new ClientAPI().openChannelLink
 var mockChannels=new Map()
 
 //console.log(DictUtils.getDictByType("channel"))
-mockChannels.set(1,{id:1,isLogin:false,point:0})
-mockChannels.set(2,{id:2,isLogin:false,point:0})
-mockChannels.set(3,{id:3,isLogin:false,point:0})
-mockChannels.set(4,{id:4,isLogin:false,point:0})
-mockChannels.set(5,{id:5,isLogin:false,point:0})
-
-mockChannels.set(6,{id:6,isLogin:false,point:0})
-mockChannels.set(7,{id:7,isLogin:false,point:0})
-mockChannels.set(8,{id:8,isLogin:false,point:0})
-mockChannels.set(9,{id:9,isLogin:false,point:0})
-mockChannels.set(10,{id:10,isLogin:false,point:0})
-mockChannels.set(11,{id:11,isLogin:false,point:0})
-mockChannels.set(12,{id:12,isLogin:false,point:0})
-mockChannels.set(13,{id:13,isLogin:false,point:0})
-mockChannels.set(14,{id:14,isLogin:false,point:0})
-mockChannels.set(15,{id:15,isLogin:false,point:0})
-
-mockChannels.set(16,{id:16,isLogin:false,point:0})
-mockChannels.set(17,{id:17,isLogin:false,point:0})
-mockChannels.set(18,{id:18,isLogin:false,point:0})
-mockChannels.set(19,{id:19,isLogin:false,point:0})
-mockChannels.set(20,{id:20,isLogin:false,point:0})
+// mockChannels.set(1,{id:1,isLogin:false,point:0})
+// mockChannels.set(2,{id:2,isLogin:false,point:0})
+// mockChannels.set(3,{id:3,isLogin:false,point:0})
+// mockChannels.set(4,{id:4,isLogin:false,point:0})
+// mockChannels.set(5,{id:5,isLogin:false,point:0})
+//
+// mockChannels.set(6,{id:6,isLogin:false,point:0})
+// mockChannels.set(7,{id:7,isLogin:false,point:0})
+// mockChannels.set(8,{id:8,isLogin:false,point:0})
+// mockChannels.set(9,{id:9,isLogin:false,point:0})
+// mockChannels.set(10,{id:10,isLogin:false,point:0})
+// mockChannels.set(11,{id:11,isLogin:false,point:0})
+// mockChannels.set(12,{id:12,isLogin:false,point:0})
+// mockChannels.set(13,{id:13,isLogin:false,point:0})
+// mockChannels.set(14,{id:14,isLogin:false,point:0})
+// mockChannels.set(15,{id:15,isLogin:false,point:0})
+//
+// mockChannels.set(16,{id:16,isLogin:false,point:0})
+// mockChannels.set(17,{id:17,isLogin:false,point:0})
+// mockChannels.set(18,{id:18,isLogin:false,point:0})
+// mockChannels.set(19,{id:19,isLogin:false,point:0})
+// mockChannels.set(20,{id:20,isLogin:false,point:0})
 
 let resourceList = []
 let user = {}
@@ -133,7 +133,7 @@ const initialState = {
   dicts:new Map(),
   resourceList:resourceList,
   account:window.account,
-  channels:mockChannels,
+  channels:new Map(),
   auth:{
     // authID: 'sdfs342342xxvef3',
     // loginTime: '',
@@ -156,27 +156,42 @@ const reducer = handleActions({
   'saveChannelPoint'(state,actions){
     const payload = actions.payload
     payload.channels.map((it)=>{
-      var chn=state.channels.get(it.channelId)
-      chn.point=it.point
-      state.channels.set(it.channelId,chn)
+			let numId = Number(it.channelId)
+      var chn=state.channels.get(numId)
+			if(chn){
+				chn.point=it.point
+	      state.channels.set(numId,chn)
+			}
     })
+		console.log("saveChannelPoint",state.channels)
     return { ...state}
   },
 	'initChannel'(state,actions){
     const payload = actions.payload
 		payload.map((it)=>{
-      it.isLogin=false
 			it.id=it.keyValue
-      state.channels.set(it.keyValue,it)
+			let numId = Number(it.id)
+			var chn=state.channels.get(numId)
+			if(!chn){
+				state.channels.set(numId,it)
+			}
     })
+		console.log("initChannel",state.channels)
+		return { ...state}
 	},
   'saveChannel'(state,actions){
     const payload = actions.payload
     payload.channels.map((it)=>{
-      var chn=state.channels.get(it.id)
-      chn.isLogin=it.isLogin
-      state.channels.set(it.id,chn)
+			let numId = Number(it.id)
+      var chn=state.channels.get(numId)
+			if(chn){
+				chn.isLogin=it.isLogin
+				state.channels.set(numId,chn)
+			}else{
+				state.channels.set(numId,it)
+			}
     })
+		console.log("saveChannel",state.channels)
     return { ...state}
   },
   'save Dicts'(state,action){

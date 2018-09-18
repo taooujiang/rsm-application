@@ -58,6 +58,7 @@ export default class DistributedForm extends FormPage{
     new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll?groupId=${value}`,{
       method:'GET'
     }).then((json) => {
+      this.form.setFieldsValue({jobId:""})
         this.setState({
           dept:json.list||[]
         });

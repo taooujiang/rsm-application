@@ -40,6 +40,7 @@ import {ImgUpload} from 'app/components/FileUpload'
 import Permission from 'app/components/Permission'
 import EmailTemplateLinkage,{SmsTemplateLinkage,SmsTemplateInterView} from 'app/components/sendTemplate'
 import InputStrGroup from 'app/components/InputStrGroup'
+import {hasPermission,permissionStyle} from 'app/utils/ConfigUtils'
 import DictUtils from 'app/utils/DictUtils'
 import styles from './style.less'
 
@@ -319,7 +320,7 @@ class OptionButtonsResume extends OptionCommonFn{
   render(){
     let {item:{hrName,labelNames}} = this.props
     return(
-      <ButtonGroups style={{padding:'20px'}}>
+      <ButtonGroup style={{padding:'20px'}}>
         {this.renderButtons()}
         <Button className="block" onClick={this.send2Other.bind(this)}>发送给面试官</Button>
         <Button className="block"  confirm="是否批量淘汰" onClick={this.eliminate.bind(this)}>淘汰</Button>
@@ -327,14 +328,14 @@ class OptionButtonsResume extends OptionCommonFn{
         <Button className="half-block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
         <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
         <Button className="half-block" onClick={this.addElite.bind(this,1)}>放入人才库</Button>
-        <Button className="half-block" permission="eliteToCred" onClick={this.addCredit.bind(this)}>放入诚信库</Button>
+        <Button className="half-block" style={permissionStyle("eliteToCred")} onClick={this.addCredit.bind(this)}>放入诚信库</Button>
 
         <BaseInfoItem label="招聘负责人" info={hrName}/>
         <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
         <div className="tags-box">
           { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
         </div>
-      </ButtonGroups>
+      </ButtonGroup>
     )
   }
 }
@@ -348,7 +349,7 @@ class OptionButtonsElite extends OptionCommonFn{
         <Button className="block" onClick={this.relateJob.bind(this)}>关联职位</Button>
         <Button className="block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
         <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
-        <Button className="half-block" onClick={this.addCredit.bind(this)}>放入诚信库</Button>
+        <Button className="half-block" style={permissionStyle("eliteToCred")} onClick={this.addCredit.bind(this)}>放入诚信库</Button>
         <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
         <div className="tags-box">
           { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
@@ -1727,7 +1728,7 @@ class PersonOfferEdit extends FormPage{
       let {which} = this.state
 
       if(which == "2"){
-        return (<EmailTemplateLinkage  mailSubject="offer通知函"  updateFieldValue={this.updateFieldValue.bind(this)} templateUse={"2"} mailTo={item.email}/>)
+        return (<EmailTemplateLinkage  mailSubject="录用通知书"  updateFieldValue={this.updateFieldValue.bind(this)} templateUse={"2"} mailTo={item.email}/>)
       }else{
         return null
       }
@@ -1944,13 +1945,14 @@ export class PersonFeedRecord extends Component{
     actions.getFeedDataAction({resumeId:resumeId})
   }
   componentWillReceiveProps(nextProps){
+    console.log(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state),nextProps)
       let {actions,resumeId} = this.props;
       if(JSON.stringify(nextProps.resumeId) !== JSON.stringify(this.props.resumeId)){
         actions.getFeedDataAction({resumeId:nextProps.resumeId})
       }
       if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
         if(nextProps.location.state && nextProps.location.state.key=="reload"){
-          actions.getFeedDataAction({resumeId:nextProps.resumeId,time:timestamp()})
+          actions.getFeedDataAction({resumeId:nextProps.resumeId})
         }
       }
   }
@@ -1962,7 +1964,8 @@ export class PersonFeedRecord extends Component{
     let {info:{list},actions,router,status,detailType,item} = this.props
     /*面试数组数据map容错*/
 		let lists = list ? list : []
-    return detailType==2 || detailType==3?(
+    /*detailType为10时为员工  特殊开辟*/
+    return detailType==2 || detailType==3 || detailType==10 ?(
       <div className="feedRecord-box">
           <Permission expression={status <= 2 && detailType==2 }>
             <Button icon="plus" onClick={this.handleAddFeed.bind(this,item)} className="add-feed">添加面试</Button>
@@ -2027,7 +2030,7 @@ class PersonFeedRecordItem extends Component{
       return (<ButtonGroup>
         <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>
       </ButtonGroup>)
-    }else if(item.isFeedback != 2 && item.statusStr != 6){
+    }else if(item.isFeedback != 2 && item.statusStr != 6 && !item.isUrge){
       return(<ButtonGroup>
         <Button onClick={this.handleUrge.bind(this,item.id)}>催促反馈</Button>
       </ButtonGroup>)

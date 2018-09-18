@@ -30,7 +30,7 @@ import * as actions from './action'
 import {reducerListSelector,reducerItemSelector} from 'app-model/reducerSelector'
 
 const mapStateToProps = (state) => {
-  return {reduce: state.jobReducer,appConfig:state.appReducer}
+  return {reduce: state.jobReducer,appConfig:state.appReducer,hole:state}
 }
 const mapDispatchToProps = (dispatch) => {
   return {

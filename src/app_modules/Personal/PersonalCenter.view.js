@@ -120,7 +120,7 @@ export default class PersonalView extends PageView {
     }
 
     refreshInfo(){
-      let {actitons} = this.props
+      let {actions} = this.props
       setTimeout(()=>{
         actions.accountInfoAction()
       },2000)

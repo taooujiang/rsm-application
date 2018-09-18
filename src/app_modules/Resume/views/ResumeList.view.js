@@ -79,7 +79,7 @@ export default class ResumeListView extends PageView {
     }
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
       if(nextProps.location.state && nextProps.location.state.key=="reload"){
-        actions.listRealAction(nextProps.reduce.params)
+        actions.listRealAction(Object.assign({},nextProps.reduce.params,nextProps.reduce.page))
         actions.listReportAction(nextProps.reduce.params)
         actions.getCheckAction(nextProps.reduce.params)
       }

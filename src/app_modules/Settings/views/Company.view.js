@@ -15,10 +15,16 @@ export default class CompanyView extends PageView {
 
 	renderToolbar() {
 		return (
-			<ButtonGroups>
-				<Button type="primary" permission="company" onClick={this.handleAdd.bind(this)}>添加</Button>
+			<ButtonGroups handleClick={this.handleAddMenu.bind(this)}>
+				<Button type="primary" permission="company" actionkey="add">添加</Button>
 			</ButtonGroups>
 		)
+	}
+	handleAddMenu(actionkey){
+		let { actions, router } = this.props;
+		if(actionkey == "add"){
+			actions.addRoute(router)
+		}
 	}
 	handleAdd() {
 		let { actions, router } = this.props;

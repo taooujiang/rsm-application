@@ -34,6 +34,12 @@ export default class ResumeSearchListView extends PageView {
     actions.listSearchAction({[type]:text})
     //actions.listSearchAction({name:"张",searchInClient:1})
   }
+  handleFilter(value){
+    console.log(value)
+    let {actions,params:{type,text}} = this.props
+    let data = Object.assign({},{[type]:text},{...value})
+    actions.listSearchAction(data)
+  }
 
   renderTableList() {
     let that=this;

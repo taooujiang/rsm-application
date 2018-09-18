@@ -41,6 +41,7 @@ import {TreeSelectPicker} from 'app/components/TreeView'
 import ChannelList from 'app/components/ChannelList'
 import InputStrGroup from 'app/components/InputStrGroup'
 import DictUtils from 'app/utils/DictUtils'
+import {permissionStyle} from 'app/utils/ConfigUtils'
 import styles from './index.less'
 import moment from 'moment'
 
@@ -354,7 +355,7 @@ export class BaseInfo extends Component{
           <Col span={4}>
             <div className="optionBox">
                 <Button type="primary" block htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
-                <Button htmlType="button" permission="deleteJob" onClick={this.deleteJob.bind(this)}>删除职位</Button>
+                <Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
                 <Button htmlType="button"  onClick={this.switchFlag.bind(this)} className="edit-button"><Icon type="edit" /></Button>
             </div>
           </Col>

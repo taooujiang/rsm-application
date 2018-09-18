@@ -62,10 +62,10 @@ class FeedbackForm extends Component{
        let json = array.filter((it,idx)=>{
           return it.interviewerId == value
         })[0]
-
-
+        //console.log(json,interviewer,json || array[0],value)
+        //console.log(array[0],json)
       this.setState({
-        obj: json || array[0],
+        obj: json || array[0] || {},
         interviewer: interviewer || array[0].interviewerId
       })
 
