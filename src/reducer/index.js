@@ -158,10 +158,7 @@ const reducer = handleActions({
     payload.channels.map((it)=>{
 			let numId = Number(it.channelId)
       var chn=state.channels.get(numId)
-			if(chn){
-				chn.point=it.point
-	      state.channels.set(numId,chn)
-			}
+      state.channels.set(numId,Object.assign({},chn,it))
     })
 		console.log("saveChannelPoint",state.channels)
     return { ...state}
@@ -172,9 +169,7 @@ const reducer = handleActions({
 			it.id=it.keyValue
 			let numId = Number(it.id)
 			var chn=state.channels.get(numId)
-			if(!chn){
-				state.channels.set(numId,it)
-			}
+			state.channels.set(numId,Object.assign({},chn,it))
     })
 		console.log("initChannel",state.channels)
 		return { ...state}
@@ -184,12 +179,7 @@ const reducer = handleActions({
     payload.channels.map((it)=>{
 			let numId = Number(it.id)
       var chn=state.channels.get(numId)
-			if(chn){
-				chn.isLogin=it.isLogin
-				state.channels.set(numId,chn)
-			}else{
-				state.channels.set(numId,it)
-			}
+			state.channels.set(numId,Object.assign({},chn,it))
     })
 		console.log("saveChannel",state.channels)
     return { ...state}

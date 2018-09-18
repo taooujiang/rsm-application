@@ -112,6 +112,9 @@ export default class SyncChannel extends FormPage {
 
         let dateListObj = groupArray(allChannel.channelList,'channelType')
     }
+    componentWillReceiveProps(nextProps){
+      console.log(nextProps.appConfig.channels)
+    }
 
     getJobIdsArray(){
         let {location:{state:{selected}}} = this.props

@@ -251,6 +251,7 @@ export function saveAction(params) {
 		boolToInt(params, "isRequired");
 		return new API().fetchSave(params).then(json => {
 			dispatch(fetchSuccess('formSpin', true))
+			dispatch(listAction())
 			dispatch(customSystemFieldSave(json))
 		}).catch(ex => {
 			return dispatch(fetchFailure('formSpin', ex))
