@@ -599,7 +599,7 @@ export class PersonTabBaseInfo extends Component{
       )
     }else if(showType == 2){//原始简历
       return (
-        <div className="personBaseInfoPanel" style={{height:"99%"}}>
+        <div className="personBaseInfoPanel" style={{position:"absolute",left:20,right:20,top:20,bottom:20}}>
           {this.renderToolbar()}
           {this.urlIsHtml(sourceUrl) ? <iframe src={sourceUrl} width="100%" height="100%" style={{border:"none"}}></iframe> : <img src={sourceUrl} alt="暂无数据" className="resume-orign-img"/>}
         </div>
