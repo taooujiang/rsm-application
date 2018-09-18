@@ -344,16 +344,16 @@ class OptionButtonsElite extends OptionCommonFn{
   render(){
     let {item:{hrName,labelNames}} = this.props
     return(
-      <ButtonGroup>
+      <ButtonGroups>
         <Button className="block" onClick={this.relateJob.bind(this)}>关联职位</Button>
         <Button className="block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
         <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
-        <Button className="half-block" onClick={this.addCredit.bind(this)}>放入诚信库</Button>
+        <Button className="half-block" permission="eliteToCred" onClick={this.addCredit.bind(this)}>放入诚信库</Button>
         <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
         <div className="tags-box">
           { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
         </div>
-      </ButtonGroup>
+      </ButtonGroups>
     )
   }
 }
