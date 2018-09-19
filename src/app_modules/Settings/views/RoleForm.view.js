@@ -71,7 +71,7 @@ const Option = Select.Option;
 				</FormItem>
 				<FormItem>
 					<Input label="角色名称" name="roleName" defaultValue={item.roleName}
-						rules={[{required:true,message:"角色名称不可为空"},{validator:customRules.spacialStr}]} disabled={item.roleType==2&&item.isSystem==1?true:false}/>
+						rules={[{required:true,message:"角色名称不可为空"},{validator:customRules.spacialStr},{validator:customRules.required}]} disabled={item.roleType==2&&item.isSystem==1?true:false}/>
 				</FormItem>
 				<FormItem>
 					{this.renderTree()}
