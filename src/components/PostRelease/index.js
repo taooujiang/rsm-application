@@ -441,7 +441,6 @@ class JobRules extends Component{
     actions.getJobRulesAction({jobId:jobId})
   }
   handleClick(id,actionkey){
-    console.log(actionkey,id)
     let {actions,router,item:{jobId}} = this.props
     actions[actionkey](router,id,jobId)
   }

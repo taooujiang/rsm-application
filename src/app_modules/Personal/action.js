@@ -18,7 +18,7 @@ const CONSTANTS = createConstants('member', [
 export default CONSTANTS
 //TODO: 调整命名及常量定义
 let {
-    getItem,listItem,saveItem,removeItem,saveList,fetchFailure,fetchRequest,fetchSuccess
+    getItem,listItem,saveParams,saveItem,removeItem,saveList,fetchFailure,fetchRequest,fetchSuccess
 } = createTypes(CONSTANTS)
 
 
@@ -43,6 +43,7 @@ export function listAction(value) {
             dispatch(fetchSuccess('tableSpin'))
             let {list,...page} = json
             dispatch(saveList(list, page))
+            dispatch(saveParams(value))
         }).catch(ex => {
             return dispatch(fetchFailure('tableSpin',ex))
         })
@@ -99,6 +100,7 @@ export function recordListAction(value) {
             dispatch(fetchSuccess('tableSpin'))
             let {list,...page} = json
             dispatch(saveList(list, page))
+            dispatch(saveParams(value))
         }).catch(ex => {
             return dispatch(fetchFailure('tableSpin',ex))
         })

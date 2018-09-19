@@ -60,7 +60,13 @@ export default class CalendarView extends Component {
   }
 
   renderCounts(counts){
-      return counts && (<Row className="calendar-bottomLine" gutter={12} style={{fontSize:12}}><Col span={6}><span>面试总数<span className="calendar-fontColor">{counts.total}</span>人</span></Col><Col span={6}><span>已面试<span className="calendar-fontColor">{counts.already}</span>人</span></Col><Col span={6}><span>待面试<span className="calendar-fontColor">{counts.waite}</span>人</span></Col><Col span={6}><span>拒绝面试<span className="calendar-fontColor">{counts.refuse}</span>人</span></Col></Row>)
+      return counts && (
+        <Row className="calendar-bottomLine" gutter={12} style={{fontSize:12}}>
+        <Col span={6}><span>面试总数<span className="calendar-fontColor">{counts.mxtotal}</span>人</span></Col>
+        {/*<Col span={6}><span>已面试<span className="calendar-fontColor">{counts.already}</span>人</span></Col>
+        <Col span={6}><span>待面试<span className="calendar-fontColor">{counts.waite}</span>人</span></Col>*/}
+        <Col span={6}><span>取消面试<span className="calendar-fontColor">{counts.refuse}</span>人</span></Col>
+        </Row>)
   }
   handleFeedBack(id,resumeId){
     let {actions,router} = this.props

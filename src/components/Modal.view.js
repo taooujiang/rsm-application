@@ -29,6 +29,15 @@ class ModalView extends Component {
   }
 }
 
+export class ModalViewQrCode extends ModalView{
+  handleBackRoute(){
+    parent.removeTab && parent.removeTab("/ercode")
+  }
+  handleSaveRoute(){
+    parent.removeTab && parent.removeTab("/ercode")
+  }
+}
+
 export default withRouter(ModalView)
 
 export class ModalWidthView extends Component {

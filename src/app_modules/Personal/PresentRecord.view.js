@@ -22,6 +22,10 @@ export default class RecordView extends PageView {
     handleChange(dates,dateStrings){
 
     }
+    handleFilter(value){
+      let {actions,reduce:{params}} = this.props
+      actions.recordListAction(Object.assign({},params,value))
+    }
     handleSubmit(values){
         let {actions} = this.props
         let formats = 'YYYY-MM-DD'
@@ -49,10 +53,11 @@ export default class RecordView extends PageView {
     renderTableList() {
         let that=this
         let {reduce} = this.props
-        let {spins:{tableSpin},key} = reduce
+        let {spins:{tableSpin},key,page} = reduce
         let list = [...reduce.list.values()]
         let tableConf = {
             loading: tableSpin,
+            page:page,
             onChange:this.onChange.bind(this),
             rowKey: key,
             title:()=>{

@@ -235,7 +235,8 @@ export function jump2ResetAction(router,id,jobId){
   let path = {
     pathname:pathname,
     state:{
-      keys:id
+      keys:id,
+      pathname:router.getCurrentLocation().pathname
     }
   }
   return dispatch => dispatch(routerActions.push(path))

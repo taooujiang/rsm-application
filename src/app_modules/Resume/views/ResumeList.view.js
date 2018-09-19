@@ -97,7 +97,7 @@ export default class ResumeListView extends PageView {
         <Button actionkey="addEliteAction">放入人才库</Button>
         <Button actionkey="recommend2OtherAction">推荐到其他职位</Button>
         <Button actionkey="eliminateAction" confirm="是否批量淘汰">淘汰</Button>
-        <Button actionkey="deleteAction">删除</Button>
+        <Button actionkey="deleteAction" permission="deleteResume">删除</Button>
         <Button actionkey="followAction">跟进提醒</Button>
       </ButtonGroups>
     )

@@ -130,12 +130,13 @@ export default class PersonalView extends PageView {
 
         let that=this;
         let {reduce} = this.props
-        let {spins:{tableSpin},key} = reduce
+        let {spins:{tableSpin},key,page} = reduce
         let list = [...reduce.list.values()]
 
         let tableConf = {
             loading: tableSpin,
             rowKey: key,
+            page:page,
             onChange:this.onChange.bind(this),
             columns: [
                  {
@@ -165,7 +166,7 @@ export default class PersonalView extends PageView {
             ]
         }
 
-        return (<DataTable  {...tableConf} dataSource={list} pagination={false} className="personal-list"/>)
+        return (<DataTable  {...tableConf} dataSource={list}  className="personal-list"/>)
     }
 
 
