@@ -76,7 +76,7 @@ class Donut extends React.Component {
             tooltip={[
               "item*percent",
               (item, percent) => {
-                percent = (percent * 100).toFixed(2) + "%";
+                percent = (percent * 100).toFixed(1) + "%";
                 return {
                   name: item,
                   value: percent
