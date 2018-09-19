@@ -81,7 +81,7 @@ export default class ReportListView extends PageView {
       loading: tableSpin,
       onChange: this.onChange.bind(this),
       dataSource: [],
-      rowkey: "jobId",
+      rowkey: "id",
       columns: [
         {
           title: "招聘负责人",
@@ -127,7 +127,7 @@ export default class ReportListView extends PageView {
         }
       ]
     };
-    return <DataTable {...tableConf} dataSource={list} page={page} />;
+    return <DataTable key={Math.random()} {...tableConf} dataSource={list} page={page} />;
   }
   render() {
     return (

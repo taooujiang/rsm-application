@@ -117,7 +117,7 @@ export default class ReportListView extends PageView {
 			}],
 		}
 		return (
-			<DataTable {...tableConf} dataSource={list} page={page} />
+			<DataTable key={Math.random().toString()} {...tableConf} dataSource={list} page={page} />
 		)
 	}
 	render() {

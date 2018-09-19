@@ -65,7 +65,7 @@ export default class ReportListView extends PageView {
 	renderTable() {
 		let { reduce } = this.props
 		let { spins: { tableSpin }, key, page } = reduce
-		let list = reduce.recruitmentStatusList
+    let list = reduce.recruitmentStatusList
 		const tableConf = {
 			loading: tableSpin,
 			dataSource: [],
@@ -75,15 +75,15 @@ export default class ReportListView extends PageView {
 				title: '姓名',
 				width: 120,
 				dataIndex: 'name',
-                key: 'name',
-                // render(text,record){
-                //     return(
-                //         <SmartLink to={`${record.resumeId}/detail`}>
-                //             {text}
-                //         </SmartLink>
-                //     )
+        key: 'name',
+        // render(text,record){
+        //     return(
+        //         <SmartLink to={`${record.resumeId}/detail`}>
+        //             {text}
+        //         </SmartLink>
+        //     )
 
-                // }
+        // }
 			}, {
 				title: '职位名称',
 				width: 120,
@@ -115,7 +115,7 @@ export default class ReportListView extends PageView {
 			}, ],
 		}
 		return (
-			<DataTable  {...tableConf} dataSource={list} page={page}  />
+			<DataTable key={Math.random()} {...tableConf} dataSource={list} page={page}  />
 		)
 	}
 	render() {
