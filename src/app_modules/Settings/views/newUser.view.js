@@ -60,7 +60,7 @@ export default class UserOptionView extends FormPage{
             <Input name="id" type='hidden' defaultValue={account}/>
           </FormItem>
           <FormItem>
-            <Input label="姓名" name="acctName" rules={[{required:true,message:"用户名不可为空"}]} defaultValue={item.name}/>
+            <Input label="姓名" name="acctName" rules={[{required:true,message:"用户名不可为空",whitespace:true},]} defaultValue={item.name}/>
           </FormItem>
           <FormItem>
             <Input label="用户名" name="account"
