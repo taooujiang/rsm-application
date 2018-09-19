@@ -94,6 +94,7 @@ export default class ReasonReportView extends PageView {
     return (
       <Card
         title={this.renderToolbar()}
+        className="reason-report-chart"
         // extra={<Button onClick={this.exportExcel.bind(this)}>导出</Button>}
       >
         {this.renderChart()}
