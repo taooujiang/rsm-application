@@ -39,14 +39,12 @@ class FeedbackForm extends Component{
     }
     componentDidMount(){
       let {interviewer,info} = this.props
-      if(interviewer){
-        this.setObjFn(info,interviewer)
-      }
+      this.setObjFn(info,interviewer)
     }
     componentWillReceiveProps(nextProps){
       if(JSON.stringify(nextProps.info) !== JSON.stringify(this.props.info)){
         let {interviewer,info} = nextProps
-        console.log(info)
+        //console.log(info)
         this.setObjFn(info,interviewer)
       }
     }
@@ -63,7 +61,7 @@ class FeedbackForm extends Component{
           return it.interviewerId == value
         })[0]
         //console.log(json,interviewer,json || array[0],value)
-        //console.log(array[0],json)
+        console.log(array,json)
       this.setState({
         obj: json || array[0] || {},
         interviewer: interviewer || array[0].interviewerId
@@ -93,7 +91,7 @@ class FeedbackForm extends Component{
       planId,
     } = this.props
     let {obj,interviewer} = this.state
-    console.log(obj,interviewer)
+    // console.log(obj,interviewer)
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>

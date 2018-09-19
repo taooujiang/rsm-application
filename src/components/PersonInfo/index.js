@@ -1961,7 +1961,7 @@ export class PersonFeedRecord extends Component{
     actions.feedAction(router,item)
   }
   render(){
-    let {info:{list},actions,router,detailType,item,isLock} = this.props
+    let {info:{list},actions,router,detailType,item} = this.props
     let {status,isLock} = item
     /*面试数组数据map容错*/
 		let lists = list ? list : []
