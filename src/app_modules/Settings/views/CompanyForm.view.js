@@ -52,7 +52,7 @@ export default class CompanyFormView extends FormPage {
             label="公司名称"
             name="company"
             defaultValue={item.company}
-            rules={[{ required: true, message: "公司名称不可为空" }]}
+            rules={[{ required: true, message: "公司名称不可为空",whitespace:true },]}
           />
         </FormItem>
         <FormItem>
