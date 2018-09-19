@@ -30,6 +30,8 @@ class Donut extends React.Component {
     // const dv = [{item: "原因一", percent: 0.2},{item: "原因2",  percent: 0.8}]
     const { data } = this.props;
     let dv = this.genChartData(data);
+    // let dv = [{"item":"其他","percent":0.14},{"item":"职位已删除","percent":0.14},{"item":"职位已关闭","percent":0.71},{"item":"dsadasdsa","percent":0.01}]
+    // console.log(dv,'dvdvdvdvdvvdvd')
     const cols = {
       percent: {
         formatter: val => {
@@ -74,7 +76,7 @@ class Donut extends React.Component {
             tooltip={[
               "item*percent",
               (item, percent) => {
-                percent = percent * 100 + "%";
+                percent = (percent * 100).toFixed(2) + "%";
                 return {
                   name: item,
                   value: percent
