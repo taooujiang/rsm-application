@@ -245,7 +245,7 @@ export default class Dashboard extends Component {
 					<div>
 						<Link to={{ pathname: "log/1" }}>
 							<Badge count={hxrxgNum}>
-								<Icon type='user' style={{ fontSize: 24,  }}/>
+								<Icon type='icon-user' style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>候选人相关</p>
 						</Link>
@@ -253,7 +253,7 @@ export default class Dashboard extends Component {
 					<div>
 						<Link to={{ pathname: "log/2" }}>
 							<Badge count={ygxgNum}>
-								<Icon type='team' style={{ fontSize: 24,  }}/>
+								<Icon type='icon-team' style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>员工相关</p>
 						</Link>
@@ -261,7 +261,7 @@ export default class Dashboard extends Component {
 					<div>
 						<Link to={{ pathname: "log/3" }}>
 							<Badge count={dbsjNum}>
-								<Icon type="schedule" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-schedule" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 						<p>待办事件</p>
 						</Link>
@@ -269,7 +269,7 @@ export default class Dashboard extends Component {
 					<div>
 						<Link to={{ pathname: "log/4" }}>
 							<Badge count={xtxxNum}>
-								<Icon type="notification" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-notification" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>系统消息</p>
 						</Link>
@@ -277,7 +277,7 @@ export default class Dashboard extends Component {
 					<div>
 						<Link to={{ pathname: "log/5" }}>
 							<Badge count={gxrzNum}>
-								<Icon type="sync" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-sync" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>更新日志</p>
 						</Link>
@@ -287,31 +287,31 @@ export default class Dashboard extends Component {
 				(<Card title='重要提醒' className="direction-column-card">
 					<div onClick={this.handleLogClick.bind(this,'1')}>
 							<Badge count={hxrxgNum}>
-								<Icon type='user' style={{ fontSize: 24,  }}/>
+								<Icon type='icon-user' style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>候选人相关</p>
 					</div>
 					<div onClick={this.handleLogClick.bind(this,'2')}>
 							<Badge count={ygxgNum}>
-								<Icon type='team' style={{ fontSize: 24,  }}/>
+								<Icon type='icon-team' style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>员工相关</p>
 					</div>
 					<div onClick={this.handleLogClick.bind(this,'3')}>
 							<Badge count={dbsjNum}>
-								<Icon type="schedule" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-schedule" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 						<p>待办事件</p>
 					</div>
 					<div onClick={this.handleLogClick.bind(this,'4')}>
 							<Badge count={xtxxNum}>
-								<Icon type="notification" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-notification" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>系统消息</p>
 					</div>
 					<div onClick={this.handleLogClick.bind(this,'5')}>
 							<Badge count={gxrzNum}>
-								<Icon type="sync" style={{ fontSize: 24,  }}/>
+								<Icon type="icon-sync" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>更新日志</p>
 					</div>
@@ -322,27 +322,27 @@ export default class Dashboard extends Component {
 						<Card title="招聘数据" className="direction-row-card">
 							<Row gutter={16}>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '职位管理', key: 'job/list' ,src:"/static/js/client/main.html#/job/list"})}>
-										<Icon type="solution" style={{fontSize:24,color:'#f06493'}}/>
+										<Icon type="icon-onHire" style={{fontSize:24,color:'#e85789'}}/>
 										<h1>{recruitJobNum}</h1>
 										<p>招聘中职位</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待分配简历', key: 'resume/distributed' ,src:"/static/js/client/main.html#/resume/distributed"})}>
-										<Icon type="copy" style={{fontSize:24,color:'#ff8053'}}/>
+										<Icon type="icon-distrbuted" style={{fontSize:24,color:'#e85789'}}/>
 										<h1>{dfpResumeNum}</h1>
 										<p>待分配简历</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '候选人管理', key: 'resume/list' ,src:"/static/js/client/main.html#/resume/list"})}>
-										<Icon type="file-add" style={{fontSize:24,color:'#13c7aa'}}/>
+										<Icon type="icon-newResume" style={{fontSize:24,color:'#e85789'}}/>
 										<h1>{todayNewResumeNum}</h1>
 										<p>今日新简历</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '面试管理', key: 'interview/list' ,src:"/static/js/client/main.html#/interview/list"})}>
-										<Icon type="contacts" style={{fontSize:24,color:'#64b5f7'}}/>
+										<Icon type="icon-todayFeed" style={{fontSize:24,color:'#e85789'}}/>
 										<h1>{todayInterviewNum}</h1>
 										<p>今日面试</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer', key: 'offer' ,src:"/static/js/client/main.html#/resume/list/query/3"})}>
-										<Icon type="tag-o" style={{fontSize:24,color:'#9edc61'}}/>
+										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#e85789'}}/>
 										<h1>{sendOfferNum}</h1>
 										<p>待发送offer</p>
 								</Col>

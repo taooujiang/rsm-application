@@ -4,10 +4,15 @@
   src: url('nav-iconfont.ttf?t=15203037328989'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
-.anticon[class*="anticon-nav-icon"],.anticon[class*="anticon-nav-icon"]:before,
-.anticon[class*="anticon-icon"],.anticon[class*="anticon-icon"]:before{
+.anticon[class*="anticon-nav-icon"],.anticon[class*="anticon-nav-icon"]:before{
   font-family:"nav-iconfont" !important;
   font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.anticon[class*="anticon-icon"],.anticon[class*="anticon-icon"]:before{
+  font-family:"nav-iconfont" !important;
   font-style:normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -106,3 +111,24 @@
 .anticon-icon-weifasong:before { content: "\e629"; }
 
 .anticon-icon-yifasong:before { content: "\e62a"; }
+
+.anticon-icon-todayFeed:before { content: "\e62c"; }
+
+.anticon-icon-onHire:before { content: "\e62d"; }
+
+.anticon-icon-distrbuted:before { content: "\e632"; }
+
+.anticon-icon-offerWaiting:before { content: "\e631"; }
+
+.anticon-icon-newResume:before { content: "\e630"; }
+
+
+.anticon-icon-user:before { content: "\e633"; }
+
+.anticon-icon-notification:before { content: "\e6f0"; }
+
+.anticon-icon-sync:before { content: "\e756"; }
+
+.anticon-icon-schedule:before { content: "\e716"; }
+
+.anticon-icon-team:before { content: "\e634"; }
