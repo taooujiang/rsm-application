@@ -43,12 +43,17 @@ export {listRoute,backRoute,backListRoute,backRouteReload}
 
 
 export function listAction(value) {
+  let resetPage = {
+    current:undefined,
+    pageSize:undefined,
+    total:undefined,
+  }
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
     return new API().fetchJobList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       dispatch(saveList(json))
-      dispatch(saveParams(value))
+      dispatch(saveParams(Object.assign({},value,resetPage)))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin',ex))
     })

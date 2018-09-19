@@ -130,10 +130,10 @@ export default class FeedFormView extends FormPage{
   }
   //处理表格提交后动作
   handleSubmit(values){
-    let {actions,router,reduce:{interviewInfo:{createble}}} = this.props;
+    let {actions,location,router,reduce:{interviewInfo:{createble}}} = this.props;
       if(createble){
         actions.feedArrange(values)
-        actions.backRoute(router)
+        actions.backRouteReload(router,location)
       }
   }
   updateFieldValue(fieldName,value){

@@ -98,7 +98,7 @@ export default class ClientAPI {
       })
     }
     toResumeList(){
-        history.push("/resume/list")
+        //history.push("/resume/list")
         parent.addTab&&parent.addTab({
           title: '候选人管理',
           key: 'resume/list' ,

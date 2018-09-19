@@ -76,7 +76,7 @@ export default class JobviewSlide extends Component{
     return (<AdvancedSearchPanel titleSearch={
       <div>
       <FormItem>
-        <Select name="nav" onChange={this.handleChangeSelect.bind(this)} defaultValue={this.state.val}  fetch={this.authTypeFilter(nav)} renderItem={this.renderSelectOption} />
+        <Select name="jobType" onChange={this.handleChangeSelect.bind(this)} defaultValue={this.state.val}  fetch={this.authTypeFilter(nav)} renderItem={this.renderSelectOption} />
       </FormItem>
       <h5>{`共有${count}个${nav.filter(it=>it.keyValue==this.state.val).pop().keyName}`}</h5>
       </div>

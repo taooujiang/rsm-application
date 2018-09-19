@@ -104,8 +104,7 @@ class ResumeDetail extends Component{
     }
 
     renderTypeButton(){
-      let { item , actions,router} = this.props
-      let {status,libType} = item
+      let { item ,item:{libType}, actions,router} = this.props
       let detailType = this.translateLib(libType)
       let type = "resume"
       switch (detailType) {
@@ -122,7 +121,7 @@ class ResumeDetail extends Component{
           type = "credit"
           break;
       }
-      return <PersonOption item={item} status={status} actions={actions} router={router} type={type} callback={this.getToRemark.bind(this)}/>
+      return <PersonOption item={item} actions={actions} router={router} type={type} callback={this.getToRemark.bind(this)}/>
     }
     translateLib(lib){
       if(lib == 1){
@@ -137,7 +136,7 @@ class ResumeDetail extends Component{
 
   render (){
     let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
-    let {status,name,libType,filingReason} = item
+    let {name,libType,filingReason} = item
     let detailType = this.translateLib(libType)
     return (
       <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
@@ -149,10 +148,10 @@ class ResumeDetail extends Component{
                   <PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} detailType={detailType}/>
                 </TabPane>
                 <TabPane tab="面试" key="2">
-                  <PersonFeedRecord detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} status={status} item={item}/>
+                  <PersonFeedRecord detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} item={item}/>
                 </TabPane>
                 <TabPane tab="offer" key="3">
-                  <PersonOffer actions={actions} resumeId={resumeId} detailType={detailType} info={offer} item={item} status={status}/>
+                  <PersonOffer actions={actions} resumeId={resumeId} detailType={detailType} info={offer} item={item}/>
                 </TabPane>
                 <TabPane tab="备注" key="4">
                   <PersonRemarks actions={actions} resumeId={resumeId} info={remarks} item={item}/>

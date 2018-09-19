@@ -147,7 +147,7 @@ status 0 1 2 3 4
 
 export class PersonOption extends Component{
   renderStageLine(){
-    let {type,status} = this.props
+    let {type,item:{status}} = this.props
     if(type == "resume"){
       return (
         <Steps progressDot current={status} className="resumeStatus">
@@ -165,7 +165,7 @@ export class PersonOption extends Component{
     return (
       <div className="person-edit-option">
         {this.renderStageLine()}
-        <OptionButtons {...this.props}/>
+        <OptionButtons {...this.props} status={status}/>
       </div>
     )
   }
@@ -1671,7 +1671,7 @@ export class PersonOffer extends Component{
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
   }
   render(){
-    let {status,detailType} = this.props
+    let {item:{status},detailType} = this.props
     return status < 3 && detailType == 2  ? <div className="list-no-data no-offer-record">暂无offer记录</div> : this.renderWhich()
   }
 }
@@ -1961,13 +1961,14 @@ export class PersonFeedRecord extends Component{
     actions.feedAction(router,item)
   }
   render(){
-    let {info:{list},actions,router,status,detailType,item} = this.props
+    let {info:{list},actions,router,detailType,item,isLock} = this.props
+    let {status,isLock} = item
     /*面试数组数据map容错*/
 		let lists = list ? list : []
     /*detailType为10时为员工  特殊开辟*/
     return detailType==2 || detailType==3 || detailType==10 ?(
       <div className="feedRecord-box">
-          <Permission expression={status <= 2 && detailType==2 }>
+          <Permission expression={status <= 2 && detailType==2 && !isLock}>
             <Button icon="plus" onClick={this.handleAddFeed.bind(this,item)} className="add-feed">添加面试</Button>
           </Permission>
 					{lists.length?

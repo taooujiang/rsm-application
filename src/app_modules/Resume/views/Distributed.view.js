@@ -139,7 +139,8 @@ export default class DistributedView extends PageView {
 												return(
 													<Link onClick={this.openTab.bind(this,{
 														title: val,
-														key: 'resume/distrib/' ,
+														key: 'resume/distrib/',
+                            refresh:true,
 														src:`/static/js/client/main.html#/resume/distrib/${row.id}`
 													})}>{val}</Link>
 												)
