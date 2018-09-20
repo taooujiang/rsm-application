@@ -12,15 +12,15 @@ class CustomSystemField extends BaseModel {
   }
   static modelName='CustomSystemField'
   static fields={}
-  static options = {
-    idAttribute: 'fieldId',
-  }
-  toString() {
-      return "CustomSystemField Module:"+JSON.stringify(this._fields)
-  }
+  
+  
 }
 
- Object.assign(CustomSystemField.fields,BaseModel.fields,{
+CustomSystemField.options = {
+	idAttribute: 'fieldId',
+}
+
+ Object.assign(BaseModel.fields,CustomSystemField.fields,{
     fieldId:attr(),
     fieldCode:attr(),
     fieldName:attr(),
