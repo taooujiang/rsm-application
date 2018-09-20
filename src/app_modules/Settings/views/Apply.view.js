@@ -8,7 +8,7 @@ import { Button, Card ,Switch } from "antd"
 @NestedComponent()
 export default class Adverse extends PageView {
 	state={
-		switchChecked:0
+		// switchChecked:0
 	}
 	componentDidMount() {
 		const{actions}=this.props
@@ -20,9 +20,9 @@ export default class Adverse extends PageView {
 		actions.saveRemindAction({msg_1030:Number(checked)})
 	}
 	renderToolbar(){
-		const{item}=this.props
+    const{item}=this.props
 		return(
-			<Switch defaultChecked={!!(item.msg_1030)} onChange={this.onChange.bind(this)} />
+			<Switch  checked={!!(item.msg_1030)} onChange={this.onChange.bind(this)} />
 		)
 	}
 	render() {
