@@ -23,7 +23,6 @@ import Container, {
   RoleDetailContainer,
 	CompanyContainer,
 	CompanyFormContainer,
-	ErcodeContainer,
 	ArchiveContainer,
 	ArchiveFormContainer,
 	AdverseContainer,
@@ -92,9 +91,7 @@ let Routes = (
 		<Route path="channel" components={ChannelContainer} breadcrumbName="支持渠道列表" >
 
 		</Route>
-		<Route path="ercode" components={ErcodeContainer} breadcrumbName="二维码" >
 
-		</Route>
 	</Router>
 )
 

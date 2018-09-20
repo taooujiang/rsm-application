@@ -735,22 +735,7 @@ export default class PersonInfoDetailSame extends Component{
 
     return (
       <div className="sameDetail-box">
-        <div className="boxWithArrow">
-          <div className="left"><Icon type="left"/></div>
-          <div className="right"><Icon type="right"/></div>
-          <div className="sameDetailUlShowBox">
-            <ul className="sameDetailUl">
-              {sameList.map((it,idx)=>{
-                return (
-                  <li key={idx} onClick={this.jump2Another.bind(this,it.id)} className={classnames({"sameItem":true,"choose":it.id == resumeId})}>
-                    <div>{it.name}</div>
-                    <div>{it.jobTitle}</div>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        </div>
+
         <ResumeDetailView {...this.props}/>
       </div>
     )

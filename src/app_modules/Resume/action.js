@@ -673,7 +673,7 @@ export function feedArrange(value){
       return new API().fetchArrange(value).then(json => {
           dispatch(fetchSuccess('formSpin',true))
           dispatch(saveItem(data))
-          dispatch(addFeedData(json))
+          //dispatch(addFeedData(json))
       }).catch(ex => {
           return dispatch(fetchFailure('formSpin',ex))
       })

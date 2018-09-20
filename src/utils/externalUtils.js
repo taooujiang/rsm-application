@@ -70,11 +70,21 @@ export default class ClientAPI {
           src:`/static/js/client/main.html#/settings/userRights`
         })
       }else if(type == '4'){//二维码页面
-        parent.addTab&&parent.addTab({
-          title: '二维码',
-          key: '/ercode' ,
-          src:`/static/js/client/main.html#/settings/ercode`
-        })
+        // parent.addTab&&parent.addTab({
+        //   title: '二维码',
+        //   key: '/ercode' ,
+        //   src:`/static/js/client/main.html#/log/qrcode`
+        // })
+        let params = {
+          'url': '/static/js/client/main.html#/log/qrcode',
+          'title':'二维码',
+          'wx':0,
+          'wy':0,
+          'width':300,
+          'height':300
+        }
+        invokeMethod('OnExpandJson',JSON.stringify(params));
+
       }else if(type == '5'){//添加职位
         parent.addTab&&parent.addTab({
           title: '发布职位',

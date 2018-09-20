@@ -18,12 +18,14 @@ import {
   CreditFilingReasonFormContainer
 } from '../Resume/container'
 
+import {ErcodeContainer} from '../Settings/container'
 import {creditFormContainer} from '../Credit/container'
 import {DelayContainer} from '../Interview/container'
 
 let Routes = (
-	<Router>
+	<Router component={null}>
     <IndexRoute component={LogListContainer}/>
+    <Route path="qrcode" component={ErcodeContainer}/>
 		<Route path=":type" component={LogListContainer}>
 			<Route path="detail/:messageId" components={LogDetailContainer}/>
 			<Route path=":resumeId/detail" components={ResumeDetailContainer} breadcrumbName="人才详情">
@@ -43,6 +45,7 @@ let Routes = (
 				<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
 			</Route>
 		</Route>
+
 	</Router>
 )
 // export { Container }

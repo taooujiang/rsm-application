@@ -15,6 +15,10 @@ function filterNull(arr){
   return arr.filter((it,idx)=>it!=""&&it!=undefined&&it!=undefined+" - "+undefined)
 }
 
+function translateToNow(timeStr){
+  return timeStr == "9999-01-01" ? "至今" : timeStr
+}
+
 export class PersonIconShow extends Component{
   renderIcon(){
     let iconArray = []
@@ -47,14 +51,14 @@ lastSchoolStart:"2013-09-01 00:00:00"
 
 export default class Intro extends Component{
 	isCollegeOrWorkExpShow(...rest){
-		let arr = rest.filter((it,idx)=>it!=""&&it!=undefined&&it!=undefined+" - "+undefined)
+		let arr = rest.filter((it,idx)=> it != "" && it != undefined && it != undefined + " - "+ undefined && it != " - ")
 		return arr.length>0
 	}
   render(){
     let {item} = this.props
     let titleInfo = filterNull([item.sexStr,item.ageStr,item.education,item.workYear]).join(" · ")
-    let companyInfo = filterNull([item.company,item.lastJobTitle,item.lastJobStart+" - "+ item.lastJobEnd]).join(" · ")
-    let eduInfo = filterNull([item.lastSchool,item.lastMajor,item.lastSchoolStart+" - "+ item.lastSchoolEnd]).join(" · ")
+    let companyInfo = filterNull([item.company,item.lastJobTitle,item.lastJobStart+" - "+ translateToNow(item.lastJobEnd)]).join(" · ")
+    let eduInfo = filterNull([item.lastSchool,item.lastMajor,item.lastSchoolStart+" - "+ translateToNow(item.lastSchoolEnd)]).join(" · ")
     return(
       <SmartLink style={{color:'#323232'}} to={`${item.id}/detail`} className="resumeRowInfo">
         <div className="base">
