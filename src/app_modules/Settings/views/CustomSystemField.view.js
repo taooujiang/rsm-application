@@ -72,10 +72,10 @@ export default class CustomSystemFieldView extends PageView {
   handlerIfChecked(row,type,e){
     let {reduce,actions} = this.props
     let checked = e.target.checked
-    // console.log(row,checked)
-    row.set(type,checked ? 1 : 0)
-    // console.log(row.toJSON())
-    // console.log(row,checked)
+    // // console.log(row,checked)
+    row[type]=checked ? 1 : 0
+    // // console.log(row.toJSON())
+    // // console.log(row,checked)
     actions.changePropAction(row)
   }
   renderTableList() {
@@ -122,7 +122,7 @@ export default class CustomSystemFieldView extends PageView {
           width: 100,
           render: (value, row, index) => {
             // console.log(value)
-            return (<Checkbox  defaultChecked={this.judgeIfChecked(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={!!(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} disabled={row.isRead==1?true:false}></Checkbox>)
           },
         }, {
           title: "启用",
@@ -130,7 +130,7 @@ export default class CustomSystemFieldView extends PageView {
           dataIndex: "enable",
           width: 100,
           render: (value, row, index) => {
-            return (<Checkbox  defaultChecked={this.judgeIfChecked(value)}  onChange={this.handlerIfChecked.bind(this,row.fieldId,'enable')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={!!(value)}  onChange={this.handlerIfChecked.bind(this,row,'enable')} disabled={row.isRead==1?true:false}></Checkbox>)
           },
         }, {
           title: "操作",
