@@ -102,7 +102,7 @@ export default class LogListView extends Component {
     return (
       <div>
         <p>{item.messageContent}</p>
-        <p>{item.messageCenterContent}</p>
+        <p>{item.msgCenterContent}</p>
         <p>{item.sendDate}</p>
       </div>
     );
