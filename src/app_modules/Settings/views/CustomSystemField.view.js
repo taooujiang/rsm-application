@@ -117,20 +117,20 @@ export default class CustomSystemFieldView extends PageView {
           },
         }, {
           title: "必填",
-          key: "isRequired",
+          key: Math.random(),
           dataIndex: "isRequired",
           width: 100,
           render: (value, row, index) => {
             // console.log(value)
-            return (<Checkbox defaultChecked={this.judgeIfChecked(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={this.judgeIfChecked(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} disabled={row.isRead==1?true:false}></Checkbox>)
           },
         }, {
           title: "启用",
-          key: "enable",
+          key: Math.random(),
           dataIndex: "enable",
           width: 100,
           render: (value, row, index) => {
-            return (<Checkbox defaultChecked={this.judgeIfChecked(value)}  onChange={this.handlerIfChecked.bind(this,row.fieldId,'enable')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={this.judgeIfChecked(value)}  onChange={this.handlerIfChecked.bind(this,row.fieldId,'enable')} disabled={row.isRead==1?true:false}></Checkbox>)
           },
         }, {
           title: "操作",
@@ -146,7 +146,7 @@ export default class CustomSystemFieldView extends PageView {
         }
       ]
     }
-    return (<DataTable {...tableConf} {...this.mergeTableConfig({pagination:false})} style={{display: 'flex',flexDirection: 'column'}} />)
+    return (<DataTable  {...tableConf} {...this.mergeTableConfig({pagination:false})} style={{display: 'flex',flexDirection: 'column'}} />)
   }
   handlerEditRoute(id){
     let {actions,router} = this.props;
