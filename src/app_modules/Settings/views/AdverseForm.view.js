@@ -14,10 +14,10 @@ export default class ArchiveFormView extends SysOptionForm {
 		const formConfig={
 			optionCode:'bad_events',
 			optionLabel:'不良事件',
-
+			messageItem:"不良事件"
 		}
 		return(
-			<SysOptionForm {...this.props} {...formConfig}/>
+			<SysOptionForm {...this.props} {...formConfig} />
 		)
 	}
 }
