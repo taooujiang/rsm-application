@@ -236,7 +236,7 @@ export function saveRemindAction(params) {
 		dispatch(fetchRequest('remind'))
 		processBool2Str(params)
 		return new API().fetchSaveRemind(params).then(json => {
-			dispatch(fetchSuccess('remind', true))
+			dispatch(fetchSuccess('remind'))
 			dispatch(remindSave(Object.assign({id:'account'},params)))
 		}).catch(ex => {
 			return dispatch(fetchFailure('remind', ex))
