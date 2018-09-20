@@ -62,13 +62,13 @@ export class ImgUpload extends FileUpload{
         this.props.onChange(this.props.imgUrl)
     }
     render(){
-        let { type } = this.props
+        let { type ,beforeUpload } = this.props
         let {imgUrl} = this.state
         const uploadButton = (
             <Button><Icon type="link"/>上传头像</Button>
         )
         return(
-            <Upload name="file"  showUploadList={false} action={"/fileUpload/file/upload?type="+type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+            <Upload name="file"  showUploadList={false} beforeUpload={beforeUpload} action={"/fileUpload/file/upload?type="+type} withCredentials={true} onChange={this.handleChange.bind(this)}>
                 {imgUrl ? <img src={imgUrl} alt="" />:uploadButton}
             </Upload>
         )
@@ -94,5 +94,6 @@ ImgUpload.propTypes = {
 ImgUpload.defaultProps = {
     onSuccess: function(){},
     onResponse:function(){},
-    type:2
+    type:2,
+    beforeUpload:()=>{}
 }

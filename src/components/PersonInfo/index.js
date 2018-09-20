@@ -862,6 +862,16 @@ class PersonBaseInfoEditHead extends FormPage{
       return null
     }
   }
+  beforeUpload(file){
+    let {name} = file
+    let suffix = name.split(".").pop()
+    if(suffix == "jpg" || suffix == "png" || suffix == "jpeg"){
+      return true
+    }else{
+      message.warning("只能上传图片文件")
+      return false
+    }
+  }
   render(){
     let {info} = this.props
     console.log(moment(info.birthYear),moment(info.startWorkingYear))
@@ -872,7 +882,7 @@ class PersonBaseInfoEditHead extends FormPage{
         </FormItem>
         <Row gutter={12}>
           <FormItemWrapparCol span={6}>
-              <ImgUpload label="照片" type={2} name="photoUrl" imgUrl={info.photoUrl} onResponse={this.responseType} onSuccess={this.onSuccess}></ImgUpload>
+              <ImgUpload label="照片" type={2} name="photoUrl" beforeUpload={this.beforeUpload} imgUrl={info.photoUrl} onResponse={this.responseType} onSuccess={this.onSuccess}></ImgUpload>
           </FormItemWrapparCol>
           <Col span={18}>
             <FormItemWrapparCol span={12}>

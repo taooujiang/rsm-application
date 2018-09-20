@@ -322,27 +322,27 @@ export default class Dashboard extends Component {
 						<Card title="招聘数据" className="direction-row-card">
 							<Row gutter={16}>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '职位管理', key: 'job/list' ,src:"/static/js/client/main.html#/job/list"})}>
-										<Icon type="icon-onHire" style={{fontSize:24,color:'#e85789'}}/>
+										<Icon type="icon-onHire" style={{fontSize:24,color:'#ef6392'}}/>
 										<h1>{recruitJobNum}</h1>
 										<p>招聘中职位</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待分配简历', key: 'resume/distributed' ,src:"/static/js/client/main.html#/resume/distributed"})}>
-										<Icon type="icon-distrbuted" style={{fontSize:24,color:'#e85789'}}/>
+										<Icon type="icon-distrbuted" style={{fontSize:24,color:'#62b5f9'}}/>
 										<h1>{dfpResumeNum}</h1>
 										<p>待分配简历</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '候选人管理', key: 'resume/list' ,src:"/static/js/client/main.html#/resume/list"})}>
-										<Icon type="icon-newResume" style={{fontSize:24,color:'#e85789'}}/>
+										<Icon type="icon-newResume" style={{fontSize:24,color:'#12c7ab'}}/>
 										<h1>{todayNewResumeNum}</h1>
 										<p>今日新简历</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '面试管理', key: 'interview/list' ,src:"/static/js/client/main.html#/interview/list"})}>
-										<Icon type="icon-todayFeed" style={{fontSize:24,color:'#e85789'}}/>
+										<Icon type="icon-todayFeed" style={{fontSize:24,color:'#a1db63'}}/>
 										<h1>{todayInterviewNum}</h1>
 										<p>今日面试</p>
 								</Col>
 								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer', key: 'offer' ,src:"/static/js/client/main.html#/resume/list/query/3"})}>
-										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#e85789'}}/>
+										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
 										<h1>{sendOfferNum}</h1>
 										<p>待发送offer</p>
 								</Col>

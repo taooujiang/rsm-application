@@ -40,8 +40,9 @@ export default class DeleteForm extends FormPage{
 
   handleSubmit(values){
     let {actions,router,location} = this.props;
-    actions.deleteOptionAction(values)
-    actions.backRoute(router)
+    actions.deleteOptionAction(values).then(()=>{
+      actions.backRouteReload(router,location)
+    })
   }
 
   translateChannelIds(rows){

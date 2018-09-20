@@ -5,157 +5,93 @@
  */
 
 import React, {Component, PropTypes} from 'react'
-import {
-  Row,
-  Col,
-  Modal,
-  Button,
-  Input,
-  Form,
-  DatePicker,
-  Layout,
-  Spin,
-  Rate,
-  Select
-} from 'antd'
+import { Row, Col, Modal, Button, Input, Form, DatePicker, Layout, Spin, Rate, Select,TreeSelect } from 'antd'
+
 import WrapperComponent from 'app/decorators/WrapperComponent'
+import BaseForm,{FormItem,customRules} from 'components/BaseForm'
+import {TreeSelectPicker} from 'app/components/TreeView'
 import {FormPage} from 'app/components/Page'
 import ModalView from 'app/components/Modal.view'
-import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
+
 import HrTipView from './roleHrTips.view'
 import AdminTipView from './roleAdminTips.view'
 
 const Option = Select.Option
+const TreeNode = TreeSelect.TreeNode;
 const {TextArea} = Input
 
-class UserForm extends Component{
-
-    state = {
-        userRights:false,
-    }
-
-    componentWillMount(){
-        let {itemBox } = this.props
-        if(itemBox){
-            this.setState({
-                userRights:itemBox.item.roleType == 1 || itemBox.item.roleType == 3 ? true: false
-            })
-        }
-
-    }
-
-
-    renderResoureOption(data,idx){
-        return (<Select.Option value={data.resourceId} key={idx}>{data.resourceName}</Select.Option>)
-    }
-    handleChangeUserType(value){
-        this.setState({
-            userRights:value == 1 || value == 3 ? true: false
-        })
-    }
-
-  render() {
-    const {
-      form,
-      actions,
-      handleSubmit,
-      children,
-      saveFormRef,
-        itemBox,
-        params:{userId},
-        isReal
-    } = this.props
-    const formFullItemLayout = {
-      labelCol: {
-        span: 6
-      },
-      wrapperCol: {
-        span: 18
-      }
-    };
-    console.log(itemBox)
-    let {userRights} = this.state
-    return (
-      <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
-        <FormItem style={{marginBottom:0}}>
-          <Input type="hidden" name="id" defaultValue={userId} />
-        </FormItem>
-          <FormItem style={{marginBottom:0}}>
-              <Input type="hidden" name="account" defaultValue={itemBox && itemBox.item.account} />
-          </FormItem>
-          {itemBox && isReal?
-              <FormItem style={{marginBottom:0}}>
-                  <Input type="hidden" name="acctName" defaultValue={itemBox && itemBox.item.name} />
-              </FormItem>
-              :
-              ""
-          }
-        <FormItem {...formFullItemLayout}>
-          <Input label="用户名" name="account"
-                 defaultValue={itemBox && itemBox.item.account}
-                 disabled={true}
-                 />
-        </FormItem>
-        <FormItem {...formFullItemLayout}>
-          <Input label="姓名" name="acctName" defaultValue={itemBox && itemBox.item.name} disabled={itemBox && isReal}/>
-        </FormItem>
-        <FormItem {...formFullItemLayout}>
-          <Select label="用户类别" name="acctType"
-                  rules={[{required:true,message:"用户类别不可为空"}]}
-                  defaultValue={(itemBox && itemBox.item.roleType.toString()) == 1? "系统管理员":itemBox&&itemBox.item.roleType.toString()}
-                    onChange={this.handleChangeUserType.bind(this)}>
-            <Option value="2">HR</Option>
-            <Option value="3">面试官</Option>
-          </Select>
-        </FormItem>
-          {(itemBox && itemBox.item.roleType.toString()) == 1?
-              <FormItem style={{marginBottom:0}}>
-              <Input type="hidden" name="acctType" defaultValue={"1"}/>
-              </FormItem>
-              :
-              null
-          }
-        <FormItem {...formFullItemLayout}>
-          <Input label="用户部门" name="dept" defaultValue={itemBox && itemBox.item.dept}/>
-        </FormItem>
-        <FormItem {...formFullItemLayout}>
-          <Select label="用户权限" name="resourceIdArr"
-                  fetch={`${APP_SERVER}/userResource/listJson`}
-                  renderItem={this.renderResoureOption}
-                  mode="multiple"
-                  defaultValue={itemBox && itemBox.item.resourceIdArr}
-                  disabled = { userRights}/>
-        </FormItem>
-      </BaseForm>
-    )
-  }
-}
-
 @WrapperComponent(ModalView)
-export default class UserEditView extends FormPage{
-  //请求远程数据接口
-  componentWillMount() {
-    let {actions,params,location:{state}} = this.props
-      if(state){
-          actions.isRealNameAction({account:state.item.account})
-      }
+export default class UserOptionView extends FormPage{
+
+  renderResoureOption(data,idx){
+      return (<Select.Option value={data.resourceId} key={idx}>{data.resourceName}</Select.Option>)
   }
+  renderRoleOption(data,idx){
+      return (<Select.Option value={data.roleId} key={idx}>{data.roleName}</Select.Option>)
+  }
+
+  renderTreeData(item){
+    return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id},this.loopTreeData(item.children))
+  }
+
+  loopTreeData(data){
+    let that = this
+    return data.map((item) => {
+      if (item.children && item.children.length) {
+        return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id},this.loopTreeData(item.children))
+      }else{
+        return React.cloneElement(TreeNode,{value:item.id,title:item.text,key:item.id})
+      }
+    })
+  }
+
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router,location} = this.props
-      console.log(values)
       actions.saveUserAction(values)
       actions.backRoute(router)
   }
   render() {
-    let {params,actions, reduce:{spins:{formSpin},isReal},location:{state}} = this.props
-    //	let model=preduce.list[0]
+		let {actions, reduce:{spins:{formSpin}},item,routeParams,routeParams:{account}	} = this.props
     return (
       <Spin tip="Loading..." spinning={false}>
-        <UserForm handleSubmit={this.handleSubmit} params={params} isReal={isReal} actions={actions}  saveFormRef={this.saveFormRef} itemBox={state} >
-            <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)}>确认</Button>
-            <Button>取消</Button>
-        </UserForm>
+        <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
+					<FormItem>
+            <Input name="id" type='hidden' defaultValue={account}/>
+          </FormItem>
+          <FormItem>
+            <Input label="姓名" name="acctName" rules={[{required:true,message:"用户名不可为空",whitespace:true},]} defaultValue={item.name}/>
+          </FormItem>
+          <FormItem>
+            <Input label="用户名" name="account"
+                   rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
+									 defaultValue={account}
+									 disabled={routeParams.account?true:false}//编辑时不可修改
+                   />
+          </FormItem>
+          <FormItem>
+            <Select label="角色" name="roleId"
+                    rules={[{required:true,message:"角色不可为空"}]}
+                    fetch={`${APP_SERVER}/authRole/getRoleInfo`}
+                    renderItem={this.renderRoleOption}
+                    defaultValue={item.roleId}
+                    />
+          </FormItem>
+          <FormItem>
+              <TreeSelectPicker
+                label="所属部门"
+                name="dept"
+                fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                // renderItem={this.renderTreeData.bind(this)}
+                placeholder="选择部门"
+                treeDefaultExpandAll
+                defaultValue={item.dept}
+                rules={[{required:true,message:"所属部门不可为空"}]}
+              />
+          </FormItem>
+					<p>注：密码将以短信形式发送到成员手机。</p>
+        </BaseForm>
       </Spin>
     )
   }
