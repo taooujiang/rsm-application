@@ -13,7 +13,6 @@ export default class ArchiveFormView extends FormPage {
 		const formConfig={
 			optionCode:'offer_refuse_reasons',
 			optionLabel:'拒绝原因',
-			messageItem:"拒绝原因"
 		}
 		return(
 			<SysOptionForm {...this.props} {...formConfig} />

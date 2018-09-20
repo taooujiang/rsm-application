@@ -13,7 +13,6 @@ export default class ArchiveFormView extends FormPage {
 		const formConfig={
 			optionCode:'file_reasons',
 			optionLabel:'归档原因',
-			messageItem:"归档原因"
 		}
 		return(
 			<SysOptionForm {...this.props} {...formConfig} />
