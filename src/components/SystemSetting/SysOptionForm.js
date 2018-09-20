@@ -23,6 +23,7 @@ export default class SysOptionForm extends FormPage {
   render() {
     //见FormPage.view.js
     const { onSubmit, saveFormRef, item, optionCode, optionLabel } = this.props;
+    const validRequiredMsg = `${optionLabel}`
     console.log(this.props);
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
@@ -38,7 +39,7 @@ export default class SysOptionForm extends FormPage {
             name="optionName"
             placeholder={"请输入" + optionLabel}
             defaultValue={item.optionName}
-            rules={[{ max: 10, message: "最多输入10个字！" },{ required: true, message: "公司名称不可为空",whitespace:true }]}
+            rules={[{ max: 10, message: "最多输入10个字！" },{ required: true, message: `${validRequiredMsg}不可为空`,whitespace:true }]}
           />
         </FormItem>
       </BaseForm>
