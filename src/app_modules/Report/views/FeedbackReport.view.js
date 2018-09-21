@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NestedComponent from 'app/decorators/NestedComponent'
-import { Layout, Button, Avatar, Checkbox, Cascader, Card } from 'antd';
+import { Layout, Button, Avatar, Checkbox, Cascader, Card,DatePicker } from 'antd';
 import DataTable from 'app/components/DataTable'
 import PageView from 'app/components/Page'
 import AdvancedSearchForm from 'app/components/AdvancedSearch'
@@ -8,7 +8,7 @@ import CalendarPicker from 'app/components/CalendarPicker'
 import moment from 'moment';
 
 const CheckboxGroup = Checkbox.Group
-
+const {RangePicker} = DatePicker
 
 @NestedComponent()
 export default class ReportListView extends PageView {
@@ -22,7 +22,8 @@ export default class ReportListView extends PageView {
 	}
 
 	handleSubmit(value) {
-		const{actions}=this.props
+    const{actions}=this.props
+    console.log(value,'handleSubmitvaluevalue')
 		this.setState({
 			exportParams:value
 		})
@@ -34,9 +35,24 @@ export default class ReportListView extends PageView {
 		actions.feedbackReportAction(value)
 	}
 	renderToolbar() {
+    const ranges= {
+      '今天': [
+        moment(), moment()
+      ],
+      '近三天': [
+        moment().add(-2,'days'), moment()
+      ],
+      '近七天': [
+          moment().add(-6,'days'), moment()
+      ],
+      '近三十天': [
+          moment().add(-29,'days'), moment()
+      ]
+    }
 		return (
 			<AdvancedSearchForm autoSubmitForm={false} filterSubmitHandler={this.handleSubmit.bind(this)} >
-				<CalendarPicker label="统计时间" name="time" defaultValue={this.state.defaultDate} />
+				<CalendarPicker key = {Math.random()} label="统计时间" name="time" defaultValue={this.state.defaultDate} />
+        {/* <RangePicker label="统计时间" name="time" ranges={ranges} /> */}
 			</AdvancedSearchForm>
 		)
 	}
