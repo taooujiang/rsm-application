@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import 'moment/locale/zh-cn';
 import { DatePicker } from 'antd'
 const {RangePicker} = DatePicker;
 
@@ -11,12 +12,16 @@ class CalendarPicker extends Component {
   }
   render() {
     let {children,value,...otherProps} = this.props
-    // console.log(this.props)
+    console.log(value,'valuevaluevaluevalue')
     for(var i in value){
-      if(typeof(value[i])=='string'){
+      if(typeof value[i]=='string'){
+    console.log(value,'stringstringstringstring')
+
         value[i]=moment(value[i])
       }
+
     }
+    console.log(value,'stringstringstringstringafter')
 
     // newValue=[moment(value[0]),moment(value[1])]
     return (
@@ -43,7 +48,7 @@ CalendarPicker.defaultProps = {
   showToday:true,
   format:'YYYY-MM-DD',
   minDate:'1900-01-01',
-  maxDate:'2299-01-01'
+  maxDate:'2299-01-01',
 }
 
 export default CalendarPicker

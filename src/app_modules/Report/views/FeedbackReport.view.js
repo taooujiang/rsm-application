@@ -49,7 +49,10 @@ export default class ReportListView extends PageView {
 
 	exportExcel(){
 		const{actions}=this.props
-		actions.exportAction('/reportFeedback/export',this.state.exportParams)
+    actions.exportAction('/reportFeedback/export',this.state.exportParams)
+    this.setState({
+      defaultDate:this.state.exportParams.time
+    })
 
 	}
 	renderTable() {

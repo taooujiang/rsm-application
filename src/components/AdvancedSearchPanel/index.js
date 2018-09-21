@@ -129,6 +129,7 @@ export default class AdvancedSearchPanel extends Component{
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.module!=this.props.module){
+      this.handleRest()
 			let {module,showConfig}=nextProps
 			if(showConfig){
 				this._fetchData(module)

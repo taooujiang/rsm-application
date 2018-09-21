@@ -14,24 +14,28 @@ export default class ReportListView extends PageView {
     super(props);
     this.state = {
       data: [],
-      exportParams: { time: [moment().subtract("days", 29), moment()] },
+      exportParams: { inputDateStr: [moment().subtract("days", 29), moment()] },
       columns: [],
       defaultDate: [moment().subtract("days", 29), moment()]
     };
   }
-
+  handleSubmit(value) {
+		const{actions}=this.props
+		this.setState({
+			exportParams:value
+		})
+		actions.callReportAction(value)
+	}
   handleFilter(value) {
     let { actions } = this.props;
-    this.setState({
-      exportParams: value
-    });
+    
     actions.callReportAction(value);
   }
   renderToolbar() {
     return (
       <AdvancedSearchForm
         autoSubmitForm={false}
-        filterSubmitHandler={this.handleFilter.bind(this)}
+        filterSubmitHandler={this.handleSubmit.bind(this)}
       >
         <CalendarPicker
           label="统计时间"
@@ -52,6 +56,9 @@ export default class ReportListView extends PageView {
   exportExcel() {
     const { actions } = this.props;
     actions.exportAction("/reportCallRecord/export", this.state.exportParams);
+    this.setState({
+      defaultDate:this.state.exportParams.inputDateStr
+    })
   }
   renderTable() {
     let { reduce } = this.props;
