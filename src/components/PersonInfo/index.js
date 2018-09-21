@@ -2174,6 +2174,7 @@ class PersonFeedRecordItem extends Component{
     actions.delayAction(router,id,type,time)
   }
   renderInterviewList(it,item,resumeId){
+    let {detailType} = this.props
     if(item.statusStr != 6 && detailType != 10){
       return it.isFeedback ?
         <Button onClick={this.handleFeedBack.bind(this,resumeId,it.interviewPlanId,it.interviewerId)}>查看反馈</Button>:
