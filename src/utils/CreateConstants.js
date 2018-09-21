@@ -88,6 +88,8 @@ function filterPathSpec(path,splitNum){
 function filterPath(path){
   if(path.indexOf("/resume/folder")>=0){
     return "/resume/folder"
+  }else if(path.indexOf("/resume/list/query")>=0){
+    return filterPathSpec(path,2)
   }else if(path.indexOf("/resume/list")>=0){
     return "/resume/list"
   }else if(path.indexOf("/interview/calendar")>=0){

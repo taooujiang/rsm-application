@@ -55,19 +55,19 @@ export default class ResumeSide extends Component{
   }
   handleChangeSelect(value){
     let {actions} = this.props
-    console.log(this)
-    // this.setState({
-    //   val:value
-    // },function(){
-    //   actions.listAction({jobType:value})
-    // })
+    this.setState({
+      val:value
+    })
+    this.jobListField.setState({
+      value:""
+    })
   }
   authTypeFilter(array){
     let {appReducer} = this.props
     return array.filter((it)=>it.authType.some(authType=>authType==appReducer.user.authType))
   }
-  formRef(form){
-    this.form = form
+  jobRef(ref){
+    this.jobListField = ref
   }
   render(){
     let {nav} = this.state
@@ -79,12 +79,12 @@ export default class ResumeSide extends Component{
           <Select name="jobType" onChange={this.handleChangeSelect.bind(this)} defaultValue={this.state.val}  fetch={this.authTypeFilter(nav)} renderItem={this.renderSelectOption} />
         </FormItem>
         <FormItem>
-          <JobListField  name="jobId" label="招聘职位" fetch={`${APP_SERVER}/jobNew/getJobList?jobType=${this.state.val}`} defaultValue={params.jobId} renderItem={
+          <JobListField refFn={this.jobRef.bind(this)}  name="jobId" label="招聘职位" fetch={`${APP_SERVER}/jobNew/getJobList?jobType=${this.state.val}`} defaultValue={params.jobId} renderItem={
             (it)=>(<Menu.Item key={it.jobId} jobId={it.jobId}>{it.jobTitle}</Menu.Item>)
           }/>
         </FormItem>
       </div>
-    } filterSubmitHandler={this.handleFilter.bind(this)} showConfig={true} module="1" formRef={this.formRef}>
+    } filterSubmitHandler={this.handleFilter.bind(this)} showConfig={true} module="1">
       <Input name="name" label="姓名" placeholder="请输入姓名"/>
       <Input name="company" label="就职公司" placeholder="请输入就职公司"/>
       <Input name="currentAddress" label="现工作地" placeholder="请输入现工作地"/>

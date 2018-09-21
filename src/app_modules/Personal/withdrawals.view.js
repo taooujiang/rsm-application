@@ -32,7 +32,7 @@ class WithdrawalsForm extends Component{
     const {
       handleSubmit,
       saveFormRef,
-        accountInfo:{account},
+      account
     } = this.props
     const formFullItemLayout = {
       labelCol: {
@@ -73,12 +73,11 @@ class WithdrawalsFormView extends FormPage{
     actions.backRoute(router)
   }
   render() {
-    let {params, reduce:{spins:{formSpin},accountInfo}} = this.props
-
+    let {params,appConfig:{user:{account}}, reduce:{spins:{formSpin},accountInfo}} = this.props
     //	let model=preduce.list[0]
     return (
       <Spin tip="Loading..." spinning={false}>
-        <WithdrawalsForm handleSubmit={this.handleSubmit} params={params}  saveFormRef={this.saveFormRef} accountInfo={accountInfo}>
+        <WithdrawalsForm handleSubmit={this.handleSubmit} params={params}  saveFormRef={this.saveFormRef} account={account}>
             <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)}>确认</Button>
             <Button>取消</Button>
         </WithdrawalsForm>

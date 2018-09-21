@@ -61,3 +61,54 @@
     }
   }
 }
+
+/*疑似简历*/
+.sameDetail-box{
+  background-color: #fff;
+  ul,li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sameDetail-inner{
+    width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    >li{
+      float: left;
+      width: 20%;
+      line-height: 24px;
+      cursor: pointer;
+      padding: 20px 0;
+      position: relative;
+      &.choose{
+        background-color: #f2f2f2;
+      }
+      >div{
+        margin-left: 60px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      >div.icon{
+        margin: 0;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        text-align: center;
+        line-height: 40px;
+        top: 50%;
+        margin-top: -20px;
+        background-color: #36c7a8;
+        color: #fff;
+        left: 10px;
+      }
+      .name{
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+}

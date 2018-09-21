@@ -14,8 +14,9 @@ if (process.env.NODE_ENV === 'development') {
     }).length>0
   }
   permissionStyle = function(modulesName){
+
     return getAuthList().filter((rl)=>{
-      return modulesName.indexOf(rl.note)>=0
+      return modulesName == rl.note
     }).length>0 ? {display:"initial"} : {display:"none"}
   }
 }else{
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
   }
   permissionStyle = function(modulesName){
     return getAuthList().filter((rl)=>{
-      return modulesName.indexOf(rl.note)>=0
+      return modulesName == rl.note
     }).length>0 ? {display:"initial"} : {display:"none"}
   }
 }

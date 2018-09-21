@@ -10,6 +10,7 @@ import {
     Dropdown,
     Menu,
     Select,
+    Tooltip,
     Modal,
     Tabs,
     Icon,
@@ -732,10 +733,17 @@ export default class PersonInfoDetailSame extends Component{
   "interviewStatus" : "",
   "searchInClient" : ""
 } ]
-
     return (
       <div className="sameDetail-box">
-
+        <ul className="sameDetail-inner">
+          {sameList.map((it,idx)=>{
+            return (<li key={idx} className={resumeId==it.id?"choose":""}>
+              <div className="icon">{it.name && it.name.slice(0,1)}</div>
+              <div className="name"><Tooltip title={it.name}>{it.name}</Tooltip></div>
+              <div><Tooltip title={it.jobTitle}>{it.jobTitle}</Tooltip></div>
+            </li>)
+          })}
+        </ul>
         <ResumeDetailView {...this.props}/>
       </div>
     )

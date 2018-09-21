@@ -2148,7 +2148,7 @@ export class PersonFeedRecord extends Component{
               return <Timeline.Item
               dot={<Icon type="calendar" style={{ fontSize: '20px' ,color:"#fff"}} />
             } key={idx}>
-              <PersonFeedRecordItem item={it} actions={actions} router={router}/>
+              <PersonFeedRecordItem item={it} actions={actions} router={router} detailType={detailType}/>
             </Timeline.Item>
             })}
 					</Timeline>
@@ -2174,7 +2174,7 @@ class PersonFeedRecordItem extends Component{
     actions.delayAction(router,id,type,time)
   }
   renderInterviewList(it,item,resumeId){
-    if(item.statusStr != 6 ){
+    if(item.statusStr != 6 && detailType != 10){
       return it.isFeedback ?
         <Button onClick={this.handleFeedBack.bind(this,resumeId,it.interviewPlanId,it.interviewerId)}>查看反馈</Button>:
         <Button onClick={this.handleFeedBack.bind(this,resumeId,it.interviewPlanId,it.interviewerId)}>填写反馈</Button>
@@ -2197,7 +2197,10 @@ class PersonFeedRecordItem extends Component{
     })
   }
   renderBtns(){
-    let {item} = this.props
+    let {item,detailType} = this.props
+    if(detailType == 10 ){/*为员工时不返回按钮**/
+      return null
+    }
     if(item.statusStr == 1){
       return (<ButtonGroup>
         <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>
@@ -2226,7 +2229,6 @@ class PersonFeedRecordItem extends Component{
             <Tag className="interview-stage-tag" color={json[item.type]}>{translateDic("interviewstage",item.type)}</Tag>
             {translateTime(item.interviewTime,"HH:mm")}
             {this.renderBtns()}
-
           </div>
           <div className="item-feedback-info">
             {this.renderFeedBackList()}
@@ -2337,6 +2339,9 @@ export class ExtraInformation extends Component{
         actions.listLinkAction({"resumeId":resumeId,time:timestamp()})
     })
   }
+  openPersonLink(link){
+    global.invokeMethod('ShowPublicUrl',link)
+  }
   renderLinksList(){
     const {info}= this.props
     const {editid,newItem} = this.state
@@ -2355,7 +2360,7 @@ export class ExtraInformation extends Component{
             <Icon type="delete"  />
           </Popconfirm>
         ]:[<Icon onClick={this.handlerSave.bind(this,item.id,item.personalLink)} type="save" />]}>
-        { editid==item.id ? (<Input defaultValue={item.personalLink} onChange={this.editChange.bind(this)}/>):(<a href={item.personalLink} target="_blank">{item.personalLink}</a>)}
+        { editid==item.id ? (<Input defaultValue={item.personalLink} onChange={this.editChange.bind(this)}/>):(<span onClick={this.openPersonLink.bind(this,item.personalLink)} style={{cursor:"pointer"}}>{item.personalLink}</span>)}
       </List.Item>)}
       />
     )

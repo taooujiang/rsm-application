@@ -87,6 +87,8 @@ export function withdrawalsAction(value) {
         dispatch(fetchRequest('itemSpin'))
         return new API().fetchWithdrawals(value).then(json => {
             dispatch(fetchSuccess('itemSpin',true))
+            dispatch(listAction())
+            dispatch(accountInfoAction())
         }).catch(ex => {
             return dispatch(fetchFailure('itemSpin',ex))
         })

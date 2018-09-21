@@ -38,14 +38,10 @@ export default class SysOptionForm extends FormPage {
             name="optionName"
             placeholder={"请输入" + optionLabel}
             defaultValue={item.optionName}
-            rules={[{ max: 10, message: "最多输入10个字！" },{ required: true, message: `${messageItem}不可为空`,whitespace:true }]}
+            rules={[{ max: 10, message: "最多输入10个字！" },{ required: true, message: `${optionLabel}不可为空`,whitespace:true }]}
           />
         </FormItem>
       </BaseForm>
     );
   }
-}
-
-SysOptionForm.defaultProps = {
-  messageItem:"归档原因"
 }

@@ -56,7 +56,7 @@ export default class CreditFilingReasonForm extends FormPage{
         <Input type="hidden" name="id" defaultValue={ids}/>
       </FormItem>
         <FormItem>
-          <Select name="adverseEvent" label="不良事件" placeholder="请选择"  fetch={`${APP_SERVER}/option/optionListJson?optionCode=bad_events`} renderItem={this.renderSelectOption} />
+          <Select name="adverseEvent" label="不良事件" placeholder="请选择"  fetch={`${APP_SERVER}/option/optionListJson?optionCode=bad_events`} renderItem={this.renderSelectOption} rules={[{required:true,message:"不良事件不可为空"}]} />
         </FormItem>
       </BaseForm>
     )

@@ -12,16 +12,16 @@ class CalendarPicker extends Component {
   }
   render() {
     let {children,value,...otherProps} = this.props
-    console.log(value,'valuevaluevaluevalue')
+    //console.log(value,'valuevaluevaluevalue')
     for(var i in value){
       if(typeof value[i]=='string'){
-    console.log(value,'stringstringstringstring')
+    //console.log(value,'stringstringstringstring')
 
         value[i]=moment(value[i])
       }
 
     }
-    console.log(value,'stringstringstringstringafter')
+    //console.log(value,'stringstringstringstringafter')
 
     // newValue=[moment(value[0]),moment(value[1])]
     return (

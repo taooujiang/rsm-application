@@ -20,7 +20,7 @@ import SharelView from './ShareWindow.view'
 import * as actions from './action'
 
 const mapStateToProps = (state) => {
-  return {reduce: state.personalReducer}
+  return {reduce: state.personalReducer,appConfig:state.appReducer}
 }
 const mapDispatchToProps = (dispatch) => {
   return {

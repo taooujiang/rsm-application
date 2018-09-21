@@ -46,7 +46,7 @@ export default class ListField extends Component{
 }
 
 export class JobListField extends Component{
-  
+
   constructor(props){
     super(props)
     this.state = {
@@ -54,6 +54,9 @@ export class JobListField extends Component{
       inside:this.props.value ? false : true,
       value:this.props.value
     }
+  }
+  componentDidMount(){
+    this.props.refFn(this)
   }
 
   componentWillReceiveProps(nextProps){
