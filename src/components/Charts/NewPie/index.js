@@ -8,13 +8,13 @@ import {
   Coord,
   Label,
   Legend,
-  View,
   Guide,
   Shape,
   Facet,
   Util
 } from "bizcharts";
-
+import DataSet from '@antv/data-set';
+const { DataView } = DataSet;
 class Donut extends React.Component {
   genChartData(source) {
     let keyArr = Object.keys(source);
@@ -28,10 +28,22 @@ class Donut extends React.Component {
     const { Html } = Guide;
 
     // const dv = [{item: "原因一", percent: 0.2},{item: "原因2",  percent: 0.8}]
-    const { data } = this.props;
-    let dv = this.genChartData(data);
-    // let dv = [{"item":"其他","percent":0.14},{"item":"职位已删除","percent":0.14},{"item":"职位已关闭","percent":0.71},{"item":"dsadasdsa","percent":0.01}]
+    let { data } = this.props;
+    data = this.genChartData(data);
+    // let data = [
+    //   { item: '事例一', percent: 0.26 },
+    //   { item: '事例二', percent: 0.5001 },
+    //   { item: '事例三', percent: 0.24 },
+    //   ];
     // console.log(dv,'dvdvdvdvdvvdvd')
+    const dv = new DataView();
+    dv.source(data).transform({
+      type: "percent",
+      field: "percent",
+      dimension: "item",
+      as: "percent"
+    });
+    console.log(dv)
     const cols = {
       percent: {
         formatter: val => {
