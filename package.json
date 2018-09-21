@@ -35,6 +35,7 @@
   "license": "MIT",
   "bugs": {},
   "devDependencies": {
+    "@antv/data-set": "0.8.6",
     "babel": "^6.5.2",
     "babel-core": "^6.4.5",
     "babel-jest": "^22.2.2",
@@ -89,7 +90,7 @@
   },
   "dependencies": {
     "antd": "3.0.2",
-    "bizcharts": "^3.2.1-beta.2",
+    "bizcharts": "3.2.2",
     "electron": "^1.8.4",
     "eventemitter3": "^3.0.1",
     "group-array": "^0.3.3",
