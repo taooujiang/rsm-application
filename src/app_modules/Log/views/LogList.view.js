@@ -113,7 +113,16 @@ export default class LogListView extends Component {
       actions.detailRoute(router, id);
     } else if (this.props.params.type == 1) {
       let { actions, router } = this.props;
-      actions.resumeDetailRoute(resumeId);
+      // actions.resumeDetailRoute(resumeId);
+      parent.addTab && parent.addTab({
+        title: '候选人管理',
+        key: 'resume/list',
+        refresh: true,
+        
+        src: `/static/js/client/main.html#/resume/list/${resumeId}/detail`
+      })
+
+
     }
   }
   render() {
