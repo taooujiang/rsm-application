@@ -328,11 +328,11 @@ PersonOption.defaultProps = {
 /*按钮状态判断总组件*/
 class OptionButtons extends Component{
   renderWhich(){
-    let {actions,router,type,status,item,jurisdiction} =this.props
-    let {isLock} = item
+    let {actions,router,type,status,item} =this.props
+    let {isLock,authorization} = item
 		let {isSame} = this.props
     if(type == 'resume'){
-      if(isSame && !jurisdiction){
+      if(!authorization){
         return <OptionButtonsSame {...this.props}/>
       }
       return isLock == 1 ? <OptionButtonsLock {...this.props}/> : <OptionButtonsResume {...this.props}/>
@@ -469,6 +469,7 @@ class OptionButtonsResume extends OptionCommonFn{
 
   render(){
     let {item:{hrName,labelNames}} = this.props
+    console.log(permissionStyle("resumeToCred"))
     return(
       <ButtonGroup style={{padding:'20px'}}>
         {this.renderButtons()}
@@ -529,7 +530,7 @@ class OptionButtonsCredit extends OptionCommonFn{
   render(){
     return(
       <ButtonGroup>
-        <Button className="block" onClick={this.addElite.bind(this,4)}>加入人才库</Button>
+        <Button className="block" style={permissionStyle("credToElite")} onClick={this.addElite.bind(this,4)}>加入人才库</Button>
       </ButtonGroup>
     )
   }
@@ -565,7 +566,7 @@ class OptionButtonsLock extends OptionCommonFn{
 
         {this.renderSwitch() }
         <Button className="block"  confirm="是否批量淘汰" onClick={this.eliminate.bind(this)}>淘汰</Button>
-        {isElite ? null : <Button className="block" onClick={this.addElite.bind(this,1)}>放入人才库</Button>}
+        {isElite ? null : <Button className="block" style={permissionStyle("resumeToCred")} onClick={this.addElite.bind(this,1)}>放入人才库</Button>}
         <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
         <Button className="half-block" onClick={this.send2OtherJob.bind(this)}>推荐到其他职位</Button>
 
@@ -1835,7 +1836,7 @@ export class PersonOffer extends Component{
   }
   renderWhich(){
     let {info,resumeId,actions,item,detailType} = this.props
-    if(detailType == 3 || detailType == 10){
+    if(detailType == 3 || detailType == 10 || detailType == 1){
       return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>

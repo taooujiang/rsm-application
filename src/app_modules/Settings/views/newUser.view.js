@@ -5,7 +5,7 @@
  */
 
 import React, {Component, PropTypes} from 'react'
-import { Row, Col, Modal, Button, Input, Form, DatePicker, Layout, Spin, Rate, Select,TreeSelect } from 'antd'
+import { Row, Col, Modal, Button, Input, Form, DatePicker, Layout, Spin, Rate, Select,TreeSelect ,message} from 'antd'
 
 import WrapperComponent from 'app/decorators/WrapperComponent'
 import BaseForm,{FormItem,customRules} from 'components/BaseForm'
@@ -17,49 +17,44 @@ import API from '../api'
 const Option = Select.Option
 const TreeNode = TreeSelect.TreeNode;
 const {TextArea} = Input
-
-class AddMemberStepFirst extends FormPage{
-  handleSubmit(value){
-    let {actions} = this.props
-    new API.fetchAccountCan.then(()=>{
-
-    })
-  }
-  render(){
-    return(
-      <Spin tip="Loading..." spinning={false}>
-        <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
-          <FormItem>
-            <Input label="用户名" name="account" placeholder="请输入手机号码"
-                   rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
-                   />
-          </FormItem>
-					<p>注：密码将以短信形式发送到成员手机。</p>
-        </BaseForm>
-      </Spin>
-    )
-  }
-}
+const Search = Input.Search;
 
 class AddMemberStepCode extends FormPage{
+  getCode(){
+    let params = {
+      account : this.props.account,
+      codeType : "2"
+    }
+    new API().fetchGetMobileCode(params).then((json)=>{
+      json.status ? message.success("操作成功") : null
+    })
+  }
   handleSubmit(value){
-
+    let { handleRerver } = this.props
+    new API().fetchSubmitCode(value).then((json)=>{
+      if(json.status){
+        message.success("操作成功")
+        handleRerver && handleRerver()
+      }else{
+        message.warning(json.msg)
+      }
+    })
   }
   render(){
     return (
       <Spin tip="Loading..." spinning={false}>
         <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
-        <p>该账号为浙江企蜂通信公司的HR或面试官</p>
+        <p>该账号为{this.props.msg}的HR或面试官</p>
         <p>手机验证通过后，帐号将加入新公司，原公司帐号禁用</p>
         <FormItem>
           <Input name="account" type='hidden' defaultValue={this.props.account}/>
         </FormItem>
         <FormItem>
-            <Input label="验证码" name="account"
-                  placeholder="请输入手机验证码"
-                  addonAfter={<Button>获取验证码</Button>}
-                   rules={[{required:true,message:"验证码不可为空"},{validator:customRules.checkMobile}]}
-                   />
+                   <Search label="验证码" name="code"
+                     placeholder="请输入手机验证码"
+                     enterButton="获取验证码"
+                    onSearch={this.getCode.bind(this)}
+                  />
           </FormItem>
         </BaseForm>
       </Spin>
@@ -90,7 +85,6 @@ class AddMemberStepOrign extends FormPage{
           <FormItem>
             <Input label="用户名" name="account"
                    rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
-									 disabled={routeParams.account?true:false}//编辑时不可修改
                    />
           </FormItem>
           <FormItem>
@@ -118,20 +112,75 @@ class AddMemberStepOrign extends FormPage{
   }
 }
 
+
 @WrapperComponent(ModalView)
-export class UserAddNewPage extends Component{
+export class AddMemberStepFirst extends FormPage{
+  /*state type判断123为分别三种角色后 4代表返回正常添加页面**/
   state = {
-    step : 1
+    orgin:true,
+    type:1,
+    msg:"",
+    account:""
   }
-  renderWhichPage(){
-    let {step} = this.state
-
-
+  handleSubmit(value){
+    let {actions} = this.props
+    let {account} = value
+    new API().fetchAccountCan(value).then((json)=>{
+      if(json.status && json.type == 1){
+        /*先判断是否为其他公司超级管理员  提示后退出*/
+        message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`,5)
+        return false
+      }
+      /*判断其他情况**/
+      if(json.status){
+        /*为true时需要验证 type 123分别为管理员Hr面试官*/
+        this.setState({
+          orgin:false,
+          type:json.type,
+          msg:json.msg,
+          account:account
+        })
+      }else{
+        this.setState({
+          orgin:false,
+          type:4,
+          account:account
+        })
+      }
+    })
+  }
+  handleRerver(){
+    this.setState({
+      type:4
+    })
+  }
+  renderwhich(type){
+    let {account,msg} = this.state
+    return type == 4 ? <AddMemberStepOrign account={account} /> : <AddMemberStepCode account={account} msg={msg} handleRerver={this.handleRerver.bind(this)}/>
   }
   render(){
-    return this.renderWhichPage()
+    let { orgin , type } = this.state
+    if(orgin){
+      return(
+        <Spin tip="Loading..." spinning={false}>
+          <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
+            <FormItem>
+              <Input label="用户名" name="account" placeholder="请输入手机号码"
+                     rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
+                     />
+            </FormItem>
+  					<p>注：密码将以短信形式发送到成员手机。</p>
+          </BaseForm>
+        </Spin>
+      )
+    }else{
+      return this.renderwhich(type)
+    }
+
   }
 }
+
+
 
 
 
