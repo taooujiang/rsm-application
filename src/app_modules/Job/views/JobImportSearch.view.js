@@ -211,8 +211,9 @@ export default class JobListView extends PageView {
         )
     }
 
-    renderJobUninitList() {
+    renderJobUninitList(arr) {
       let {reduce:{pub_list}} = this.props
+      this.form.setFieldsValue({jobIdList:arr})
         return (
           <List
             className="job-list"
@@ -276,22 +277,19 @@ export default class JobListView extends PageView {
           />
         )
     }
-    renderCheckGroup(arr){
-      return (
-        <FormItem>
-          <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
-            {this.renderJobUninitList()}
-          </Checkbox.Group>
-        </FormItem>
-      )
-    }
     renderSearchList(){
       let {reduce:{loc_list , pub_list}} = this.props
       let arr = pub_list ? pub_list.map(it=>it.channelId) : []
       if(loc_list.length ||  pub_list.length){
         return (
           <div>
-            {this.renderCheckGroup(arr)}
+            <FormItem>
+              <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
+                {this.renderJobUninitList(arr)}
+              </Checkbox.Group>
+            </FormItem>
+
+            
             {this.renderJobList()}
           </div>
         )
@@ -311,6 +309,7 @@ export default class JobListView extends PageView {
                   {this.renderSearchBar()}
                   {this.renderToolbar()}
                 </div>
+
                 <BaseForm onSubmit={this.handleImport.bind(this)} ref={this.saveFormRef}>
                   {!toggleFlag?
                     this.renderSearchList()

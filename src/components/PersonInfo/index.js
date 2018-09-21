@@ -52,7 +52,7 @@ const RadioGroup = Radio.Group
 const MonthPicker = DatePicker.MonthPicker
 
 
-
+/**打印函数start*/
 var CreatedOKLodop7766 = null, CLodopIsLocal;
 
 //====判断是否需要 Web打印服务CLodop:===
@@ -194,6 +194,7 @@ function getLodop(oOBJECT, oEMBED) {
     }
 }
 
+/**打印函数end*/
 
 
 
@@ -1834,7 +1835,7 @@ export class PersonOffer extends Component{
   }
   renderWhich(){
     let {info,resumeId,actions,item,detailType} = this.props
-    if(detailType == 3){
+    if(detailType == 3 || detailType == 10){
       return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>

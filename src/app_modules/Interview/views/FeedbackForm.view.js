@@ -57,14 +57,13 @@ class FeedbackForm extends Component{
     }
     setObjFn(array,value){
       let {interviewer} = this.state
-       let json = array.filter((it,idx)=>{
+       let json = array && array.filter((it,idx)=>{
           return it.interviewerId == value
         })[0]
         //console.log(json,interviewer,json || array[0],value)
-        console.log(array,json)
       this.setState({
         obj: json || array[0] || {},
-        interviewer: interviewer || array[0].interviewerId
+        interviewer: interviewer || ( array[0] ? array[0].interviewerId : "" )
       })
 
     }
