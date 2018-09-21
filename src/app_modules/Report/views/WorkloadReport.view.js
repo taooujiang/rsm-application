@@ -47,6 +47,9 @@ export default class ReportListView extends PageView {
       "/report/reportWorkload/export",
       this.state.exportParams
     );
+    this.setState({
+      defaultDate:this.state.exportParams.time
+    })
   }
 
   handleSubmit(v) {
