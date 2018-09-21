@@ -41,6 +41,8 @@ class EditableCell extends React.Component {
     }
   }
   check = () => {
+    const { isTooltipshow} = this.state;
+    if(isTooltipshow) return
     this.setState({ editable: false });
     if (this.props.onChange) {
       this.props.onChange(this.state.value);
