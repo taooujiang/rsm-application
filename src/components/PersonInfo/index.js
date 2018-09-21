@@ -1836,7 +1836,7 @@ export class PersonOffer extends Component{
   }
   renderWhich(){
     let {info,resumeId,actions,item,detailType} = this.props
-    if(detailType == 3 || detailType == 10 || detailType == 1){
+    if(detailType == 3 ||detailType == 4 || detailType == 10 || detailType == 1){
       return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
@@ -2137,7 +2137,7 @@ export class PersonFeedRecord extends Component{
     /*面试数组数据map容错*/
 		let lists = list ? list : []
     /*detailType为10时为员工  特殊开辟*/
-    return detailType==2 || detailType==3 || detailType==10 ?(
+    return detailType==2 || detailType==3 ||detailType==4 || detailType==10 ?(
       <div className="feedRecord-box">
           <Permission expression={status <= 2 && detailType==2 && !isLock}>
             <Button icon="plus" onClick={this.handleAddFeed.bind(this,item)} className="add-feed">添加面试</Button>
