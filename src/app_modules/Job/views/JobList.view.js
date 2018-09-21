@@ -183,6 +183,7 @@ export default class NewJobListView extends PageView {
 													<SmartLink onClick={this.openTab.bind(this,{
 														title: '候选人管理',
 														key: 'resume/list' ,
+                            refresh:true,
 														src:`/static/js/client/main.html#/resume/list/query/0/${row.jobId}`
 													})}>{val}</SmartLink>
 												)
@@ -204,6 +205,7 @@ export default class NewJobListView extends PageView {
 													<SmartLink onClick={this.openTab.bind(this,{
 														title: '候选人管理',
 														key: 'resume/list' ,
+                            refresh:true,
 														src:`/static/js/client/main.html#/resume/list/query/4/${row.jobId}`
 													})}>{val}</SmartLink>
 												)

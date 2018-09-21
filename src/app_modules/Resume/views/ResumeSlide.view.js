@@ -55,15 +55,19 @@ export default class ResumeSide extends Component{
   }
   handleChangeSelect(value){
     let {actions} = this.props
-    this.setState({
-      val:value
-    },function(){
-      actions.listAction({jobType:value})
-    })
+    console.log(this)
+    // this.setState({
+    //   val:value
+    // },function(){
+    //   actions.listAction({jobType:value})
+    // })
   }
   authTypeFilter(array){
     let {appReducer} = this.props
     return array.filter((it)=>it.authType.some(authType=>authType==appReducer.user.authType))
+  }
+  formRef(form){
+    this.form = form
   }
   render(){
     let {nav} = this.state
@@ -80,7 +84,7 @@ export default class ResumeSide extends Component{
           }/>
         </FormItem>
       </div>
-    } filterSubmitHandler={this.handleFilter.bind(this)} showConfig={true} module="1">
+    } filterSubmitHandler={this.handleFilter.bind(this)} showConfig={true} module="1" formRef={this.formRef}>
       <Input name="name" label="姓名" placeholder="请输入姓名"/>
       <Input name="company" label="就职公司" placeholder="请输入就职公司"/>
       <Input name="currentAddress" label="现工作地" placeholder="请输入现工作地"/>

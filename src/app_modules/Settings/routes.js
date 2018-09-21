@@ -55,7 +55,7 @@ let Routes = (
 		<Route path="userRights" components={userRightsContainer} breadcrumbName="用户权限">
 			<Route path="add" components={accountAddContainer} breadcrumbName="新增用户" />
 			<Route path="handover/:nowAcc" components={handoverContainer} breadcrumbName="管理员交接" />
-			<Route path="edit/:account" components={accountAddContainer} breadcrumbName="编辑用户" />
+			<Route path="edit/:account" components={accountEditContainer} breadcrumbName="编辑用户" />
 		</Route>
 		<Route path="mailbox" components={mailboxContainer} breadcrumbName="邮箱" >
 			<Route path="add" components={mailboxFormContainer} breadcrumbName="添加邮箱" />

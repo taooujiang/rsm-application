@@ -22,7 +22,7 @@ import TalentLabelView from './views/TalentLabel.view'
 import TemplateView from './views/Template.view'
 import TemplateFormView from './views/TemplateForm.view'
 import UserRightView from './views/UserRights.view'
-import UserOptionView from './views/newUser.view'
+import UserOptionView,{AddMemberStepFirst} from './views/newUser.view'
 import UserEditView from './views/editUser.view'
 import HandoverView from './views/handover.view'
 import MailboxView from './views/mailbox.view'
@@ -113,9 +113,13 @@ let accountAddContainer = connect((state,props)=>({
   item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
-}), mapDispatchToProps, null, {pure: false})(UserOptionView)
+}), mapDispatchToProps, null, {pure: false})(AddMemberStepFirst)
 
-let accountEditContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(UserEditView)
+let accountEditContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(UserEditView)
 let handoverContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(HandoverView)
 
 let mailboxContainer = connect((state)=>({

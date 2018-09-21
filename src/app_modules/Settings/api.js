@@ -293,4 +293,22 @@ export default class API extends FetchAPI {
 		})
 	}
 
+	/*新增成员新口子*/
+	fetchAccountCan(params){
+		return this.fetchPost(`${APP_SERVER}/accountOperate/addAccountBeforeValidate`, {
+			body: params
+		})
+	}
+
+	fetchGetMobileCode(params){
+		return this.fetchPost(`${APP_SERVER}/accountOperate/getCode`, {
+			body: params
+		})
+	}
+
+	fetchSubmitCode(params){
+		return this.fetchPost(`${APP_SERVER}/accountOperate/checkAndDisable`, {
+			body: params
+		})
+	}
 }
