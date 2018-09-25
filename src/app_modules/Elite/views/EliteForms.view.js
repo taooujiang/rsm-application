@@ -66,7 +66,9 @@ export class RecommondEliteFormView extends FormPage {
             />
         </FormItem>
         <FormItem>
-          <Select name="interviewers" label="面试官" placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple"/>
+          <Select name="interviewers" label="面试官" placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple"
+              rules={[{required:true,message:"请选择面试官"}]}
+              />
         </FormItem>
         <FormItem>
           <TextArea  name="words"  placeholder="请留言"/>
