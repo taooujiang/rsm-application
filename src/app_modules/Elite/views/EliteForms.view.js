@@ -103,7 +103,7 @@ export class Move2EliteFormView extends FormPage {
 					<Input name="libType" type="hidden" defaultValue={4}  />
 				</FormItem>
 				<FormItem>
-					<Select name="filingReason" label="归档原因" fetch={`${APP_SERVER}/option/optionListJson?optionCode=file_reasons`} renderItem={this.renderReasonOption} />
+					<Select name="filingReason" label="归档原因" fetch={`${APP_SERVER}/option/optionListJson?optionCode=file_reasons`} renderItem={this.renderReasonOption} rules={[{required: true, message: "归档原因不可为空"}]} />
 				</FormItem>
 				<FormItem>
 					<TextArea name="filingRemark" label="归档描述"  />
