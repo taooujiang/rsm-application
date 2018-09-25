@@ -208,6 +208,17 @@ function RootRoutes() {
             )
         },
         {
+          path: "apply",
+          breadcrumbName: "信息登记表",
+          getChildRoutes: (partialNextState, cb) =>
+            dynamicRouter(
+              partialNextState,
+              cb,
+              import("app_modules/ApplyForm"),
+              "applyFormReducer"
+            )
+        },
+        {
           path: "403",
           breadcrumbName: "没有访问权限",
           component: Error403

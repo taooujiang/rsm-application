@@ -30,7 +30,7 @@ var webpackConfig = {
     Member:'./src/app_modules/Member/app',
     Report:'./src/app_modules/Report/app',
     AppWrapper:'./src/app_modules/AppWrapper/app',
-    // ApplyForm:'./src/app_modules/Settings/views/ApplyForm.view',
+    ApplyForm:'./src/app_modules/ApplyForm/app',
     // WeSite:'./src/app_modules/WeSite/index.js',
 	  vendors : [ 'antd', 'isomorphic-fetch', 'react', 'react-dom', 'react-redux', 'react-router', 'redux','redux-thunk','moment']
   },
@@ -198,16 +198,16 @@ var webpackConfig = {
 			showErrors:true,
 			chunks: ['AppWrapper','vendors']
 	}),
-// 	new HtmlPlugin({
-// 		// template: path.join(__dirname, 'default_index.html'),
-// 		filename: 'ApplyForm.html',
-// 		hash: false,
-// 		title: 'ApplyForm',
-// 		hash:true,
-// 		cache:false,
-// 		showErrors:true,
-// 		chunks: ['ApplyForm','vendors']
-// }),
+	new HtmlPlugin({
+		// template: path.join(__dirname, 'default_index.html'),
+		filename: 'ApplyForm.html',
+		hash: false,
+		title: 'ApplyForm',
+		hash:true,
+		cache:false,
+		showErrors:true,
+		chunks: ['ApplyForm','vendors']
+}),
     // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh_cn/),
     // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // new PrerenderSPAPlugin({
