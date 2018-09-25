@@ -244,7 +244,7 @@ class PersonInfoPanelHead extends Component{
             {isFollowRemind ? <Icon type="icon-tubiao" style={{color:"#2fc4a4"}}/> : null }
         </Row>
         <Row gutter={12} className="headInfoBottom">
-          <InfoItem icon="user" text={`${translateDic("sex",info.sex)} · ${info.age}`}/>
+          <InfoItem icon="user" text={`${translateDic("sex",info.sex)}  ${info.age}`}/>
           <InfoItem icon="mobile" text={info.mobilephone} onClick={this.handleCallPhone.bind(this,info.mobilephone,info.id,info.name,detailType)}/>
           <InfoItem icon="mail" text={info.email}/>
           <InfoItem icon="clock-circle" text={info.workYear}/>
