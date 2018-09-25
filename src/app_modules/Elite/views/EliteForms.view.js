@@ -83,10 +83,9 @@ export class Move2EliteFormView extends FormPage {
 
 
 	handleSubmit(values) {
-		const{actions,router}=this.props
-		actions.joinEliteAction(values)
+		const{actions,router,reduce:{params}}=this.props
+		actions.joinEliteAction(values,params)
 		actions.backRoute(router)
-		console.log(values,'values')
 	}
 	renderReasonOption(data,idx){
     return (<Select.Option value={data.optionId} key={idx}>{data.optionName}</Select.Option>)

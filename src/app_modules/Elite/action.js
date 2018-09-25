@@ -193,11 +193,12 @@ export function relate2JobAction(data,router) {
 		})
 	}
 }
-export function joinEliteAction(data,router) {
+export function joinEliteAction(data,params) {
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('tableSpin'))
 		return new API().fetchJoinElite(data).then(json => {
 			dispatch(fetchSuccess('tableSpin'))
+      dispatch(listAction(params))
 		}).catch(ex => {
 			return dispatch(fetchFailure('tableSpin',ex))
 		})
