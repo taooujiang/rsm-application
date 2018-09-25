@@ -22,7 +22,7 @@ export default class Adverse extends PageView {
 	renderToolbar(){
     const{item}=this.props
 		return(
-			<Switch  checked={!!(item.msg_1030)} onChange={this.onChange.bind(this)} />
+			<Switch  checked={!!(Number(item.msg_1030))} onChange={this.onChange.bind(this)} />
 		)
 	}
 	render() {
