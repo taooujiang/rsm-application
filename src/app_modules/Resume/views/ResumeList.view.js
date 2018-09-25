@@ -91,10 +91,22 @@ export default class ResumeListView extends PageView {
       }
     }
   }
+  clearSelectRows(){
+    this.setState({
+      selectedRows: [],
+      selectedRowKeys: []
+    })
+  }
   handleMenu(actionkey){
     let {actions,router} = this.props
     const {selectedRowKeys,selectedRows}=this.state
+    if(actionkey=="eliminateAction"){
+
+      return actions[actionkey](router, selectedRowKeys, selectedRows, 1,this.clearSelectRows.bind(this))
+      
+    }
     actions[actionkey](router,selectedRowKeys,selectedRows,1)
+    
   }
   renderToolbar() {
     return this.selectRowShow(

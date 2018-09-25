@@ -451,10 +451,14 @@ a.read:before{
 	&.eliteRadio{
 		border-bottom: none;
 		>label{
-			border-bottom: none;
+        cursor: unset!important;
+        border-bottom: none;
+        &.ant-radio-button-wrapper:hover{
+          color: unset!important;
+        }
 			&.ant-radio-button-wrapper.ant-radio-button-wrapper-checked{
 				border-bottom:none;
-				box-shadow: none;
+        box-shadow: none;
 			}
 		}
 	}

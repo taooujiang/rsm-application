@@ -270,6 +270,9 @@ export default class EliteListView extends PageView {
       </RadioButton>
     );
   }
+  stopClick(){
+    return false
+  }
   renderTitle() {
     const {
       reduce: { talentCount }
@@ -284,6 +287,7 @@ export default class EliteListView extends PageView {
       >
         <RadioGroup
           className="eliteRadio radioGroupReset"
+          onClick={this.stopClick.bind(this)}
           onChange={this.changes.bind(this)}
           name="type"
           fetch={talentCount}

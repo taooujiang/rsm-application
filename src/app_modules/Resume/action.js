@@ -713,7 +713,7 @@ export function recommendAction(value){
     }
 }
 
-export function eliminateAction(router,ids,rows){
+export function eliminateAction(router,ids,rows,unkownArg,cb){
   let params = {
     ids:ids
   }
@@ -724,6 +724,7 @@ export function eliminateAction(router,ids,rows){
           //console.log(getState().resumeReducer.params),getState().resumeReducer.page)
           if(rows){//以此参数区分列表操作和详情操作
             dispatch(listRealAction(Object.assign(getState().resumeReducer.page,getState().resumeReducer.params)))
+            cb&&cb.call(this)
           }
       }).catch(ex => {
           return dispatch(fetchFailure('formSpin',ex))
