@@ -65,7 +65,7 @@ export default class EliteListView extends PageView {
         router
       } = nextProps;
 
-      actions.listAction({ ...params, libType: type, type: 0 });
+      actions.listAction({ libType: type });
       actions.talentCountAction({ libType: type });
       //表格行选中状态不刷新   暂时重载页面处理
       // window.location.reload();

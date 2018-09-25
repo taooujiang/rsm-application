@@ -30,6 +30,7 @@ class AddMemberStepCode extends FormPage{
     })
   }
   handleSubmit(value){
+    console.log('AddMemberStepCodeAddMemberStepCode')
     let { handleRerver } = this.props
     new API().fetchSubmitCode(value).then((json)=>{
       if(json.status){
@@ -68,14 +69,16 @@ class AddMemberStepOrign extends FormPage{
       return (<Select.Option value={data.roleId} key={idx}>{data.roleName}</Select.Option>)
   }
   handleSubmit(values){
+    console.log('AddMemberStepOrignAddMemberStepOrign')
     let {actions,router,location} = this.props
       actions.saveUserAction(values)
       actions.backRoute(router)
   }
   render(){
+    const { onSubmit, saveFormRef, item, optionCode, optionLabel , messageItem} = this.props;
     return(
       <Spin tip="Loading..." spinning={false}>
-        <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
+        <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         <FormItem>
           <Input name="account" type='hidden' defaultValue={this.props.account}/>
         </FormItem>
@@ -124,7 +127,9 @@ export class AddMemberStepFirst extends FormPage{
   }
   handleSubmit(value){
     let {actions} = this.props
+    let {type} = this.state
     let {account} = value
+    console.log('AddMemberStepFirst')
     new API().fetchAccountCan(value).then((json)=>{
       if(json.status && json.type == 1){
         /*先判断是否为其他公司超级管理员  提示后退出*/
@@ -148,15 +153,94 @@ export class AddMemberStepFirst extends FormPage{
         })
       }
     })
+    if(type == 4){
+      let {actions,router,location} = this.props
+      actions.saveUserAction(value)
+      actions.backRoute(router)
+    }else{
+      new API().fetchSubmitCode(value).then((json)=>{
+        if(json.status){
+          message.success("操作成功")
+          this.handleRerver()
+        }else{
+          message.warning(json.msg)
+        }
+      })
+    }
+  }
+  getCode(){
+    let params = {
+      account : this.props.account,
+      codeType : "2"
+    }
+    new API().fetchGetMobileCode(params).then((json)=>{
+      json.status ? message.success("操作成功") : null
+    })
   }
   handleRerver(){
     this.setState({
       type:4
     })
   }
+  renderRoleOption(data,idx){
+    return (<Select.Option value={data.roleId} key={idx}>{data.roleName}</Select.Option>)
+  }
   renderwhich(type){
+    const { onSubmit, saveFormRef, item, optionCode, optionLabel , messageItem} = this.props;
     let {account,msg} = this.state
-    return type == 4 ? <AddMemberStepOrign account={account} /> : <AddMemberStepCode account={account} msg={msg} handleRerver={this.handleRerver.bind(this)}/>
+    return type == 4 ? (
+      <Spin tip="Loading..." spinning={false}>
+        <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
+        <FormItem>
+          <Input name="account" type='hidden' defaultValue={this.props.account}/>
+        </FormItem>
+          <FormItem>
+            <Input label="姓名" name="acctName" rules={[{required:true,message:"用户名不可为空",whitespace:true},]}/>
+          </FormItem>
+          <FormItem>
+            <Input  name="account" type='hidden'
+                  //  rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
+                   />
+          </FormItem>
+          <FormItem>
+            <Select label="角色" name="roleId"
+                    rules={[{required:true,message:"角色不可为空"}]}
+                    fetch={`${APP_SERVER}/authRole/getRoleInfo`}
+                    renderItem={this.renderRoleOption}
+                    />
+          </FormItem>
+          <FormItem>
+              <TreeSelectPicker
+                label="所属部门"
+                name="dept"
+                fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                placeholder="选择部门"
+                treeDefaultExpandAll
+                rules={[{required:true,message:"所属部门不可为空"}]}
+              />
+          </FormItem>
+					<p>注：密码将以短信形式发送到成员手机。手机号码直接用于帐号登录，不可修改。</p>
+        </BaseForm>
+      </Spin>
+    ) : (
+      <Spin tip="Loading..." spinning={false}>
+        <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
+        <p>该账号为{msg}的HR或面试官</p>
+        <p>手机验证通过后，帐号将加入新公司，原公司帐号禁用</p>
+        <FormItem>
+          <Input name="account" type='hidden' defaultValue={account}/>
+        </FormItem>
+        <FormItem>
+                   <Search label="验证码" name="code"
+                     placeholder="请输入手机验证码"
+                     enterButton="获取验证码"
+                    onSearch={this.getCode.bind(this)}
+                  />
+          </FormItem>
+        </BaseForm>
+      </Spin>
+    )
   }
   render(){
     let { orgin , type } = this.state
@@ -169,7 +253,7 @@ export class AddMemberStepFirst extends FormPage{
                      rules={[{required:true,message:"用户名不可为空"},{validator:customRules.checkMobile}]}
                      />
             </FormItem>
-  					<p>注：密码将以短信形式发送到成员手机。</p>
+  					<p>注：密码将以短信形式发送到成员手机。手机号码直接用于帐号登录，不可修改。</p>
           </BaseForm>
         </Spin>
       )
@@ -237,7 +321,7 @@ export default class UserOptionView extends FormPage{
                 rules={[{required:true,message:"所属部门不可为空"}]}
               />
           </FormItem>
-					<p>注：密码将以短信形式发送到成员手机。</p>
+					<p>注：密码将以短信形式发送到成员手机。手机号码直接用于帐号登录，不可修改。</p>
         </BaseForm>
       </Spin>
     )
