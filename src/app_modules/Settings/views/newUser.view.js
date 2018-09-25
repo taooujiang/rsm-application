@@ -105,7 +105,7 @@ class AddMemberStepOrign extends FormPage{
                 rules={[{required:true,message:"所属部门不可为空"}]}
               />
           </FormItem>
-					<p>注：密码将以短信形式发送到成员手机。</p>
+					<p>注：密码将以短信形式发送到成员手机。手机号码直接用于帐号登录，不可修改。</p>
         </BaseForm>
       </Spin>
     )
