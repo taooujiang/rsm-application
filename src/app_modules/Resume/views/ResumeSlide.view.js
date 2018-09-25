@@ -36,8 +36,12 @@ export default class ResumeSide extends Component{
       val:json.keyValue
     })
   }
+  setResetForm(resetFuc) {
+    this.resetForm = resetFuc;
+  }
   handleFilter(values){
     let {actions} = this.props
+    console.log(values,'ssssssssssssss')
     actions.listAction(values)
   }
   navgation(val){
@@ -55,12 +59,14 @@ export default class ResumeSide extends Component{
   }
   handleChangeSelect(value){
     let {actions} = this.props
+    actions.listAction({jobType:value})
     this.setState({
       val:value
     })
     this.jobListField.setState({
       value:""
     })
+    this.resetForm()
   }
   authTypeFilter(array){
     let {appReducer} = this.props
@@ -73,7 +79,7 @@ export default class ResumeSide extends Component{
     let {nav} = this.state
     let {params} = this.props
     //console.log("val",this.state.val)
-    return (<AdvancedSearchPanel titleSearch={
+    return (<AdvancedSearchPanel setResetForm = {this.setResetForm.bind(this)} titleSearch={
       <div>
         <FormItem>
           <Select name="jobType" onChange={this.handleChangeSelect.bind(this)} defaultValue={this.state.val}  fetch={this.authTypeFilter(nav)} renderItem={this.renderSelectOption} />

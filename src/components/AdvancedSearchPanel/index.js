@@ -125,7 +125,8 @@ export default class AdvancedSearchPanel extends Component{
     let {module,showConfig}=this.props
 		if(showConfig){
 			this._fetchData(module)
-		}
+    }
+    this.props.setResetForm&&this.props.setResetForm(this.handleRest.bind(this))
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.module!=this.props.module){
