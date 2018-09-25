@@ -136,7 +136,7 @@ class ResumeDetail extends Component{
 
   render (){
     let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
-    let {name,libType,filingReason} = item
+    let {name,libType,filingReason,authorization} = item
     let detailType = this.translateLib(libType)
     return (
       <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
@@ -148,10 +148,10 @@ class ResumeDetail extends Component{
                   <PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} detailType={detailType}/>
                 </TabPane>
                 <TabPane tab="面试" key="2">
-                  <PersonFeedRecord detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} item={item}/>
+                  <PersonFeedRecord authorization={authorization} detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} item={item}/>
                 </TabPane>
                 <TabPane tab="offer" key="3">
-                  <PersonOffer actions={actions} resumeId={resumeId} detailType={detailType} info={offer} item={item}/>
+                  <PersonOffer authorization={authorization} actions={actions} resumeId={resumeId} detailType={detailType} info={offer} item={item}/>
                 </TabPane>
                 <TabPane tab="备注" key="4">
                   <PersonRemarks actions={actions} resumeId={resumeId} info={remarks} item={item}/>
