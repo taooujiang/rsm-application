@@ -60,19 +60,19 @@ export default class MemberDetail extends Detail {
                     <PersonFeedRecord actions={actions} detailType={10} resumeId={resumeId} info={feedInfo} item={item}/>
                   </TabPane>
                   <TabPane tab="offer记录" key="3">
-                    <PersonOffer actions={actions} resumeId={resumeId} detailType={10} info={offer} item={item}  />
+                    <PersonOffer actions={actions} detailType={10} resumeId={resumeId} detailType={10} info={offer} item={item}  />
                   </TabPane>
                   <TabPane tab="备注记录" key="4">
-                    <PersonRemarks actions={actions} resumeId={resumeId} info={remarks} item={item} />
+                    <PersonRemarks actions={actions} detailType={10} resumeId={resumeId} info={remarks} item={item} />
                   </TabPane>
                   <TabPane tab="附加信息" key="5">
-                    <ExtraInformation actions={actions} resumeId={resumeId} info={information} item={item} />
+                    <ExtraInformation actions={actions} detailType={10} resumeId={resumeId} info={information} item={item} />
                   </TabPane>
                   <TabPane tab="操作记录" key="6">
-                    <PersonOptionRecord actions={actions} resumeId={resumeId} info={options || []} />
+                    <PersonOptionRecord actions={actions} detailType={10} resumeId={resumeId} info={options || []} />
                   </TabPane>
                   <TabPane tab="沟通记录" key="7">
-                    <PersonCommunitcate actions={actions} resumeId={resumeId} info={commitcate || []} />
+                    <PersonCommunitcate actions={actions} detailType={10} resumeId={resumeId} info={commitcate || []} />
                   </TabPane>
                 </Tabs>
                 :

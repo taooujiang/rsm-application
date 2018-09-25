@@ -1970,10 +1970,13 @@ export class PersonRemarks extends FormPage{
     });
   }
   render(){
-    let {resumeId,info,item:{jobId,name}} = this.props
+    let {resumeId,info,item:{jobId,name},detailType} = this.props
     return (
       <div className="PersonRemarksBox">
-          <BaseForm ref={this.saveFormRef} layout="vertical">
+          {detailType==10
+            ?null//员工界面无操作
+            :
+            <BaseForm ref={this.saveFormRef} layout="vertical">
             <div className="remarks_text">
               <FormItem>
                 <Input type="hidden" name="jobId" defaultValue={jobId}/>
@@ -1989,7 +1992,7 @@ export class PersonRemarks extends FormPage{
               </FormItem>
               <Button className="button_save" type="primary" onClick={this.handleSubmit.bind(this)}>保存</Button>
             </div>
-          </BaseForm>
+          </BaseForm>}
           <div className="remarks_list">
             <List
               itemLayout="horizontal"
@@ -2134,7 +2137,6 @@ export class PersonFeedRecord extends Component{
   render(){
     let {info:{list},actions,router,detailType,item,authorization} = this.props
     let {status,isLock} = item
-    console.log(authorization,'authorizationauthorization')
     /*面试数组数据map容错*/
 		let lists = list ? list : []
     /*detailType为10时为员工  特殊开辟*/
@@ -2280,20 +2282,22 @@ export class ExtraInformation extends Component{
     }
   }
   renderUploadList(){
-    const {actions,resumeId,info}=this.props
+    const {actions,resumeId,info,detailType}=this.props
     // let data=[{fileName:"abc.jpg",url:"http://www.baidu.com",type:"jpg"},{fileName:"信息登记表",url:"http://www.baidu.com",type:"rar"}]
     return (
       <List
       header={<div>信息登记表</div>}
 
-      footer={<FileUpload accept="image/*" beforeUpload={this.beforeUpload}  text="上传信息登记表" action={`/fileUpload/file/uploadResumeAttr?resumeId=${resumeId}&s=`} uploadType="1" onChange={()=>{}} onSuccess={()=>{
+      footer={detailType==10?null//员工无操作
+        :<FileUpload accept="image/*" beforeUpload={this.beforeUpload}  text="上传信息登记表" action={`/fileUpload/file/uploadResumeAttr?resumeId=${resumeId}&s=`} uploadType="1" onChange={()=>{}} onSuccess={()=>{
         actions.fetchAdditionInfoAction({"resumeId":resumeId,time:timestamp()})
       }}>
         <Button>上传信息登记表</Button>
         </FileUpload>}
       dataSource={info.files}
       renderItem={item => (<List.Item
-        actions={[<Popconfirm onConfirm={this.handlerAdditionDelete.bind(this,item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
+        actions={detailType==10?null//员工无操作
+        :[<Popconfirm onConfirm={this.handlerAdditionDelete.bind(this,item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
           <Icon type="delete"  />
         </Popconfirm>]}
         ><span onClick={this.handleImg.bind(this,item.fileUrl)} style={{cursor:"pointer"}}>{item.name}</span></List.Item>)}
@@ -2345,7 +2349,7 @@ export class ExtraInformation extends Component{
     global.invokeMethod('ShowPublicUrl',link)
   }
   renderLinksList(){
-    const {info}= this.props
+    const {info,detailType}= this.props
     const {editid,newItem} = this.state
     // let data=[{id:"abc",personalLink:"http://www.baidu.com"},{id:"abcc",personalLink:"http://www.baidu.com"}]
     return (
@@ -2353,12 +2357,15 @@ export class ExtraInformation extends Component{
       header={<div>个人链接</div>}
       dataSource={newItem?[].concat(info.links).concat(newItem):info.links}
       // dataSource={data}
-      footer={
-        <Button icons="add" onClick={this.handleAdd.bind(this)}>添加个人链接</Button>
+      footer={detailType==10?null//员工无操作
+        :<Button icons="add" onClick={this.handleAdd.bind(this)}>添加个人链接</Button>
       }
       renderItem={item => (<List.Item actions={ editid!=item.id ? [
+        detailType==10?null//员工无操作
+        :
         <Icon onClick={this.handlerEdit.bind(this,item.id)} type="edit" />,
-          <Popconfirm onConfirm={this.handlerDelete.bind(this,item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
+        detailType==10?null//员工无操作
+        :<Popconfirm onConfirm={this.handlerDelete.bind(this,item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
             <Icon type="delete"  />
           </Popconfirm>
         ]:[<Icon onClick={this.handlerSave.bind(this,item.id,item.personalLink)} type="save" />]}>
