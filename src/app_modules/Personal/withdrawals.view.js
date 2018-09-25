@@ -21,7 +21,7 @@ import {
 import {FormPage} from 'components/Page'
 import ModalView from 'components/Modal.view'
 import WrapperComponent from '../../decorators/WrapperComponent'
-import BaseForm,{FormItem} from 'components/BaseForm'
+import BaseForm,{FormItem, customRules} from 'components/BaseForm'
 
 const Option = Select.Option
 const {TextArea} = Input
@@ -32,7 +32,8 @@ class WithdrawalsForm extends Component{
     const {
       handleSubmit,
       saveFormRef,
-      account
+      account,
+      moneyClear
     } = this.props
     const formFullItemLayout = {
       labelCol: {
@@ -48,7 +49,7 @@ class WithdrawalsForm extends Component{
           <Input type="hidden" name="account" defaultValue={account}/>
         </FormItem>
         <FormItem {...formFullItemLayout}>
-          <Input label="金额" name="money" rules={[{required:true,message:"金额不可为空"}]}/>
+          <Input label="金额" name="money" rules={[{required:true,message:"金额不可为空"},{validator:customRules.checkWithdrawalsMoney,moneyClear:moneyClear}]}/>
         </FormItem>
         <FormItem {...formFullItemLayout}>
           <Input label="支付宝号" name="alipayAcct" rules={[{required:true,message:"支付宝号不可为空"}]}/>
@@ -73,11 +74,12 @@ class WithdrawalsFormView extends FormPage{
     actions.backRoute(router)
   }
   render() {
-    let {params,appConfig:{user:{account}}, reduce:{spins:{formSpin},accountInfo}} = this.props
+    let {params,appConfig:{user:{account}}, reduce:{spins:{formSpin},accountInfo,item:{moneyClear}}} = this.props
     //	let model=preduce.list[0]
+    // console.log(moneyClear)
     return (
       <Spin tip="Loading..." spinning={false}>
-        <WithdrawalsForm handleSubmit={this.handleSubmit} params={params}  saveFormRef={this.saveFormRef} account={account}>
+        <WithdrawalsForm handleSubmit={this.handleSubmit} params={params}  saveFormRef={this.saveFormRef} account={account} moneyClear={moneyClear}>
             <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)}>确认</Button>
             <Button>取消</Button>
         </WithdrawalsForm>

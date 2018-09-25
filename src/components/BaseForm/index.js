@@ -417,18 +417,27 @@ let customRules={
       }
       callback()
     },
-   checkFetch:(rule,value, callback) =>{
-     //fetch(url).then()
-     alert("还没有实现")
-	 },
-	 orgCompare:(rule,value, callback) =>{
-		//fetch(url).then()
-		if(rule.unAvailableIdArr.indexOf(value)>-1){
-			callback("不可选择当前部门及子部门")
-		}else{
-			callback()
-		}
+    checkFetch:(rule,value, callback) =>{
+      //fetch(url).then()
+      alert("还没有实现")
+    },
+    orgCompare:(rule,value, callback) =>{
+      //fetch(url).then()
+      if(rule.unAvailableIdArr.indexOf(value)>-1){
+        callback("不可选择当前部门及子部门")
+      }else{
+        callback()
+      }
 
-	}
+    },
+    checkWithdrawalsMoney:(rule,value, callback) =>{
+      //fetch(url).then()
+      console.log(rule,value)
+      if(rule.moneyClear < parseFloat(value)){
+        callback("可提现金额不足！")
+      }else{
+        callback()
+      }
+    }
 }
 export {AdvancedForm,FormItem,AutoSubmitForm,customRules}
