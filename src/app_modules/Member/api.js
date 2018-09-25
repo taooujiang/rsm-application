@@ -68,8 +68,11 @@ export default class MemberAPI extends FetchAPI {
     })
   }
 
+  // fetchExport(url,params){
+  //     return this.fetchPostDownload(url, {body: params})
+  // }
   fetchExport(url,params){
-      return this.fetchPostDownload(url, {body: params})
+    return this.fetchMemberDownload(url, {body: params})
   }
 
   fetchUploadCommit(params){

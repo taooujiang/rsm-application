@@ -153,6 +153,17 @@ export default class FetchAPI {
       window.URL.revokeObjectURL(url);
     }))
   }
+  fetchMemberDownload(url,params){
+    return  this.fetchPost(url,params).then(res => res.blob().then(blob=>{
+      var a = document.createElement('a');
+      var url = window.URL.createObjectURL(blob);   // 获取 blob 本地文件连接 (blob 为纯二进制对象，不能够直接保存到磁盘上)
+      var filename = res.headers.get('Content-Disposition');
+      a.href = url;
+      a.download = decodeURI(filename.replace("attachment;filename=",""));
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }))
+  }
   fetchCatch(err) {
   //  message.error(err.response.url+"|"+err.response.statusText+"|"+err.response.status,5,null,true)
     console.warn("fetchCatch:"+JSON.stringify(err.response))
