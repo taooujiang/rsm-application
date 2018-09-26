@@ -52,7 +52,8 @@ export default class DistributedView extends PageView {
       let {actions} = this.props
       if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
         if(nextProps.location.state && nextProps.location.state.key=="reload"){
-          actions.distrAction(nextProps.reduce.params).then(()=>{
+          actions.distrAction(nextProps.reduce.params)
+          .then(()=>{
             this.setState({
               selectedRows: [],
               selectedRowKeys: []
@@ -95,7 +96,7 @@ export default class DistributedView extends PageView {
                 <Button icon="plus" actionkey="talentAction">放入人才库</Button>
               </ButtonGroups>
         )
-		}
+    }
 		openTab(pane){
 			parent.addTab&&parent.addTab(pane)
 		}
@@ -105,7 +106,8 @@ export default class DistributedView extends PageView {
         let {reduce,items} = this.props
         let {spins:{tableSpin},key,page} = reduce
         let rowSelection={
-          onChange:this.onSelectChange.bind(this)
+          onChange:this.onSelectChange.bind(this),
+          selectedRowKeys:this.state.selectedRowKeys,
         }
         console.log(page)
         // alert("111")
