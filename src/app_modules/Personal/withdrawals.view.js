@@ -49,7 +49,7 @@ class WithdrawalsForm extends Component{
           <Input type="hidden" name="account" defaultValue={account}/>
         </FormItem>
         <FormItem {...formFullItemLayout}>
-          <Input label="金额" name="money" rules={[{required:true,message:"金额不可为空"},{validator:customRules.checkWithdrawalsMoney,moneyClear:moneyClear}]}/>
+          <Input label="金额" name="money" rules={[{required:true,message:"金额不可为空"},{validator:customRules.checkMoney},{validator:customRules.checkWithdrawalsMoney,moneyClear:moneyClear}]}/>
         </FormItem>
         <FormItem {...formFullItemLayout}>
           <Input label="支付宝号" name="alipayAcct" rules={[{required:true,message:"支付宝号不可为空"}]}/>

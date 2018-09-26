@@ -430,6 +430,14 @@ let customRules={
       }
 
     },
+    checkMoney:(rule,value, callback) => {
+      var rexp = /(^[1-9](\d+)?(\.\d{1,2})?$)|(^0$)|(^\d\.\d{1,2}$)/
+      if(!rexp.test(value)){
+        callback('请输入正确的金额格式！')
+      }else {
+        callback()
+      }
+    },
     checkWithdrawalsMoney:(rule,value, callback) =>{
       //fetch(url).then()
       console.log(rule,value)
