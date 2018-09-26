@@ -59,7 +59,7 @@ export default class ResumeSide extends Component{
   }
   handleChangeSelect(value){
     let {actions} = this.props
-    actions.listAction({jobType:value})
+    actions.listAction({jobType:value,shouldFieldsClear:true})
     this.setState({
       val:value
     })
