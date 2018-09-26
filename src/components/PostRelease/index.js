@@ -111,7 +111,7 @@ class BaseInfoEdit extends FormPage{
     // console.log(value,option)
     // if(changedValues.companyId){
     //   // console.log(changedValues)
-      this.form.setFieldsValue({companyAddress:option.props.children})
+      this.form.setFieldsValue({addressAll:option.props.children})
     // }
   }
   handleEditAddress(){
@@ -188,7 +188,7 @@ class BaseInfoEdit extends FormPage{
           </Col>
           <Col span={24}>
             <FormItem>
-               <Input label="工作地点" name="companyAddress" disabled defaultValue={item.addressAll} addonAfter={<Icon type="edit"  onClick={this.handleEditAddress.bind(this)} />} />
+               <Input label="工作地点" name="addressAll" disabled defaultValue={item.addressAll} addonAfter={<Icon type="edit"  onClick={this.handleEditAddress.bind(this)} />} />
             </FormItem>
           </Col>
           {

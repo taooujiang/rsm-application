@@ -232,6 +232,10 @@ class PersonInfoPanelHead extends Component{
     let {info,detailType,filingReason} = this.props
     let {isLock , havaSame,isFollowRemind} = info
     //console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
+    let userInfoText = ""
+    if(translateDic("sex",info.sex)&&info.age) userInfoText = `${translateDic("sex",info.sex)} · ${info.age}`
+    if(translateDic("sex",info.sex)&&!info.age) userInfoText = `${translateDic("sex",info.sex)}`
+    if(!translateDic("sex",info.sex)&&info.age) userInfoText = `${info.age}`
     return (
       <div className="person-info-head">
         <Button className="delete-btn" style={permissionStyle("deleteResume")} onClick={this.handleDelete.bind(this,info)}><Icon type="delete" /></Button>
@@ -244,7 +248,7 @@ class PersonInfoPanelHead extends Component{
             {isFollowRemind ? <Icon type="icon-tubiao" style={{color:"#2fc4a4"}}/> : null }
         </Row>
         <Row gutter={12} className="headInfoBottom">
-          <InfoItem icon="user" text={`${translateDic("sex",info.sex)}  ${info.age}`}/>
+          <InfoItem icon="user" text={userInfoText}/>
           <InfoItem icon="mobile" text={info.mobilephone} onClick={this.handleCallPhone.bind(this,info.mobilephone,info.id,info.name,detailType)}/>
           <InfoItem icon="mail" text={info.email}/>
           <InfoItem icon="clock-circle" text={info.workYear}/>
