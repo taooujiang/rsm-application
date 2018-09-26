@@ -70,6 +70,14 @@ actions[saveList]= (state,action)=>{
 }
 
 actions[saveParams] = ( state , action)=>{
+  let {shouldPageClear,total,showSizeChanger,pageSizeOptions,pageSize,current,...json} = action.payload
+  let {timeType} = state.params
+  if(shouldPageClear){
+    return {
+      ...state,
+      params:Object.assign({},{...json,timeType})
+    }
+  }
   return {
     ...state,
     params:Object.assign({},state.params,action.payload)

@@ -51,8 +51,9 @@ export default class EliteSide extends Component{
   }
   handleFilter(values){
     console.log(values)
-		let {actions,reduce:{params},routeParams} = this.props
-    actions.listAction({...params,...values})
+    let {actions,reduce:{params},routeParams} = this.props
+    console.log({...params,...values},'{...params,...values}')
+    actions.listAction({...values})
 		actions.talentCountAction({ libType: routeParams.type })
   }
   navgation(val){

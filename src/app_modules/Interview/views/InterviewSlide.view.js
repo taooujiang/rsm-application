@@ -21,6 +21,7 @@ import LinkagePullDown from 'app/components/LinkagePullDown'
 export default class IntverviewSide extends Component{
   handleFilter(values){
     const {actions} = this.props
+    values.shouldPageClear=true
     actions.listAction(values)
   }
   renderSelectOption(data,idx){
