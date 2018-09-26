@@ -167,7 +167,7 @@ export default class SyncChannel extends FormPage {
     render() {
         let {appConfig:{channels}} = this.props
         //console.log("outside",channels)
-        console.log(this.props)
+        console.log("syncChannel",this.props)
         return (
             <Spin tip="Loading..." spinning={false}>
                 <AddForm handleSubmit={this.onSubmit}  saveFormRef={this.saveFormRef} channels={channels}>
