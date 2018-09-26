@@ -170,7 +170,7 @@ export class AddMemberStepFirst extends FormPage{
   }
   getCode(){
     let params = {
-      account : this.props.account,
+      account : this.state.account,
       codeType : "2"
     }
     new API().fetchGetMobileCode(params).then((json)=>{

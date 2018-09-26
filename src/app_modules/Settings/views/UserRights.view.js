@@ -127,7 +127,12 @@ export default class UserRightView extends PageView {
                             <ButtonGroups showSize="5" handleClick={this.handlerMenu.bind(this,row)}>
                                 <Button icon="edit" actionkey="jumpToEditAction" tooltext="编辑"/>
                                 <Button icon="swap" actionkey="jumpTohandoverAction" tooltext="交接"/>
-																{row.account==account?null:([<Button icon="lock" actionkey="disabledAction" tooltext="禁用" confirm="已禁用帐号将无法登录系统。是否确定禁用该帐号吗？"/>,
+																{row.account==account?null:([
+                                row.isEnable
+                                ?
+                                <Button icon="lock" actionkey="disabledAction" tooltext="禁用" confirm="已禁用帐号将无法登录系统。是否确定禁用该帐号？"/>
+                                :
+                                <Button icon="unlock" actionkey="enableAction" tooltext="启用" confirm="是否确定启用该帐号？"/>,
                                 <Button icon="reload" actionkey="reloadAction" tooltext="重置" confirm="重置的密码将以短信形式发送到成员手机。确定重置登录密码？"/>])}
 
                             </ButtonGroups>

@@ -225,6 +225,12 @@ class MultiTab extends Component {
   };
 
   onChange = activeKey => {
+    const panes = this.state.panes;
+    if (activeKey == 'dashboard') {
+      document.body
+        .querySelector(`iframe[name='${activeKey}']`)
+        .contentWindow.location.reload();
+    }
     this.setState({ activeKey });
   };
 
@@ -273,6 +279,11 @@ class MultiTab extends Component {
     const panes = this.state.panes.filter(pane => pane.key !== targetKey);
     if (lastIndex >= 0 && activeKey === targetKey) {
       activeKey = panes[lastIndex].key;
+    }
+    if (activeKey == 'dashboard') {
+      document.body
+        .querySelector(`iframe[name='${activeKey}']`)
+        .contentWindow.location.reload();
     }
     this.setState({ panes, activeKey });
   };

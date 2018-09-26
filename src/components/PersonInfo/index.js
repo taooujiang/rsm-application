@@ -740,21 +740,21 @@ export class PersonTabBaseInfo extends Component{
           { salaryEdit ?
             <PersonSalaryEdit actions={actions} id={id} info={resumeInfo} channelResumeId={channelResumeId} editChangeFn={this.changeFlag.bind(this,"salaryEdit",false)}/>
             :
-            <PersonSalaryShow info={resumeInfo} editChangeFn={this.changeFlag.bind(this,"salaryEdit",true)}/>
+            <PersonSalaryShow detailType={detailType} info={resumeInfo} editChangeFn={this.changeFlag.bind(this,"salaryEdit",true)}/>
           }
           {/*求职意向判断是否编辑状态*/}
           <div className="otherInfo">
           { objEdit ?
             <PersonObjectiveEdit actions={actions} info={objectives} channelResumeId={channelResumeId} editChangeFn={this.changeFlag.bind(this,"objEdit",false)}/>
             :
-            <PersonObjectiveShow info={objectives} editChangeFn={this.changeFlag.bind(this,"objEdit",true)}/>
+            <PersonObjectiveShow detailType={detailType} info={objectives} editChangeFn={this.changeFlag.bind(this,"objEdit",true)}/>
           }
-            <PersonJobsProShow info={jobs} type="job" channelResumeId={channelResumeId} actions={actions} />
-            <PersonJobsProShow info={projects} type="pro" channelResumeId={channelResumeId} actions={actions} />
-            <PersonEducationShow info={educations} channelResumeId={channelResumeId} actions={actions} />
-            <PersonLanguageShow info={languages} channelResumeId={channelResumeId} actions={actions} />
-            <PersonCredentialShow info={credentials} channelResumeId={channelResumeId} actions={actions} />
-            <PersonTraningShow info={trainings}  channelResumeId={channelResumeId} actions={actions} />
+            <PersonJobsProShow detailType={detailType} info={jobs} type="job" channelResumeId={channelResumeId} actions={actions} />
+            <PersonJobsProShow detailType={detailType} info={projects} type="pro" channelResumeId={channelResumeId} actions={actions} />
+            <PersonEducationShow detailType={detailType} info={educations} channelResumeId={channelResumeId} actions={actions} />
+            <PersonLanguageShow detailType={detailType} info={languages} channelResumeId={channelResumeId} actions={actions} />
+            <PersonCredentialShow detailType={detailType} info={credentials} channelResumeId={channelResumeId} actions={actions} />
+            <PersonTraningShow detailType={detailType} info={trainings}  channelResumeId={channelResumeId} actions={actions} />
           </div>
         </div>
       )
@@ -815,7 +815,7 @@ class PersonBaseInfoShowHead extends Component{
     let {info,id,detailType} = this.props
     return(
       <div className="personinfo-detailHead">
-        <Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>
+        {detailType==10?null:<Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>}
         <img src={info.photoUrl} className="person-headicon"/>
         <div className="personinfo-headInfo">
             <h2>{info.name}</h2>
@@ -941,10 +941,10 @@ class PersonBaseInfoEditHead extends FormPage{
 /*目前收入组件*/
 class PersonSalaryShow extends Component{
   render(){
-    let {info} = this.props
+    let {info,detailType} = this.props
     return(
       <div className="salary-info">
-        <Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>
+        {detailType==10?null:<Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>}
         <h3>目前收入<span>{info.annualSalary}(包含基本工资、补贴，奖金，股权收益)</span></h3>
         <BaseInfoItem label="基本工资" info={info.basicSalary} show/>
         <BaseInfoItem label="补贴" info={info.subsidy} show/>
@@ -1015,10 +1015,10 @@ class PersonObjectiveShow extends Component{
     return lower && upper ? `${lower} - ${upper}` : "面议"
   }
   render(){
-    let {info} = this.props
+    let {info,detailType} = this.props
     return(
       <div className="objective-info">
-        <Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>
+        {detailType==10?null:<Button className="part-editBtn" onClick={this.props.editChangeFn}>编辑</Button>}
         <h3>求职意向</h3>
         <BaseInfoItem label="期望薪资" info={this.translateSalary(info.expectedSalaryLower,info.expectedSalaryUpper)}/>
         <BaseInfoItem label="工作地点" info={this.renderArrayData(info.expectedAddress)}/>
@@ -1135,13 +1135,13 @@ class PersonJobsProShow extends Component{
     }
   }
   render(){
-    let {info,type,channelResumeId,actions} = this.props
+    let {info,type,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        <h3>{type == "job" ? "工作经验" : "项目经验"}<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>
+        <h3>{type == "job" ? "工作经验" : "项目经验"}{detailType==10?null:<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button>}</h3>
         {/*content*/}
         {info.map((it,idx)=>{
-          return type == "job" ? <PersonJobsItem item={it} channelResumeId={channelResumeId} actions={actions}/> : <PersonProjectsItem item={it} channelResumeId={channelResumeId} actions={actions}/>
+          return type == "job" ? <PersonJobsItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/> : <PersonProjectsItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
         {/*addbox*/}
         { this.renderAddForm() }
@@ -1166,7 +1166,7 @@ class PersonJobsItem extends ItemChangeCommon{
     ]).join(" | ")
   }
   renderShow(){
-    let {item} = this.props
+    let {item,detailType} = this.props
     return(
       <div style={{marginBottom:20}}>
         <h4>
@@ -1174,7 +1174,7 @@ class PersonJobsItem extends ItemChangeCommon{
           <span>{item.company}</span>
           <span>{item.jobTitle}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+          {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         {this.renderJobsBaseInfo()}
         <BaseInfoItem label="工作内容" info={item.jobContent}/>
@@ -1267,7 +1267,7 @@ class PersonProjectsItem extends ItemChangeCommon{
     editFlag : false
   }
   renderShow(){
-    let {item} = this.props
+    let {item,detailType} = this.props
     return (
       <div style={{marginBottom:20}}>
         <h4>
@@ -1275,7 +1275,7 @@ class PersonProjectsItem extends ItemChangeCommon{
           <span>{item.company}</span>
           <span>{item.title}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+          {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         <BaseInfoItem label="项目描述" info={item.description}/>
         <BaseInfoItem label="主要负责" info={item.duty}/>
@@ -1355,12 +1355,12 @@ class PersonEducationShow extends Component{
     })
   }
   render(){
-    let {info,channelResumeId,actions} = this.props
+    let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        <h3>教育经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>
+        {detailType==10?null:<h3>教育经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
         {info.map((it,idx)=>{
-          return  <PersonEducationItem {...this.props} item={it} actions={actions} channelResumeId={channelResumeId}/>
+          return  <PersonEducationItem  {...this.props} item={it} actions={actions} channelResumeId={channelResumeId}/>
         })}
 
         {this.state.add ?
@@ -1386,7 +1386,7 @@ class PersonEducationItem extends ItemChangeCommon{
     ]).join(" | ")
   }
   renderShow(){
-    let {item} = this.props
+    let {item,detailType} = this.props
     //console.log(item)
     return(
       <div>
@@ -1394,7 +1394,7 @@ class PersonEducationItem extends ItemChangeCommon{
           <span>{`${translateTime(item.duringStart)}-${translateTime(item.duringEnd)}`}</span>
           <span>{item.school}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+         {detailType==10?null: <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         {this.renderEduInfo()}
       </div>
@@ -1473,12 +1473,12 @@ class PersonLanguageShow extends Component{
     })
   }
   render(){
-    let {info,channelResumeId,actions} = this.props
+    let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        <h3>技能/语言<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>
+        {detailType==10?null:<h3>技能/语言<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
         {info.map((it,idx)=>{
-          return  <PersonLanguageItem item={it} channelResumeId={channelResumeId} actions={actions}/>
+          return  <PersonLanguageItem detailType = {detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
 
         { this.state.add ?
@@ -1496,7 +1496,7 @@ class PersonLanguageItem extends ItemChangeCommon{
     editFlag:false
   }
   renderShow(){
-    let {item } = this.props
+    let {item ,detailType} = this.props
     let write = item.writing ? translateDic("degree",item.writing) : ""
     let speak = item.speaking ? translateDic("degree",item.speaking) : ""
     return (
@@ -1505,7 +1505,7 @@ class PersonLanguageItem extends ItemChangeCommon{
           <span>{ item.skill }</span>
           <span>{translateDic("degree",item.level)}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+          {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         <h4>
           <span>{ item.language }</span>
@@ -1595,12 +1595,12 @@ class PersonCredentialShow extends Component{
     })
   }
   render(){
-    let {info,channelResumeId,actions} = this.props
+    let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        <h3>证书<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>
+        {detailType==10?null:<h3>证书<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
         {info.map((it,idx)=>{
-          return  <PersonCredentialItem item={it} channelResumeId={channelResumeId} actions={actions}/>
+          return  <PersonCredentialItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
 
         { this.state.add ?
@@ -1618,7 +1618,7 @@ class PersonCredentialItem extends ItemChangeCommon{
     editFlag:false
   }
   renderShow(){
-    let {item} = this.props
+    let {item,detailType} = this.props
     return(
       <div>
         <h4>
@@ -1626,7 +1626,7 @@ class PersonCredentialItem extends ItemChangeCommon{
           <span>{item.title}</span>
           <span>{item.score}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+          {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
       </div>
     )
@@ -1698,12 +1698,12 @@ class PersonTraningShow extends Component{
     })
   }
   render(){
-    let {info,channelResumeId,actions} = this.props
+    let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        <h3>培训经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>
+        {detailType==10?null:<h3>培训经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
         {info.map((it,idx)=>{
-          return  <PersonTraningItem item={it} channelResumeId={channelResumeId} actions={actions}/>
+          return  <PersonTraningItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
         {this.state.add ?
           <PersonTraningEditItem channelResumeId={channelResumeId} actions={actions} editChangeFn={this.handleCancle.bind(this)}/>
@@ -1726,7 +1726,7 @@ class PersonTraningItem extends ItemChangeCommon{
     ]).join(" | ")
   }
   renderShow(){
-    let {item} = this.props
+    let {item,detailType} = this.props
     return(
       <div>
         <h4>
@@ -1734,7 +1734,7 @@ class PersonTraningItem extends ItemChangeCommon{
           <span>{item.trainingAgency}</span>
           <span>{item.trainingCourse}</span>
 
-          <Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>
+          {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         {this.renderTraningInfo()}
       </div>

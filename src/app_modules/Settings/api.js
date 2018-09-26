@@ -169,6 +169,10 @@ export default class API extends FetchAPI {
 
 	fetchDisabledAcc(params) {
 		return this.fetchPost(`${APP_SERVER}/accountOperate/forbidden`, { body: params })
+  }
+  
+  fetchEnableAcc(params) {
+		return this.fetchPost(`${APP_SERVER}/accountOperate/enabled`, { body: params })
 	}
 
 	fetchReloadAcc(params) {
