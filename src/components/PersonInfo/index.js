@@ -1442,7 +1442,7 @@ class PersonEducationEditItem extends FormPage{
             <Input label="专业名称"  name='major' defaultValue={item.major} rules={[{required: true, message: "专业名称不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
           <FormItemWrapparCol span={12}>
-            <Select label="学历/学位" name="degree" defaultValue={toStrings(item.degree)} fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} rules={[{required: true, message: "学历/学位不可为空"},{validator:customRules.required}]}/>
+            <Select label="学历/学位" name="degree" changeCalendarContainer containerToProp={document.body} defaultValue={toStrings(item.degree)} fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} rules={[{required: true, message: "学历/学位不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
 
           <Button.Group>
@@ -2311,7 +2311,7 @@ export class ExtraInformation extends Component{
       header={<div>信息登记表</div>}
 
       footer={detailType==10?null//员工无操作
-        :<FileUpload accept="image/*" beforeUpload={this.beforeUpload}  text="上传信息登记表" action={`/fileUpload/file/uploadResumeAttr?resumeId=${resumeId}&s=`} uploadType="1" onChange={()=>{}} onSuccess={()=>{
+        :<FileUpload accept="image/jpg, image/png, image/jpeg" beforeUpload={this.beforeUpload}  text="上传信息登记表" action={`/fileUpload/file/uploadResumeAttr?resumeId=${resumeId}&s=`} uploadType="1" onChange={()=>{}} onSuccess={()=>{
         actions.fetchAdditionInfoAction({"resumeId":resumeId,time:timestamp()})
       }}>
         <Button>上传信息登记表</Button>
