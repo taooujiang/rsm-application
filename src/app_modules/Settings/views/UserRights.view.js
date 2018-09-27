@@ -126,7 +126,7 @@ export default class UserRightView extends PageView {
                         return (
                             <ButtonGroups showSize="5" handleClick={this.handlerMenu.bind(this,row)}>
                                 <Button icon="edit" disabled={!row.isEnable}  actionkey="jumpToEditAction" tooltext="编辑"/>
-                                <Button icon="swap" actionkey="jumpTohandoverAction" tooltext="交接"/>
+                                <Button icon="swap" disabled={row.roleType==3} actionkey="jumpTohandoverAction" tooltext="交接"/>
 																{row.account==account?null:([
                                 row.isEnable
                                 ?
