@@ -457,6 +457,20 @@ export function enableAction(row) {
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchEnableAcc(value).then(json => {
+      if(json.status){
+        console.log(json,'jsonjsonjsonjson')
+        let newLocation={
+          pathname: `/settings/userRights/add`,
+          state: { 
+            codeStep: true, 
+            type: json.type, 
+            msg: json.msg ,
+            account: value.account ,
+          }
+        }
+        dispatch(routerActions.push(newLocation))
+        return
+      }
 			dispatch(fetchSuccess('itemSpin', true))
       dispatch(listUserAction())
 		}).catch(ex => {
