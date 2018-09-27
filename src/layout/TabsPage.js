@@ -226,7 +226,7 @@ class MultiTab extends Component {
 
   onChange = activeKey => {
     const panes = this.state.panes;
-    if (activeKey == 'dashboard') {
+    if (this.state.activeKey!= activeKey&& activeKey == 'dashboard') {
       document.body
         .querySelector(`iframe[name='${activeKey}']`)
         .contentWindow.location.reload();

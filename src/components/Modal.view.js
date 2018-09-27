@@ -1,5 +1,5 @@
 import React, {Component, PropTypes,Children} from 'react'
-import {Modal} from 'antd'
+import {Modal,Button} from 'antd'
 import {withRouter} from  'react-router'
 // import ErrorBoundary from 'components/ErrorBoundary'
 
@@ -157,6 +157,40 @@ export class ModalStepsView extends Component {
     return (
       <Modal  title={route.breadcrumbName} visible={true} maskClosable={false} footer={null} onCancel={this.handleBackRoute.bind(this)} onOk={this.handleSaveRoute.bind(this)} >
         {React.cloneElement(children,{...otherProps,ref:"formView"})}
+      </Modal>
+    )
+  }
+}
+
+
+export class UserFormModalView extends Component {
+
+  handleBackRoute() {
+    let {actions, history,router} = this.props
+    actions.backRoute(router)
+  }
+  handleSaveRoute(){
+    let { formView } =this.refs
+    //console.log(formView)
+    formView.onSubmit()
+  }
+
+  render() {
+    var { route, children,reduce, ...otherProps } = this.props
+    console.log(reduce,'otherPropsotherProps')
+    return (
+      <Modal title={route.breadcrumbName} visible={true} maskClosable={false} onCancel={this.handleBackRoute.bind(this)} onOk={this.handleSaveRoute.bind(this)} {...otherProps}
+        footer={[
+          <Button key="back" onClick={this.handleBackRoute.bind(this)}>取消</Button>,
+          <Button key="submit" type="primary"  onClick={this.handleSaveRoute.bind(this)}>
+            下一步
+        </Button>,
+        ]}>
+        {
+          React.cloneElement(children, Object.assign({}, otherProps, {
+            ref: "formView"
+          }))
+        }
       </Modal>
     )
   }
