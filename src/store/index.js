@@ -106,6 +106,7 @@ const panes = {
   dashboard: {
     title: "首页",
     key: "dashboard",
+    refresh: true,
     closable: false,
     src: "/static/js/client/main.html#/dashboard"
   },
@@ -136,16 +137,19 @@ const panes = {
   },
   "resume/list": {
     title: "候选人管理",
+    refresh: true,
     key: "resume/list",
     src: "/static/js/client/main.html#/resume/list"
   },
   "resume/distributed": {
     title: "待分配简历",
+    refresh: true,
     key: "resume/distributed",
     src: "/static/js/client/main.html#/resume/distributed"
   },
   "job/list": {
     title: "职位管理",
+    refresh: true,
     key: "job/list",
     src: "/static/js/client/main.html#/job/list"
   },
@@ -156,43 +160,51 @@ const panes = {
     src: "/static/js/client/main.html#/job/jobrelease/1/1"
   },
   "job/search": {
+    refresh: true,
     title: "职位导入",
     key: "job/search",
     src: "/static/js/client/main.html#/job/search"
   },
   "interview/list": {
     title: "面试管理",
+    refresh: true,
     key: "interview/list",
     src: "/static/js/client/main.html#/interview/list"
   },
   "interview/calendar": {
     title: "面试日历",
+    refresh: true,
     key: "interview/calendar",
     src: "/static/js/client/main.html#/interview/calendar"
   },
   elite: {
     title: "人才库",
+    refresh: true,
     key: "elite",
     src: "/static/js/client/main.html#/elite"
   },
   "member/list": {
+    refresh: true,
     title: "员工管理",
     key: "member/list",
     src: "/static/js/client/main.html#/member/list"
   },
   soundlist: {
     title: "通话记录",
+    refresh: true,
     key: "soundlist",
     src: "/static/js/client/main.html#/soundlist"
   },
   settings: {
     title: "系统设置",
+    refresh: true,
     key: "settings",
     src: "/static/js/client/main.html#/settings"
   },
   report: {
     title: "统计分析",
     key: "report",
+    refresh: true,
     src: "/static/js/client/main.html#/report"
   }
 };
