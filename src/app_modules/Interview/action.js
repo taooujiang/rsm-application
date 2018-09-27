@@ -152,6 +152,7 @@ export function feedBackSaveAction(value) {
         dispatch(fetchRequest('formSpin'))
         return new API().fetchFeedBackSave(value).then(json => {
             dispatch(fetchSuccess('formSpin',true))
+            dispatch(listRealAction({timeType:1}))
         }).catch(ex => {
             return dispatch(fetchFailure('formSpin',ex))
         })

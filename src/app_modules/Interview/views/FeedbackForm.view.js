@@ -89,12 +89,12 @@ class FeedbackForm extends Component{
       info,
       planId,
     } = this.props
-    let {obj,interviewer} = this.state
+    let {obj} = this.state
     // console.log(obj,interviewer)
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>
-          <Select label="面试官" name="interviewerId" defaultValue={interviewer} fetch={info} renderItem={this.renderInterviewerOption} onChange={this.handleChange.bind(this)} rules={[{required: true, message: "面试官不可为空"},{validator:customRules.required}]}></Select>
+          <Select label="面试官" name="interviewerId" defaultValue={obj.interviewer?obj.interviewer:obj.interviewerId} fetch={info} renderItem={this.renderInterviewerOption} onChange={this.handleChange.bind(this)} rules={[{required: true, message: "面试官不可为空"},{validator:customRules.required}]}></Select>
         </FormItem>
         <FormItem>
           <Input type="hidden" name="interviewPlanId" defaultValue={planId}/>
@@ -130,9 +130,7 @@ export default class FeedbackFormView extends FormPage{
       actions.backRoute(router)
     }else{
       actions.feedBackSaveAction(values).then(()=>{
-        setTimeout(()=>{
-          actions.backRouteReload(router,location)
-        },2000)
+        actions.backRouteReload(router,location)
       })
     }
   }
