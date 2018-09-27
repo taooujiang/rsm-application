@@ -145,8 +145,8 @@ actions[removeLink] = (state,action)=>{
 
 
 actions[saveParams] = ( state , action)=>{
-  let {shouldFieldsClear} = action.payload
-  let {status,jobType} = state.params
+  let {shouldFieldsClear,jobType} = action.payload
+  let {status,} = state.params
   if(shouldFieldsClear){
     return {
       ...state,
