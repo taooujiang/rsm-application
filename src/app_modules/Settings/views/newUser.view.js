@@ -220,7 +220,6 @@ export class AddMemberStepFirst extends FormPage{
                 rules={[{required:true,message:"所属部门不可为空"}]}
               />
           </FormItem>
-					<p>注：密码将以短信形式发送到成员手机。手机号码直接用于帐号登录，不可修改。</p>
         </BaseForm>
       </Spin>
     ) : (
@@ -234,6 +233,8 @@ export class AddMemberStepFirst extends FormPage{
         <FormItem>
                    <Search label="验证码" name="code"
                      placeholder="请输入手机验证码"
+                     rules={[{required:true,message:"请输入验证码"},]}
+
                      enterButton="获取验证码"
                     onSearch={this.getCode.bind(this)}
                   />
