@@ -189,7 +189,7 @@ export default class ApplyFormView extends FormPage {
 				<div className="form-subtitle">
 					<div className="interview-info">
 						<span>应聘职位：{applyerInfo&&applyerInfo.jobTitle}</span>
-						<span className="interview-date">面试时间：{applyerInfo&&moment(applyerInfo.interviewTime?applyerInfo.interviewTime:undefined).format("YYYY-MM-DD")}</span>
+						<span className="interview-date">面试时间：{applyerInfo&&applyerInfo.interviewTime&&moment(applyerInfo.interviewTime?applyerInfo.interviewTime:undefined).format("YYYY-MM-DD HH:mm")}</span>
 					</div>
 				</div>
 				<BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} style={{ width: '980px', margin: '10px auto' }}>
@@ -205,6 +205,15 @@ export default class ApplyFormView extends FormPage {
 						<FormItem  >
 							<Input label="" type="hidden" name="orgId" defaultValue={applyerInfo&&applyerInfo.orgId}  />
 						</FormItem>
+            <FormItem  >
+							<Input label="" type="hidden" name="jobId" defaultValue={applyerInfo&&applyerInfo.jobId}  />
+						</FormItem>
+            <FormItem  >
+							<Input label="" type="hidden" name="jobTitle" defaultValue={applyerInfo&&applyerInfo.jobTitle}  />
+						</FormItem>
+            <FormItem  >
+							<Input label="" type="hidden" name="interviewTime" defaultValue={applyerInfo&&applyerInfo.interviewTime}  />
+						</FormItem>
 						<Col span={12}>
 							<FormItem  >
 								<Input label="姓名" name="name" defaultValue={applyerInfo&&applyerInfo.name} />
@@ -217,7 +226,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)}/>
+								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -315,7 +324,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&moment(applyerInfo.lastSchoolEnd?applyerInfo.lastSchoolEnd:undefined)}  />
+								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&applyerInfo.lastSchoolEnd&&moment(applyerInfo.lastSchoolEnd?applyerInfo.lastSchoolEnd:undefined)}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -350,7 +359,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined)}  />
+								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&applyerInfo.predictTime&&moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined)}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { List } from "antd";
 import style from './style.less'
 class ChannelList extends Component {
+	loginChannel(keyURl){
+		global.invokeMethod('ShowPublicUrl',keyURl)
+	}
 	render() {
 		const{keyName,keyStr,channelKeyName,headerTitle,sortKey}=this.props
 		let {dataSource}=this.props
@@ -16,7 +19,7 @@ class ChannelList extends Component {
 				dataSource={dataSource}
 				renderItem={item => (
 					<List.Item style={{textAlign:'center'}}>
-						<div style={{margin:'0 auto'}} className={"channel-img-"+ item[channelKeyName]}></div>
+						<div style={{margin:'0 auto'}} className={"channel-img-"+ item[channelKeyName]} onClick={this.loginChannel.bind(this,item.keyURl)}></div>
 						<div>{item[keyName]?keyStr:''}</div>
 					</List.Item>
 				)}
