@@ -173,9 +173,20 @@ export class AddMemberStepFirst extends FormPage{
       account : this.state.account,
       codeType : "2"
     }
-    new API().fetchGetMobileCode(params).then((json)=>{
+    new API().fetchGetMobileCode(params).then((json) => {
       json.status ? message.success("操作成功") : null
-    })
+      //倒计时开始
+      document.querySelector('.ant-input-search .ant-input-suffix button').setAttribute('disabled', true)
+      this.setState({
+        count: 60
+      }, this.setState({
+        timmer: setInterval(() => {
+          this.setState({
+            count: this.state.count - 1
+          })
+        }, 1000)
+      }))
+    }).catch(e => message.warning(e.msg || 'error'))
   }
   handleRerver(){
     this.setState({
@@ -233,9 +244,10 @@ export class AddMemberStepFirst extends FormPage{
         <FormItem>
                    <Search label="验证码" name="code"
                      placeholder="请输入手机验证码"
+                    //  disabled={this.state.count}
                      rules={[{required:true,message:"请输入验证码"},]}
 
-                     enterButton="获取验证码"
+                     enterButton={`获取验证码${this.state.count?this.state.count:''}`}
                     onSearch={this.getCode.bind(this)}
                   />
           </FormItem>
@@ -243,8 +255,21 @@ export class AddMemberStepFirst extends FormPage{
       </Spin>
     )
   }
+  componentWillUnmount = () => {
+    if(this.state.timmer){
+      clearInterval(this.state.timmer)
+    }
+  }
+  
   render(){
     let { orgin , type } = this.state
+    console.log(this.state.count,'this.state.count')
+    if(this.state.count==0){
+      //倒计时结束 
+      document.querySelector('.ant-input-search .ant-input-suffix button').removeAttribute('disabled')
+      clearInterval(this.state.timmer)
+
+    }
     if(orgin){
       return(
         <Spin tip="Loading..." spinning={false}>
