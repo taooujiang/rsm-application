@@ -11,7 +11,7 @@ import WrapperComponent from 'app/decorators/WrapperComponent'
 import BaseForm,{FormItem,customRules} from 'components/BaseForm'
 import {TreeSelectPicker} from 'app/components/TreeView'
 import {FormPage} from 'app/components/Page'
-import ModalView from 'app/components/Modal.view'
+import ModalView,{UserFormModalView} from 'app/components/Modal.view'
 import API from '../api'
 
 const Option = Select.Option
