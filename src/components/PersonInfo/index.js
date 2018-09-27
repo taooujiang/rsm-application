@@ -1958,6 +1958,14 @@ export class PersonRemarks extends FormPage{
     let {actions,resumeId} = this.props
     actions.getRemarkAction({resumeId:resumeId})
   }
+
+  componentWillReceiveProps(nextProps){
+    let {actions,resumeId} = this.props
+    if(nextProps.resumeId!=resumeId){
+
+    actions.getRemarkAction({resumeId:nextProps.resumeId})
+    }
+  }
   handleSubmit(){
     let {actions} = this.props
     let formDom = this.form
@@ -2255,6 +2263,14 @@ export class ExtraInformation extends Component{
     const {actions,resumeId}=this.props
     actions.listLinkAction({"resumeId":resumeId})
     actions.fetchAdditionInfoAction({"resumeId":resumeId})
+  }
+  componentWillReceiveProps(nextProps) {
+    let { actions, resumeId } = this.props
+    if (nextProps.resumeId != resumeId) {
+
+      actions.listLinkAction({ resumeId: nextProps.resumeId })
+      actions.fetchAdditionInfoAction({ resumeId: nextProps.resumeId })
+    }
   }
   handlerAdditionDelete(id){
   // handlerDelete

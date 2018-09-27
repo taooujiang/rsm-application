@@ -136,6 +136,7 @@ class ResumeDetail extends Component{
 
   render (){
     let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
+    console.log(resumeId,'routerrouter')
     let {name,libType,filingReason,authorization} = item
     let detailType = this.translateLib(libType)
     return (
