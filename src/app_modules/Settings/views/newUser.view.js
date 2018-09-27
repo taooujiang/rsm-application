@@ -260,10 +260,23 @@ export class AddMemberStepFirst extends FormPage{
       clearInterval(this.state.timmer)
     }
   }
+  componentDidMount = () => {
+    if (this.props.location.state) {
+      const { location: { state: { codeStep } } } = this.props
+      if (codeStep) {
+        this.setState({
+          type: this.props.location.state.type,
+          account: this.props.location.state.account,
+          msg: this.props.location.state.msg,
+          orgin:false
+        })
+      }
+    }
+  }
   
   render(){
     let { orgin , type } = this.state
-    console.log(this.state.count,'this.state.count')
+
     if(this.state.count==0){
       //倒计时结束 
       document.querySelector('.ant-input-search .ant-input-suffix button').removeAttribute('disabled')
