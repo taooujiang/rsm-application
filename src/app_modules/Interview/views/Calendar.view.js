@@ -38,14 +38,28 @@ export default class CalendarView extends Component {
     let {actions,router} = this.props;
       let params = {dateStr:moment().format("YYYY-MM-DD")}
       let dateParams = {dateStr:moment().format("YYYY-MM")}
+      actions.listAction(params)
       actions.loadTodos(dateParams)
       actions.loadCounts(params)
       actions.loadDates(params)
+  }
+  componentWillReceiveProps(nextProps){
+    let {actions} = this.props
+    if(this.props.reduce.params !== nextProps.reduce.params){
+      let {actions,router,children} = this.props;
+      actions.loadDates(nextProps.reduce.params)
+    }
+    if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
+      if(nextProps.location.state && nextProps.location.state.key=="reload"){
+        actions.loadDates(nextProps.reduce.params)
+      }
+    }
   }
   handleSelectDateChange(value) {
     let {actions} = this.props
     let params = {dateStr:value.format("YYYY-MM-DD")}
     let dateParams = {dateStr:value.format("YYYY-MM")}
+    actions.listAction(params)
     actions.loadTodos(dateParams)
     actions.loadCounts(params)
     actions.loadDates(params)

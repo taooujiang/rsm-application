@@ -130,7 +130,9 @@ export default class FeedbackFormView extends FormPage{
       actions.backRoute(router)
     }else{
       actions.feedBackSaveAction(values).then(()=>{
-        actions.backRouteReload(router,location)
+        setTimeout(()=>{
+          actions.backRouteReload(router,location)
+        },2000)
       })
     }
   }
