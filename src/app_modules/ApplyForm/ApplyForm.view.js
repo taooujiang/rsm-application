@@ -139,6 +139,21 @@ class EditableFeild extends Component {
 
 
 export default class ApplyFormView extends FormPage {
+  state = {}
+
+  componentDidMount() {
+    new API().fetchGetJsonMap()
+		.then((res)=>{
+			console.log('fetchGetJsonMap',res)
+      this.setState({
+        jsonMap: res
+      })
+		})
+		.catch(err=>{
+			console.log(err)
+		})
+  }
+
 	renderSelectOption(data, idx) {
 		return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
 	}
@@ -159,16 +174,22 @@ export default class ApplyFormView extends FormPage {
 			console.log(values, 'valuesvaluesvalues')
 		});
 	}
+  getDictByType(type,data){
+		return data[type]?data[type]:[]
+	}
+
 	render() {
 		const { onSubmit, saveFormRef } = this.props
-		let applyerInfo = window.applyerInfo
+		let applyerInfo = parent.applyerInfo
+		let jsonMap = this.state.jsonMap || {}
+		// console.log(applyerInfo)
 		return (
 			<div className="apply-form-wrap">
 				<h2 className="form-title">面试信息登记</h2>
 				<div className="form-subtitle">
 					<div className="interview-info">
 						<span>应聘职位：{applyerInfo&&applyerInfo.jobTitle}</span>
-						<span className="interview-date">面试时间：{applyerInfo&&moment(applyerInfo.interviewTime).format("YYYY-MM-DD")}</span>
+						<span className="interview-date">面试时间：{applyerInfo&&moment(applyerInfo.interviewTime?applyerInfo.interviewTime:undefined).format("YYYY-MM-DD")}</span>
 					</div>
 				</div>
 				<BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} style={{ width: '980px', margin: '10px auto' }}>
@@ -191,22 +212,22 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="性别" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} name="sex" defaultValue={applyerInfo&&applyerInfo.sex} />
+								<Select label="性别" fetch={this.getDictByType("sex",jsonMap)} renderItem={this.renderSelectOption} name="sex" defaultValue={applyerInfo&&applyerInfo.sex&&applyerInfo.sex.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&moment(applyerInfo.birthTime)}/>
+								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="政治面貌" name="political" fetch={DictUtils.getDictByType("political")} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.political} />
+								<Select label="政治面貌" name="political" fetch={this.getDictByType("political",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.political&&applyerInfo.political.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="民族" name="national" fetch={DictUtils.getDictByType("national")&&DictUtils.getDictByType("national").sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national} />
+								<Select label="民族" name="national" fetch={this.getDictByType("national",jsonMap)&&this.getDictByType("national",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national&&applyerInfo.national.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -235,7 +256,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="户籍性质" name="residenceStatus" fetch={DictUtils.getDictByType("residenceStatus")} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.residenceStatus} />
+								<Select label="户籍性质" name="residenceStatus" fetch={this.getDictByType("residenceStatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.residenceStatus&&applyerInfo.residenceStatus.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={24}>
@@ -259,7 +280,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="婚姻状况" name="maritalStatus" fetch={DictUtils.getDictByType("maritalStatus")} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.maritalStatus} />
+								<Select label="婚姻状况" name="maritalStatus" fetch={this.getDictByType("maritalstatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.maritalStatus&&applyerInfo.maritalStatus.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -269,12 +290,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="学历" name="education" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.education} />
+								<Select label="学历" name="education" fetch={this.getDictByType("education",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.education&&applyerInfo.education.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="学位" name="degree" fetch={DictUtils.getDictByType("qualification")} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.degree} />
+								<Select label="学位" name="degree" fetch={this.getDictByType("qualification",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.degree&&applyerInfo.degree.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -294,7 +315,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&moment(applyerInfo.lastSchoolEnd)}  />
+								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&moment(applyerInfo.lastSchoolEnd?applyerInfo.lastSchoolEnd:undefined)}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -329,7 +350,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&moment(applyerInfo.predictTime)}  />
+								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined)}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -373,7 +394,7 @@ export default class ApplyFormView extends FormPage {
 							      title: '联系方式 ',
 							      dataIndex: 'relationPhone',
 							    }]
-							} />
+							} defaultValue={applyerInfo&&applyerInfo.relationshipList} />
 						</FormItem>
 					</Col>
 				</Row>
@@ -400,7 +421,7 @@ export default class ApplyFormView extends FormPage {
                     title: '证明人联系电话',
                     dataIndex: 'referenerPhone',
                   }]
-              } />
+              } defaultValue={applyerInfo&&applyerInfo.workList} />
 							</FormItem>
 							{/* duringTime时间段（工作经历）
 														String  company单位及部门
@@ -412,7 +433,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea rows={4} label="工作经验及业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.otherRequirements}/>
+								<TextArea rows={4} label="工作经验及业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.workExperienceDescribe}/>
 							</FormItem>
 						</Col>
 					</Row>
@@ -439,7 +460,7 @@ export default class ApplyFormView extends FormPage {
                     title: '证明人联系电话',
                     dataIndex: 'referenerPhone',
                   }]
-              } />
+              } defaultValue={applyerInfo&&applyerInfo.studyList} />
 							</FormItem>
 							{/* studyTime学习起止时间段
 										String  school所在学校

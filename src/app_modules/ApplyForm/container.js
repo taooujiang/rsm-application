@@ -17,7 +17,7 @@ import ApplyFormView from './ApplyForm.view'
 
 
 const mapStateToProps = (state) => {
-    return { reduce: state.settingsReducer, appConfig: state.appReducer }
+    return { reduce: state.applyFormReducer, appConfig: state.appReducer }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -35,4 +35,3 @@ let ApplyFormContainer = connect((state)=>({
 export {
 		ApplyFormContainer,
 }
-

@@ -4,14 +4,15 @@ import ReactRouter, { Router, Route, IndexRoute,IndexRedirect } from 'react-rout
 import  {
 	ApplyFormContainer,
 } from './container'
+import  ApplyFormView from './ApplyForm.view'
 
 let Routes = (
 	<Router>
-    
-		<Route path="form" components={ApplyFormContainer} breadcrumbName="信息登记表设置" >
+
+		<Route path="form" components={ApplyFormView} breadcrumbName="信息登记表设置" >
 
 		</Route>
-		
+
 
 	</Router>
 )

@@ -18,7 +18,7 @@ var AppRouter = (
 )
 
 // console.log(AppRouter)
-// injectReducer(store,{key:'applyFormReducer',reducer:reducer})
+injectReducer(store,{key:'applyFormReducer',reducer:reducer})
 
 ReactDOM.render(
   <LocaleProvider locale={zh_CN}>
