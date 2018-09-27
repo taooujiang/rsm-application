@@ -2075,6 +2075,12 @@ export class PersonCommunitcate extends Component{
     let {actions,resumeId} = this.props
     actions.getCommiuncateAction({resumeId:resumeId})
   }
+  componentWillReceiveProps(nextProps) {
+    let { actions, resumeId } = this.props
+    if (nextProps.resumeId != resumeId) {
+      actions.getCommiuncateAction({ resumeId: nextProps.resumeId })
+    }
+  }
   render(){
     let {info} = this.props
     return(
