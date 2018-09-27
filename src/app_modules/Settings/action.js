@@ -442,7 +442,23 @@ export function disabledAction(row) {
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchDisabledAcc(value).then(json => {
+      dispatch(fetchSuccess('itemSpin', true))
+      dispatch(listUserAction())
+		}).catch(ex => {
+			return dispatch(fetchFailure('itemSpin', ex))
+		})
+	}
+}
+
+export function enableAction(row) {
+	let value = {
+		account:row.account
+	}
+	return (dispatch, getState) => {
+		dispatch(fetchRequest('itemSpin'))
+		return new API().fetchEnableAcc(value).then(json => {
 			dispatch(fetchSuccess('itemSpin', true))
+      dispatch(listUserAction())
 		}).catch(ex => {
 			return dispatch(fetchFailure('itemSpin', ex))
 		})
