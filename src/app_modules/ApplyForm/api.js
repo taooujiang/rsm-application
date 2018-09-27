@@ -311,4 +311,10 @@ export default class API extends FetchAPI {
 			body: params
 		})
 	}
+
+	fetchGetJsonMap(params){
+		return this.fetchPost(`${APP_SERVER}/crawler/resume/codes`, {
+			body: params
+		})
+	}
 }
