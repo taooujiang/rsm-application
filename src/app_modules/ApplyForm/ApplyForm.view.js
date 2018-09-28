@@ -236,7 +236,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="民族" name="national" placeholder="请选择" fetch={this.getDictByType("national",jsonMap)&&this.getDictByType("national",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national&&applyerInfo.national.toString()} showSearch optionFilterProp="optionName" filterOption={function(inputValue, option){
+								<Select label="民族" name="national" placeholder="请选择" fetch={this.getDictByType("national",jsonMap)&&this.getDictByType("national",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national&&applyerInfo.national.toString()} showSearch optionFilterProp="keyName" filterOption={function(inputValue, option){
 									return option.props.children.indexOf(inputValue)>-1
 								}} />
 							</FormItem>
@@ -268,7 +268,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<select label="杭州住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
+								<Select label="杭州住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
