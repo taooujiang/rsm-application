@@ -236,7 +236,9 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="民族" name="national" fetch={this.getDictByType("national",jsonMap)&&this.getDictByType("national",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national&&applyerInfo.national.toString()} />
+								<Select label="民族" name="national" placeholder="请选择" fetch={this.getDictByType("national",jsonMap)&&this.getDictByType("national",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.national&&applyerInfo.national.toString()} showSearch optionFilterProp="optionName" filterOption={function(inputValue, option){
+									return option.props.children.indexOf(inputValue)>-1
+								}} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -249,42 +251,24 @@ export default class ApplyFormView extends FormPage {
 								<Input label="身份证号" name="idCard" defaultValue={applyerInfo&&applyerInfo.idCard} />
 							</FormItem>
 						</Col>
-						<Col span={24}>
-							<Row gutter={24}>
-								<Col span={12}>
-									<FormItem  >
-										<Input label="户籍所在地" name="residenceDdressDetail" defaultValue={applyerInfo&&applyerInfo.residenceDdressDetail} />
-									</FormItem>
-								</Col>
-								<Col span={12}>
-									<FormItem  >
-										<Input label="" name="residenceAddress" placeholder="户籍所在地详细地" defaultValue={applyerInfo&&applyerInfo.residenceAddress} />
-									</FormItem>
-								</Col>
-							</Row>
-						</Col>
 						<Col span={12}>
 							<FormItem  >
 								<Select label="户籍性质" name="residenceStatus" fetch={this.getDictByType("residenceStatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.residenceStatus&&applyerInfo.residenceStatus.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={24}>
-							<Row gutter={24}>
-								<Col span={12}>
-									<FormItem  >
-										<Input label="现住地址" name="currentAddress" defaultValue={applyerInfo&&applyerInfo.currentAddress} />
-									</FormItem>
-								</Col>
-								<Col span={12}>
-									<FormItem  >
-										<Input label="" name="currentAddressDetail" placeholder="现住详细地址" defaultValue={applyerInfo&&applyerInfo.currentAddressDetail} />
-									</FormItem>
-								</Col>
-							</Row>
+							<FormItem  >
+								<Input label="户籍所在地" name="residenceDdressDetail" defaultValue={applyerInfo&&applyerInfo.residenceDdressDetail} />
+							</FormItem>
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="杭州住房情况" name="houseStatus" defaultValue={applyerInfo&&applyerInfo.houseStatus} />
+								<Input label="现住地址" name="currentAddress" defaultValue={applyerInfo&&applyerInfo.currentAddress} />
+							</FormItem>
+						</Col>
+						<Col span={12}>
+							<FormItem  >
+								<select label="杭州住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -299,7 +283,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="学历" name="education" fetch={this.getDictByType("education",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.education&&applyerInfo.education.toString()} />
+								<Select label="学历" name="education" fetch={this.getDictByType("education",jsonMap)&&this.getDictByType("education",jsonMap).sort((a,b)=>a.keySort-b.keySort)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.education&&applyerInfo.education.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -382,9 +366,14 @@ export default class ApplyFormView extends FormPage {
 								<Input label="其他要求" name="otherRequirements" defaultValue={applyerInfo&&applyerInfo.otherRequirements} />
 							</FormItem>
 						</Col>
+						<Col span={24}>
+							<FormItem  >
+								<Input label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} />
+							</FormItem>
+						</Col>
 					<Col span={24}>
 						<FormItem >
-							<EditableFeild label="主要家庭" name="relationshipList" columns={[{
+							<EditableFeild label="主要家庭成员" name="relationshipList" columns={[{
 							      title: '称谓',
 							      dataIndex: 'relationship',
 							    },{
@@ -412,7 +401,7 @@ export default class ApplyFormView extends FormPage {
 						<Col span={24}>
 							<FormItem  >
               <EditableFeild label="工作经历" name="workList" columns={[{
-                    title: '工作经历',
+                    title: '时间',
                     dataIndex: 'duringTime',
                   },{
                     title: '单位及部门',
