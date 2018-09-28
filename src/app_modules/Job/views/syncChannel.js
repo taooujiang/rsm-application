@@ -112,6 +112,9 @@ export default class SyncChannel extends FormPage {
 
         let dateListObj = groupArray(allChannel.channelList,'channelType')
     }
+    componentDidMount(){
+      console.log("componentDidMount",this.props)
+    }
     componentWillReceiveProps(nextProps){
       console.log(nextProps.appConfig.channels)
     }
