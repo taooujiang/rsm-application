@@ -154,12 +154,15 @@ const initialState = {
 
 const reducer = handleActions({
   'saveChannelPoint'(state,actions){
-    const payload = actions.payload
+		console.log("saveChannelPointState",state)
+		const payload = actions.payload
     payload.channels.map((it)=>{
 			let numId = Number(it.channelId)
       var chn=state.channels.get(numId)
       state.channels.set(numId,Object.assign({},chn,it))
     })
+		console.log("saveChannelPointState",state)
+		console.log("saveChannelPointPayload",payload)
 		console.log("saveChannelPoint",state.channels)
     return { ...state}
   },
@@ -175,12 +178,15 @@ const reducer = handleActions({
 		return { ...state}
 	},
   'saveChannel'(state,actions){
+		console.log("saveChannelState",state)
     const payload = actions.payload
     payload.channels.map((it)=>{
 			let numId = Number(it.id)
       var chn=state.channels.get(numId)
 			state.channels.set(numId,Object.assign({},chn,it))
     })
+		console.log("saveChannelState",state)
+		console.log("saveChannelPayload",payload)
 		console.log("saveChannel",state.channels)
     return { ...state}
   },

@@ -199,7 +199,7 @@ const panes = {
     title: "系统设置",
     refresh: true,
     key: "settings",
-    src: "/static/js/client/main.html#/settings"
+    src: "/static/js/client/main.html#/settings/company"
   },
   report: {
     title: "统计分析",

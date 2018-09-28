@@ -145,6 +145,9 @@ export class AddMemberStepFirst extends FormPage{
           msg:json.msg,
           account:account
         })
+      }else if(json.isRepeat){
+        message.warning(json.msg)
+        return
       }else{
         this.setState({
           orgin:false,
@@ -152,12 +155,18 @@ export class AddMemberStepFirst extends FormPage{
           account:account
         })
       }
+    }).catch(e => {
+
+      message.warning(e.msg)
     })
     if(type == 4){
       let {actions,router,location} = this.props
       actions.saveUserAction(value)
       actions.backRoute(router)
     }else{
+      if(this.state.isSkip){
+        //验证码启用
+      }
       new API().fetchSubmitCode(value).then((json)=>{
         if(json.status){
           message.success("操作成功")
@@ -165,6 +174,9 @@ export class AddMemberStepFirst extends FormPage{
         }else{
           message.warning(json.msg)
         }
+      }).catch(e=>{
+
+          message.warning(e.msg)
       })
     }
   }
@@ -173,19 +185,30 @@ export class AddMemberStepFirst extends FormPage{
       account : this.state.account,
       codeType : "2"
     }
+    console.log(document.querySelector('.ant-input-search .ant-input-suffix button'),'zzz')
     new API().fetchGetMobileCode(params).then((json) => {
       json.status ? message.success("操作成功") : null
       //倒计时开始
+      if (this.state.timmer) {
+        clearInterval(this.state.timmer)
+        this.setState({
+          timmer:null
+        })
+      }
       document.querySelector('.ant-input-search .ant-input-suffix button').setAttribute('disabled', true)
+      clearInterval(this.state.timmer)
       this.setState({
         count: 60
-      }, this.setState({
+      })
+      this.setState({
         timmer: setInterval(() => {
           this.setState({
             count: this.state.count - 1
+          }, () => {
+
           })
         }, 1000)
-      }))
+      })
     }).catch(e => message.warning(e.msg || 'error'))
   }
   handleRerver(){
@@ -203,7 +226,7 @@ export class AddMemberStepFirst extends FormPage{
       <Spin tip="Loading..." spinning={false}>
         <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         <FormItem>
-          <Input name="account" type='hidden' defaultValue={this.props.account}/>
+          <Input name="account" type='hidden' defaultValue={account}/>
         </FormItem>
           <FormItem>
             <Input label="姓名" name="acctName" rules={[{required:true,message:"用户名不可为空",whitespace:true},]}/>
@@ -256,6 +279,10 @@ export class AddMemberStepFirst extends FormPage{
     )
   }
   componentWillUnmount = () => {
+    if (document.querySelector('.ant-input-search .ant-input-suffix button')) {
+
+      document.querySelector('.ant-input-search .ant-input-suffix button').removeAttribute('disabled')
+    }
     if(this.state.timmer){
       clearInterval(this.state.timmer)
     }
@@ -265,6 +292,7 @@ export class AddMemberStepFirst extends FormPage{
       const { location: { state: { codeStep } } } = this.props
       if (codeStep) {
         this.setState({
+          isSkip:true,
           type: this.props.location.state.type,
           account: this.props.location.state.account,
           msg: this.props.location.state.msg,
@@ -276,7 +304,7 @@ export class AddMemberStepFirst extends FormPage{
   
   render(){
     let { orgin , type } = this.state
-
+    console.log(this.state.count,'this.state.count')
     if(this.state.count==0){
       //倒计时结束 
       document.querySelector('.ant-input-search .ant-input-suffix button').removeAttribute('disabled')
