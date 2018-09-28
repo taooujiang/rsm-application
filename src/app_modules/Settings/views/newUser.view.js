@@ -152,6 +152,9 @@ export class AddMemberStepFirst extends FormPage{
           account:account
         })
       }
+    }).catch(e => {
+
+      message.warning(e.msg)
     })
     if(type == 4){
       let {actions,router,location} = this.props
@@ -165,6 +168,9 @@ export class AddMemberStepFirst extends FormPage{
         }else{
           message.warning(json.msg)
         }
+      }).catch(e=>{
+
+          message.warning(e.msg)
       })
     }
   }
