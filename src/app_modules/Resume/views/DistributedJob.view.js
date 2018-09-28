@@ -145,12 +145,12 @@ export default class DistributedJobView extends PageView {
                     title: "接收简历邮箱",
                     key: "originalEmail",
                     dataIndex: "originalEmail",
-                    width:120
+                    width:300
                 },{
                     title: "申请时间",
                     key: "deliveryTime",
                     dataIndex: "deliveryTime",
-                    width:120
+                    width:200
                 },{
                     title: "操作",
                     key: "id",

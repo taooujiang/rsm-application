@@ -161,12 +161,12 @@ export default class NewJobListView extends PageView {
                     title: "招聘负责人",
                     key: "hrName",
                     dataIndex: "hrName",
-                    width: 120,
+                    width: 150,
                 }, {
                     title: "招聘渠道",
                     key: "channelListIcon",
                     dataIndex: "channelListIcon",
-                    width: 120,
+                    width: 150,
                     render:(val)=>val.map((v)=><Icon type={v} style={{margin:'0 3px'}} />)
                 },{
                     title: "候选人总数",

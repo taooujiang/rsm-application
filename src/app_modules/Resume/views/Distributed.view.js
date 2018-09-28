@@ -157,7 +157,7 @@ export default class DistributedView extends PageView {
                     title: "接收简历邮箱",
                     key: "originalEmail",
                     dataIndex: "originalEmail",
-                    width:200
+                    width:350
                 },{
                     title: "最近投递日期",
                     key: "deliveryTime",
