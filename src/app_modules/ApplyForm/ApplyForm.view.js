@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import ModalView from 'app/components/Modal.view'
 import WrapperComponent from 'app/decorators/WrapperComponent'
-import { Input, Modal, Select, Row, Col, Cascader,Table,Button,Icon,Radio,Popconfirm,DatePicker } from 'antd'
+import { Input, Modal, Select, Row, Col, Cascader,Table,Button,Icon,Radio,Popconfirm,DatePicker,message } from 'antd'
 import BaseForm, { FormItem, customRules } from 'components/BaseForm'
 import { FormPage } from 'app/components/Page'
 import API from './api'
@@ -167,9 +167,11 @@ export default class ApplyFormView extends FormPage {
 			new API().fetchSaveApplyForm(values)
 			.then((res)=>{
 				console.log(res)
+				message.success("提交成功")
 			})
 			.catch(err=>{
 				console.log(err)
+				message.error("提交失败")
 			})
 			console.log(values, 'valuesvaluesvalues')
 		});
@@ -431,7 +433,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea rows={4} label="工作经验及业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.workExperienceDescribe}/>
+								<TextArea rows={4} label="工作业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.workExperienceDescribe}/>
 							</FormItem>
 						</Col>
 					</Row>
