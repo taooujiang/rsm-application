@@ -197,9 +197,9 @@ const panes = {
   },
   settings: {
     title: "系统设置",
-    refresh: true,
     key: "settings",
-    src: "/static/js/client/main.html#/settings/company"
+    refresh: true,
+    src: "/static/js/client/main.html#/settings"
   },
   report: {
     title: "统计分析",
@@ -220,9 +220,11 @@ const addTabByRouteMiddleware = history => {
         window.addTab && window.addTab(panes["log"]);
       } else if (action.payload.pathname.indexOf("elite") > -1) {
         window.addTab && window.addTab(panes["elite"]);
-      } else if (action.payload.pathname.indexOf("settings") > -1) {
-        window.addTab && window.addTab(panes["settings"]);
-      } else {
+      }
+      // else if (action.payload.pathname.indexOf("settings") > -1) {
+      //   window.addTab && window.addTab(panes["settings"]);
+      // } 
+      else {
         window.addTab && window.addTab(panes[action.payload.pathname]);
       }
     }
