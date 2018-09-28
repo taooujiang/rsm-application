@@ -85,12 +85,13 @@ export default class UserRightView extends PageView {
     renderTableList() {
         let that=this;
         let {reduce,items} = this.props
+        console.log(items,'itemsitemsitemsitems')
         let {spins:{tableSpin},key,page} = reduce
 				let list = reduce.rightsList
 				const{appReducer:{user:{account}}} = this.props
         let tableConf = {
             loading: tableSpin,
-            rowKey: "userId",
+            rowKey: key,
             dataSource:items,
             onChange:this.onChange.bind(this),
             // title:()=>{
