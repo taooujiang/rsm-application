@@ -197,27 +197,38 @@ const reducer = handleActions({
     }
     payload.list['channel'].map((it)=> {
       if(it.keyValue==1){
-          it.keyURl="https://passport.zhaopin.com/org/login"
+					it.keyURl="https://passport.zhaopin.com/org/login"
+					it.keyURl2="https://rd5.zhaopin.com/job/manage"
       }else if(it.keyValue==2){
-          it.keyURl="https://ehire.51job.com/Jobs/JobEdit.aspx?Mark=New"
+					it.keyURl="https://ehire.51job.com/Jobs/JobEdit.aspx?Mark=New"
+					it.keyURl2="https://ehire.51job.com/Jobs/JobSearchPost.aspx"
       }else if(it.keyValue==3){
-          it.keyURl="https://employer.58.com/postposition"
+					it.keyURl="https://employer.58.com/postposition"
+					it.keyURl2="https://employer.58.com/exquisiteposition"
       }else if(it.keyValue==4){
-          it.keyURl="https://passport.ganji.com/login.php?next=/"
+					it.keyURl="https://passport.ganji.com/login.php?next=/"
+					it.keyURl2="http://hrvip.ganji.com/wanted_post/all_post?tab=normal"
       }else if(it.keyValue==5){
-          it.keyURl="http://www.hzrc.com/ww/b/a/wwba_login.html"
+					it.keyURl="http://www.hzrc.com/ww/b/a/wwba_login.html"
+					it.keyURl2="http://www.hzrc.com/wb/d/b/wbdb_cont.html"
       }else if(it.keyValue==6){
-          it.keyURl="http://passport.chinahr.com/qy/buser/login?backUrl=http%3A%2F%2Fqy.chinahr.com%2Fcenter%2Findex"
+					it.keyURl="http://passport.chinahr.com/qy/buser/login?backUrl=http%3A%2F%2Fqy.chinahr.com%2Fcenter%2Findex"
+					it.keyURl2="http://qy.chinahr.com/bjobmanager/online/joblist/"
       }else if(it.keyValue==7){
-          it.keyURl="https://www.dajie.com/account/recruit/quick/reg?formType=cg#cg"
+					it.keyURl="https://www.dajie.com/account/recruit/quick/reg?formType=cg#cg"
+					it.keyURl2="https://job.dajie.com/recruit/job/list?from=left_nav"
       }else if(it.keyValue==8){
-          it.keyURl="https://login.zhipin.com/?ka=header-login"
+					it.keyURl="https://login.zhipin.com/?ka=header-login"
+					it.keyURl2="https://www.zhipin.com/chat/im?mu=%2Fbossweb%2Fjoblist.html"
       }else if(it.keyValue==10){
-          it.keyURl="https://passport.liepin.com/e/account#sfrom=click-pc_homepage-front_navigation-ecomphr_new"
+					it.keyURl="https://passport.liepin.com/e/account#sfrom=click-pc_homepage-front_navigation-ecomphr_new"
+					it.keyURl2="https://lpt.liepin.com/ejobedit/editejob?ejobActionType=publish"
       }else if(it.keyValue==13){
-          it.keyURl="https://www.lagou.com/lp/html/common.html?utm_source=m_cf_cpt_baidu_pc"
+					it.keyURl="https://www.lagou.com/lp/html/common.html?utm_source=m_cf_cpt_baidu_pc"
+					it.keyURl2="https://easy.lagou.com/position/my_online_positions.htm?pageNo=1"
       }else if(it.keyValue==16){
-          it.keyURl="https://hr.shixiseng.com/user/login?next=https%3A%2F%2Fhr.shixiseng.com%2Fcompany%2Fsignin%23%2F"
+					it.keyURl="https://hr.shixiseng.com/user/login?next=https%3A%2F%2Fhr.shixiseng.com%2Fcompany%2Fsignin%23%2F"
+					it.keyURl2="https://hr.shixiseng.com/#/job/recruitment"
       }
       return it
     })

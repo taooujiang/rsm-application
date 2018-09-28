@@ -176,6 +176,7 @@ export default class ResumeListView extends PageView {
         title: "基础资料",
         key: "name",
         dataIndex: "name",
+        width: 500,
         sorter:true,
         render:(name,row) => <PersonInfoShow item={row} />
       }, {
@@ -215,6 +216,7 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
+        width: 500,
         render:(name,row)=> <PersonInfoShow item={row} />
       }, {
         title: "招聘负责人",
@@ -261,6 +263,7 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
+        width: 500,
         render:(name,row)=> <PersonInfoShow item={row}/>
       }, {
         title: "招聘负责人",
@@ -296,6 +299,7 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
+        width: 500,
         render:(name,row)=> <PersonInfoShow item={row}/>
       }, {
         title: "招聘负责人",

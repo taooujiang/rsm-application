@@ -231,7 +231,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="政治面貌" name="political" fetch={this.getDictByType("political",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.political&&applyerInfo.political.toString()} />
+								<Select label="政治面貌" name="politicsStatus" fetch={this.getDictByType("political",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.politicsStatus&&applyerInfo.politicsStatus.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
