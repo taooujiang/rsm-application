@@ -216,7 +216,7 @@ const reducer = handleActions({
 					it.keyURl2="https://www.zhipin.com/chat/im?mu=%2Fbossweb%2Fjoblist.html"
       }else if(it.keyValue==10){
 					it.keyURl="https://passport.liepin.com/e/account#sfrom=click-pc_homepage-front_navigation-ecomphr_new"
-					it.keyURl2="https://lpt.liepin.com/ejobedit/editejob?ejobActionType=publish"
+					it.keyURl2="https://lpt.liepin.com/ejob/showpublishejoblist/"
       }else if(it.keyValue==13){
 					it.keyURl="https://www.lagou.com/lp/html/common.html?utm_source=m_cf_cpt_baidu_pc"
 					it.keyURl2="https://easy.lagou.com/position/my_online_positions.htm?pageNo=1"
