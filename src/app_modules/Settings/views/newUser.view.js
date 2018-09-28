@@ -145,6 +145,9 @@ export class AddMemberStepFirst extends FormPage{
           msg:json.msg,
           account:account
         })
+      }else if(json.isRepeat){
+        message.warning(json.msg)
+        return
       }else{
         this.setState({
           orgin:false,
@@ -161,6 +164,9 @@ export class AddMemberStepFirst extends FormPage{
       actions.saveUserAction(value)
       actions.backRoute(router)
     }else{
+      if(this.state.isSkip){
+        //验证码启用
+      }
       new API().fetchSubmitCode(value).then((json)=>{
         if(json.status){
           message.success("操作成功")
@@ -192,7 +198,7 @@ export class AddMemberStepFirst extends FormPage{
       document.querySelector('.ant-input-search .ant-input-suffix button').setAttribute('disabled', true)
       clearInterval(this.state.timmer)
       this.setState({
-        count: 3
+        count: 60
       })
       this.setState({
         timmer: setInterval(() => {
@@ -286,6 +292,7 @@ export class AddMemberStepFirst extends FormPage{
       const { location: { state: { codeStep } } } = this.props
       if (codeStep) {
         this.setState({
+          isSkip:true,
           type: this.props.location.state.type,
           account: this.props.location.state.account,
           msg: this.props.location.state.msg,
