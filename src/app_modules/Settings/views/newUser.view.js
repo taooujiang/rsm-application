@@ -45,7 +45,7 @@ class AddMemberStepCode extends FormPage{
     return (
       <Spin tip="Loading..." spinning={false}>
         <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
-        <p>该账号为{this.props.msg}的HR或面试官</p>
+        <p>该帐号为{this.props.msg}的HR或面试官</p>
         <p>手机验证通过后，帐号将加入新公司，原公司帐号禁用</p>
         <FormItem>
           <Input name="account" type='hidden' defaultValue={this.props.account}/>
@@ -133,7 +133,7 @@ export class AddMemberStepFirst extends FormPage{
     new API().fetchAccountCan(value).then((json)=>{
       if(json.status && json.type == 1){
         /*先判断是否为其他公司超级管理员  提示后退出*/
-        message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`,5)
+        message.warning(`该帐号为${json.msg}的超级管理员，无法重复添加`,5)
         return false
       }
       /*判断其他情况**/
@@ -260,7 +260,7 @@ export class AddMemberStepFirst extends FormPage{
     ) : (
       <Spin tip="Loading..." spinning={false}>
         <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
-        <p>该账号为{msg}的HR或面试官</p>
+        <p>该帐号为{msg}的HR或面试官</p>
         <p>手机验证通过后，帐号将加入新公司，原公司帐号禁用</p>
         <FormItem>
           <Input name="account" type='hidden' defaultValue={account}/>

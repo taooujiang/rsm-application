@@ -46,8 +46,8 @@ return (<Select.Option value={data.account} key={idx}>{data.name}</Select.Option
   // 入参：Integer timeType 展示数据类型：1-今日面试，2-明天及之后的面试，3-昨天及以前的面试
   //                            String name 姓名
   //                            String jobId 职位（职位id）
-  //                            String hrAcc 招聘HR（hr账号）
-  //                            String interviewerId  面试官（面试官账号）
+  //                            String hrAcc 招聘HR（hr帐号）
+  //                            String interviewerId  面试官（面试官帐号）
   //                            Integer type 面试阶段（1--面试1面、2--面试2面、3--面试3面）
   //                            String[] time 面试时间
   render(){
