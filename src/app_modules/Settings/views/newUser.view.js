@@ -166,18 +166,19 @@ export class AddMemberStepFirst extends FormPage{
     }else{
       if(this.state.isSkip){
         //验证码启用
+        console.warn('没api')
       }
-      new API().fetchSubmitCode(value).then((json)=>{
-        if(json.status){
-          message.success("操作成功")
-          this.handleRerver()
-        }else{
-          message.warning(json.msg)
-        }
-      }).catch(e=>{
+      // new API().fetchSubmitCode(value).then((json)=>{
+      //   if(json.status){
+      //     message.success("操作成功")
+      //     this.handleRerver()
+      //   }else{
+      //     message.warning(json.msg)
+      //   }
+      // }).catch(e=>{
 
-          message.warning(e.msg)
-      })
+      //     message.warning(e.msg)
+      // })
     }
   }
   getCode(){
