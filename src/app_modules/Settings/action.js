@@ -259,6 +259,18 @@ export function saveAction(params) {
 	}
 }
 
+export function enableAccWithCodeAction(value) {
+
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('itemSpin'))
+    return new API().fetchEnableAccWithCode(value).then(json => {
+      dispatch(fetchSuccess('itemSpin', true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('itemSpin', ex))
+    })
+  }
+}
+
 
 export function itemAction(value) {
 	return (dispatch, getState) => {

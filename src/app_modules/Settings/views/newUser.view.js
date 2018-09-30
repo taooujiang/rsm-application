@@ -166,7 +166,9 @@ export class AddMemberStepFirst extends FormPage{
     }else{
       if(this.state.isSkip){
         //验证码启用
-        console.warn('没api')
+        let {actions,router,location} = this.props
+        actions.enableAccWithCodeAction(value)
+        actions.backRoute(router)
       }
       // new API().fetchSubmitCode(value).then((json)=>{
       //   if(json.status){

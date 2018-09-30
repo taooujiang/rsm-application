@@ -173,6 +173,10 @@ export default class API extends FetchAPI {
   
   fetchEnableAcc(params) {
 		return this.fetchPost(`${APP_SERVER}/accountOperate/enabled`, { body: params })
+  }
+  
+  fetchEnableAccWithCode(params) {
+		return this.fetchPost(`${APP_SERVER}/accountOperate/directEnabled`, { body: params })
 	}
 
 	fetchReloadAcc(params) {
