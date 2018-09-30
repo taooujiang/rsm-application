@@ -75,7 +75,7 @@ export function itemUpsertAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))
         return new API().fetchUpsertItem(value).then(json => {
-            dispatch(fetchSuccess('itemSpin'),true)
+            dispatch(fetchSuccess('itemSpin',true))
             let {jobId} = json
             dispatch(saveItem(json))
             if(!value.jobId){
