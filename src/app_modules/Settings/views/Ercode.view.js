@@ -8,6 +8,6 @@ import {ModalViewQrCode} from 'app/components/Modal.view'
 
 export default class Ercode extends PageView {
 	render(){
-		return <img src='/getQRCode' style={{width:200,display:"block",margin:"0 auto"}}/>
+		return <img src='/getQRCode' style={{width:200}}/>
 	}
 }
