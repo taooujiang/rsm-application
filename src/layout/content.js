@@ -16,7 +16,8 @@ export default class ContentSide extends React.Component {
         display:'flex',
         flex:'1',
         padding:'10px 10px 0 10px',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width:"100%"
       }}>
       </div>
     )

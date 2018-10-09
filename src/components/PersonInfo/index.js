@@ -240,7 +240,7 @@ function filterArray(arr){
 class BaseInfoItem extends Component{
   render(){
     return toStrings(this.props.info) || this.props.show? (
-      <div className="baseinfo-item" style={this.props.style}>
+      <div className="baseinfo-item" style={Object.assign({},this.props.style,{wordBreak:"break-all"})}>
         <label>{this.props.label}：</label>
         <span>{this.props.info}</span>
       </div>
@@ -469,7 +469,7 @@ class OptionButtonsResume extends OptionCommonFn{
 
   render(){
     let {item:{hrName,labelNames}} = this.props
-    console.log(permissionStyle("resumeToCred"))
+    //console.log(permissionStyle("resumeToCred"))
     return(
       <ButtonGroup style={{padding:'20px'}}>
         {this.renderButtons()}
@@ -2134,7 +2134,7 @@ export class PersonFeedRecord extends Component{
   }
   componentWillReceiveProps(nextProps){
     console.log(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state),nextProps)
-      let {actions,resumeId} = this.props;
+      let {actions,resumeId} = this.props
       if(JSON.stringify(nextProps.resumeId) !== JSON.stringify(this.props.resumeId)){
         actions.getFeedDataAction({resumeId:nextProps.resumeId})
       }
