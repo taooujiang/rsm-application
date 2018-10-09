@@ -22,7 +22,10 @@ import TalentLabelView from './views/TalentLabel.view'
 import TemplateView from './views/Template.view'
 import TemplateFormView from './views/TemplateForm.view'
 import UserRightView from './views/UserRights.view'
-import UserOptionView,{AddMemberStepFirst} from './views/newUser.view'
+import UserOptionView from './views/newUser.view'
+
+import {AddMemberStepOrign,AddMemberStepFirst,AddMemberStepCode} from './views/UserForm.view'
+
 import UserEditView from './views/editUser.view'
 import HandoverView from './views/handover.view'
 import MailboxView from './views/mailbox.view'
@@ -114,6 +117,25 @@ let accountAddContainer = connect((state,props)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(AddMemberStepFirst)
+
+let AddMemberStepOrignContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(AddMemberStepOrign)
+
+
+let AddMemberStepFirstContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(AddMemberStepFirst)
+
+let AddMemberStepCodeContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(AddMemberStepCode)
 
 let accountEditContainer = connect((state,props)=>({
   item:reducerItemSelector(state.ORMReducer,"User",props.params.account),
@@ -274,7 +296,10 @@ export {
 		ApplyContainer,
 		ApplyFormContainer,
     ErcodeContainer,
-		ChannelContainer
+    ChannelContainer,
+    AddMemberStepOrignContainer,
+    AddMemberStepFirstContainer,
+    AddMemberStepCodeContainer
 }
 
 export default Container;

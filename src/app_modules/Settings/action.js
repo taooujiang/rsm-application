@@ -158,7 +158,7 @@ export function listUserAction(value) {
 			dispatch(fetchSuccess('tableSpin'))
 			let { list, ...page } = json
 			dispatch(userSaveList(json))
-			// dispatch(saveRightsList(list, page))
+      // dispatch(saveRightsList(list, page))
 		}).catch(ex => {
 			return dispatch(fetchFailure('tableSpin', ex))
 		})
@@ -171,7 +171,8 @@ export function saveUserAction(value) {
 				let{id,...data}=value
 				return new API().fetchEditUser(data).then(json => {
 					dispatch(fetchSuccess('itemSpin', true))
-					dispatch(userSave(json))
+          dispatch(userSave(json))
+          dispatch(listUserAction())
 				}).catch(ex => {
 					return dispatch(fetchFailure('itemSpin', ex))
 				})
@@ -265,6 +266,7 @@ export function enableAccWithCodeAction(value) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchEnableAccWithCode(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
+      dispatch(listUserAction())
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -447,6 +449,36 @@ export function addUserAction(value){
 	}
 }
 
+export function route2AddUserFormAction(account) {
+  let newLocation={
+    pathname: `/settings/userRights/addform`,
+    state: { 
+      account: account ,
+    }
+  }
+	return dispatch => dispatch(routerActions.push(newLocation))
+}
+
+export function route2AddUserCodeAction(account,data) {
+  let newLocation={
+    pathname: `/settings/userRights/addvalid`,
+    state: { 
+      account: account ,
+      type:data.type,
+      msg:data.msg,
+    }
+  }
+	return dispatch => dispatch(routerActions.push(newLocation))
+}
+
+export function route2UserListAction() {
+  
+	return dispatch => {
+    dispatch(routerActions.push(`/settings/userRights`))
+    // dispatch(listUserAction())
+  }
+}
+
 export function disabledAction(row) {
 	let value = {
 		account:row.account
@@ -470,9 +502,8 @@ export function enableAction(row) {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchEnableAcc(value).then(json => {
       if(json.status){
-        console.log(json,'jsonjsonjsonjson')
         let newLocation={
-          pathname: `/settings/userRights/add`,
+          pathname: `/settings/userRights/addvalid`,
           state: { 
             codeStep: true, 
             type: json.type, 

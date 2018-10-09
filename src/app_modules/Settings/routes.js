@@ -31,7 +31,10 @@ import Container, {
 	RejectFormContainer,
 	ApplyContainer,
 	// ApplyFormContainer,
-	ChannelContainer
+  ChannelContainer,
+  AddMemberStepOrignContainer,
+  AddMemberStepFirstContainer,
+  AddMemberStepCodeContainer
 } from './container'
 
 let Routes = (
@@ -53,7 +56,11 @@ let Routes = (
 			<Route path="edit/:id" components={TemplateFormContainer} breadcrumbName="编辑模板" />
 		</Route>
 		<Route path="userRights" components={userRightsContainer} breadcrumbName="用户权限">
-			<Route path="add" components={accountAddContainer} breadcrumbName="新增用户" />
+			{/* <Route path="add" components={accountAddContainer} breadcrumbName="新增用户" /> */}
+			<Route path="add" components={AddMemberStepFirstContainer} breadcrumbName="验证用户名" />
+      
+			<Route path="addform" components={AddMemberStepOrignContainer} breadcrumbName="新增用户" />
+			<Route path="addvalid" components={AddMemberStepCodeContainer} breadcrumbName="输入验证码" />
 			<Route path="handover/:nowAcc" components={handoverContainer} breadcrumbName="管理员交接" />
 			<Route path="edit/:account" components={accountEditContainer} breadcrumbName="编辑用户" />
 		</Route>
