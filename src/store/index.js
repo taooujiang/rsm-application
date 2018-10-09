@@ -218,9 +218,10 @@ const addTabByRouteMiddleware = history => {
         window.changeTab && window.changeTab("dashboard");
       } else if (action.payload.pathname.indexOf("log") > -1) {
         window.addTab && window.addTab(panes["log"]);
-      } else if (action.payload.pathname.indexOf("elite") > -1) {
-        window.addTab && window.addTab(panes["elite"]);
       }
+      //  else if (action.payload.pathname.indexOf("elite") > -1) {
+      //   window.addTab && window.addTab(panes["elite"]);
+      // }
       // else if (action.payload.pathname.indexOf("settings") > -1) {
       //   window.addTab && window.addTab(panes["settings"]);
       // } 
