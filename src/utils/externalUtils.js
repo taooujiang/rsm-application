@@ -75,13 +75,16 @@ export default class ClientAPI {
         //   key: '/ercode' ,
         //   src:`/static/js/client/main.html#/log/qrcode`
         // })
+        let host =window.location.host
         let params = {
-          'url': '/static/js/client/main.html#/log/qrcode',
-          'title':'二维码',
-          'wx':0,
-          'wy':0,
-          'width':300,
-          'height':300
+          "ExpandJson":{
+            'url': host + '/static/js/client/main.html#/log/qrcode',
+            'title':'二维码',
+            'wx':0,
+            'wy':0,
+            'width':300,
+            'height':300
+          }
         }
         invokeMethod('OnExpandJson',JSON.stringify(params));
 
