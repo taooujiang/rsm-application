@@ -19,7 +19,7 @@ const TreeNode = TreeSelect.TreeNode;
 const {TextArea} = Input
 const Search = Input.Search;
 
-@WrapperComponent(ModalView)
+@WrapperComponent(UserFormModalView)
 export class AddMemberStepCode extends FormPage{
   getCode(){
     let params = {
@@ -108,7 +108,7 @@ export class AddMemberStepCode extends FormPage{
   }
 }
 
-@WrapperComponent(ModalView)
+@WrapperComponent(UserFormModalView)
 export class AddMemberStepOrign extends FormPage{
 
   renderRoleOption(data,idx){
@@ -162,7 +162,7 @@ export class AddMemberStepOrign extends FormPage{
 }
 
 
-@WrapperComponent(ModalView)
+@WrapperComponent(UserFormModalView)
 export class AddMemberStepFirst extends FormPage{
   /*state type判断123为分别三种角色后 4代表返回正常添加页面**/
   state = {

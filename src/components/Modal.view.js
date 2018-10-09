@@ -167,7 +167,7 @@ export class UserFormModalView extends Component {
 
   handleBackRoute() {
     let {actions, history,router} = this.props
-    actions.backRoute(router)
+    actions.route2UserListAction()
   }
   handleSaveRoute(){
     let { formView } =this.refs
@@ -183,7 +183,7 @@ export class UserFormModalView extends Component {
         footer={[
           <Button key="back" onClick={this.handleBackRoute.bind(this)}>取消</Button>,
           <Button key="submit" type="primary"  onClick={this.handleSaveRoute.bind(this)}>
-            下一步
+            确定
         </Button>,
         ]}>
         {
