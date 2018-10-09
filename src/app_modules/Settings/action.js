@@ -449,21 +449,21 @@ export function addUserAction(value){
 	}
 }
 
-export function route2AddUserFormAction(account) {
+export function route2AddUserFormAction(acc) {
   let newLocation={
     pathname: `/settings/userRights/addform`,
     state: { 
-      account: account ,
+      account: acc ,
     }
   }
 	return dispatch => dispatch(routerActions.push(newLocation))
 }
 
-export function route2AddUserCodeAction(account,data) {
+export function route2AddUserCodeAction(acc,data) {
   let newLocation={
     pathname: `/settings/userRights/addvalid`,
     state: { 
-      account: account ,
+      account: acc ,
       type:data.type,
       msg:data.msg,
     }

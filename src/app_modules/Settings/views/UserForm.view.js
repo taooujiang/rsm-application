@@ -64,7 +64,7 @@ export class AddMemberStepCode extends FormPage{
   handleSubmit(value){
     let {actions} = this.props
     console.log('AddMemberStepCodeAddMemberStepCode')
-    let { handleRerver,location:{state:{codeStep}} } = this.props
+    let { handleRerver,location:{state:{codeStep,account}} } = this.props
     if(codeStep){
       actions.enableAccWithCodeAction(value)
       return actions.route2UserListAction()
