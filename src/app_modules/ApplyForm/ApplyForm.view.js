@@ -260,7 +260,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="户籍所在地" name="residenceDdressDetail" defaultValue={applyerInfo&&applyerInfo.residenceDdressDetail} />
+								<Input label="户籍所在地" name="residenceDdress" defaultValue={applyerInfo&&applyerInfo.residenceDdress} />
 							</FormItem>
 						</Col>
 						<Col span={24}>
@@ -370,7 +370,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} />
+								<TextArea label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} />
 							</FormItem>
 						</Col>
 					<Col span={24}>
