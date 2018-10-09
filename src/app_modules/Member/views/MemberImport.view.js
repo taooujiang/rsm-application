@@ -90,6 +90,9 @@ class MemberImport extends Component{
         }
       }
       let submitData = Object.assign({},{fieldsStr},{id})
+      if(!fieldsStr.includes('name')){
+        return message.error('请选择员工姓名匹配字段')
+      }
       actions.uploadCommitAction(submitData)
       this.setState({ current });
      });
