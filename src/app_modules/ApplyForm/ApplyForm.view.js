@@ -270,7 +270,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="杭州住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
+								<Select label="本市住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
 							</FormItem>
 						</Col>
 						<Col span={12}>

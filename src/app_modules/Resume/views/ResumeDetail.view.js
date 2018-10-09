@@ -199,7 +199,7 @@ class PersonInfoPanelHead extends Component{
       return (
         <Select style={{width:220}} value={toStrings(info.id)} onChange={this.handleChange.bind(this)}>
           {list.map((it,idx)=>{
-            return <Select.Option value={it.id} key={idx} >{`${it.jobTitle} ${translateDic("channel",it.channel)} ${translateDic("resume",it.resumeType)} ${translateDic("resumeplace",it.libType)}`}</Select.Option>
+            return <Select.Option value={toStrings(it.id)} key={idx} >{`${it.jobTitle} ${translateDic("channel",it.channel)} ${translateDic("resume",it.resumeType)} ${translateDic("resumeplace",it.libType)}`}</Select.Option>
           })}
         </Select>
       )
@@ -237,6 +237,8 @@ class PersonInfoPanelHead extends Component{
     if(translateDic("sex",info.sex)&&info.age) userInfoText = `${translateDic("sex",info.sex)} · ${info.age}`
     if(translateDic("sex",info.sex)&&!info.age) userInfoText = `${translateDic("sex",info.sex)}`
     if(!translateDic("sex",info.sex)&&info.age) userInfoText = `${info.age}`
+
+    console.log(info)
     return (
       <div className="person-info-head">
         <Button className="delete-btn" style={permissionStyle("deleteResume")} onClick={this.handleDelete.bind(this,info)}><Icon type="delete" /></Button>
