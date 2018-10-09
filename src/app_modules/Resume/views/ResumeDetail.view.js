@@ -142,8 +142,8 @@ class ResumeDetail extends Component{
     return (
       <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
         <div className="person-info-body">
-          <Layout direction="row" >
-            <Pane style={{flexDirection:"column"}}>
+          <Layout direction="row">
+            <Pane style={{flexDirection:"column",width:"50%"}}>
               <Tabs animated={false} className="personInfoTabs" activeKey={this.state.defaultKey} onTabClick={this.handleTabChange.bind(this)}>
                 <TabPane tab="基本信息" key="1">
                   <PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} detailType={detailType}/>
