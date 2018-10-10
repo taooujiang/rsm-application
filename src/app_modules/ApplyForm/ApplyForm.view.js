@@ -321,12 +321,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="英语水平" name="englishLevel " defaultValue={applyerInfo&&applyerInfo.englishLevel} rules={[{max:30,message:"英语水平最多30个字符"}]} />
+								<Input label="英语水平" name="englishLevel" defaultValue={applyerInfo&&applyerInfo.englishLevel} rules={[{max:30,message:"英语水平最多30个字符"}]} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="本人联系电话" name="mobilephone " defaultValue={applyerInfo&&applyerInfo.mobilephone} />
+								<Input label="本人联系电话" name="mobilephone" defaultValue={applyerInfo&&applyerInfo.mobilephone} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
