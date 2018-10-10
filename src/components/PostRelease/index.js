@@ -49,6 +49,11 @@ const TreeNode=Tree.TreeNode
 const TabPane = Tabs.TabPane;
 const { TextArea } = Input;
 
+
+function toStrings(str){
+  return str + ""
+}
+
 class BaseInfoItem extends Component{
   render(){
     return(
@@ -173,7 +178,7 @@ class BaseInfoEdit extends FormPage{
           </Col>
           <Col span={12}>
             <FormItem>
-              <Select name="degree" label="最低学历要求" placeholder="请选择"  fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} defaultValue={item.degree}  rules={[{required: true, message: "最低学历要求不可为空"},{validator:customRules.required}]}/>
+              <Select name="degree" label="最低学历要求" placeholder="请选择"  fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} defaultValue={toStrings(item.degree)}  rules={[{required: true, message: "最低学历要求不可为空"},{validator:customRules.required}]}/>
             </FormItem>
           </Col>
           <Col span={12}>

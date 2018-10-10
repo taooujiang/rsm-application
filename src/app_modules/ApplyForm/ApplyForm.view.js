@@ -116,12 +116,13 @@ class EditableFeild extends Component {
         <Table bordered dataSource={this.state.initialValue} scroll={{ y: 300 }} style={{height:'300px'}} rowKey='company' columns={columns.map(it=>{
 					return Object.assign(it,{
 						width:"10%",
-						render: (value, record) => (
-			        <EditableCell
+						render: (value, record,a,b) =>(
+              <EditableCell
 			          value={value}
+                type={it.dataType == "time" ? 'time' : 'text'}
 			          onChange={this.onCellChangeArea(record, it.dataIndex)}
 			        />
-			      )
+            )
 					})
 				})} pagination={false} />
         <Row>
@@ -218,7 +219,7 @@ export default class ApplyFormView extends FormPage {
 						</FormItem>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="姓名" name="name" defaultValue={applyerInfo&&applyerInfo.name} />
+								<Input label="姓名" name="name" defaultValue={applyerInfo&&applyerInfo.name} rules={[{required: true, message: "姓名不可为空"},{validator:customRules.required}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -228,7 +229,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)}/>
+								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)} rules={[{required: true, message: "出生日期不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -260,12 +261,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="户籍所在地" name="residenceDdress" defaultValue={applyerInfo&&applyerInfo.residenceDdress} />
+								<Input label="户籍所在地" name="residenceDdress" defaultValue={applyerInfo&&applyerInfo.residenceAddress} rules={[{max:30,message:"户籍所在地最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="现住地址" name="currentAddress" defaultValue={applyerInfo&&applyerInfo.currentAddress} />
+								<Input label="现住地址" name="currentAddress" defaultValue={applyerInfo&&applyerInfo.currentAddress} rules={[{max:30,message:"现住地址最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -280,7 +281,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="身体状况" name="physicalCondition" defaultValue={applyerInfo&&applyerInfo.physicalCondition} />
+								<Input label="身体状况" name="physicalCondition" defaultValue={applyerInfo&&applyerInfo.physicalCondition} rules={[{max:30,message:"身体状况最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -295,17 +296,17 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="所学专业" name="lastMajor" defaultValue={applyerInfo&&applyerInfo.lastMajor} />
+								<Input label="所学专业" name="lastMajor" defaultValue={applyerInfo&&applyerInfo.lastMajor} rules={[{max:30,message:"所学专业最多30个字符"}]} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="辅修专业" name="minorMajor" defaultValue={applyerInfo&&applyerInfo.minorMajor} />
+								<Input label="辅修专业" name="minorMajor" defaultValue={applyerInfo&&applyerInfo.minorMajor} rules={[{max:30,message:"辅修专业最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="毕业学校" name="lastSchool" defaultValue={applyerInfo&&applyerInfo.lastSchool} />
+								<Input label="毕业学校" name="lastSchool" defaultValue={applyerInfo&&applyerInfo.lastSchool} rules={[{max:20,message:"毕业学校最多20个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -315,12 +316,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="资格技能证书" name="skillCertificate" defaultValue={applyerInfo&&applyerInfo.skillCertificate} />
+								<Input label="资格技能证书" name="skillCertificate" defaultValue={applyerInfo&&applyerInfo.skillCertificate} rules={[{max:30,message:"资格技能证书最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="英语水平" name="englishLevel " defaultValue={applyerInfo&&applyerInfo.englishLevel} />
+								<Input label="英语水平" name="englishLevel " defaultValue={applyerInfo&&applyerInfo.englishLevel} rules={[{max:30,message:"英语水平最多30个字符"}]} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -335,7 +336,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} />
+								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:30,message:"紧急联系人姓名最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -350,27 +351,27 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="目前薪酬" name="currentSalary" defaultValue={applyerInfo&&applyerInfo.currentSalary} />
+								<Input label="目前薪酬" name="currentSalary" defaultValue={applyerInfo&&applyerInfo.currentSalary} rules={[{max:30,message:"目前薪酬最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="期望薪酬福利" name="expectedSalary" defaultValue={applyerInfo&&applyerInfo.expectedSalary} />
+								<Input label="期望薪酬福利" name="expectedSalary" defaultValue={applyerInfo&&applyerInfo.expectedSalary} rules={[{max:30,message:"期望薪酬福利最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="爱好特长" name="hobby" defaultValue={applyerInfo&&applyerInfo.hobby} />
+								<Input label="爱好特长" name="hobby" defaultValue={applyerInfo&&applyerInfo.hobby} rules={[{max:50,message:"爱好特长最多50个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="其他要求" name="otherRequirements" defaultValue={applyerInfo&&applyerInfo.otherRequirements} />
+								<Input label="其他要求" name="otherRequirements" defaultValue={applyerInfo&&applyerInfo.otherRequirements} rules={[{max:50,message:"其他要求最多50个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} />
+								<TextArea label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} rules={[{max:100,message:"个人发展计划最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 					<Col span={24}>
@@ -405,6 +406,7 @@ export default class ApplyFormView extends FormPage {
               <EditableFeild label="工作经历" name="workList" columns={[{
                     title: '时间',
                     dataIndex: 'duringTime',
+                    dataType: "time"
                   },{
                     title: '单位及部门',
                     dataIndex: 'company',
@@ -444,6 +446,7 @@ export default class ApplyFormView extends FormPage {
               <EditableFeild label="主要学习经历" name="studyList" columns={[{
                     title: '学习起止时间段',
                     dataIndex: 'studyTime',
+                    dataType: "time"
                   },{
                     title: '所在学校',
                     dataIndex: 'school',
