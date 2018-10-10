@@ -229,7 +229,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime&&moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined)} rules={[{required: true, message: "出生日期不可为空"}]}/>
+								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime?moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined):null} rules={[{required: true, message: "出生日期不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -311,7 +311,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&applyerInfo.lastSchoolEnd&&moment(applyerInfo.lastSchoolEnd?applyerInfo.lastSchoolEnd:undefined)}  />
+								<DatePicker label="毕业时间" name="lastSchoolEnd" defaultValue={applyerInfo&&applyerInfo.lastSchoolEnd?moment(applyerInfo.lastSchoolEnd?applyerInfo.lastSchoolEnd:undefined):null}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -346,7 +346,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&applyerInfo.predictTime&&moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined)}  />
+								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&applyerInfo.predictTime?moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined):null}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
