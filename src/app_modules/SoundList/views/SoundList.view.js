@@ -190,6 +190,7 @@ class SoundListView extends PageView {
         {
           title: "联系人",
           key: "candidateName",
+          width: 120,
           dataIndex: "candidateName"
         },
         {
