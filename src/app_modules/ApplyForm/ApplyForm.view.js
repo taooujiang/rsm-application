@@ -140,7 +140,9 @@ class EditableFeild extends Component {
 
 
 export default class ApplyFormView extends FormPage {
-  state = {}
+  state = {
+		"submit":false
+	}
 
   componentDidMount() {
     new API().fetchGetJsonMap()
@@ -161,6 +163,7 @@ export default class ApplyFormView extends FormPage {
 	handleSubmit() {
 		let { form, switchFn } = this.props
 		let { actions } = this.context
+
 		this.form.validateFieldsAndScroll((err, values) => {
 			if (err) {
 				return;
@@ -168,7 +171,10 @@ export default class ApplyFormView extends FormPage {
 			new API().fetchSaveApplyForm(values)
 			.then((res)=>{
 				console.log(res)
-				message.success("提交成功")
+				this.setState({
+					"submit":true
+				})
+				// message.success("提交成功")
 			})
 			.catch(err=>{
 				console.log(err)
@@ -187,6 +193,7 @@ export default class ApplyFormView extends FormPage {
 		let jsonMap = this.state.jsonMap || {}
 		// console.log(applyerInfo)
 		return (
+			!this.state.submit?
 			<div className="apply-form-wrap">
 				<h2 className="form-title">面试信息登记</h2>
 				<div className="form-subtitle">
@@ -481,7 +488,7 @@ export default class ApplyFormView extends FormPage {
 					<Button type="primary" htmlType="button" onClick={this.handleSubmit.bind(this)}>保存</Button>
 				</BaseForm>
 			</div>
-
+			:<div style={{textAlign:"center"}}><Icon type="check-circle" theme="outlined" style={{ fontSize: '16px', color: '#52c41a' }} />提交成功!</div>
 		);
 	}
 }
