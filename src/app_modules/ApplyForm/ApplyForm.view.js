@@ -251,7 +251,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="身份证号" name="idCard" defaultValue={applyerInfo&&applyerInfo.idCard} />
+								<Input label="身份证号" name="idCard" defaultValue={applyerInfo&&applyerInfo.idCard} rules={[{required: true, message: "身份证号不可为空"},{validator:customRules.checkIDCard}]} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -336,12 +336,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:30,message:"紧急联系人姓名最多30个字符"}]}/>
+								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:30,message:"紧急联系人姓名最多30个字符"},{required: true,message:"紧急联系人姓名不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人电话" name="urgencyPhone" defaultValue={applyerInfo&&applyerInfo.urgencyPhone} />
+								<Input label="紧急联系人电话" name="urgencyPhone" defaultValue={applyerInfo&&applyerInfo.urgencyPhone} rules={[{required: true,message:"紧急联系人电话不可为空"}]} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
