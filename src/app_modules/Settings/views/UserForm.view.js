@@ -67,7 +67,11 @@ export class AddMemberStepCode extends FormPage{
     let { handleRerver,location:{state:{codeStep,account}} } = this.props
     if(codeStep){
       new API().fetchEnableAccWithCode(value).then(json=>{
-        return actions.route2UserListAction()
+        if(json.isEnable==2){
+          return message.warning(e.msg)
+        }else{
+          return actions.route2UserListAction()
+        }
       })
       .catch(e=>message.warning(e.msg))
       // actions.enableAccWithCodeAction(value)
