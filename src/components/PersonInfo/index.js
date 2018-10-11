@@ -696,6 +696,7 @@ export class PersonTabBaseInfo extends Component{
   handlePrinter(){
     let stylesText = '<style>body { color:#333; }button {display: none;} h3 {color:#32a0eb}  h3 > span {color:#333;margin-left:20px;font-size:12px;} img { width: 80px;height: auto;border-radius: 50%;margin: 0 20px;}</style>'
     var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'))
+    console.log(LODOP)
     LODOP.PRINT_INIT("打印简历")
     LODOP.ADD_PRINT_HTML(88,200,350,600,stylesText+"<body>"+document.getElementById("personInfoPrintBox").innerHTML+"</body>")
     /*打印预览*/
@@ -1777,7 +1778,7 @@ class PersonTraningEditItem extends FormPage{
           <FormItemWrapparCol span={24}>
             <Input label="培训课程"  name='trainingCourse' defaultValue={item.trainingCourse} rules={[{required: true, message: "培训课程不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
-          {/*<FormItemWrapparCol span={12}>
+          <FormItemWrapparCol span={12}>
             <Input label="获得证书"  name='certificate' defaultValue={item.certificate} rules={[{required: true, message: "获得证书不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
           <FormItemWrapparCol span={24}>
@@ -1785,7 +1786,7 @@ class PersonTraningEditItem extends FormPage{
           </FormItemWrapparCol>
           <FormItemWrapparCol span={24}>
             <TextArea autosize={{minRows:4}} label="详细描述"  name='description' defaultValue={item.description} rules={[{required: true, message: "详细描述不可为空"},{validator:customRules.required}]}/>
-          </FormItemWrapparCol>*/}
+          </FormItemWrapparCol>
 
           <Button.Group>
             <Button onClick={this.props.editChangeFn}>取消</Button>
@@ -2285,13 +2286,17 @@ export class ExtraInformation extends Component{
       actions.fetchAdditionInfoAction({"resumeId":resumeId})
     })
   }
-  handleImg(url){
-    return Modal.success({
-      title: "查看图片",
-      content: (
-        <div><img src={url} style={{width:"100%"}}/></div>
-      )
-    })
+  handleImg(url,item){
+    if(item.type == 1){
+      console.log(item)
+    }else{
+      return Modal.success({
+        title: "查看图片",
+        content: (
+          <div><img src={url} style={{width:"100%"}}/></div>
+        )
+      })
+    }
   }
   beforeUpload(file){
     let {name} = file
@@ -2299,7 +2304,7 @@ export class ExtraInformation extends Component{
     if(suffix == "jpg" || suffix == "png" || suffix == "jpeg"){
       return true
     }else{
-      message.warning("只能上传图片文件")
+      message.warning("图片格式只支持jpg,png和jpeg")
       return false
     }
   }
@@ -2322,7 +2327,7 @@ export class ExtraInformation extends Component{
         :[<Popconfirm onConfirm={this.handlerAdditionDelete.bind(this,item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
           <Icon type="delete"  />
         </Popconfirm>]}
-        ><span onClick={this.handleImg.bind(this,item.fileUrl)} style={{cursor:"pointer"}}>{item.name}</span></List.Item>)}
+        ><span onClick={this.handleImg.bind(this,item.fileUrl,item)} style={{cursor:"pointer"}}>{item.name}</span></List.Item>)}
       />
     )
   }
