@@ -24,7 +24,7 @@ export default class EditableCell extends Component {
 			value:time
 		})
 		if (this.props.onChange) {
-			this.props.onChange(time.map((it,idx)=>moment(it).format("YYYY-MM-DD")));
+			this.props.onChange(time.map((it,idx)=>moment(it).format("YYYY-MM-DD HH:mm:ss")));
 		}
 	}
 	check() {
