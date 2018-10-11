@@ -6,6 +6,7 @@ import { routerActions, push, replace } from 'react-router-redux'
 import createConstants, { dispatchHandler, createTypes, createActionRoute } from 'app-utils/CreateConstants'
 import ActionRouter from 'app-utils/ActionRouterUtils'
 import ClientAPI from 'utils/externalUtils'
+import { message} from 'antd'
 
 
 
@@ -497,7 +498,7 @@ export function disabledAction(row) {
 export function enableAction(row) {
 	let value = {
 		account:row.account
-	}
+  }
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchEnableAcc(value).then(json => {
@@ -513,6 +514,8 @@ export function enableAction(row) {
         }
         dispatch(routerActions.push(newLocation))
         return
+      }else if(json.status&&json.type==1){
+        message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`)
       }
 			dispatch(fetchSuccess('itemSpin', true))
       dispatch(listUserAction())
