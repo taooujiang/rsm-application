@@ -19,13 +19,12 @@ export default class EditableCell extends Component {
 		return timeArr && timeArr.map((it,idx)=>moment(it).format("YYYY-MM-DD")).join("-")
 	}
 	handleTimeChange(time){
-		console.log(time)
 		this.setState({
 			editable: false,
 			value:time
 		})
 		if (this.props.onChange) {
-			this.props.onChange(time);
+			this.props.onChange(time.map((it,idx)=>moment(it).format("YYYY-MM-DD")));
 		}
 	}
 	check() {
