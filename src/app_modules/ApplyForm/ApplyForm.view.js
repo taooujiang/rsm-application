@@ -371,7 +371,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} rules={[{max:100,message:"个人发展计划最多30个字符"}]}/>
+								<TextArea label="个人发展计划" name="developmentPlan" defaultValue={applyerInfo&&applyerInfo.developmentPlan} rules={[{max:100,message:"个人发展计划最多100个字符"}]}/>
 							</FormItem>
 						</Col>
 					<Col span={24}>
