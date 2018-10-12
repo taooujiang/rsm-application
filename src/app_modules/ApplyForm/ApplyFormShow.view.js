@@ -195,14 +195,14 @@ export default class ApplyFormView extends Component{
             <BaseItem span={12} label="所学专业" info={info&&info.lastMajor}/>
             <BaseItem span={12} label="辅修专业" info={info&&info.minorMajor}/>
             <BaseItem span={12} label="毕业学校" info={info&&info.lastSchool}/>
-            <BaseItem span={12} label="毕业时间" info={info&&info.lastSchoolEnd}/>
+            <BaseItem span={12} label="毕业时间" info={translateTime(info&&info.lastSchoolEnd)}/>
             <BaseItem span={12} label="资格技能证书" info={info&&info.skillCertificate}/>
             <BaseItem span={12} label="英语水平" info={info&&info.englishLevel}/>
             <BaseItem span={12} label="本人联系电话" info={info&&info.mobilephone}/>
             <BaseItem span={12} label="邮箱地址" info={info&&info.email}/>
             <BaseItem span={12} label="紧急联系人姓名" info={info&&info.urgencyName}/>
             <BaseItem span={12} label="紧急联系人电话" info={info&&info.urgencyPhone}/>
-            <BaseItem span={12} label="预计到岗时间" info={info&&info.predictTime}/>
+            <BaseItem span={12} label="预计到岗时间" info={translateTime(info&&info.predictTime)}/>
             <BaseItem span={12} label="目前薪酬" info={info&&info.currentSalary}/>
             <BaseItem span={12} label="期望薪酬福利" info={info&&info.expectedSalary}/>
             <BaseItem span={24} label="爱好特长" info={info&&info.hobby}/>
