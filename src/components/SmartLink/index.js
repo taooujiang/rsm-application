@@ -67,9 +67,9 @@ export default class SmartLink extends Component{
       if (!to) { return <a {...props} /> }
 
       const toLocation = this.resolveToLocation(to, router)
-      props.href = router.createHref(toLocation)
+      //props.href = router.createHref(toLocation)
+      props.to = toLocation
     }
-
     return  React.createElement(Link,Object.assign({},props),props.children)
   }
 }

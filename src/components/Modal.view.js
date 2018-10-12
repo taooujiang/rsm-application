@@ -132,7 +132,7 @@ export class ModalDetailView extends Component {
         var {route, children,router,...otherProps} = this.props
         let {visable} = this.state
         return (
-            <Modal wrapClassName="ant-modal-iframe resumeDetail-window"  mask={false} maskStyle={{left:'400px'}}  destroyOnClose={false} onCancel={this.handleCancel.bind(this)}  visible={visable}   footer={null} width={'100%'}  bodyStyle={{overflowY:"auto",overflowX:"hidden"}}>
+            <Modal wrapClassName="ant-modal-iframe resumeDetail-window"   destroyOnClose={false} onCancel={this.handleCancel.bind(this)}  visible={visable}   footer={null} width={'1100px'} style={{flex:"0 1 1100px"}} bodyStyle={{overflowY:"auto",overflowX:"hidden"}}>
               {React.cloneElement(children,{...otherProps,ref:"formView"})}
             </Modal>
         )

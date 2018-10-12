@@ -171,6 +171,7 @@ export default class ResumeListView extends PageView {
     let page= reduce.page
     let ids = items.map((it,idx)=>it.id)
     let {columnNumber} = this.state
+    let pathname = this.props.location.pathname
     /*筛选和邀约*/
     let columns =  [
        {
@@ -179,7 +180,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         width: 500,
         sorter:true,
-        render:(name,row) => <PersonInfoShow item={row} />
+        render:(name,row) => <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -218,7 +219,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row} />
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -265,7 +266,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row}/>
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -301,7 +302,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row}/>
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",

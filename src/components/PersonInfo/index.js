@@ -2294,22 +2294,22 @@ export class ExtraInformation extends Component{
   handleImg(url,item){
     let that = this
     if(item.type == 1){
-      new API().fetch(`${APP_SERVER}/registration/infoJson`,{
+      return new API().fetch(`${APP_SERVER}/registration/infoJson`,{
         method:'POST',
-        body:{id:item.add}
+        body:{id:item.additionId}
       }).then((json) => {
-        that.setState({
-          info:json
-        })
+        return Modal.info({
+           title: "面试登记表",
+           className:"applyinfo",
+           maskClosable:true,
+           centered:true,
+           width:'1100px',
+           content: (
+             <ApplyFormView info={json}/>
+           )
+         })
       });
-      return Modal.info({
-          title: "面试登记表",
-          className:"applyinfo",
-          width:'1100px',
-          content: (
-            <ApplyFormView info={this.state.info}/>
-          )
-        })
+
     }else{
       return Modal.success({
         title: "查看图片",

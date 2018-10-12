@@ -59,8 +59,9 @@ export default class Intro extends Component{
     let titleInfo = filterNull([item.sexStr,item.ageStr,item.education,item.workYear]).join(" · ")
     let companyInfo = filterNull([item.company,item.lastJobTitle,item.lastJobStart+" - "+ translateToNow(item.lastJobEnd)]).join(" · ")
     let eduInfo = filterNull([item.lastSchool,item.lastMajor,item.lastSchoolStart+" - "+ translateToNow(item.lastSchoolEnd)]).join(" · ")
+
     return(
-      <SmartLink style={{color:'#323232'}} to={`${item.id}/detail`} className="resumeRowInfo">
+      <SmartLink style={{color:'#323232'}} to={{pathname:`${item.id}/detail`,state:{orgin:this.props.pathname}}} className="resumeRowInfo">
         <div className="base">
           <span className="name" style={{marginRight:10}}>{item.name}</span>
           <PersonIconShow item={item}/>

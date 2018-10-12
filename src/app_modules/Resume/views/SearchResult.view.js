@@ -46,6 +46,7 @@ export default class ResumeSearchListView extends PageView {
     let {reduce,actions,items} = this.props
     let {spins:{tableSpin},key} = reduce
     let page= reduce.page
+    let pathname = this.props.location.pathname
 
     let tableConf = {
       loading: tableSpin,
@@ -59,7 +60,7 @@ export default class ResumeSearchListView extends PageView {
           width: 150,
           dataIndex: "name",
           sorter:true,
-          render:(name,row) => <PersonInfoShow item={row} />
+          render:(name,row) => <PersonInfoShow item={row} pathname={pathname}/>
         }, {
           title: "最新入库时间",
           key: "inputTime",

@@ -77,6 +77,6 @@ export function logDetailAction(params) {
 		})
 	}
 }
-export function resumeDetailRoute(resumeId) {
-  return dispatch => dispatch(routerActions.push(`log/1/${resumeId}/detail`))
+export function resumeDetailRoute(resumeId,router) {
+  return dispatch => dispatch(routerActions.push({pathname:`log/1/${resumeId}/detail`,state:{orgin:router.getCurrentLocation().pathname}}))
 }
