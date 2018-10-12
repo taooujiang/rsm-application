@@ -502,7 +502,10 @@ export function enableAction(row) {
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchEnableAcc(value).then(json => {
-      if(json.status){
+      if(json.status&&json.type==1){
+        return message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`)
+
+      }else if(json.status){
         let newLocation={
           pathname: `/settings/userRights/addvalid`,
           state: { 
@@ -514,8 +517,6 @@ export function enableAction(row) {
         }
         dispatch(routerActions.push(newLocation))
         return
-      }else if(json.status&&json.type==1){
-        message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`)
       }
 			dispatch(fetchSuccess('itemSpin', true))
       dispatch(listUserAction())
