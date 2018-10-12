@@ -68,7 +68,7 @@ export class AddMemberStepCode extends FormPage{
     if(codeStep){
       new API().fetchEnableAccWithCode(value).then(json=>{
         if(json.isEnable==2){
-          return message.warning(e.msg)
+          return message.warning(json.msg)
         }else{
           return actions.route2UserListAction()
         }
