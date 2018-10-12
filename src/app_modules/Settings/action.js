@@ -185,7 +185,9 @@ export function saveUserAction(value) {
 				return new API().fetchAddUser(value).then(json => {
 					dispatch(fetchSuccess('itemSpin', true))
 					console.log(json,'jsonjsonjson')
-					dispatch(userSave(json))
+          dispatch(userSave(json))
+          dispatch(listUserAction())
+          
 				}).catch(ex => {
 					return dispatch(fetchFailure('itemSpin', ex))
 				})
