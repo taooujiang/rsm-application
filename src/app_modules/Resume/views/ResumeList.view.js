@@ -103,10 +103,10 @@ export default class ResumeListView extends PageView {
     if(actionkey=="eliminateAction"){
 
       return actions[actionkey](router, selectedRowKeys, selectedRows, 1,this.clearSelectRows.bind(this))
-      
+
     }
     actions[actionkey](router,selectedRowKeys,selectedRows,1)
-    
+
   }
   renderToolbar() {
     return this.selectRowShow(
@@ -169,6 +169,7 @@ export default class ResumeListView extends PageView {
     let {reduce,actions,items} = this.props
     let {spins:{tableSpin},key} = reduce
     let page= reduce.page
+    let ids = items.map((it,idx)=>it.id)
     let {columnNumber} = this.state
     /*筛选和邀约*/
     let columns =  [
