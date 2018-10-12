@@ -1779,7 +1779,7 @@ class PersonTraningEditItem extends FormPage{
           <FormItemWrapparCol span={12}>
             <Input label="培训机构"  name='trainingAgency' defaultValue={item.trainingAgency} rules={[{required: true, message: "培训机构不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
-          <FormItemWrapparCol span={24}>
+          <FormItemWrapparCol span={12}>
             <Input label="培训课程"  name='trainingCourse' defaultValue={item.trainingCourse} rules={[{required: true, message: "培训课程不可为空"},{validator:customRules.required}]}/>
           </FormItemWrapparCol>
           <FormItemWrapparCol span={12}>

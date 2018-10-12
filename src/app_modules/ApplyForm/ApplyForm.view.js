@@ -125,7 +125,7 @@ class EditableFeild extends Component {
             )
 					})
 				})} pagination={false} />
-        <Row>
+        <Row style={{marginTop:10}}>
           <Col span={12} style={{textAlign:'right'}}>
             <Button onClick={this.handlerAddRow.bind(this)} disabled={this.state.initialValue.length>=5}><Icon type='plus'/>添加</Button>
           </Col>
@@ -229,7 +229,7 @@ export default class ApplyFormView extends FormPage {
 						</FormItem>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="姓名" name="name" defaultValue={applyerInfo&&applyerInfo.name} rules={[{required: true, message: "姓名不可为空"},{validator:customRules.required}]}/>
+								<Input label="姓名" name="name" defaultValue={applyerInfo&&applyerInfo.name} rules={[{required: true, message: "姓名不可为空"},{validator:customRules.required},{max:5,message:"姓名最多5个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -346,7 +346,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:30,message:"紧急联系人姓名最多30个字符"},{required: true,message:"紧急联系人姓名不可为空"}]}/>
+								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:5,message:"紧急联系人姓名最多5个字符"},{required: true,message:"紧急联系人姓名不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
