@@ -40,7 +40,7 @@ export default class JobResetForm extends FormPage{
     }
   }
   componentDidMount(){
-    new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll`,{
+    new FetchAPI().fetch(`${APP_SERVER}/jobNew/getJobListAll`,{
       method:'GET'
     }).then((json) => {
         this.setState({
@@ -51,7 +51,7 @@ export default class JobResetForm extends FormPage{
   }
 
   changeDept(value){
-    new FetchAPI().fetch(`${APP_SERVER}/jobNew//getJobListAll?groupId=${value}`,{
+    new FetchAPI().fetch(`${APP_SERVER}/jobNew/getJobListAll?groupId=${value}`,{
       method:'GET'
     }).then((json) => {
       this.form.setFieldsValue({jobId:""})

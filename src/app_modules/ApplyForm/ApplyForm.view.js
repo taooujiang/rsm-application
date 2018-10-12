@@ -206,6 +206,9 @@ export default class ApplyFormView extends FormPage {
 
 					<h2>基本信息</h2>
 					<Row gutter={24}>
+            <FormItem  >
+              <Input label="" type="hidden" name="id" defaultValue={applyerInfo&&applyerInfo.id}  />
+            </FormItem>
 						<FormItem  >
 							<Input label="" type="hidden" name="resumeId" defaultValue={applyerInfo&&applyerInfo.resumeId}  />
 						</FormItem>
@@ -268,7 +271,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<Input label="户籍所在地" name="residenceDdress" defaultValue={applyerInfo&&applyerInfo.residenceAddress} rules={[{max:30,message:"户籍所在地最多30个字符"}]}/>
+								<Input label="户籍所在地" name="residenceAddress" defaultValue={applyerInfo&&applyerInfo.residenceAddress} rules={[{max:30,message:"户籍所在地最多30个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={24}>
