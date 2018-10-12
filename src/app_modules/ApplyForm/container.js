@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import {reducerItemSelector,reducerListSelector,reducerListSelectorFilter} from 'app-model/reducerSelector'
 import SideLayout from 'app/decorators/SideLayout'
 import ApplyFormView from './ApplyForm.view'
+import ApplyFormShow from './ApplyFormShow.view'
 
 
 
@@ -31,7 +32,13 @@ let ApplyFormContainer = connect((state)=>({
   // reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(ApplyFormView)
-
+let test = connect((state)=>({
+  // item:reducerItemSelector(state.ORMReducer,"Remind",'account'),
+  // items:reducerListSelector(state.ORMReducer,"Template"),
+  // reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(ApplyFormShow)
 export {
 		ApplyFormContainer,
+    test
 }

@@ -43,6 +43,8 @@ import LodopFuncs from 'app/utils/LodopFuncs'
 import InputStrGroup from 'app/components/InputStrGroup'
 import {hasPermission,permissionStyle} from 'app/utils/ConfigUtils'
 import DictUtils from 'app/utils/DictUtils'
+import ApplyFormView from 'app/app_modules/ApplyForm/ApplyFormShow.view'
+import API from 'app/utils/FetchAPI'
 import styles from './style.less'
 
 const Step = Steps.Step;
@@ -1023,11 +1025,11 @@ class PersonObjectiveShow extends Component{
         <h3>求职意向</h3>
         <BaseInfoItem label="期望薪资" info={this.translateSalary(info.expectedSalaryLower,info.expectedSalaryUpper)}/>
         <BaseInfoItem label="工作地点" info={this.renderArrayData(info.expectedAddress)}/>
-        <BaseInfoItem label="职位" info={this.renderArrayData(info.expectedJobTitle)}/>
-        <BaseInfoItem label="行业" info={this.renderArrayInfo(info.trade,"industry")}/>
         <BaseInfoItem label="到岗时间" info={translateDic("comedate",info.dutyTime)}/>
         <BaseInfoItem label="工作类型" info={this.renderArrayInfo(info.jobNature,"workproperty")}/>
+        <BaseInfoItem label="职位" info={this.renderArrayData(info.expectedJobTitle)}/>
         <BaseInfoItem label="求职状态" info={translateDic("jobstatus",info.workStatus)}/>
+        <BaseInfoItem label="行业" info={this.renderArrayInfo(info.trade,"industry")}/>
         <BaseInfoItem label="自我评价" info={info.selfEvaluation} style={{width:"100%"}}/>
       </div>
     )
@@ -1723,7 +1725,7 @@ class PersonTraningItem extends ItemChangeCommon{
   renderTraningInfo(){
     let {item} = this.props
     return filterArray([
-      item.description,item.trainingAddress,item.certificate
+      item.trainingAddress,item.certificate
     ]).join(" | ")
   }
   renderShow(){
@@ -1738,6 +1740,8 @@ class PersonTraningItem extends ItemChangeCommon{
           {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
         {this.renderTraningInfo()}
+        <h4>详细描述</h4>
+        <span>{item.description}</span>
       </div>
     )
   }
@@ -2264,7 +2268,8 @@ PersonFeedRecord.defaultProps={
 export class ExtraInformation extends Component{
   state={
     editid:"",
-    newItem:undefined
+    newItem:undefined,
+    info:{}
   }
   componentDidMount(){
     const {actions,resumeId}=this.props
@@ -2287,8 +2292,24 @@ export class ExtraInformation extends Component{
     })
   }
   handleImg(url,item){
+    let that = this
     if(item.type == 1){
-      console.log(item)
+      return new API().fetch(`${APP_SERVER}/registration/infoJson`,{
+        method:'POST',
+        body:{id:item.additionId}
+      }).then((json) => {
+        return Modal.info({
+           title: "面试登记表",
+           className:"applyinfo",
+           maskClosable:true,
+           centered:true,
+           width:'1100px',
+           content: (
+             <ApplyFormView info={json}/>
+           )
+         })
+      });
+
     }else{
       return Modal.success({
         title: "查看图片",

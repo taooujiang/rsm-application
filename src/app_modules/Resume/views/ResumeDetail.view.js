@@ -77,6 +77,7 @@ class ResumeDetail extends Component{
     componentDidMount(){
       let {actions,params:{resumeId}} = this.props
       actions.itemAction({id:resumeId})
+      console.log(123123123,this.props)
     }
 
     componentWillReceiveProps(nextProps){
@@ -141,6 +142,8 @@ class ResumeDetail extends Component{
     let detailType = this.translateLib(libType)
     return (
       <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
+        <div className="arrowLeft"><Icon type="left" theme="outlined" /></div>
+        <div className="arrowRight"><Icon type="right" theme="outlined" /></div>
         <div className="person-info-body">
           <Layout direction="row">
             <Pane style={{flexDirection:"column",width:"50%"}}>
@@ -168,7 +171,7 @@ class ResumeDetail extends Component{
                 </TabPane>
               </Tabs>
             </Pane>
-            <Fixed style={{width:'400px'}}>
+            <Fixed style={{width:'300px'}}>
               {this.renderTypeButton()}
             </Fixed>
           </Layout>

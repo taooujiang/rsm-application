@@ -103,10 +103,10 @@ export default class ResumeListView extends PageView {
     if(actionkey=="eliminateAction"){
 
       return actions[actionkey](router, selectedRowKeys, selectedRows, 1,this.clearSelectRows.bind(this))
-      
+
     }
     actions[actionkey](router,selectedRowKeys,selectedRows,1)
-    
+
   }
   renderToolbar() {
     return this.selectRowShow(
@@ -169,7 +169,9 @@ export default class ResumeListView extends PageView {
     let {reduce,actions,items} = this.props
     let {spins:{tableSpin},key} = reduce
     let page= reduce.page
+    let ids = items.map((it,idx)=>it.id)
     let {columnNumber} = this.state
+    let pathname = this.props.location.pathname
     /*筛选和邀约*/
     let columns =  [
        {
@@ -178,7 +180,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         width: 500,
         sorter:true,
-        render:(name,row) => <PersonInfoShow item={row} />
+        render:(name,row) => <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -217,7 +219,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row} />
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -264,7 +266,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row}/>
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
@@ -300,7 +302,7 @@ export default class ResumeListView extends PageView {
         dataIndex: "name",
         sorter:true,
         width: 500,
-        render:(name,row)=> <PersonInfoShow item={row}/>
+        render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",

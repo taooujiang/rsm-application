@@ -118,6 +118,7 @@ export default class DistributedJobView extends PageView {
           onChange:this.onSelectChange.bind(this),
           selectedRowKeys:this.state.selectedRowKeys
         }
+        let pathname = this.props.location.pathname
         // alert("111")
         let tableConf = {
             loading: tableSpin,
@@ -135,7 +136,7 @@ export default class DistributedJobView extends PageView {
                     title: "基本信息",
                     key: "id",
                     dataIndex: "id",
-                    render:(val,row)=><PersonInfoShow item={row}/>
+                    render:(val,row)=><PersonInfoShow item={row} pathname={pathname}/>
                 }, {
                     title: "渠道",
                     key: "channel",

@@ -162,6 +162,7 @@ export default class EliteListView extends PageView {
       onChange: this.onSelectChange.bind(this),
       selectedRowKeys: this.state.selectedRowKeys
     };
+    let pathname = this.props.location.pathname
 
     let tableConf = {
       loading: tableSpin,
@@ -176,7 +177,7 @@ export default class EliteListView extends PageView {
           width: 600,
           dataIndex: "info",
           render: (name, row) => {
-            return <TableRow item={row} />;
+            return <TableRow item={row} pathname={pathname}/>;
           }
         },
         {
