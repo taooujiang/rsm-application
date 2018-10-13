@@ -2001,7 +2001,7 @@ export class PersonRemarks extends FormPage{
                 <Input type="hidden" name="name" defaultValue={name}/>
               </FormItem>
               <FormItem>
-                <TextArea className="Textarea" name="context" placeholder="输入对该候选人的备注" autosize={{minRows:6}} rules={[{max:50,message:"限制50个字"}]} />
+                <TextArea className="Textarea" name="context" placeholder="输入对该候选人的备注" autosize={{minRows:6}} rules={[{required: true, message: "备注内容不可为空"},{validator:customRules.required},{max:50,message:"限制50个字"}]} />
               </FormItem>
               <Button className="button_save" type="primary" onClick={this.handleSubmit.bind(this)}>保存</Button>
             </div>
