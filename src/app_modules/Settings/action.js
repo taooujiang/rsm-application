@@ -185,7 +185,9 @@ export function saveUserAction(value) {
 				return new API().fetchAddUser(value).then(json => {
 					dispatch(fetchSuccess('itemSpin', true))
 					console.log(json,'jsonjsonjson')
-					dispatch(userSave(json))
+          dispatch(userSave(json))
+          dispatch(listUserAction())
+          
 				}).catch(ex => {
 					return dispatch(fetchFailure('itemSpin', ex))
 				})
@@ -503,7 +505,7 @@ export function enableAction(row) {
 		dispatch(fetchRequest('itemSpin'))
 		return new API().fetchEnableAcc(value).then(json => {
       if(json.status&&json.type==1){
-        return message.warning(`该账号为${json.msg}的超级管理员，无法重复添加`)
+        return message.warning(`该账号为${json.msg}的超级管理员，需要先将原超级管理员帐号禁用`)
 
       }else if(json.status){
         let newLocation={
