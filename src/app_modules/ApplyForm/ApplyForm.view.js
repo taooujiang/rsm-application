@@ -113,7 +113,7 @@ class EditableFeild extends Component {
 		*/
     return (
       <div className="EditableFeild">
-        <Table bordered dataSource={this.state.initialValue} scroll={{ y: 300 }} style={{height:'300px'}} rowKey='company' columns={columns.map(it=>{
+        <Table bordered dataSource={this.state.initialValue} scroll={{ y: 300 }} style={{height:'300px',border:"1px solid #cfdae5"}} rowKey='company' columns={columns.map(it=>{
 					return Object.assign(it,{
 						width:"10%",
 						render: (value, record,a,b) =>(
@@ -234,12 +234,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="性别" fetch={this.getDictByType("sex",jsonMap)} renderItem={this.renderSelectOption} name="sex" defaultValue={applyerInfo&&applyerInfo.sex&&applyerInfo.sex.toString()} />
+								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime?moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined):null} rules={[{required: true, message: "出生日期不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<DatePicker label="出生日期" name="birthTime" defaultValue={applyerInfo&&applyerInfo.birthTime?moment(applyerInfo.birthTime?applyerInfo.birthTime:undefined):null} rules={[{required: true, message: "出生日期不可为空"}]}/>
+								<Select label="性别" fetch={this.getDictByType("sex",jsonMap)} renderItem={this.renderSelectOption} name="sex" defaultValue={applyerInfo&&applyerInfo.sex&&applyerInfo.sex.toString()} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -281,7 +281,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="本市住房情况" name="houseStatus" fetch={[{keySort:1,keyName:"自有住房",keyValue:"自有住房"},{keySort:2,keyName:"借住亲友",keyValue:"借住亲友"},{keySort:3,keyName:"租房居住",keyValue:"租房居住"},{keySort:4,keyName:"单位宿舍",keyValue:"单位宿舍"}]} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
+								<Select label="本市住房情况" name="houseStatus" fetch={this.getDictByType("houseStatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -346,17 +346,17 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
+								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&applyerInfo.predictTime?moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined):null}  />
+							</FormItem>
+						</Col>
+						<Col span={12}>
+							<FormItem  >
 								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:5,message:"紧急联系人姓名最多5个字符"},{required: true,message:"紧急联系人姓名不可为空"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
 								<Input label="紧急联系人电话" name="urgencyPhone" defaultValue={applyerInfo&&applyerInfo.urgencyPhone} rules={[{required: true,message:"紧急联系人电话不可为空"}]} />
-							</FormItem>
-						</Col>
-						<Col span={12}>
-							<FormItem  >
-								<DatePicker label="预计到岗时间" name="predictTime" defaultValue={applyerInfo&&applyerInfo.predictTime?moment(applyerInfo.predictTime?applyerInfo.predictTime:undefined):null}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -491,7 +491,11 @@ export default class ApplyFormView extends FormPage {
 					<Button type="primary" htmlType="button" onClick={this.handleSubmit.bind(this)}>保存</Button>
 				</BaseForm>
 			</div>
-			:<div style={{textAlign:"center"}}><Icon type="check-circle" theme="outlined" style={{ fontSize: '16px', color: '#52c41a' }} />提交成功!</div>
+			:
+			<div style={{position:"absolute",top:"50%",left:"50%",marginTop:"-25px",marginLeft:"-60px"}}>
+					<img src="/static/images/sucesss.png" alt="" style={{verticalAlign: "middle"}}/>
+					<span style={{display:"inline-block",verticalalign: "middle",paddingLeft:"10px"}}>提交成功</span>
+			</div>
 		);
 	}
 }
