@@ -20,12 +20,43 @@ import WrapperComponent from "app/decorators/WrapperComponent"
 import NestedComponent from 'app/decorators/NestedComponent'
 import PersonInfo,{PersonTabBaseInfo,PersonOffer,PersonOption,PersonRemarks,PersonCommunitcate,PersonOptionRecord,PersonFeedRecord,ExtraInformation} from 'app/components/PersonInfo'
 import DictUtils from 'app-utils/DictUtils'
+import classnames from 'classnames'
 import { permissionStyle } from "app/utils/ConfigUtils";
 import SmartLink from 'app/components/SmartLink'
 import Layout,{Fixed,Pane} from 'app/components/Layout'
 
 const ButtonGroup = Button.Group;
 const TabPane = Tabs.TabPane;
+
+function translateOrgin(state){
+  if(state && state.orgin){
+    let {orgin} = state
+    if(orgin == "/resume/list"){
+      return {viewLibType:1}
+    }else{
+      return {}
+    }
+  }else{
+    return {}
+  }
+  /*暂时只做对候选人的切换*/
+  // if(state && state.orgin){
+  //   let {orgin} = state
+  //   if(orgin == "/resume/list"){
+  //     return {viewLibType:1}
+  //   }else if(orgin == "/elite/3"){
+  //     return {viewLibType:3}
+  //   }else if(orgin == "/elite/4"){
+  //     return {viewLibType:4}
+  //   }else if(orgin.indexOf("distrib")){
+  //     return {viewLibType:2}
+  //   }else{
+  //     return {}
+  //   }
+  // }else{
+  //   return {}
+  // }
+}
 
 class InfoItem extends Component{
   render(){
@@ -75,19 +106,22 @@ class ResumeDetail extends Component{
         }
     }
     componentDidMount(){
-      let {actions,params:{resumeId}} = this.props
-      actions.itemAction({id:resumeId})
+      let {actions,params:{resumeId},location:{state}} = this.props
+      let viewLib = translateOrgin(state)
+      actions.itemAction({id:resumeId,...viewLib})
       console.log(123123123,this.props)
     }
 
     componentWillReceiveProps(nextProps){
-        let {actions,router,reduce,params:{resumeId}} = this.props;
+        let {actions,router,reduce,params:{resumeId},location:{state}} = this.props;
         if(JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params)){
-          actions.itemAction({id:nextProps.params.resumeId})
+          let viewLib = translateOrgin(nextProps.location.state)
+          actions.itemAction({id:nextProps.params.resumeId,...viewLib})
         }
         if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
           if(nextProps.location.state && nextProps.location.state.key=="reload"){
-            actions.itemAction({id:resumeId})
+            let viewLib = translateOrgin(nextProps.location.state)
+            actions.itemAction({id:resumeId,...viewLib})
           }
         }
     }
@@ -105,9 +139,10 @@ class ResumeDetail extends Component{
     }
 
     renderTypeButton(){
-      let { item ,item:{libType}, actions,router} = this.props
+      let { item ,item:{libType,nextId},dispatch, actions,router , location:{state}} = this.props
       let detailType = this.translateLib(libType)
       let type = "resume"
+      let nextPath = nextId ? router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${nextId}/detail`) : state&&state.orgin
       switch (detailType) {
         case 1:
           type = "allocat"
@@ -122,7 +157,7 @@ class ResumeDetail extends Component{
           type = "credit"
           break;
       }
-      return <PersonOption item={item} actions={actions} router={router} type={type} callback={this.getToRemark.bind(this)}/>
+      return <PersonOption item={item} actions={actions} dispatch={dispatch} router={router} type={type} callback={this.getToRemark.bind(this)} orginJson={{nextPath:nextPath,viewLibType:translateOrgin(state).viewLibType,orgin:state&&state.orgin}}/>
     }
     translateLib(lib){
       if(lib == 1){
@@ -132,18 +167,40 @@ class ResumeDetail extends Component{
       }else{
         return lib
       }
+    }
 
+    handleClickLeft(){
+      let {location,router,dispatch,item:{prevId,nextId}} = this.props
+      if(prevId){
+        let currLocation = router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${prevId}/detail`)
+        let newpath = {
+          pathname:currLocation,
+          state:location.state
+        }
+        dispatch(routerActions.push(newpath))
+      }
+    }
+    handleClickRight(){
+      let {location,router,dispatch,item:{prevId,nextId}} = this.props
+      if(nextId){
+        let currLocation = router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${nextId}/detail`)
+        let newpath = {
+          pathname:currLocation,
+          state:location.state
+        }
+        dispatch(routerActions.push(newpath))
+      }
     }
 
   render (){
     let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
-    console.log(resumeId,'routerrouter')
-    let {name,libType,filingReason,authorization} = item
+    //console.log(resumeId,'routerrouter')
+    let {name,libType,filingReason,authorization,prevId,nextId} = item
     let detailType = this.translateLib(libType)
     return (
-      <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
-        <div className="arrowLeft"><Icon type="left" theme="outlined" /></div>
-        <div className="arrowRight"><Icon type="right" theme="outlined" /></div>
+      <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} location={location} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
+        <div className={classnames("arrowLeft",prevId?"":"disabled")} onClick={this.handleClickLeft.bind(this)}><Icon type="left" theme="outlined" /></div>
+        <div className={classnames("arrowRight",nextId?"":"disabled")} onClick={this.handleClickRight.bind(this)}><Icon type="right" theme="outlined" /></div>
         <div className="person-info-body">
           <Layout direction="row">
             <Pane style={{flexDirection:"column",width:"50%"}}>
@@ -183,11 +240,16 @@ class ResumeDetail extends Component{
 
 class PersonInfoPanelHead extends Component{
   handleDelete(info){
-    let {actions , router} = this.props
-    let {id } = info
+    let {actions , router ,location:{state}} = this.props
+    let {id ,nextId } = info
+    let nextPath = nextId ? router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${nextId}/detail`) : state&&state.orgin
+    let orginJson = {
+      nextPath:nextPath,
+      viewLibType:translateOrgin(state).viewLibType,
+      orgin:state&&state.orgin
+    }
     /*留坑一枚  删除操作*/
-    actions.deleteAction(router,[id],[info])
-
+    actions.deleteAction(router,[id],[info],orginJson)
   }
   handleChange(value){
     // console.log(this.props)
@@ -241,7 +303,7 @@ class PersonInfoPanelHead extends Component{
     if(translateDic("sex",info.sex)&&!info.age) userInfoText = `${translateDic("sex",info.sex)}`
     if(!translateDic("sex",info.sex)&&info.age) userInfoText = `${info.age}`
 
-    console.log(info)
+    //console.log(info)
     return (
       <div className="person-info-head">
         <Button className="delete-btn" style={permissionStyle("deleteResume")} onClick={this.handleDelete.bind(this,info)}><Icon type="delete" /></Button>
