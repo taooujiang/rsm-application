@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NestedComponent from "app/decorators/NestedComponent";
-import { Layout, List, Avatar, Checkbox, Cascader, Card } from "antd";
+import { Layout, List, Avatar, Checkbox, Cascader, Card,message } from "antd";
 import style from "./styles.less";
 const CheckboxGroup = Checkbox.Group;
 
@@ -107,15 +107,14 @@ export default class LogListView extends Component {
       </div>
     );
   }
-  handleClick(id, resumeId , item) {
+  handleClick(id, resumeId , resumeIsDelete) {
     if (this.props.params.type == 5) {
       let { actions, router } = this.props;
       actions.detailRoute(router, id);
     } else if (this.props.params.type == 1) {
-      let {resumeIsDelete } = item
       let { actions, router } = this.props;
       if(resumeIsDelete == 1){
-        return false
+        return message.warning("简历已被删除")
       }else{
         actions.resumeDetailRoute(resumeId,router);
       }
@@ -146,7 +145,7 @@ export default class LogListView extends Component {
                 this,
                 item.messageId,
                 item.resumeId,
-                item
+                item.resumeIsDelete
               )}
             >
               <List.Item.Meta
