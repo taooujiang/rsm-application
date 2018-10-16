@@ -176,7 +176,7 @@ export default class ClientAPI {
       // hashHistory.push(`/dashboard/message/${strType}`);
       parent.addTab&&parent.addTab({
         title: '消息中心',
-        key: 'dashboard/log' ,
+        key: 'log' ,
         src:`/static/js/client/main.html#/log/1`
       })
       // routerActions.push()
