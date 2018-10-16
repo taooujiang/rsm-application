@@ -23,7 +23,11 @@ function translateDic(dicname,val){
 }
 
 function translateTime(time,format){
-  return format ? moment(time).format(format) : moment(time).format("YYYY-MM-DD")
+  if(time){
+    return format ? moment(time).format(format) : moment(time).format("YYYY-MM-DD")
+  }else{
+    return ""
+  }
 }
 
 function houseStatusFn(value){

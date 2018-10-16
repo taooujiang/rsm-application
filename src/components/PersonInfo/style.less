@@ -55,6 +55,9 @@
     font-weight: bold;
     padding: 0 5px;
     font-size: 24px;
+    &.disabled{
+      cursor: not-allowed;
+    }
   }
   .arrowLeft{
     left: -50px;
@@ -535,4 +538,11 @@ img.resume-orign-img{
         padding: 20px;
         width: 100%;
     }
+}
+/*附加信息展示*/
+.detailShow{
+  .ant-modal-body{
+    height: 500px;
+    overflow-y: auto;
+  }
 }

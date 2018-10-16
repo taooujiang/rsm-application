@@ -18,6 +18,7 @@ import {
   Rate,
   Select
 } from 'antd'
+import {routerActions, push, replace} from 'react-router-redux'
 import {FormPage} from 'app/components/Page'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
 import moment from 'moment'
@@ -32,7 +33,7 @@ class EntryForm extends Component{
       handleSubmit,
       children,
       saveFormRef,
-      id
+      id,
     } = this.props
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
@@ -51,9 +52,21 @@ export default class EntryFormView extends FormPage{
 
   //处理表格提交后动作
   handleSubmit(values){
-    let {actions,router,location} = this.props
-    actions.entryWaiting(values)
-    actions.backRoute(router)
+    let {actions,router,dispatch,location:{state:{orginJson}}} = this.props
+    if(orginJson){
+      let newLocation = {
+        pathname:orginJson.nextPath,
+        state:{
+          orgin:orginJson.orgin
+        }
+      }
+      actions.entryWaiting(values,orginJson.viewLibType).then(()=>{
+        dispatch(routerActions.push(newLocation))
+      })
+    }else{
+      actions.entryWaiting(values)
+      actions.backRoute(router)
+    }
   }
   render() {
     let {location:{state:{id}}} = this.props

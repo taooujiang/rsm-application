@@ -29,6 +29,7 @@ import {
     Icon,
 } from 'antd'
 import moment from 'moment'
+import {routerActions, push, replace} from 'react-router-redux'
 import {FormPage} from 'app/components/Page'
 import WrapperComponent from "app/decorators/WrapperComponent"
 import {ModalDetailView} from 'app/components/Modal.view'
@@ -434,8 +435,14 @@ class OptionCommonFn extends Component{
     actions.connectEliteAction(router,[id])
   }
   resumeUpgrading(target){
-    let {actions,router,item:{id,expectedEntryTime},item} = this.props
+    let {actions,router,dispatch,item:{id,expectedEntryTime},item,orginJson} = this.props
     let data = {id:id}
+    let newLocation = {
+      pathname:orginJson.nextPath,
+      state:{
+        orgin:orginJson.orgin
+      }
+    }
 
     switch (parseInt(target)) {
       case 1:
@@ -448,7 +455,7 @@ class OptionCommonFn extends Component{
         actions.entryOffer(data)
         break;
       case 4:
-        expectedEntryTime ? actions.entryWaiting(data) : actions.entryAction(router,id)
+        expectedEntryTime ? actions.entryWaiting(data,orginJson.viewLibType).then(()=>{dispatch(routerActions.push(newLocation))}) : actions.entryAction(router,id,orginJson)
         break;
     }
   }
@@ -670,6 +677,12 @@ export class PersonTabBaseInfo extends Component{
     let {actions,id} = this.props
     //id = "04e7fc53e9b6469ab527168d0346f51b"
     actions.personBaseAction({id:id})
+  }
+  componentWillReceiveProps(nextProps){
+    let {actions,id} = this.props;
+    if(JSON.stringify(nextProps.id) !== JSON.stringify(this.props.id)){
+      actions.personBaseAction({id:nextProps.id})
+    }
   }
   changeFlag(type,value){
     let states = Object.assign({},this.state,{
@@ -2300,7 +2313,7 @@ export class ExtraInformation extends Component{
       }).then((json) => {
         return Modal.info({
            title: "面试登记表",
-           className:"applyinfo",
+           className:"detailShow",
            maskClosable:true,
            centered:true,
            width:'1100px',
@@ -2311,8 +2324,12 @@ export class ExtraInformation extends Component{
       });
 
     }else{
-      return Modal.success({
+      return Modal.info({
         title: "查看图片",
+        width:"750px",
+        centered:true,
+        className:"detailShow",
+        maskClosable:true,
         content: (
           <div><img src={url} style={{width:"100%"}}/></div>
         )

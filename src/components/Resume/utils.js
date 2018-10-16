@@ -259,14 +259,15 @@ export function createResumeRoute(){
         }
         return dispatch => dispatch(routerActions.push(path))
     },
-    deleteAction:function(router,ids,rows) {
+    deleteAction:function(router,ids,rows,orginJson) {
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname : `${pathname}/delete`,
             state:{
               ids:ids,
               rows:rows,
-              pathname:pathname
+              pathname:pathname,
+              orginJson:orginJson
             }
         }
         return dispatch => dispatch(routerActions.push(path))
@@ -282,12 +283,13 @@ export function createResumeRoute(){
         }
         return dispatch => dispatch(routerActions.push(path))
     },
-    entryAction:function(router,id) {
+    entryAction:function(router,id,orginJson) {
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname : `${pathname}/entry`,
             state:{
-              id:id
+              id:id,
+              orginJson:orginJson
             }
         }
         return dispatch => dispatch(routerActions.push(path))

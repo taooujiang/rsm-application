@@ -547,10 +547,13 @@ export function entryOffer(value) {
     }
 }
 
-export function entryWaiting(value) {
+export function entryWaiting(value,viewLibType) {
     let data = {
       ...value,
       status:4
+    }
+    if(viewLibType){
+      value.viewLibType = viewLibType
     }
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))

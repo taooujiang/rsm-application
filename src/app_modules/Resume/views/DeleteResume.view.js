@@ -20,6 +20,7 @@ import {
   Select,
   TreeSelect
 } from 'antd'
+import {routerActions, push, replace} from 'react-router-redux'
 import moment from 'moment'
 import {FormPage} from 'app/components/Page'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
@@ -39,10 +40,22 @@ export default class DeleteForm extends FormPage{
   }
 
   handleSubmit(values){
-    let {actions,router,location} = this.props;
-    actions.deleteOptionAction(values).then(()=>{
-      actions.backRouteReload(router,location)
-    })
+    let {actions,dispatch,router,location,location:{state:{orginJson}}} = this.props;
+    if(orginJson){
+      let newLocation = {
+        pathname:orginJson.nextPath,
+        state:{
+          orgin:orginJson.orgin
+        }
+      }
+      actions.deleteOptionAction(values).then(()=>{
+        dispatch(routerActions.push(newLocation))
+      })
+    }else{
+      actions.deleteOptionAction(values).then(()=>{
+        actions.backRouteReload(router,location)
+      })
+    }
   }
 
   translateChannelIds(rows){
@@ -57,7 +70,7 @@ export default class DeleteForm extends FormPage{
       handleSubmit,
       children,
       saveFormRef,
-      location:{state:{ids,rows}}
+      location:{state:{ids,rows,orginJson}}
     } = this.props
 //resumeChannelId
     return (
@@ -67,6 +80,13 @@ export default class DeleteForm extends FormPage{
         <FormItem>
           <Input type="hidden" name="ids" defaultValue={ids}/>
         </FormItem>
+        {orginJson?
+          <FormItem>
+            <Input type="hidden" name="viewLibType" defaultValue={orginJson.viewLibType}/>
+          </FormItem>
+          :
+          null
+        }
         <FormItem>
           <Input type="hidden" name="resumeChannelIds" defaultValue={this.translateChannelIds(rows)}/>
         </FormItem>
