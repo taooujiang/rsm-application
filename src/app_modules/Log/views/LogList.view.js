@@ -107,13 +107,18 @@ export default class LogListView extends Component {
       </div>
     );
   }
-  handleClick(id, resumeId) {
+  handleClick(id, resumeId , item) {
     if (this.props.params.type == 5) {
       let { actions, router } = this.props;
       actions.detailRoute(router, id);
     } else if (this.props.params.type == 1) {
+      let {resumeIsDelete } = item
       let { actions, router } = this.props;
-      actions.resumeDetailRoute(resumeId,router);
+      if(resumeIsDelete == 1){
+        return false
+      }else{
+        actions.resumeDetailRoute(resumeId,router);
+      }
       // parent.addTab && parent.addTab({
       //   title: '候选人管理',
       //   key: 'resume/list',
@@ -140,7 +145,8 @@ export default class LogListView extends Component {
               onClick={this.handleClick.bind(
                 this,
                 item.messageId,
-                item.resumeId
+                item.resumeId,
+                item
               )}
             >
               <List.Item.Meta
