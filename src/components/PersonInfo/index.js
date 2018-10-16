@@ -2195,14 +2195,42 @@ export class PersonFeedRecord extends Component{
         </div>)
   }
 }
+PersonFeedRecord.defaultProps={
+  location:{}
+}
 class PersonFeedRecordItem extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      urgeShow:props.item.isUrge
+    }
+  }
+  componentDidMount(){
+    if(JSON.stringify(this.props.item) !== "{}"){
+      this.setState({
+        urgeShow:this.props.item.isUrge
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(JSON.stringify(this.props.item) !== JSON.stringify(nextProps.item)){
+      this.setState({
+        urgeShow:nextProps.item.isUrge
+      })
+    }
+  }
   handleFeedBack(resumeId,planId,interviewer){
     let {actions,router} = this.props
     actions.feedbackAction(router,planId,undefined,interviewer)
   }
   handleUrge(id){
     let {actions,router} = this.props
-    actions.urgeFeedbackAction({id:id})
+    let that = this
+    actions.urgeFeedbackAction({id:id}).then(()=>{
+      that.setState({
+        urgeShow:true
+      })
+    })
   }
   handlDelay(id,resumeId,type,time){
     let {actions,router} = this.props
@@ -2234,6 +2262,7 @@ class PersonFeedRecordItem extends Component{
   }
   renderBtns(){
     let {item,detailType} = this.props
+    let {urgeShow} = this.state
     if(detailType == 10 ){/*为员工时不返回按钮**/
       return null
     }
@@ -2241,7 +2270,7 @@ class PersonFeedRecordItem extends Component{
       return (<ButtonGroup>
         <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>
       </ButtonGroup>)
-    }else if(item.isFeedback != 2 && item.statusStr != 6 && !item.isUrge){
+    }else if(item.isFeedback != 2 && item.statusStr != 6 && !urgeShow){
       return(<ButtonGroup>
         <Button onClick={this.handleUrge.bind(this,item.id)}>催促反馈</Button>
       </ButtonGroup>)
@@ -2274,8 +2303,8 @@ class PersonFeedRecordItem extends Component{
     )
   }
 }
-PersonFeedRecord.defaultProps={
-  location:{}
+PersonFeedRecordItem.defaultProps={
+  item:{}
 }
 /*附加信息*/
 export class ExtraInformation extends Component{
