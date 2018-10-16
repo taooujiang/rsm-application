@@ -147,11 +147,15 @@ export function createActionRoute(){
      let newLocation={
        pathname: pathname,
        state:Object.assign({
-         key: 'reload'
+         key: 'reload',
        },location.state)
      }
+     if(pathname.indexOf("/detail") >=0){
+       let orgin = pathname.replace(/\/\S{32}\/detail/,"")
+       newLocation.state = Object.assign({},newLocation.state,{orgin:orgin})
+     }
      let hash=router.createLocation(newLocation)
-
+     console.log(hash)
       return dispatch => dispatch(routerActions.push(hash))
 
   }

@@ -121,7 +121,7 @@ class ResumeDetail extends Component{
         if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
           if(nextProps.location.state && nextProps.location.state.key=="reload"){
             let viewLib = translateOrgin(nextProps.location.state)
-            actions.itemAction({id:resumeId,...viewLib})
+            setTimeout(()=>{actions.itemAction({id:resumeId,...viewLib})},1000)
           }
         }
     }
