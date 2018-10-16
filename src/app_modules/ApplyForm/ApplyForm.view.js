@@ -445,7 +445,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea rows={4} label="工作业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.workExperienceDescribe}/>
+								<TextArea rows={4} label="工作业绩说明" name="workExperienceDescribe" defaultValue={applyerInfo&&applyerInfo.workExperienceDescribe} rules={[{max: 100, message: "工作业绩说明最多100个字符"}]}/>
 							</FormItem>
 						</Col>
 					</Row>
@@ -484,7 +484,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={24}>
 							<FormItem  >
-								<TextArea rows={4} label="学习情况介绍" name="learningIntroduction" defaultValue={applyerInfo&&applyerInfo.learningIntroduction} />
+								<TextArea rows={4} label="学习情况介绍" name="learningIntroduction" defaultValue={applyerInfo&&applyerInfo.learningIntroduction} rules={[{max: 100, message: "学习情况介绍最多100个字符"}]} />
 							</FormItem>
 						</Col>
 					</Row>
