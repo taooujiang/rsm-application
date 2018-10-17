@@ -293,6 +293,7 @@ export function createResumeRoute(){
             pathname : `${pathname}/entry`,
             state:{
               id:id,
+              pathname:pathname
             }
         }
         return dispatch => dispatch(routerActions.push(path))
