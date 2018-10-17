@@ -24,7 +24,11 @@ function translateDic(dicname,val){
 
 function translateTime(time,format){
   if(time){
-    return format ? moment(time).format(format) : moment(time).format("YYYY-MM-DD")
+    if(time == "9999-01-01"){
+      return "至今"
+    }else{
+      return format ? moment(time).format(format) : moment(time).format("YYYY-MM-DD")
+    }
   }else{
     return ""
   }
@@ -188,7 +192,7 @@ export default class ApplyFormView extends Component{
             <BaseItem span={12} label="民族" info={translateDic("national",info&&info.national)}/>
             <BaseItem span={12} label="籍贯" info={info&&info.nativePlace}/>
             <BaseItem span={12} label="身份证号" info={info&&info.idCard}/>
-            <BaseItem span={12} label="户籍性质" info={info&&info.residenceStatus}/>
+            <BaseItem span={12} label="户籍性质" info={translateDic("residenceStatus",info&&info.residenceStatus)}/>
             <BaseItem span={12} label="户籍所在地" info={info&&info.residenceAddress}/>
             <BaseItem span={12} label="现住地址" info={info&&info.currentAddress}/>
             <BaseItem span={12} label="本市住房情况" info={houseStatusFn(info&&info.houseStatus)}/>
@@ -213,10 +217,10 @@ export default class ApplyFormView extends Component{
             <BaseItem span={24} label="其他要求" info={info&&info.otherRequirements}/>
             <BaseItem span={24} label="个人发展计划" info={info&&info.developmentPlan}/>
           </Row>
-          <Table style={{height:'300px'}} pagination={false} columns={relationshipCol} dataSource={info&&info.relationshipList} title={()=>'主要家庭成员及社会关系'}/>
-          <Table style={{height:'300px'}} pagination={false} columns={worklistCol} dataSource={info&&info.workList} title={()=>'工作经历'}/>
+          <Table style={{height:'auto'}} pagination={false} columns={relationshipCol} dataSource={info&&info.relationshipList} title={()=>'主要家庭成员及社会关系'}/>
+          <Table style={{height:'auto'}} pagination={false} columns={worklistCol} dataSource={info&&info.workList} title={()=>'工作经历'}/>
           <Row><BaseItem span={24} label="工作业绩说明" info={info&&info.workExperienceDescribe}/></Row>
-          <Table style={{height:'300px'}} pagination={false} columns={studylistCol} dataSource={info&&info.studyList} title={()=>'主要学习经历'}/>
+          <Table style={{height:'auto'}} pagination={false} columns={studylistCol} dataSource={info&&info.studyList} title={()=>'主要学习经历'}/>
           <Row><BaseItem span={24} label="学习情况介绍" info={info&&info.learningIntroduction}/></Row>
         </div>
       </div>

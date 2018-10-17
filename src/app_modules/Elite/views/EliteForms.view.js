@@ -85,9 +85,11 @@ export class Move2EliteFormView extends FormPage {
 
 
 	handleSubmit(values) {
-		const{actions,router,reduce:{params}}=this.props
-		actions.joinEliteAction(values,params)
-		actions.backRoute(router)
+		const{actions,router,reduce:{params},location}=this.props
+		actions.joinEliteAction(values,params).then(()=>{
+			actions.backRouteReload(router,location)
+		})
+		//actions.backRoute(router)
 	}
 	renderReasonOption(data,idx){
     return (<Select.Option value={data.optionId} key={idx}>{data.optionName}</Select.Option>)
@@ -142,9 +144,11 @@ export class Relate2JobFormView extends FormPage {
 		});
   }
 	handleSubmit(values) {
-		const{actions,router}=this.props
-		actions.relate2JobAction(values)
-		actions.backRoute(router)
+		const{actions,router,location}=this.props
+		actions.relate2JobAction(values).then(()=>{
+			actions.backRouteReload(router,location)
+		})
+		//actions.backRoute(router)
 		console.log(values,'values')
 	}
 	renderJobOption(data,idx){
