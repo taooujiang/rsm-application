@@ -419,15 +419,29 @@ class OptionCommonFn extends Component{
     actions.addLabelAction(router,labels)
   }
   eliminate(){
-    let {actions,item:{id},router} = this.props
-    actions.eliminateAction(router,[id])
+    let {actions,item:{id},router,location} = this.props
+    actions.eliminateAction(router,[id]).then(()=>{
+      let newLocation = {
+        pathname:router.getCurrentLocation().pathname,
+        state:Object.assign({},location.state,{key:"reload"})
+      }
+      routerActions.push(newLocation)
+    })
   }
   entryJob(){
-    let {actions,router,item:{id}} = this.props
+    let {actions,router,dispatch,item:{id},orginJson} = this.props
     let params = {
       ids:[id]
     }
-    actions.entryJobAction(params)
+    let newLocation = {
+      pathname:orginJson.nextPath,
+      state:{
+        orgin:orginJson.orgin
+      }
+    }
+    actions.entryJobAction(params,orginJson.viewLibType).then(()=>{
+      dispatch(routerActions.push(newLocation))
+    })
   }
   relateJob(){
     let {actions,router,item:{id}} = this.props
@@ -435,14 +449,9 @@ class OptionCommonFn extends Component{
     actions.connectEliteAction(router,[id])
   }
   resumeUpgrading(target){
-    let {actions,router,dispatch,item:{id,expectedEntryTime},item,orginJson} = this.props
+    let {actions,router,item:{id,expectedEntryTime},item} = this.props
     let data = {id:id}
-    let newLocation = {
-      pathname:orginJson.nextPath,
-      state:{
-        orgin:orginJson.orgin
-      }
-    }
+
 
     switch (parseInt(target)) {
       case 1:
@@ -455,7 +464,7 @@ class OptionCommonFn extends Component{
         actions.entryOffer(data)
         break;
       case 4:
-        expectedEntryTime ? actions.entryWaiting(data,orginJson.viewLibType).then(()=>{dispatch(routerActions.push(newLocation))}) : actions.entryAction(router,id,orginJson)
+        expectedEntryTime ? actions.entryWaiting(data) : actions.entryAction(router,id)
         break;
     }
   }
@@ -596,8 +605,8 @@ OptionButtonsLock.defaultProps = {
 /*待分配简历*/
 class OptionButtonsAllocat extends OptionCommonFn{
   distrbuted(){
-    let {actions,router,item:{id}} = this.props
-    actions.distributionAction(router,[id],"single")
+    let {actions,router,item:{id},orginJson} = this.props
+    actions.distributionAction(router,[id],"single",orginJson)
   }
   render(){
     let {item:{hrName,labelNames}} = this.props
@@ -1752,9 +1761,13 @@ class PersonTraningItem extends ItemChangeCommon{
 
           {detailType==10?null:<Button className="item-edit-btn" onClick={this.handleEdit.bind(this)}>编辑</Button>}
         </h4>
-        {this.renderTraningInfo()}
-        <h4>详细描述</h4>
-        <span>{item.description}</span>
+        <div>{this.renderTraningInfo()}</div>
+        {item.description ?
+          <div>
+            <h4>详细描述</h4>
+            <span>{item.description}</span>
+          </div>:null
+        }
       </div>
     )
   }

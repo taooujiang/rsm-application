@@ -52,21 +52,11 @@ export default class EntryFormView extends FormPage{
 
   //处理表格提交后动作
   handleSubmit(values){
-    let {actions,router,dispatch,location:{state:{orginJson}}} = this.props
-    if(orginJson){
-      let newLocation = {
-        pathname:orginJson.nextPath,
-        state:{
-          orgin:orginJson.orgin
-        }
-      }
-      actions.entryWaiting(values,orginJson.viewLibType).then(()=>{
-        dispatch(routerActions.push(newLocation))
+    let {actions,router,dispatch,location} = this.props
+
+      actions.entryWaiting(values).then(()=>{
+        actions.backRouteReload(router,location)
       })
-    }else{
-      actions.entryWaiting(values)
-      actions.backRoute(router)
-    }
   }
   render() {
     let {location:{state:{id}}} = this.props

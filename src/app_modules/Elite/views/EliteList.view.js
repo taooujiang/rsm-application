@@ -70,6 +70,19 @@ export default class EliteListView extends PageView {
       //表格行选中状态不刷新   暂时重载页面处理
       // window.location.reload();
     }
+    if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
+      if(nextProps.location.state && nextProps.location.state.key=="reload"){
+        let {
+          actions,
+          reduce: { params },
+          routeParams: { type },
+          router
+        } = nextProps;
+
+        actions.listAction(params);
+        actions.talentCountAction({ libType: type });
+      }
+    }
   }
 
   componentDidMount() {

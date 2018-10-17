@@ -23,6 +23,7 @@ import {
   TreeSelect
 } from 'antd'
 import moment from 'moment'
+import {routerActions, push, replace} from 'react-router-redux'
 import {FormPage} from 'app/components/Page'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
 import  FetchAPI from 'app/utils/FetchAPI'
@@ -71,16 +72,28 @@ export default class DistributedForm extends FormPage{
 
 
   handleSubmit(values){
-    let {actions,router,location,params:{type}} = this.props;
+    let {actions,router,location,location:{state:{orginJson}},params:{type}} = this.props;
   //  console.log(values)
     console.log(values)
     if(type == "mulite"){
       actions.muliteDistAction(values).then(()=>{
-        actions.backRouteReload(router,location)
+        let newLocation = {
+          pathname:orginJson.orgin,
+          state:{
+            key:"reload"
+          }
+        }
+        orginJson ? routerActions.push(newLocation) : actions.backRouteReload(router,location)
       })
     }else{
       actions.singleDistAction(values).then(()=>{
-        actions.backRouteReload(router,location)
+        let newLocation = {
+          pathname:orginJson.orgin,
+          state:{
+            key:"reload"
+          }
+        }
+        orginJson ? routerActions.push(newLocation) : actions.backRouteReload(router,location)
       })
     }
   }

@@ -495,7 +495,7 @@ export function joinEliteAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('formSpin'))
         return new API().fetchJoinElite(value).then(json => {
-            dispatch(fetchSuccess('formSpin'))
+            dispatch(fetchSuccess('formSpin',true,"操作成功"))
         }).catch(ex => {
             return dispatch(fetchFailure('formSpin',ex))
         })
@@ -506,7 +506,7 @@ export function joinCreditAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('formSpin'))
         return new API().fetchJoinCredit(value).then(json => {
-            dispatch(fetchSuccess('formSpin'))
+            dispatch(fetchSuccess('formSpin',true,"操作成功"))
         }).catch(ex => {
             return dispatch(fetchFailure('formSpin',ex))
         })
@@ -547,13 +547,10 @@ export function entryOffer(value) {
     }
 }
 
-export function entryWaiting(value,viewLibType) {
+export function entryWaiting(value) {
     let data = {
       ...value,
       status:4
-    }
-    if(viewLibType){
-      value.viewLibType = viewLibType
     }
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))
@@ -683,7 +680,10 @@ export function feedArrange(value){
     }
 }
 
-export function entryJobAction(value){
+export function entryJobAction(value,viewLibType){
+  if(viewLibType){
+    value.viewLibType = viewLibType
+  }
   return (dispatch, getState) => {
       dispatch(fetchRequest('formSpin'))
       return new API().fetchEntryJob(value).then(json => {

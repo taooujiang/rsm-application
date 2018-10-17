@@ -41,12 +41,15 @@ export default class DeleteForm extends FormPage{
 
   handleSubmit(values){
     let {actions,dispatch,router,location,location:{state:{orginJson}}} = this.props;
-    if(orginJson){
+    if(orginJson&&orginJson.nextPath){
       let newLocation = {
         pathname:orginJson.nextPath,
         state:{
           orgin:orginJson.orgin
         }
+      }
+      if(orginJson.nextPath.indexOf("/detail") < 0){
+        newLocation.state = Object.assign({},newLocation.state,{key:"reload"})
       }
       actions.deleteOptionAction(values).then(()=>{
         dispatch(routerActions.push(newLocation))

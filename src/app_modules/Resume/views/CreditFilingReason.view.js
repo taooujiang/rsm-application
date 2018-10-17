@@ -37,8 +37,9 @@ export default class CreditFilingReasonForm extends FormPage{
 
   handleSubmit(values){
     let {actions,router,location} = this.props;
-    actions.joinCreditAction(values)
-    actions.backRoute(router)
+    actions.joinCreditAction(values).then(()=>{
+      actions.backRouteReload(router,location)
+    })
   }
 
   render() {

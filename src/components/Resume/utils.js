@@ -197,12 +197,16 @@ export function createResumeRoute(){
           return dispatch => dispatch(routerActions.push(path))
       },
       /*待分配简历的分配和加入人才库 与简历模块有区别*/
-    distributionAction:function(router,ids,type) {
+    distributionAction:function(router,ids,type,orginJson) {
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname : `${pathname}/distr/${type}`,
 
-            state:{ids:ids, pathname:pathname}
+            state:{
+              ids:ids,
+              pathname:pathname,
+              orginJson:orginJson
+             }
         }
         return dispatch => dispatch(routerActions.push(path))
     },
@@ -283,13 +287,12 @@ export function createResumeRoute(){
         }
         return dispatch => dispatch(routerActions.push(path))
     },
-    entryAction:function(router,id,orginJson) {
+    entryAction:function(router,id) {
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname : `${pathname}/entry`,
             state:{
               id:id,
-              orginJson:orginJson
             }
         }
         return dispatch => dispatch(routerActions.push(path))
