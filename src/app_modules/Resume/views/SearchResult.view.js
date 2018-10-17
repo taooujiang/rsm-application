@@ -35,10 +35,10 @@ export default class ResumeSearchListView extends PageView {
     //actions.listSearchAction({name:"张",searchInClient:1})
   }
   componentWillReceiveProps(nextProps){
-    let {actions,reduce:{params}} = nextProps
+    let {actions,reduce:{page},params:{type,text}} = nextProps
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
       if(nextProps.location.state && nextProps.location.state.key=="reload"){
-        actions.listSearchAction(params)
+        actions.listSearchAction(Object.assign({[type]:text},page))
       }
     }
   }
