@@ -78,7 +78,7 @@ export default class ResumeListView extends PageView {
       actions.getCheckAction(nextProps.reduce.params)
     }
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
-      if(nextProps.location.state && nextProps.location.state.key=="reload"){
+      if(nextProps.location.state && nextProps.location.state.key=="reload" && nextProps.location.state.listRefresh){
         this.setState({
           selectedRows: [],
           selectedRowKeys: []

@@ -253,8 +253,12 @@ class PersonInfoPanelHead extends Component{
   }
   handleChange(value){
     // console.log(this.props)
-    let {router,dispatch} = this.props
-    dispatch(routerActions.push(router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${value}/detail`)))
+    let {router,dispatch,location:{state}} = this.props
+    let newLocation = {
+      pathname:router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${value}/detail`),
+      state:state
+    }
+    dispatch(routerActions.push(newLocation))
   }
   renderSelectOption(){
     let {info} = this.props

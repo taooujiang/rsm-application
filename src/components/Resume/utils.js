@@ -37,7 +37,8 @@ export function createResumeRoute(){
           let path = {
               pathname: `${pathname}/connect`,
               state: {
-                selectedKeys:id
+                selectedKeys:id,
+                pathname:pathname
               }
           }
           return dispatch => dispatch(routerActions.push(path))

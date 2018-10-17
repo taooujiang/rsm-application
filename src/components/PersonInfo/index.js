@@ -1751,7 +1751,7 @@ class PersonTraningItem extends ItemChangeCommon{
   renderTraningInfo(){
     let {item} = this.props
     return filterArray([
-      item.trainingAddress,item.certificate
+      item.certificate,item.trainingAddress ? `培训地点：${item.trainingAddress}` : ""
     ]).join(" | ")
   }
   renderShow(){
