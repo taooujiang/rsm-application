@@ -281,7 +281,7 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Select label="本市住房情况" name="houseStatus" fetch={this.getDictByType("houseStatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus} />
+								<Select label="本市住房情况" name="houseStatus" fetch={this.getDictByType("houseStatus",jsonMap)} renderItem={this.renderSelectOption} defaultValue={applyerInfo&&applyerInfo.houseStatus+""} />
 							</FormItem>
 						</Col>
 						<Col span={12}>
@@ -395,6 +395,9 @@ export default class ApplyFormView extends FormPage {
 							    }, {
 							      title: '年龄',
 							      dataIndex: 'age',
+                    render:(val)=>{
+                      return val == 0 ? "" : val
+                    }
 							    }, {
 							      title: '所在单位',
 							      dataIndex: 'company',
