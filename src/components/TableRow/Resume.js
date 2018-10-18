@@ -24,7 +24,7 @@ export class PersonIconShow extends Component{
     let iconArray = []
     let {item} = this.props
     if(item){
-      item.havaSame ? iconArray.push(<Icon type="icon-yisijianli" style={{color:"#e9578a"}}/>) : null
+      item.havaSame ? iconArray.push(<Icon type="icon-yisijianli" style={{color:"#e9578a",margin:'0 5px'}}/>) : null
       item.isLock ? iconArray.push(<Icon type="icon-suoding" style={{color:'#f9744e',margin:'0 5px'}}/>) : null
       item.isFollowRemind ? iconArray.push(<Icon type="icon-tubiao" style={{color:"#2fc4a4"}}/>) : null
     }
