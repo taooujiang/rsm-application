@@ -72,7 +72,7 @@ export default class DistributedForm extends FormPage{
 
 
   handleSubmit(values){
-    let {actions,router,location,location:{state:{orginJson}},params:{type}} = this.props;
+    let {actions,router,dispatch,location,location:{state:{orginJson}},params:{type}} = this.props;
   //  console.log(values)
     console.log(values)
     if(type == "mulite"){
@@ -83,7 +83,7 @@ export default class DistributedForm extends FormPage{
             key:"reload"
           }
         }
-        orginJson ? routerActions.push(newLocation) : actions.backRouteReload(router,location)
+        orginJson ? dispatch(routerActions.push(newLocation)) : actions.backRouteReload(router,location)
       })
     }else{
       actions.singleDistAction(values).then(()=>{
@@ -93,7 +93,7 @@ export default class DistributedForm extends FormPage{
             key:"reload"
           }
         }
-        orginJson ? routerActions.push(newLocation) : actions.backRouteReload(router,location)
+        orginJson ? dispatch(routerActions.push(newLocation)) : actions.backRouteReload(router,location)
       })
     }
   }

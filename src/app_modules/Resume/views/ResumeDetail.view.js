@@ -139,7 +139,7 @@ class ResumeDetail extends Component{
     }
 
     renderTypeButton(){
-      let { item ,item:{libType,nextId},dispatch, actions,router , location:{state}} = this.props
+      let { item ,item:{libType,nextId},dispatch, actions,router ,location, location:{state}} = this.props
       let detailType = this.translateLib(libType)
       let type = "resume"
       let nextPath = nextId ? router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${nextId}/detail`) : state&&state.orgin
@@ -157,7 +157,7 @@ class ResumeDetail extends Component{
           type = "credit"
           break;
       }
-      return <PersonOption item={item} actions={actions} dispatch={dispatch} router={router} type={type} callback={this.getToRemark.bind(this)} orginJson={{nextPath:nextPath,viewLibType:translateOrgin(state).viewLibType,orgin:state&&state.orgin}}/>
+      return <PersonOption item={item} actions={actions} dispatch={dispatch} location={location} router={router} type={type} callback={this.getToRemark.bind(this)} orginJson={{nextPath:nextPath,viewLibType:translateOrgin(state).viewLibType,orgin:state&&state.orgin}}/>
     }
     translateLib(lib){
       if(lib == 1){
@@ -253,8 +253,12 @@ class PersonInfoPanelHead extends Component{
   }
   handleChange(value){
     // console.log(this.props)
-    let {router,dispatch} = this.props
-    dispatch(routerActions.push(router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${value}/detail`)))
+    let {router,dispatch,location:{state}} = this.props
+    let newLocation = {
+      pathname:router.getCurrentLocation().pathname.replace(/\/\S{32}\/detail/,`/${value}/detail`),
+      state:state
+    }
+    dispatch(routerActions.push(newLocation))
   }
   renderSelectOption(){
     let {info} = this.props

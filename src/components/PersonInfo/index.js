@@ -419,13 +419,14 @@ class OptionCommonFn extends Component{
     actions.addLabelAction(router,labels)
   }
   eliminate(){
-    let {actions,item:{id},router,location} = this.props
+    let {actions,item:{id},router,location,orginJson} = this.props
     actions.eliminateAction(router,[id]).then(()=>{
-      let newLocation = {
-        pathname:router.getCurrentLocation().pathname,
-        state:Object.assign({},location.state,{key:"reload"})
-      }
-      routerActions.push(newLocation)
+      // let newLocation = {
+      //   pathname:router.getCurrentLocation().pathname,
+      //   state:Object.assign({},location.state,{key:"reload"})
+      // }
+      // routerActions.push(newLocation)
+      actions.itemAction({id:id,viewLibType:orginJson.viewLibType})
     })
   }
   entryJob(){
@@ -438,6 +439,9 @@ class OptionCommonFn extends Component{
       state:{
         orgin:orginJson.orgin
       }
+    }
+    if(orginJson.nextPath.indexOf('/detail') < 0){
+      newLocation.state = Object.assign({},newLocation.state,{key:"reload"})
     }
     actions.entryJobAction(params,orginJson.viewLibType).then(()=>{
       dispatch(routerActions.push(newLocation))
@@ -1747,7 +1751,7 @@ class PersonTraningItem extends ItemChangeCommon{
   renderTraningInfo(){
     let {item} = this.props
     return filterArray([
-      item.trainingAddress,item.certificate
+      item.certificate,item.trainingAddress ? `培训地点：${item.trainingAddress}` : ""
     ]).join(" | ")
   }
   renderShow(){
