@@ -157,7 +157,8 @@ export function relateRoute(data,router){
 	let newLocation={
 		pathname: `${router.location.pathname}/relate`,
 		state:{
-      selectedKeys:data
+      selectedKeys:data,
+      pathname:router.location.pathname
     }
 	}
 	// let hash=router.createLocation(newLocation)

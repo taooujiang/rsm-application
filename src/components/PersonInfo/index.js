@@ -441,7 +441,7 @@ class OptionCommonFn extends Component{
       }
     }
     if(orginJson.nextPath.indexOf('/detail') < 0){
-      newLocation.state = Object.assign({},newLocation.state,{key:"reload"})
+      newLocation.state = Object.assign({},newLocation.state,{key:"reload",listRefresh:true})
     }
     actions.entryJobAction(params,orginJson.viewLibType).then(()=>{
       dispatch(routerActions.push(newLocation))
