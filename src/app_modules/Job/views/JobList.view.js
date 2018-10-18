@@ -177,7 +177,7 @@ export default class NewJobListView extends PageView {
                     render:(val,row)=>{
 											if(process.env.NODE_ENV === 'development'){
 												return(
-													<SmartLink to={`/resume/list/query/0/${row.jobId}`}>{val}</SmartLink>
+													<SmartLink to={`/resume/list/query/0/${row.jobId}/end`}>{val}</SmartLink>
 												)
 											}else{
 												return(
@@ -185,7 +185,7 @@ export default class NewJobListView extends PageView {
 														title: '候选人管理',
 														key: 'resume/list' ,
                             refresh:true,
-														src:`/static/js/client/main.html#/resume/list/query/0/${row.jobId}`
+														src:`/static/js/client/main.html#/resume/list/query/0/${row.jobId}/end`
 													})}>{val}</SmartLink>
 												)
 											}
@@ -199,7 +199,7 @@ export default class NewJobListView extends PageView {
 										render:(val,row)=>{
 											if(process.env.NODE_ENV === 'development'){
 												return(
-													<SmartLink to={`/resume/list/query/4/${row.jobId}`}>{val}</SmartLink>
+													<SmartLink to={`/resume/list/query/4/${row.jobId}/end`}>{val}</SmartLink>
 												)
 											}else{
 												return(
@@ -207,7 +207,7 @@ export default class NewJobListView extends PageView {
 														title: '候选人管理',
 														key: 'resume/list' ,
                             refresh:true,
-														src:`/static/js/client/main.html#/resume/list/query/4/${row.jobId}`
+														src:`/static/js/client/main.html#/resume/list/query/4/${row.jobId}/end`
 													})}>{val}</SmartLink>
 												)
 											}

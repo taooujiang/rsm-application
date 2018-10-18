@@ -341,7 +341,7 @@ export default class Dashboard extends Component {
 										<h1>{todayInterviewNum}</h1>
 										<p>今日面试</p>
 								</Col>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer', key: 'offer' ,src:"/static/js/client/main.html#/resume/list/query/3"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer', key: 'offer' ,src:"/static/js/client/main.html#/resume/list/query/3/end"})}>
 										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
 										<h1>{sendOfferNum}</h1>
 										<p>待发送offer</p>
