@@ -87,13 +87,13 @@
 
 .anticon-icon-channel17:before { content: "\e619"; }/*hei*/
 
-/*add*/
+/*add(tubiao是跟进图标)*/
 
-.anticon-icon-tubiao:before { content: "\e61f"; }
+.anticon-icon-tubiao:before { content: "\e636"; }
 
-.anticon-icon-yisijianli:before { content: "\e620"; }
+.anticon-icon-yisijianli:before { content: "\e635"; }
 
-.anticon-icon-suoding:before { content: "\e621"; }
+.anticon-icon-suoding:before { content: "\e637"; }
 
 .anticon-icon-zhongfuzhiwei:before { content: "\e622"; }
 
