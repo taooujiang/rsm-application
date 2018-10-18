@@ -124,7 +124,8 @@ export function createActionRoute(){
     let path = {
       pathname:pathname,
       state:{
-        key:"reload"
+        key:"reload",
+        listRefresh:true
       }
     }
     return dispatch => dispatch(routerActions.push(path))
