@@ -12,23 +12,21 @@ export default class LogListView extends Component {
       data: []
     };
   }
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     const { items } = this.props;
     this.setState({
       data: items
     });
-  }
-  componentDidMount() {
-    const { actions, params } = this.props;
-    actions.logListAction({ fatherType: params.type });
-  }
-  componentWillReceiveProps(nextProps){
     let {actions}= this.props
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
       if(nextProps.location.state && nextProps.location.state.key=="reload"){
         actions.logListAction({ fatherType: nextProps.params.type })
       }
     }
+  }
+  componentDidMount() {
+    const { actions, params } = this.props;
+    actions.logListAction({ fatherType: params.type });
   }
   componentDidUpdate(prevProps) {
     let { actions } = this.props;
@@ -141,6 +139,7 @@ export default class LogListView extends Component {
     const { params, items } = this.props;
     const { data } = this.state;
     console.log(params.type, "params.typeparams.typeparams.typeparams.type");
+    console.log(data)
     return (
       <Card title={this.renderCheckGroup(params.type)}>
         <List
