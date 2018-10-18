@@ -77,23 +77,31 @@ export default class DistributedForm extends FormPage{
     console.log(values)
     if(type == "mulite"){
       actions.muliteDistAction(values).then(()=>{
-        let newLocation = {
-          pathname:orginJson.orgin,
-          state:{
-            key:"reload"
+        if(orginJson){
+          let newLocation = {
+            pathname:orginJson.orgin,
+            state:{
+              key:"reload"
+            }
           }
+          dispatch(routerActions.push(newLocation))
+        }else{
+          actions.backRouteReload(router,location)
         }
-        orginJson ? dispatch(routerActions.push(newLocation)) : actions.backRouteReload(router,location)
       })
     }else{
       actions.singleDistAction(values).then(()=>{
-        let newLocation = {
-          pathname:orginJson.orgin,
-          state:{
-            key:"reload"
+        if(orginJson){
+          let newLocation = {
+            pathname:orginJson.orgin,
+            state:{
+              key:"reload"
+            }
           }
+          dispatch(routerActions.push(newLocation))
+        }else{
+          actions.backRouteReload(router,location)
         }
-        orginJson ? dispatch(routerActions.push(newLocation)) : actions.backRouteReload(router,location)
       })
     }
   }
