@@ -254,6 +254,14 @@ class MultiTab extends Component {
           );
           // document.querySelector(`iframe[name=${activeKey}]`)
           // todo
+          if(newPane.src.indexOf("/resume/list") >= 0){
+            document.body
+              .querySelector(`iframe[name='${activeKey}']`)
+              .src = newPane.src;
+            document.body
+              .querySelector(`iframe[name='${activeKey}']`)
+              .contentWindow.location.reload();
+          }
           if (newPane.refresh) {
             document.body
               .querySelector(`iframe[name='${activeKey}']`)

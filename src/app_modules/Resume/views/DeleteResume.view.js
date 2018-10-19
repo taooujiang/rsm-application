@@ -49,7 +49,7 @@ export default class DeleteForm extends FormPage{
         }
       }
       if(orginJson.nextPath.indexOf("/detail") < 0){
-        newLocation.state = Object.assign({},newLocation.state,{key:"reload"})
+        newLocation.state = Object.assign({},newLocation.state,{key:"reload",listRefresh:true})
       }
       actions.deleteOptionAction(values).then(()=>{
         dispatch(routerActions.push(newLocation))

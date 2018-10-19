@@ -142,7 +142,7 @@ let RoutesResume =(
 
 let Routes = (
   <Router component={null}>
-    <Route path="list(/query/:status(/:jobId))" components={Container}>
+    <Route path="list(/query/:status(/:jobId)/end)" components={Container}>
       {React.createElement(Route,{},RoutesResume.props.children)}
     </Route>
     <Route path="folder" components={FolderContainer}>

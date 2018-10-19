@@ -91,8 +91,10 @@ export default class CalendarView extends Component {
     actions.delayAction(router,id,type,time,resumeId)
   }
   handleUrge(id){
-    let {actions} = this.props
-    actions.urgeFeedbackAction({id:id})
+    let {actions,reduce:{params}} = this.props
+    actions.urgeFeedbackAction({id:id}).then(()=>{
+      actions.loadDates(params)
+    })
   }
 
   handleTodoList(){
