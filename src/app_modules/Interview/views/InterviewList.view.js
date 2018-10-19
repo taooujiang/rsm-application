@@ -216,8 +216,10 @@ export default class InterviewListView extends PageView {
   }
 
   handleUrge(id){
-    let {actions} = this.props
-    actions.urgeFeedbackAction({id:id})
+    let {actions,reduce:{params,page}} = this.props
+    actions.urgeFeedbackAction({id:id}).then(()=>{
+      actions.listAction({...params,...page})
+    })
   }
 
   /*
