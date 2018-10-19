@@ -1916,14 +1916,13 @@ class PersonOfferEdit extends FormPage{
               {'入职时间':item.expectedEntryTime},
               {'所属部门':''}
             ]
-
+        let exprctedEntryTime = this.form.getFieldValue("expectedEntryTime")
         if(value.length){
             // value = value.replace("{面试时间}",interviewTime)
             value = value.replace("{职位名称}",item.jobTitle)
             value = value.replace("{姓名}",item.name)
-            value = value.replace("{入职时间}",item.expectedEntryTime)
-            value = value.replace("{所属部门}",'')
-
+            value = value.replace("{入职时间}",exprctedEntryTime)
+            //value = value.replace("{所属部门}",'')
         }
         object[name]=value
         this.form.setFieldsValue(object)
