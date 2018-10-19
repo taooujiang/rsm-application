@@ -117,6 +117,9 @@ export default class ApplyFormView extends Component{
        }, {
          title: '年龄',
          dataIndex: 'age',
+         render:(val)=>{
+           return val == 0 ? "" : val
+         }
        }, {
          title: '所在单位',
          dataIndex: 'company',
