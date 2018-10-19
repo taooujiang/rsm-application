@@ -78,7 +78,7 @@ export default class ClientAPI {
         let host =window.location.host
         let params = {
           "ExpandJson":{
-            'url': host + '/static/js/client/main.html#/log/qrcode',
+            'url': host + '/static/js/client/main.html#/log/qrcode/1',
             'title':'二维码',
             'wx':0,
             'wy':0,

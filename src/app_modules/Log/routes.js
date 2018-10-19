@@ -36,7 +36,7 @@ import { DelayContainer,FeedBackFormContainer } from '../Interview/container'
 let Routes = (
   <Router component={null}>
     <IndexRoute component={LogListContainer} />
-    <Route path="qrcode" component={ErcodeContainer} />
+    <Route path="qrcode(/:client)" component={ErcodeContainer} />
     <Route path=":type" component={LogListContainer}>
       <Route path="detail/:messageId" components={LogDetailContainer} />
       <Router path=":resumeId">

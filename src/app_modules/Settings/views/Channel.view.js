@@ -45,7 +45,7 @@ export default class Adverse extends PageView {
           renderItem={item => (
             <List.Item>
               <List.Item.Meta
-								title={item.channel?DictUtils.getDictLabelByValue('channel',item.channel):void 0}
+								title={item.channel?item.channelName:void 0}
 								avatar={<div className={"channel-img-"+item.channel}></div>}
 								description={this.renderDescription(item)}
               />
