@@ -1387,7 +1387,7 @@ class PersonEducationShow extends Component{
     let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        {detailType==10?null:<h3>教育经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
+        <h3>教育经历 {detailType == 10 ? null : <Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button>}</h3>
         {info.map((it,idx)=>{
           return  <PersonEducationItem  {...this.props} item={it} actions={actions} channelResumeId={channelResumeId}/>
         })}
@@ -1505,7 +1505,7 @@ class PersonLanguageShow extends Component{
     let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        {detailType==10?null:<h3>技能/语言<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
+        <h3>技能/语言{detailType == 10 ? null : <Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button>}</h3>
         {info.map((it,idx)=>{
           return  <PersonLanguageItem detailType = {detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
@@ -1627,7 +1627,7 @@ class PersonCredentialShow extends Component{
     let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        {detailType==10?null:<h3>证书<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
+        <h3>证书{detailType == 10 ? null : <Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button>}</h3>
         {info.map((it,idx)=>{
           return  <PersonCredentialItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
@@ -1730,7 +1730,7 @@ class PersonTraningShow extends Component{
     let {info,channelResumeId,actions,detailType} = this.props
     return(
       <div>
-        {detailType==10?null:<h3>培训经历<Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button></h3>}
+        <h3>培训经历{detailType == 10 ? null : <Button className="add-title" onClick={this.handleAdd.bind(this)}>新增</Button>}</h3>
         {info.map((it,idx)=>{
           return  <PersonTraningItem detailType={detailType} item={it} channelResumeId={channelResumeId} actions={actions}/>
         })}
