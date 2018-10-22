@@ -58,6 +58,8 @@ export class SoundSideView extends Component {
     this.setState({
       val: value
     });
+    console.log(value)
+    actions.listAction({range:value})
   }
   renderSelectOption(data, idx) {
     return (
