@@ -99,15 +99,16 @@ export default class NewJobListView extends PageView {
 
 
     renderToolbar() {
-        let {actions} = this.props;
+        let {actions,appReducer} = this.props;
+        let {user:{authType}} = appReducer
+        /*1 管理员 2 hr 3 部门负责人*/
         let endText = "确认结束招聘后，简历将不再进入此职位，如果后续还有此类简历，简历直接进入人才库"
         return this.selectRowShow(
               <ButtonGroups handleClick={this.handleMenu.bind(this)}>
                 <Button icon="sync" actionkey="syncAction">批量刷新</Button>
                 <Button icon="pause-circle-o" confirm={endText} actionkey="endingFireAction">结束招聘</Button>
                 <Button icon="edit" actionkey="changeDeptAction">修改部门</Button>
-                <Button icon="solution" actionkey="changeChargerAction">修改负责人</Button>
-                <Button icon="exception" actionkey="changeFeederAction">修改面试官</Button>
+                {authType == 2 ? <Button icon="exception" actionkey="changeFeederAction">修改面试官</Button>: <Button icon="solution" actionkey="changeChargerAction">修改负责人</Button>}
               </ButtonGroups>
         )
     }
