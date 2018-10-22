@@ -195,12 +195,12 @@ class ResumeDetail extends Component{
   render (){
     let {dispatch ,actions,location,item,router,reduce:{baseInfo,feedInfo,remarks,options,offer,commitcate,information},params:{resumeId}} = this.props
     //console.log(resumeId,'routerrouter')
-    let {name,libType,filingReason,authorization,prevId,nextId} = item
+    let {name,libType,filingReason,authorization,prevId,nextId,viewLibType} = item
     let detailType = this.translateLib(libType)
     return (
       <PersonInfo headNode={<PersonInfoPanelHead info={item} router={router} location={location} actions={actions} dispatch={dispatch} detailType={detailType} filingReason={filingReason}/>}>
-        <div className={classnames("arrowLeft",prevId?"":"disabled")} onClick={this.handleClickLeft.bind(this)}><Icon type="left" theme="outlined" /></div>
-        <div className={classnames("arrowRight",nextId?"":"disabled")} onClick={this.handleClickRight.bind(this)}><Icon type="right" theme="outlined" /></div>
+        {viewLibType != 1 ? null : <div className={classnames("arrowLeft",prevId?"":"disabled")} onClick={this.handleClickLeft.bind(this)}><Icon type="left" theme="outlined" /></div>}
+        {viewLibType != 1 ? null : <div className={classnames("arrowRight",nextId?"":"disabled")} onClick={this.handleClickRight.bind(this)}><Icon type="right" theme="outlined" /></div>}
         <div className="person-info-body">
           <Layout direction="row">
             <Pane style={{flexDirection:"column",width:"50%"}}>
