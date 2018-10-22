@@ -7,10 +7,10 @@ import {ModalViewQrCode} from 'app/components/Modal.view'
 
 
 export default class Ercode extends PageView {
-	componentDidMount(){
+	componentWillMount(){
 		let {params} = this.props
 		if(params.client == 1){
-			document.body.querySelector(".app").style.cssText = "width:300px;height:300px;padding: 40px 0 0 40px;"
+			document.body.style.cssText = "width:300px;height:300px;height:300px;padding: 40px 0 0 40px;box-sizing:border-box;overflow:hidden;"
 		}
 	}
 	render(){
