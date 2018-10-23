@@ -179,7 +179,9 @@ function getLodop(oOBJECT, oEMBED) {
                     document.body.innerHTML = strHtmChrome + document.body.innerHTML;
                 if (ua.indexOf('Firefox') >= 0)
                     document.body.innerHTML = strHtmFireFox + document.body.innerHTML;
-                document.body.innerHTML = (is64IE ? strHtm64_Install : strHtmInstall) + document.body.innerHTML;
+                //document.body.innerHTML = (is64IE ? strHtm64_Install : strHtmInstall) + document.body.innerHTML;
+                message.info("请正确安装打印插件！")
+                global.invokeMethod('CefToShellExe',"CLodop_Setup_for_Win32NT.exe")
                 return LODOP;
             }
         }
