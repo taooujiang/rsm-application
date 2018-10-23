@@ -96,11 +96,16 @@ let TalentLabelContainer = connect((state)=>({
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(TalentLabelView))
 
+
+
 let TemplateContainer = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Template"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(TemplateView))
+
+
+
 let TemplateFormContainer = connect((state,props)=>({
   item:reducerItemSelector(state.ORMReducer,"Template",props.params.id),
   reduce: state.settingsReducer,

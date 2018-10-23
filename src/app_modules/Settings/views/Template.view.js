@@ -21,7 +21,8 @@ const { TextArea } = Input
 @NestedComponent()
 export default class TemplateView extends PageView {
   state = {
-    type: "2"
+    type: "2",
+    templateUse:1
   }
   //请求远程数据接口
   componentWillMount() {
@@ -33,9 +34,13 @@ export default class TemplateView extends PageView {
     let { actions } = this.props;
     actions.templateListAction(value)
   }
+
+
   saveFormRef = (form) => this.form = form
+
+
   smsTypeChange(e) {
-    // console.log(e.target.value)
+    console.log(e.target.value,'valuevaluevaluevalue')
 
     this.setState({
       type: e.target.value
@@ -70,11 +75,18 @@ export default class TemplateView extends PageView {
   renderSelectOption(data, idx) {
     return (<Select.Option value={data.keyValue} key={idx} disabled={this.state.type == 1 && data.keyValue == "2"}>{data.keyName}</Select.Option>)
   }
+  handleSelectChange(val){
+    console.log(val,'handleSelectChangehandleSelectChangehandleSelectChange')
+    this.setState({
+      templateUse:val
+    })
+  }
   renderSearchBar() {
 
     return (
       <AdvancedSearchForm layout="inline" className="template-form" filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} ref={this.saveFormRef}>
-        <Select name="templateUse" defaultValue="1" label="模板用途" fetch={DictUtils.getDictByType("templateuse")} renderItem={this.renderSelectOption.bind(this)} allowClear={false} style={{ width: '150px' }} />
+        <Select name="templateUse" defaultValue="1" label="模板用途" fetch={DictUtils.getDictByType("templateuse")} renderItem={this.renderSelectOption.bind(this)} allowClear={false} style={{ width: '150px' }}
+          onChange={this.handleSelectChange.bind(this)} />
         <Radio.Group defaultValue={this.state.type} name="type" buttonStyle="solid" onChange={this.smsTypeChange.bind(this)} className="radio-group-nav">
           <Radio.Button value="2">邮件模版</Radio.Button>
           <Radio.Button value="1">短信模版</Radio.Button>
@@ -84,7 +96,10 @@ export default class TemplateView extends PageView {
   }
   renderList() {
     let { items, actions } = this.props;
-
+    console.log(items,'itemsitemsitemsitems')
+    items = items.filter((e)=>{
+      return e.templateUse==this.state.templateUse
+    })
     return (<List
       itemLayout="horizontal"
       className="template-list"
