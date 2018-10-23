@@ -45,6 +45,9 @@ class WeekCalendarPicker extends Calendar{
   }
 
   handlerSelectDate(value){
+    if(this.props.setSelectDateFunc){
+      this.props.setSelectDateFunc(value.format("YYYY-MM-DD"))
+    }
     this.setState({ date: value })
     var dateStr=value.format("YYYY-MM-DD")
     let {actions} = this.props;
@@ -122,7 +125,9 @@ function mapStateToProps(state,props) {
 @connect(mapStateToProps)
 // @WrapperComponent(ErrorBoundary)
 class WeekTodoView extends Component{
-
+  state = {
+    selectDate : moment().format('YYYY-MM-DD')
+  }
   componentWillMount(){
     let {actions} = this.props
     let dateStr = moment().format('YYYY-MM-DD')
@@ -132,6 +137,15 @@ class WeekTodoView extends Component{
 
   joinInfo(array,mark){
     return array && array.length>0 && array.filter(it=>(it&&it!="")).map(it=>{return moment(it).format('HH:mm')}).join(mark)
+  }
+  
+  _setSelectDate(val){
+
+    // todo , 传给子组件用来修改这里的state，好的实践应该在redux完成
+    
+    this.setState({
+      selectDate:val
+    })
   }
 
   handlerAddSchedule(){
@@ -150,6 +164,9 @@ class WeekTodoView extends Component{
   }
   renderCalendarPickerList(){
     let {items} = this.props;
+    items = items.filter((e)=>{
+      return e.scheduleStartTime.format('YYYY-MM-DD') == this.state.selectDate
+    })
     return (<List
         className="calendar-todo-list"
         locale={{
@@ -182,7 +199,7 @@ class WeekTodoView extends Component{
     return (
        <Card title="待办事件" className="week-todo-view">
           <Button className='add-week-todo' onClick={this.handlerAddSchedule.bind(this)}><Icon type="plus" /></Button>
-          <WeekCalendarPicker actions={this.props.actions} />
+          <WeekCalendarPicker actions={this.props.actions} setSelectDateFunc={this._setSelectDate.bind(this)}/>
           {this.renderCalendarPickerList()}
        </Card>
     )
