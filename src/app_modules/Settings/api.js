@@ -218,6 +218,12 @@ export default class API extends FetchAPI {
 		})
 	}
 
+  fetchSwitchApply(params) {
+		return this.fetchPost(`${APP_SERVER}/dictionary/saveFormJson`, {
+			body: params
+		})
+  }
+  
 	fetchSaveRemind(params) {
 		return this.fetchPost(`${APP_SERVER}/dictionary/saveJson`, {
 			body: params

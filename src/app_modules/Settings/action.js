@@ -235,6 +235,19 @@ export function fetchRemindAction(params) {
 	}
 }
 
+export function switchApplyAction(params) {
+	return (dispatch, getState) => {
+		dispatch(fetchRequest('remind'))
+		processBool2Str(params)
+		return new API().fetchSwitchApply(params).then(json => {
+			dispatch(fetchSuccess('remind', true))
+			dispatch(remindSave(Object.assign({id:'account'},params)))
+		}).catch(ex => {
+			return dispatch(fetchFailure('remind', ex))
+		})
+	}
+}
+
 export function saveRemindAction(params) {
 	return (dispatch, getState) => {
 		dispatch(fetchRequest('remind'))
