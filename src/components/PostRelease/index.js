@@ -265,10 +265,10 @@ class BaseInfoShow extends Component{
             <BaseInfoItem label="工作经验" info={workExp}/>
           </Col>
           <Col span={8}>
-            <BaseInfoItem label="工作地点" info={item.addressAll}/>
-          </Col>
-          <Col span={8}>
             <BaseInfoItem label="招聘人数" info={item.hiringNumber}/>
+          </Col>
+          <Col span={24}>
+          <BaseInfoItem label="工作地点" info={item.addressAll}/>
           </Col>
 
           <Col span={24}>

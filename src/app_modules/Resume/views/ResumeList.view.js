@@ -178,7 +178,7 @@ export default class ResumeListView extends PageView {
         title: "基础资料",
         key: "name",
         dataIndex: "name",
-        width: 500,
+        width: 360,
         sorter:true,
         render:(name,row) => <PersonInfoShow item={row} pathname={pathname}/>
       }, {
@@ -200,7 +200,7 @@ export default class ResumeListView extends PageView {
           title: "渠道",
           key: "channelIcon",
           dataIndex: "channelIcon",
-          width: 150,
+          width: 120,
           render:(val)=>{
             return <Icon type={val} />
           }
@@ -208,7 +208,7 @@ export default class ResumeListView extends PageView {
           title: "来源",
           key: "originalWay",
           dataIndex: "originalWay",
-          width: 150,
+          width: 120,
       }
     ]
 /*面试*/
@@ -218,7 +218,7 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
-        width: 500,
+        width: 360,
         render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
@@ -265,7 +265,7 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
-        width: 500,
+        width: 360,
         render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
@@ -291,7 +291,7 @@ export default class ResumeListView extends PageView {
           title: "候选人状态",
           key: "offerStatus",
           dataIndex: "offerStatus",
-          width: 150,
+          width: 120,
       }
     ]
 /*入职*/
@@ -301,12 +301,12 @@ export default class ResumeListView extends PageView {
         key: "name",
         dataIndex: "name",
         sorter:true,
-        width: 500,
+        width: 360,
         render:(name,row)=> <PersonInfoShow item={row} pathname={pathname}/>
       }, {
         title: "招聘负责人",
         key: "ownerName",
-        width: 150,
+        width: 120,
         dataIndex: "ownerName",
       },{
         title: "offer发送时间",
@@ -327,7 +327,7 @@ export default class ResumeListView extends PageView {
           title: "部门",
           key: "dept",
           dataIndex: "dept",
-          width: 150,
+          width: 120,
       }
     ]
 
