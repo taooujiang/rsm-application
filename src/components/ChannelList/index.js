@@ -6,7 +6,7 @@ class ChannelList extends Component {
 		global.invokeMethod('ShowPublicUrl',keyURl)
 	}
 	render() {
-		const{keyName,keyStr,channelKeyName,headerTitle,sortKey}=this.props
+		const{keyName,keyStr,channelKeyName,headerTitle,sortKey,loginStatus}=this.props
 		let {dataSource}=this.props
 		if(dataSource&&sortKey){
 			dataSource=dataSource.sort((a,b)=>a[sortKey]-b[sortKey])
@@ -20,8 +20,13 @@ class ChannelList extends Component {
 				dataSource={dataSource}
 				renderItem={item => (
 					<List.Item style={{textAlign:'center'}}>
-						<div style={{margin:'0 auto'}} className={"channel-img-"+ item[channelKeyName]} onClick={this.loginChannel.bind(this,item.keyURl2)}></div>
-						<div>{item[keyName]?keyStr:''}</div>
+						{loginStatus ?
+							<div><div style={{margin:'0 auto'}} className={item.isLogin ? "channel-img-"+ item[channelKeyName] : "channel-logout-img-"+ item[channelKeyName]} onClick={this.loginChannel.bind(this,item.keyURl2)}></div>
+							<div>{item[keyName]?keyStr:''}</div></div>
+							:
+							<div><div style={{margin:'0 auto'}} className={"channel-img-"+ item[channelKeyName]} onClick={this.loginChannel.bind(this,item.keyURl2)}></div>
+							<div>{item[keyName]?keyStr:''}</div></div>
+						}
 					</List.Item>
 				)}
 			/>
@@ -29,6 +34,7 @@ class ChannelList extends Component {
 	}
 }
 ChannelList.defaultProps={
-	channelKeyName:'keyValue'
+	channelKeyName:'keyValue',
+	loginStatus:false
 }
 export default ChannelList;

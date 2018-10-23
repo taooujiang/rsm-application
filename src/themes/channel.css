@@ -101,3 +101,104 @@
 	width: 100px; height: 56px;
 	background: url('channel_sprites.png') -0 -896px;
 }
+/*未登录*/
+.channel-logout-img-1 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -56px;
+}
+
+
+.channel-logout-img-2 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -448px;
+}
+
+
+.channel-logout-img-3 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -112px;
+}
+
+
+.channel-logout-img-4 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -168px;
+}
+
+
+.channel-logout-img-5 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -224px;
+}
+
+
+.channel-logout-img-6 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -280px;
+}
+
+
+.channel-logout-img-7 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -336px;
+}
+
+
+.channel-logout-img-8 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -392px;
+}
+
+
+.channel-logout-img-9 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -0;
+}
+
+
+.channel-logout-img-10 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -504px;
+}
+
+
+.channel-logout-img-11 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -560px;
+}
+
+
+.channel-logout-img-12 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -616px;
+}
+
+
+.channel-logout-img-13 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -672px;
+}
+
+
+.channel-logout-img-14 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -728px;
+}
+
+
+.channel-logout-img-15 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -784px;
+}
+
+
+.channel-logout-img-16 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -840px;
+}
+
+
+.channel-logout-img-17 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -896px;
+}
