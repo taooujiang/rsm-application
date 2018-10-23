@@ -17,7 +17,7 @@ export default class Adverse extends PageView {
 	onChange(checked) {
 		console.log(`switch to ${Number(checked)}`);
 		const{actions}=this.props
-		actions.saveRemindAction({msg_1030:Number(checked)})
+		actions.switchApplyAction({msg_1030:Number(checked).toString()})
 	}
 	renderToolbar(){
     const{item}=this.props
