@@ -138,7 +138,7 @@ class WeekTodoView extends Component{
   joinInfo(array,mark){
     return array && array.length>0 && array.filter(it=>(it&&it!="")).map(it=>{return moment(it).format('HH:mm')}).join(mark)
   }
-  
+
   _setSelectDate(val){
 
     // todo , 传给子组件用来修改这里的state，好的实践应该在redux完成
@@ -169,10 +169,11 @@ class WeekTodoView extends Component{
     })
     return (<List
         className="calendar-todo-list"
+        itemLayout="vertical"
         locale={{
           emptyText:(<div className='list-no-data'>暂无待办事件</div>)
         }}
-        itemLayout="horizontal"
+        // itemLayout="horizontal"
         loadMore={false}
         dataSource={items}
         renderItem={item => {
@@ -188,8 +189,9 @@ class WeekTodoView extends Component{
             <List.Item className='week-todo-list-item' actions={defaultActions}>
               <List.Item.Meta
                 title={<div className='title'><span className='point'></span>{item.getScheduleStr()}&nbsp;{item.title}</div>}
-                description={item.content}
+                
               />
+              {item.content}
             </List.Item>
           )
         }}
