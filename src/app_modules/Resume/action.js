@@ -261,6 +261,7 @@ export function listResumeJobReportAction(value){
 export function itemAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))
+        value.time = new Date().getTime()
         return new API().fetchItem(value).then(json => {
             dispatch(fetchSuccess('itemSpin'))
             /*进入详情时候干掉面试官字段  两次字段不匹配 先挖个坑*/
