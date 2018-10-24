@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Schema} from 'redux-orm'
 
-import {Row, Col,List,Avatar,Card,Badge,Calendar,Spin,Icon,Modal,Button,Table,Popconfirm, Select, } from 'antd';
+import {Row, Col,List,Avatar,Card,Badge,Calendar,Spin,Icon,Modal,Button,Table,Popconfirm, Select, message} from 'antd';
 import DictUtils from 'app-utils/DictUtils'
 import moment from 'moment';
 import MessageCenter from './MessageCenter.view'
@@ -11,6 +11,7 @@ import GroupedColumnChart from 'app/components/Charts/GroupedColumnChart'
 import orm,{reducerItemSelector,reducerListSelector} from '../../model'
 import  {Link} from 'react-router'
 import styles from './styles.less'
+import ConfigUtils, { hasPermission } from "utils/ConfigUtils";
 import WrapperComponent from 'app/decorators/WrapperComponent'
 import ErrorBoundary from 'app/components/ErrorBoundary'
 import NestedComponent from 'app/decorators/NestedComponent'
@@ -142,7 +143,7 @@ class WeekTodoView extends Component{
   _setSelectDate(val){
 
     // todo , 传给子组件用来修改这里的state，好的实践应该在redux完成
-    
+
     this.setState({
       selectDate:val
     })
@@ -248,6 +249,10 @@ export default class Dashboard extends Component {
 		window.addTab&&window.addTab({ title: '消息中心', key: 'log' ,src:`/static/js/client/main.html#/log/${type}`})
 	}
 	handleRowClick(pane){
+    if(pane.permissionKey && !hasPermission(pane.permissionKey)){
+      message.warning("没有该模块权限！")
+      return false
+    }
 		window.addTab&&window.addTab(pane)
 	}
   render() {
@@ -340,27 +345,27 @@ export default class Dashboard extends Component {
           <Fixed style={{marginBottom:'10px',backgroundColor:'#ddd'}}>
 						<Card title="招聘数据" className="direction-row-card">
 							<Row gutter={16}>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '职位管理', key: 'job/list' , refresh:true , src:"/static/js/client/main.html#/job/list"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '职位管理',permissionKey:"job", key: 'job/list' , refresh:true , src:"/static/js/client/main.html#/job/list"})}>
 										<Icon type="icon-onHire" style={{fontSize:24,color:'#ef6392'}}/>
 										<h1>{recruitJobNum}</h1>
 										<p>招聘中职位</p>
 								</Col>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待分配简历', key: 'resume/distributed' , refresh:true , src:"/static/js/client/main.html#/resume/distributed"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待分配简历',permissionKey:false, key: 'resume/distributed' , refresh:true , src:"/static/js/client/main.html#/resume/distributed"})}>
 										<Icon type="icon-distrbuted" style={{fontSize:24,color:'#62b5f9'}}/>
 										<h1>{dfpResumeNum}</h1>
 										<p>待分配简历</p>
 								</Col>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '候选人管理', key: 'resume/list' , refresh:true , src:"/static/js/client/main.html#/resume/list"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '候选人管理',permissionKey:"resume", key: 'resume/list' , refresh:true , src:"/static/js/client/main.html#/resume/list"})}>
 										<Icon type="icon-newResume" style={{fontSize:24,color:'#12c7ab'}}/>
 										<h1>{todayNewResumeNum}</h1>
 										<p>今日新简历</p>
 								</Col>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '面试管理', key: 'interview/list' , refresh:true , src:"/static/js/client/main.html#/interview/list"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '面试管理',permissionKey:"interview", key: 'interview/list' , refresh:true , src:"/static/js/client/main.html#/interview/list"})}>
 										<Icon type="icon-todayFeed" style={{fontSize:24,color:'#a1db63'}}/>
 										<h1>{todayInterviewNum}</h1>
 										<p>今日面试</p>
 								</Col>
-								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer', key: 'offer' , refresh:true , src:"/static/js/client/main.html#/resume/list/query/3/end"})}>
+								<Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待发offer',permissionKey:"resume", key: 'offer' , refresh:true , src:"/static/js/client/main.html#/resume/list/query/3/end"})}>
 										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
 										<h1>{sendOfferNum}</h1>
 										<p>待发送offer</p>

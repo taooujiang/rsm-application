@@ -234,12 +234,14 @@ export default class NewJobListView extends PageView {
 
 
     render() {
-
+       let Localchannels = window.localStorage.channels ? JSON.parse(window.localStorage.channels) : DictUtils.getDictByType("channel")
+        console.log(window.localStorage.channels)
+        let sortKey = window.localStorage.channels ? "id" : "keySort"
         return (
             <Card type="inner" title={
               <div className="joblist-channelbox">
                 <h2>一键刷新</h2>
-                <ChannelList dataSource={DictUtils.getDictByType("channel")} sortKey="keySort"/>
+                <ChannelList dataSource={Localchannels} sortKey={sortKey} loginStatus={true} channelKeyName="id"/>
               </div>
             }>
                 {this.renderTableList()}

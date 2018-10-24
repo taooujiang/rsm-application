@@ -18,14 +18,19 @@ import {
 } from 'antd'
 import {FormPage} from 'app/components/Page'
 import groupArray from 'group-array'
-import ClientAPI from 'app/utils/externalUtils'
 import ModalView,{ModalViewTitleProps} from 'app/components/Modal.view'
 import WrapperComponent from 'app/decorators/WrapperComponent'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
+import ClientAPI,{emitter} from 'app-utils/externalUtils'
 import DictUtils from 'app/utils/DictUtils'
 
 const Option = Select.Option
 const {TextArea} = Input
+
+
+
+
+
 
 class AddForm extends Component{
     loginChannel(channel){
@@ -37,14 +42,16 @@ class AddForm extends Component{
     }
     renderChannels(){
         let {channels} = this.props
+        let Localchannels = window.localStorage.channels ? JSON.parse(window.localStorage.channels) : DictUtils.getDictByType("channel")
+        //console.log(22222,33333,Localchannels)
         let channelList = [...channels.values()]
         //console.log("inside",channelList,"channels",channels)
-        return channelList && channelList.map((it,idx)=>{
+        return Localchannels && Localchannels.map((it,idx)=>{
             return(
                 <Row gutter={12} key={idx} style={{lineHeight:"40px"}}>
                     <Col span={8}>
                         <FormItem style={{marginBottom:0}}>
-                            <Checkbox name={`aa${it.id}`} disabled={!it.isLogin}>{DictUtils.getDictLabelByValue("channel",it.id)}</Checkbox>
+                            <Checkbox name={`aa${it.id}`} >{DictUtils.getDictLabelByValue("channel",it.id)}</Checkbox>
                         </FormItem>
                     </Col>
                     <Col span={8}>
@@ -96,7 +103,7 @@ export default class SyncChannel extends FormPage {
     }
 
     componentWillMount() {
-        let {actions,router,location:{state:{selected}},appConfig} = this.props;
+        let {actions,router,dispatch,location:{state:{selected}},appConfig} = this.props;
         var allChannel=selected.reduce((prevValue,currentValue)=>{
             // console.log(prevValue.channelList,currentValue.channelList)
              return {channelList:prevValue.channelList.concat(currentValue.channelList)}
@@ -107,16 +114,33 @@ export default class SyncChannel extends FormPage {
             type:"job_channel_pointer",
             channels:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
         }
+        // let loginParams = {
+        //   type:'isLogin',
+        //   channels:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+        // }
         let JsToPython = new ClientAPI().JsToPython
+        // JsToPython(loginParams)
         JsToPython(params)
 
-        let dateListObj = groupArray(allChannel.channelList,'channelType')
+        // emitter.on("isLogin",function(item){
+        //   let channels = DictUtils.getDictItemByValue("channel")
+        //
+        //   item.channels.map(it=>{
+        //     it.id
+        //   })
+        //   dispatch(saveLoginStatus(item))
+        // })
+
+        // emitter.on("job_channel_pointer",function(item){
+        //   //store.dispatch(saveChannelPoint(item))
+        //   // console.log(JobReducer)
+        // })
     }
     componentDidMount(){
       console.log("componentDidMount",this.props)
     }
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.appConfig.channels)
+      console.log(nextProps.appConfig.channels,"aaaaa",nextProps.reduce)
     }
 
     getJobIdsArray(){
@@ -168,9 +192,9 @@ export default class SyncChannel extends FormPage {
         actions.backRoute(router)
     }
     render() {
-        let {appConfig:{channels}} = this.props
-        //console.log("outside",channels)
-        console.log("syncChannel",this.props)
+        let {appConfig:{channels},reduce} = this.props
+        //console.log("channelsssss",reduce.channels)
+        // console.log("syncChannel",this.props)
         return (
             <Spin tip="Loading..." spinning={false}>
                 <AddForm handleSubmit={this.onSubmit}  saveFormRef={this.saveFormRef} channels={channels}>

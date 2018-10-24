@@ -161,9 +161,8 @@ const reducer = handleActions({
       var chn=state.channels.get(numId)
       state.channels.set(numId,Object.assign({},chn,it))
     })
-		console.log("saveChannelPointState",state)
-		console.log("saveChannelPointPayload",payload)
-		console.log("saveChannelPoint",state.channels)
+		let channels = JSON.stringify([...state.channels.values()])
+		window.localStorage.setItem("channels",channels)
     return { ...state}
   },
 	'initChannel'(state,actions){
@@ -185,9 +184,8 @@ const reducer = handleActions({
       var chn=state.channels.get(numId)
 			state.channels.set(numId,Object.assign({},chn,it))
     })
-		console.log("saveChannelState",state)
-		console.log("saveChannelPayload",payload)
-		console.log("saveChannel",state.channels)
+		let channels = JSON.stringify([...state.channels.values()])
+		window.localStorage.setItem("channels",channels)
     return { ...state}
   },
   'save Dicts'(state,action){
