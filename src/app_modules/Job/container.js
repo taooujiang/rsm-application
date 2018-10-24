@@ -25,6 +25,7 @@ import JobPostRelease from './views/JobPostRelease.view'
 import JobResetView from './views/JobReset.view'
 import IframeView from './views/iframe.view'
 import SyncChannel from './views/syncChannel'
+import syncChannelResult from './views/syncChannelResult'
 import * as actions from './action'
 
 import {reducerListSelector,reducerItemSelector} from 'app-model/reducerSelector'
@@ -50,6 +51,11 @@ let Container = connect((state)=>({
 let DetailContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(JobDetailView)
 let iframeContainer= connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(IframeView)
 let syncContainer= connect(mapStateToProps,mapDispatchToProps,null,{pure: false})(SyncChannel)
+let syncResultContainer= connect((state)=>({
+    items:reducerListSelector(state.ORMReducer,"Job"),
+    appReducer:state.appReducer,
+    reduce:state.jobReducer
+}),mapDispatchToProps,null,{pure: false})(syncChannelResult)
 let SearchJobContainer = connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(JobSearchView)
 let JobPostReleaseContainer = connect((state,props)=>{
   return {
@@ -70,6 +76,6 @@ let ChangeChargerFormContainer = connect(mapStateToProps,mapDispatchToProps,null
 let ChangeFeederFormContainer = connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(WrapperComponent(ModalView)(ChangeFeederView))
 
 
-export {iframeContainer,DetailContainer,JobResetContainer,syncContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer}
+export {iframeContainer,syncResultContainer,DetailContainer,JobResetContainer,syncContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer}
 
 export default Container;

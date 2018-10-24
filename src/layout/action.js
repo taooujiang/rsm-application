@@ -7,6 +7,7 @@ export const saveDicts = createAction("save Dicts")
 export const saveMenuList= createAction("saveMenuList")
 export const saveChannel = createAction("saveChannel")
 export const saveChannelPoint = createAction("saveChannelPoint")
+export const channelSync = createAction("channelSync")
 
 export const initChannel = createAction("initChannel")
 
@@ -16,6 +17,10 @@ emitter.on("isLogin",function(item){
 
 emitter.on("job_channel_pointer",function(item){
   store.dispatch(saveChannelPoint(item))
+})
+
+emitter.on("batch_job_sync",function(item){
+  store.dispatch(channelSync(item))
 })
 
 

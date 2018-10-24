@@ -4,7 +4,7 @@ import Exception from '../../components/Exception'
 export default class Error404 extends Component {
   render() {
     return (
-      <Exception type="403" />
+      <div className="error403"/>
     )
   }
 }
