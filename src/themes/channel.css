@@ -1,4 +1,4 @@
-[class*='channel-img-']{
+[class*='channel-img-'],[class*='channel-logout-img-']{
 	border: 1px solid #dee5ec
 }
 .channel-img-1 {

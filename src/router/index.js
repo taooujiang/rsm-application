@@ -29,7 +29,8 @@ const dynamicRouter = (partialNextState, cb, importModule, reducerName) => {
 
 function authLogin(nextState, replaceState) {
   var pathname = nextState.location.pathname;
-  if (!hasPermission(pathname)) {
+  /*待分配管理不做权限判断*/
+  if ( pathname != "/resume/distributed" && !hasPermission(pathname)) {
     replaceState("/403");
   }
 }

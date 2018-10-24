@@ -241,7 +241,7 @@ export default class NewJobListView extends PageView {
             <Card type="inner" title={
               <div className="joblist-channelbox">
                 <h2>一键刷新</h2>
-                <ChannelList dataSource={Localchannels} sortKey={sortKey} loginStatus={true}/>
+                <ChannelList dataSource={Localchannels} sortKey={sortKey} loginStatus={true} channelKeyName="id"/>
               </div>
             }>
                 {this.renderTableList()}
