@@ -48,6 +48,9 @@ class AddForm extends Component{
         let channelList = [...channels.values()]
         //console.log("inside",channelList,"channels",channels)
         return Localchannels && Localchannels.map((it,idx)=>{
+            if(it.id == 8 || it.id == 13 || it.id == 7) {
+              return false
+            }
             return(
                 <Row gutter={12} key={idx} style={{lineHeight:"40px"}}>
                     <Col span={8}>
