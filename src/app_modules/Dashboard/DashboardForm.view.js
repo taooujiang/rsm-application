@@ -65,12 +65,12 @@ export default class DashboardForm extends PureComponent{
     this.form = form;
   }
   onSubmit(){
-    let {form,actions,router} = this.props
+    let {form,actions,router,location:{state:{currentDate}}} = this.props
     this.form.validateFieldsAndScroll({force:true},(err,values) => {
        if (err) {
          return;
        }
-      actions.saveAction(values)
+      actions.saveAction(values,currentDate)
       actions.backRoute(router)
      });
   }

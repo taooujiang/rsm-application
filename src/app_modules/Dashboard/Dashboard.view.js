@@ -151,7 +151,7 @@ class WeekTodoView extends Component{
 
   handlerAddSchedule(){
     let {actions,router} = this.props;
-    actions.addRoute(router)
+    actions.addScheduleRoute(this.state.selectDate)
   }
   handlerEditSchedule(id){
     let {actions,router} = this.props;

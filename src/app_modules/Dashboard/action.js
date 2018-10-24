@@ -1,5 +1,6 @@
 
 import {createAction} from 'redux-actions'
+import {routerActions, push, replace} from 'react-router-redux'
 import createConstants,{dispatchHandler,createTypes,createActionRoute} from 'app/utils/CreateConstants'
 
 import moment from 'moment'
@@ -77,7 +78,7 @@ export function recentDataAction(params) {
 		})
 	}
 }
-export function saveAction(params){
+export function saveAction(params,currentDate){
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
     if(params.scheduleEndTime && params.scheduleEndTime!="" && params.scheduleEndTime!=undefined){
@@ -95,7 +96,8 @@ export function saveAction(params){
       //console.log(json.list)
       dispatch(saveSchedule(json))
       // dispatch(removeItem(json))
-      dispatch(loadTodos({dateStr:moment(params.chooseDate).format("YYYY-MM-DD")}))
+      // dispatch(loadTodos({dateStr:moment(params.chooseDate).format("YYYY-MM-DD")}))
+      dispatch(loadTodos({dateStr:currentDate}))
       // console.log(json)
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin',ex))
@@ -139,6 +141,14 @@ export function jumpToDetailAction(id,item,name) {
         state:{item:item,name:name}
     }
     return dispatch => dispatch(routerActions.push(path))
+}
+
+export function addScheduleRoute(dateStr) {
+  let path = {
+    pathname:`/dashboard/add`,
+      state:{currentDate:dateStr}
+  }
+  return dispatch => dispatch(routerActions.push(path))
 }
 
 export function newItemAction(value){
