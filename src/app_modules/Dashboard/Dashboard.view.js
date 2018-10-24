@@ -170,10 +170,11 @@ class WeekTodoView extends Component{
     })
     return (<List
         className="calendar-todo-list"
+        itemLayout="vertical"
         locale={{
           emptyText:(<div className='list-no-data'>暂无待办事件</div>)
         }}
-        itemLayout="horizontal"
+        // itemLayout="horizontal"
         loadMore={false}
         dataSource={items}
         renderItem={item => {
@@ -189,8 +190,9 @@ class WeekTodoView extends Component{
             <List.Item className='week-todo-list-item' actions={defaultActions}>
               <List.Item.Meta
                 title={<div className='title'><span className='point'></span>{item.getScheduleStr()}&nbsp;{item.title}</div>}
-                description={item.content}
+                
               />
+              {item.content}
             </List.Item>
           )
         }}
