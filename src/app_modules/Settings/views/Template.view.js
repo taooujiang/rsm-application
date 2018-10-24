@@ -32,6 +32,7 @@ export default class TemplateView extends PageView {
 
   handleFilter(value) {
     let { actions } = this.props;
+    console.log(123,value)
     actions.templateListAction(value)
   }
 
@@ -44,11 +45,6 @@ export default class TemplateView extends PageView {
 
     this.setState({
       type: e.target.value
-    }, function () {
-      if (e.target.value == 1) {
-        this.form.form.setFieldsValue({ "templateUse": "1" })
-      }
-      //
     })
   }
   handleAddRoute() {
