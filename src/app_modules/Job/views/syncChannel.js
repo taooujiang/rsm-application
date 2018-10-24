@@ -17,6 +17,7 @@ import {
     Select
 } from 'antd'
 import {FormPage} from 'app/components/Page'
+import {routerActions, push, replace} from 'react-router-redux'
 import groupArray from 'group-array'
 import ModalView,{ModalViewTitleProps} from 'app/components/Modal.view'
 import WrapperComponent from 'app/decorators/WrapperComponent'
@@ -163,7 +164,7 @@ export default class SyncChannel extends FormPage {
     }
 
     handleSubmit(values){
-        let {actions,router} = this.props
+        let {actions,router,dispatch} = this.props
 
         let Jobids = this.getJobIdsArray()
         console.log(Jobids)
@@ -189,7 +190,8 @@ export default class SyncChannel extends FormPage {
 
         let JsToPython = new ClientAPI().JsToPython
         JsToPython(params)
-        actions.backRoute(router)
+        // actions.backRoute(router)
+        dispatch(routerActions.push("job/list/result"))
     }
     render() {
         let {appConfig:{channels},reduce} = this.props

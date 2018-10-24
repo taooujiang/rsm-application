@@ -188,6 +188,20 @@ const reducer = handleActions({
 		window.localStorage.setItem("channels",channels)
     return { ...state}
   },
+	'channelSync'(state,actions){
+		let pythonData = actions.payload
+		let localstorageData = {
+			status:true,
+			message:"刷新成功！"
+		}
+		if(!pythonData.ok){
+			localstorageData = {
+				status:false,
+				message:JSON.stringify(pythonData.fails)
+			}
+		}
+		window.localStorage.setItem("channelSync",localstorageData)
+	},
   'save Dicts'(state,action){
     const payload = action.payload
     for(var it in payload.list){
