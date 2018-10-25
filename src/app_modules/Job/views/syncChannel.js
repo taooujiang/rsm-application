@@ -24,6 +24,7 @@ import WrapperComponent from 'app/decorators/WrapperComponent'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
 import ClientAPI,{emitter} from 'app-utils/externalUtils'
 import DictUtils from 'app/utils/DictUtils'
+import {timePolling} from 'app/utils/timeIntervalUtil'
 
 const Option = Select.Option
 const {TextArea} = Input
@@ -41,13 +42,39 @@ class AddForm extends Component{
             global.invokeMethod('ShowPublicUrl',itemPop.keyURl)
         }
     }
+    renderStatus(it){
+      if(!it.isLogin){
+        return "登陆后获取刷新点"
+      }
+      let point = window.localStorage.point
+      if(point){
+        let arr = JSON.parse(point)
+        let obj = {}
+        for(var i = 0 ; i < arr.length ; i ++){
+          let item = arr[i]
+          console.log(item)
+          if(item.channelId == it.id){
+            obj.point = item.point
+            break;
+          }
+        }
+        return obj.point >= 0 ? `剩余职位刷新点数：${obj.point}` : ""
+      }
+      // return it.point >= 0 ?`剩余职位刷新点数：${it.point}`:""
+    }
+    sortFn(channels){
+      return channels&& channels.sort(function(a,b){
+        return a.id-b.id
+      })
+    }
     renderChannels(){
         let {channels} = this.props
-        let Localchannels = window.localStorage.channels ? JSON.parse(window.localStorage.channels) : DictUtils.getDictByType("channel")
+        //let Localchannels = window.localStorage.channels ? JSON.parse(window.localStorage.channels) : DictUtils.getDictByType("channel")
         //console.log(22222,33333,Localchannels)
-        let channelList = [...channels.values()]
+        //let channelList = [...channels.values()]
         //console.log("inside",channelList,"channels",channels)
-        return Localchannels && Localchannels.map((it,idx)=>{
+        console.log(this.sortFn(channels),channels)
+        return this.sortFn(channels).map((it,idx)=>{
             if(it.id == 8 || it.id == 13 || it.id == 7) {
               return false
             }
@@ -55,14 +82,14 @@ class AddForm extends Component{
                 <Row gutter={12} key={idx} style={{lineHeight:"40px"}}>
                     <Col span={8}>
                         <FormItem style={{marginBottom:0}}>
-                            <Checkbox name={`aa${it.id}`} >{DictUtils.getDictLabelByValue("channel",it.id)}</Checkbox>
+                            <Checkbox name={`aa${it.id}`} disabled={it.isLogin?false:true}>{DictUtils.getDictLabelByValue("channel",it.id)}</Checkbox>
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <div>{it.isLogin?"已登录":<a href="javascript:;" onClick={this.loginChannel.bind(this,it.id)}>未登录</a>}</div>
                     </Col>
                     <Col span={8}>
-                            <div>{it.point >= 0 ?`剩余职位刷新点数：${it.point}`:""}</div>
+                        <div>{this.renderStatus(it)}</div>
                     </Col>
                 </Row>
             )
@@ -104,6 +131,9 @@ export default class SyncChannel extends FormPage {
 
     constructor(props) {
         super(props);
+        this.state = {
+          channels:window.localStorage.channels ? JSON.parse(window.localStorage.channels) : DictUtils.getDictByType("channel")
+        }
     }
 
     componentWillMount() {
@@ -141,7 +171,28 @@ export default class SyncChannel extends FormPage {
         // })
     }
     componentDidMount(){
-      console.log("componentDidMount",this.props)
+      let that = this
+      timePolling(3,15,function(num,t){
+        let Localchannels = window.localStorage.point ? JSON.parse(window.localStorage.point) :[]
+        let lengths = Localchannels.filter(it=>{
+          return it.point ? it : null
+        }).length
+        if(lengths){
+          clearInterval(t)
+          let {channels} = that.state
+          Localchannels.map(it=>{
+            channels.map(item=>{
+              if(it.channelId == item.id){
+                item.point = it.point
+                item.channelId = it.channelId
+              }
+            })
+          })
+          that.setState({
+            channels: channels
+          })
+        }
+      })
     }
     componentWillReceiveProps(nextProps){
       console.log(nextProps.appConfig.channels,"aaaaa",nextProps.reduce)
@@ -196,10 +247,11 @@ export default class SyncChannel extends FormPage {
         // actions.backRoute(router)
         dispatch(routerActions.push("job/list/result"))
     }
+    sortFn(channels){
+      return
+    }
     render() {
-        let {appConfig:{channels},reduce} = this.props
-        //console.log("channelsssss",reduce.channels)
-        // console.log("syncChannel",this.props)
+        let {channels} = this.state
         return (
             <Spin tip="Loading..." spinning={false}>
                 <AddForm handleSubmit={this.onSubmit}  saveFormRef={this.saveFormRef} channels={channels}>

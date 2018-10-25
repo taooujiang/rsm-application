@@ -14,7 +14,7 @@ export default class LogDetailView extends Component {
 	render() {
 		const{logDetail}=this.props
 		return (
-			[<div>{logDetail.title}</div>,
+			[<div style={{fontWeight:"bold",marginBottom:20}}>{logDetail.title}</div>,
 			<div>{logDetail.messageContent}</div>]
 		)
 	}

@@ -25,6 +25,7 @@ import BaseForm,{FormItem} from 'app/components/BaseForm'
 import ClientAPI,{emitter} from 'app-utils/externalUtils'
 import style from './JobStyles.less'
 import DictUtils from 'app/utils/DictUtils'
+import {timePolling} from 'app/utils/timeIntervalUtil'
 
 function translateJobs(arr,id){
   let item =  arr.filter(it=>{
@@ -43,13 +44,32 @@ function translateFails(arr,items){
 
 @WrapperComponent(ModalView)
 export default class syncChannelResult extends FormPage {
+  constructor(props){
+    super(props);
+    this.state = {
+      data : window.localStorage.channelSync ? window.localStorage.channelSync : false,
+      spin:true
+    }
+  }
+  componentWillMount(){
+    let that = this
+    timePolling(3,15,function(num,t){
+      let data = window.localStorage.channelSync ? window.localStorage.channelSync : {}
+      if(data){
+        that.setState({
+          data:data,
+          spin:false
+        })
+      }
+    })
+  }
   renderResult(){
-    let data = window.localStorage.channelSync
+    let {data} = this.state
     let {items} = this.props
     // data = {}
     // data.status = true
     // data.message = [{'channelId': 10, 'ids': ['1974cccb22394ee18b2cec8263ebfcad','1974cccb22394ee18b2cec8263ebfcad']}, {'channelId': 5, 'ids': ['09ab05778887476cb013966ec4fb5b0c']}]
-    if(!data || data.status ){
+    if(!data || data.status || !data.message){
       return null
     }else{
        return (<Card title="刷新失败列表" className="syncResultBox">
@@ -63,10 +83,12 @@ export default class syncChannelResult extends FormPage {
   }
     render() {
         return (
+          <Spin tip="Loading..." spinning={this.state.spin}>
             <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
               <h3 style={{marginBottom:15,paddingLeft:20}}>已完成刷新</h3>
                 {this.renderResult()}
             </BaseForm>
+          </Spin>
         )
     }
 }
