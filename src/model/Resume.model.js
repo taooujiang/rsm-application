@@ -71,11 +71,7 @@ Object.assign(Resume.fields,Intro.fields,{
   originalWay:attr({
     get:(val)=>DictUtils.getDictLabelByValue("sourcemethod",val)
   }),
-  offerStatus:attr({
-    get:(val)=>{
-      return DictUtils.getDictLabelByValue("offersendstatus",val)
-    }
-  }),
+  offerStatus:attr(),
   offerSendTime:attr(),
   interviewer:attr(),
   dept:attr()

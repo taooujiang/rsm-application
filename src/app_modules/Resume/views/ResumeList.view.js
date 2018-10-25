@@ -9,6 +9,7 @@ import {
   Menu,
   Checkbox,
   Radio,
+  message,
   Tag,
   Card,
   Popover,
@@ -27,6 +28,7 @@ import ButtonGroupExt from 'app/components/ButtonGroupExt'
 import LinkagePullDown from 'app/components/LinkagePullDown'
 import CalendarPicker from 'app/components/CalendarPicker'
 import TagSelect from 'app/components/TagSelect'
+import InterviewType from 'app/components/TableRow/Interview'
 import Permission from 'app/components/Permission'
 import PersonInfoShow from 'app/components/TableRow/Resume'
 import DictUtils from 'app/utils/DictUtils'
@@ -247,13 +249,9 @@ export default class ResumeListView extends PageView {
           width: 200,
           render:(val,row)=>{
             let {isChangeDate,interviewLevel,interviewStatus} = row
-
             return (<div>
-                { isChangeDate ? <div>时间调整</div> : null}
-                <div>
-                  <Tag>{DictUtils.getDictLabelByValue("interviewstage",interviewLevel)}</Tag>
-                  <Tag>{DictUtils.getDictLabelByValue("interviewstate",interviewStatus)}</Tag>
-                </div>
+                { isChangeDate ? <Tag style={{padding:"1px 3px",marginBottom:5}}><Icon type="icon-shijiantiaozheng"/>时间调整</Tag> : null}
+                <InterviewType item={row} resume={true}/>
               </div>)
           }
       }
@@ -292,6 +290,9 @@ export default class ResumeListView extends PageView {
           key: "offerStatus",
           dataIndex: "offerStatus",
           width: 120,
+          render:(val)=>{
+            return <Tag><Icon type={val == 1 ? "icon-yifasong" : "icon-weifasong"}/>{DictUtils.getDictLabelByValue("offersendstatus",val)}</Tag>
+          }
       }
     ]
 /*入职*/

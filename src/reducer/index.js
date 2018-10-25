@@ -204,10 +204,10 @@ const reducer = handleActions({
 		if(!pythonData.ok){
 			localstorageData = {
 				status:false,
-				message:JSON.stringify(pythonData.fails)
+				message:pythonData.fails
 			}
 		}
-		window.localStorage.setItem("channelSync",localstorageData)
+		window.localStorage.setItem("channelSync",JSON.stringify(localstorageData))
 	},
   'save Dicts'(state,action){
     const payload = action.payload

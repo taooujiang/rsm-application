@@ -47,14 +47,14 @@ export default class syncChannelResult extends FormPage {
   constructor(props){
     super(props);
     this.state = {
-      data : window.localStorage.channelSync ? window.localStorage.channelSync : false,
+      data : window.localStorage.channelSync ? JSON.parse(window.localStorage.channelSync) : false,
       spin:true
     }
   }
   componentWillMount(){
     let that = this
     timePolling(3,15,function(num,t){
-      let data = window.localStorage.channelSync ? window.localStorage.channelSync : {}
+      let data = window.localStorage.channelSync ? JSON.parse(window.localStorage.channelSync) : {}
       if(data){
         that.setState({
           data:data,

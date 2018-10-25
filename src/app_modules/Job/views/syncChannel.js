@@ -9,6 +9,7 @@ import {
     Button,
     Input,
     Checkbox,
+    message,
     Form,
     DatePicker,
     Layout,
@@ -225,8 +226,10 @@ export default class SyncChannel extends FormPage {
 
         /*name 为aa+ 渠道id  replace获取渠道Id 再将选中的push到新数组*/
         let theChoosen = []
+        let hasChoose = []//判断有没有选中
         for(var i in values){
            if(values[i]){
+              hasChoose.push(i)
                let item = i.replace("aa","")
                Jobids.map((it,idx)=>{
                  if(it.channelId == item){
@@ -234,6 +237,10 @@ export default class SyncChannel extends FormPage {
                  }
                })
            }
+        }
+        if(!hasChoose.length){
+          message.warning("请选择刷新渠道!")
+          return false
         }
          // console.log(Jobids)
          // console.log(theChoosen)
