@@ -55,6 +55,7 @@ export default class ResumeListView extends PageView {
     let {actions,router,children,params} = this.props;
     console.log(params)
     // console.log(params)
+    // message.info(1111)
     if(JSON.stringify(params)=="{}" || params.resumeId!=undefined){
       actions.listAction({status:0})
       actions.listRealAction({status:0})
@@ -291,7 +292,15 @@ export default class ResumeListView extends PageView {
           dataIndex: "offerStatus",
           width: 120,
           render:(val)=>{
-            return <Tag><Icon type={val == 1 ? "icon-yifasong" : "icon-weifasong"}/>{DictUtils.getDictLabelByValue("offersendstatus",val)}</Tag>
+            if(val == 1){
+              return <Tag><Icon type="icon-yifasong" style={{color:"#2ec3a5"}}/>{DictUtils.getDictLabelByValue("offersendstatus",val)}</Tag>
+            }
+            if(val == 2){
+              return <Tag><Icon type="icon-weifasong" style={{color:"#eb6192"}}/>{DictUtils.getDictLabelByValue("offersendstatus",val)}</Tag>
+            }
+            if(val == 3){
+              return <Tag><Icon type="icon-yifasong" style={{color:"#ccc"}}/>{DictUtils.getDictLabelByValue("offersendstatus",val)}</Tag>
+            }
           }
       }
     ]

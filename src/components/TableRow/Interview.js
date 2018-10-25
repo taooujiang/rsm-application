@@ -39,7 +39,7 @@ export default class InterviewType extends Component{
     let {item,resume} = this.props
     return(
       <div>
-        <Tag color={obj[item.type]}>{DictUtils.getDictLabelByValue("interviewstage",resume ? item.interviewLevel:item.type)}</Tag>
+        <Tag color={obj[resume ? item.interviewLevel:item.type]}>{DictUtils.getDictLabelByValue("interviewstage",resume ? item.interviewLevel:item.type)}</Tag>
         <Tag style={{borderColor:"#65b2f8",backgroundColor:"#fff",color:"#65b2f8"}}>
           <Icon type="warning" />
           <span>{DictUtils.getDictLabelByValue("interviewstate",resume ? item.interviewStatus :item.statusStr)}</span>
