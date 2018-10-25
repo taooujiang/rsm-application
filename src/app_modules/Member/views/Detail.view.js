@@ -41,7 +41,10 @@ export default class MemberDetail extends Detail {
     }
     memberActions.itemAction(id)
   }
-
+  componentWillUnmount(){
+    const { memberActions } = this.props
+    memberActions.clearCurrentMemberAction()
+  }
   render() {
     let { actions, item, item: { resumeId }, reduce, resumeReduce: { baseInfo, feedInfo, offer, remarks, information, commitcate, options }, } = this.props
     return (

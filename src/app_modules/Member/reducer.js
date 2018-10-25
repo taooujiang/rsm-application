@@ -10,7 +10,7 @@
 
 
 import {newList,newItem,saveList,saveItem,removeItem,fetchRequest,fetchSuccess,fetchFailure,saveParams} from 'app-utils/reducerUtils'
-import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave} from './action'
+import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave,clearCurrentMember} from './action'
 import {handleActions} from 'redux-actions'
 // TODO: 调整本地数据结构
 let initialState = {
@@ -151,6 +151,11 @@ actions[saveFeedData] = ( state,action ) =>{
 actions[currentMemberSave]=(state, action)=>{
 	return Object.assign({},state,{
 		currentItem:action.payload
+	})
+}
+actions[clearCurrentMember]=(state, action)=>{
+	return Object.assign({},state,{
+		currentItem:{}
 	})
 }
 actions[memberItemSave]=(state, action)=>{

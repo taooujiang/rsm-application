@@ -34,6 +34,7 @@ let {
 export const memberListSave = createAction("STORE_MEMBER")
 export const memberSave = createAction("UPSERT_MEMBER")
 export const currentMemberSave = createAction("UPSERT_CURRENTMEMBER")
+export const clearCurrentMember = createAction("CLEAR_CURRENTMEMBER")
 
 export const memberItemSave = createAction("SAVE_MEMBERITEM")
 
@@ -183,6 +184,11 @@ export function itemAction(value){
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin',ex))
     })
+  }
+}
+export function clearCurrentMemberAction(value){
+  return (dispatch, getState) => {
+    dispatch(clearCurrentMember())
   }
 }
 
