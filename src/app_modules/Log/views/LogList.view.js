@@ -9,7 +9,8 @@ export default class LogListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      checkedValues: []
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -22,6 +23,19 @@ export default class LogListView extends Component {
       if(nextProps.location.state && nextProps.location.state.key=="reload"){
         actions.logListAction({ fatherType: nextProps.params.type })
       }
+    }
+    let{checkedValues} = this.state
+    let newData = this.props.items.filter(item => {
+      return checkedValues.indexOf(item.msgType) > -1;
+    });
+    if (checkedValues.length) {
+      this.setState({
+        data: newData
+      });
+    } else {
+      this.setState({
+        data: this.props.items
+      });
     }
   }
   componentDidMount() {

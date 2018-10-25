@@ -45,6 +45,9 @@ export default class TemplateView extends PageView {
 
     this.setState({
       type: e.target.value
+    }, () => {
+      let {type,templateUse} = this.state
+      this.handleFilter({type,templateUse})
     })
   }
   handleAddRoute() {
@@ -72,7 +75,6 @@ export default class TemplateView extends PageView {
     return (<Select.Option value={data.keyValue} key={idx} disabled={this.state.type == 1 && data.keyValue == "2"}>{data.keyName}</Select.Option>)
   }
   handleSelectChange(val){
-    console.log(val,'handleSelectChangehandleSelectChangehandleSelectChange')
     this.setState({
       templateUse:val
     })
@@ -83,10 +85,10 @@ export default class TemplateView extends PageView {
       <AdvancedSearchForm layout="inline" className="template-form" filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} ref={this.saveFormRef}>
         <Select name="templateUse" defaultValue="1" label="模板用途" fetch={DictUtils.getDictByType("templateuse")} renderItem={this.renderSelectOption.bind(this)} allowClear={false} style={{ width: '150px' }}
           onChange={this.handleSelectChange.bind(this)} />
-        <Radio.Group defaultValue={this.state.type} name="type" buttonStyle="solid" onChange={this.smsTypeChange.bind(this)} className="radio-group-nav">
+        {/* <Radio.Group defaultValue={this.state.type} name="type" buttonStyle="solid" onChange={this.smsTypeChange.bind(this)} className="radio-group-nav">
           <Radio.Button value="2">邮件模版</Radio.Button>
           <Radio.Button value="1">短信模版</Radio.Button>
-        </Radio.Group>
+        </Radio.Group> */}
       </AdvancedSearchForm>
     )
   }
@@ -119,7 +121,12 @@ export default class TemplateView extends PageView {
   render() {
     let { params, reduce: { templateList }, actions } = this.props;
     return (
-      <Card title="模版设置" extra={this.renderToolbar()} className="other-card">
+      <Card
+        title={["模版设置", <Radio.Group defaultValue={this.state.type} name="type" buttonStyle="solid" onChange={this.smsTypeChange.bind(this)} className="radio-group-nav">
+          <Radio.Button value="2">邮件模版</Radio.Button>
+          <Radio.Button value="1">短信模版</Radio.Button>
+        </Radio.Group>]}
+        extra={this.renderToolbar()} className="other-card">
         {this.renderSearchBar()}
         {this.renderList()}
       </Card>
