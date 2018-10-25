@@ -33,6 +33,7 @@ let {
 
 export const memberListSave = createAction("STORE_MEMBER")
 export const memberSave = createAction("UPSERT_MEMBER")
+export const currentMemberSave = createAction("UPSERT_CURRENTMEMBER")
 
 export const memberItemSave = createAction("SAVE_MEMBERITEM")
 
@@ -131,7 +132,8 @@ export function saveAction(value,page){
       dispatch(fetchSuccess('formSpin',true,"保存成功！"))
 			// dispatch(memberItemSave(json))
       dispatch(memberSave(json))
-
+      dispatch(currentMemberSave(json))
+      
       dispatch(listAction(page))
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin',ex))
@@ -175,6 +177,7 @@ export function itemAction(value){
     dispatch(fetchRequest('formSpin'))
     return new API().fetchItem({id:value}).then(json => {
       dispatch(fetchSuccess('formSpin'))
+      dispatch(currentMemberSave(json))
       //console.log(json.list)
       dispatch(memberSave(json))
     }).catch(ex => {
