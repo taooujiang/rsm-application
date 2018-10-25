@@ -11,10 +11,15 @@ export default class FollowAPI extends FetchAPI {
     })
 	}
 	fetchUpdateLogList(params) {
-    return this.fetchPostList(`${APP_SERVER}/messageSend/findGxrzList`, {
+    return this.fetchPostList(`${APP_SERVER}/messageSend/findMsgListJson`, {
       body: params
     })
-	}
+  }
+  // fetchUpdateLogList(params) {
+  //   return this.fetchPostList(`${APP_SERVER}/messageSend/findGxrzList`, {
+  //     body: params
+  //   })
+	// }
 	fetchUnreadMsgList(params) {
     return this.fetchPostList(`${APP_SERVER}/messageSend/findNoReadJson`, {
       body: params
