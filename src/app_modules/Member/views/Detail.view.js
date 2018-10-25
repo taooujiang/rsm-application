@@ -32,15 +32,19 @@ const TabPane = Tabs.TabPane;
 @WrapperComponent(ModalView, { width: 800, footer: null })
 export default class MemberDetail extends Detail {
   componentDidMount() {
-    const { actions, params, item: { resumeId } } = this.props
+    const { actions,memberActions, params:{id}, item: { resumeId } } = this.props
     //console.log(item,'itemmmmmmm')
     // actions.resumeDataAction({id:params.id})
     // actions.resumeDataAction({id:item.resumeId})
     if (resumeId) {
       actions.itemAction({ id: resumeId })
     }
+    memberActions.itemAction(id)
   }
-
+  componentWillUnmount(){
+    const { memberActions } = this.props
+    memberActions.clearCurrentMemberAction()
+  }
   render() {
     let { actions, item, item: { resumeId }, reduce, resumeReduce: { baseInfo, feedInfo, offer, remarks, information, commitcate, options }, } = this.props
     return (

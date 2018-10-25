@@ -34,7 +34,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 let FormContainer = connect((state,props)=>({
-  item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
+  // item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
+  item:state.memberReducer.currentItem,
   reduce:state.memberReducer
 }), mapDispatchToProps, null, {pure: false})(MemberFormView)
 let Container = connect((state)=>({
@@ -42,7 +43,8 @@ let Container = connect((state)=>({
   reduce:state.memberReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(MemberSide)(MemberListView))
 let DetailContainer = connect((state,props)=>({
-	item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
+	// item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
+	item:state.memberReducer.currentItem,
   reduce:state.memberReducer,
   resumeReduce:state.resumeReducer
 }), (dispatch)=>({

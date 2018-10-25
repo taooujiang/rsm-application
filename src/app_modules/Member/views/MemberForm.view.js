@@ -178,7 +178,7 @@ class MemberFormView extends FormPage{
   componentWillMount() {
     let {actions,params} = this.props
     if(params.id){
-      actions.itemAction(params.id)
+      // actions.itemAction(params.id)
     }else{
       actions.newItemAction()
     }
