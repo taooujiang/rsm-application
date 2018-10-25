@@ -10,6 +10,7 @@ const CONSTANTS = createConstants('member', [
     'save_list',
     'save_account',
     'save_promo',
+    'save_params',
     'save_authent',
     'fetch_request',
     'fetch_success',
