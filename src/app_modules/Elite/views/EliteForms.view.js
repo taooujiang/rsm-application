@@ -95,7 +95,7 @@ export class Move2EliteFormView extends FormPage {
     return (<Select.Option value={data.optionId} key={idx}>{data.optionName}</Select.Option>)
   }
 	render() {
-		const{onSubmit,router:{location:{state:selectedKeys}}}=this.props
+		const{onSubmit,router:{location:{state:{selectedKeys}}}}=this.props
 		console.log(selectedKeys,'selectedKeysselectedKeysselectedKeys')
 		return (
 			<BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>

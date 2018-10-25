@@ -143,7 +143,7 @@ export function move2EliteRoute(data,router){
 	console.log(data,'routerrouter')
 	let newLocation={
 		pathname: `${router.location.pathname}/move`,
-		state:data
+		state:{selectedKeys:data,pathname:router.location.pathname}
 	}
 	// let hash=router.createLocation(newLocation)
 	return (dispatch, getState) => {
