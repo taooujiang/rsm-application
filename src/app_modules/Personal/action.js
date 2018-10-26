@@ -4,7 +4,7 @@ import API from './api'
 import {routerActions, push, replace} from 'react-router-redux'
 import createConstants,{dispatchHandler,createTypes,createActionRoute} from 'app-utils/CreateConstants'
 
-const CONSTANTS = createConstants('member', [
+const CONSTANTS = createConstants('personal', [
     'get_list',
     'save_item',
     'save_list',

@@ -433,7 +433,7 @@ class ChannelAdJobRule extends Component{
   render(){
     return (
       <div className="thirdStep-box">
-        <ChannelList dataSource={DictUtils.getDictByType("channel")}/>
+        {/*<ChannelList dataSource={DictUtils.getDictByType("channel")}/>*/}
         <JobRules {...this.props}/>
       </div>
     )

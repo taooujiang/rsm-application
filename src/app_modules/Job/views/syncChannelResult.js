@@ -29,7 +29,7 @@ import {timePolling} from 'app/utils/timeIntervalUtil'
 
 function translateJobs(arr,id){
   let item =  arr.filter(it=>{
-    return it.jobId == id
+    return it.channelList[0].channelId == id
   })[0]
   return item ? item.jobTitle : ""
 }
