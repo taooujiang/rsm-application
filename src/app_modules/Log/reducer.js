@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions'
-import CONSTANTS,{saveUnreadList,saveLogDetail} from './action'
+import CONSTANTS,{saveUnreadList,saveLogDetail,clearNumber} from './action'
 let initialState = {
 	unreadMessage:{
 		 hxrxgNum:0, ygxgNum:0, dbsjNum:0, xtxxNum:0, gxrzNum:0
@@ -21,6 +21,12 @@ actions[saveLogDetail]=(state, action)=>{
 	return {
 		...state,
 		logDetail:action.payload
+	}
+}
+actions[clearNumber]=(state, action)=>{
+	state.unreadMessage[action.payload] = 0
+	return {
+		...state
 	}
 }
 
