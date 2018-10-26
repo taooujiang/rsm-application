@@ -12,7 +12,7 @@ class ModalView extends Component {
   handleSaveRoute(){
     let { formView } =this.refs
     //console.log(formView)
-    formView.onSubmit()
+    formView.onSubmit?formView.onSubmit():this.handleBackRoute()
   }
 
   render() {
