@@ -24,6 +24,9 @@ export default class LogListView extends Component {
         actions.logListAction({ fatherType: nextProps.params.type })
       }
     }
+    if( nextProps.params.type != this.props.params.type ){
+      actions.clearUnreadNum(nextProps.params.type)
+    }
     let{checkedValues} = this.state
     let newData = this.props.items.filter(item => {
       return checkedValues.indexOf(item.msgType) > -1;
@@ -152,8 +155,8 @@ export default class LogListView extends Component {
   render() {
     const { params, items } = this.props;
     const { data } = this.state;
-    console.log(params.type, "params.typeparams.typeparams.typeparams.type");
-    console.log(data)
+    // console.log(params.type, "params.typeparams.typeparams.typeparams.type");
+    // console.log(data)
     return (
       <Card title={this.renderCheckGroup(params.type)}>
         <List

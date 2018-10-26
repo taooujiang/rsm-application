@@ -25,6 +25,7 @@ export const saveLogList = createAction("STORE_LOG")
 
 export const saveLogDetail = createAction("STORE_LOGDETAIL")
 
+export const clearNumber = createAction("CLEAR_NUMBER")
 
 
 export function logListAction(params) {
@@ -79,4 +80,17 @@ export function logDetailAction(params) {
 }
 export function resumeDetailRoute(resumeId,router) {
   return dispatch => dispatch(routerActions.push({pathname:`log/1/${resumeId}/detail`,state:{orgin:router.getCurrentLocation().pathname}}))
+}
+
+export function clearUnreadNum(type){
+	let json = {
+		1:"hxrxgNum",
+		2:"ygxgNum",
+		3:"dbsjNum",
+		4:"xtxxNum",
+		5:"gxrzNum"
+	}
+	return (dispatch, getState) => {
+		dispatch(clearNumber(json[type]))
+	}
 }

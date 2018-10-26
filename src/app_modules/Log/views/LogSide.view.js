@@ -8,8 +8,10 @@ const MenuItemGroup = Menu.ItemGroup;
 
 export default class LogView extends Component {
 	componentDidMount() {
-		const { actions } = this.props
-		actions.unreadMsgListAction()
+		const {routeParams:{type}, actions } = this.props
+		actions.unreadMsgListAction().then(()=>{
+			actions.clearUnreadNum(type)//清除未读数量
+		})
 	}
 
 	render() {

@@ -227,19 +227,19 @@ var webpackConfig = {
     //     }
     //   },
     // ]),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   mangle: { // 排除不想要压缩的对象名称
-    //        except: ['$super', '$', 'exports', 'require', 'module', '_']
-    //   },
-    //   output: {
-    //      comments: false,  // remove all comments
-    //   },
-    //   compress: {
-    //     warnings: false,
-    //     drop_debugger: true,
-    //     drop_console: true
-    //   }
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: { // 排除不想要压缩的对象名称
+           except: ['$super', '$', 'exports', 'require', 'module', '_']
+      },
+      output: {
+         comments: false,  // remove all comments
+      },
+      compress: {
+        warnings: false,
+        drop_debugger: true,
+        drop_console: true
+      }
+    }),
     // new webpack.dllplugin({
     //     path: 'manifest.json',
     //     name: '[name]',
