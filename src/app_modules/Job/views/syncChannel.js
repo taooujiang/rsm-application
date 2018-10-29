@@ -116,7 +116,7 @@ class AddForm extends Component{
                 {this.renderChannels()}
                 </div>
                 <Row>
-                    <Col span={4}>温馨提示：</Col>
+                    <Col span={4} style={{color:"red"}}>温馨提示：</Col>
                     <Col span={20}>1、刷新职位需要和对应的招聘渠道保持关联，如果未关联，请重新关联</Col>
                 </Row>
                 <Row>
