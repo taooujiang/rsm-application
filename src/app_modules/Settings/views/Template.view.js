@@ -75,14 +75,19 @@ export default class TemplateView extends PageView {
     return (<Select.Option value={data.keyValue} key={idx} disabled={this.state.type == 1 && data.keyValue == "2"}>{data.keyName}</Select.Option>)
   }
   handleSelectChange(val){
+    const {type} = this.state
     this.setState({
-      templateUse:val
+      templateUse:val,
+      type
+    },()=>{
+      let {type,templateUse} = this.state
+      this.handleFilter({type,templateUse})
     })
   }
   renderSearchBar() {
 
     return (
-      <AdvancedSearchForm layout="inline" className="template-form" filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} ref={this.saveFormRef}>
+      <AdvancedSearchForm autoSubmitForm={false} layout="inline" className="template-form" filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} ref={this.saveFormRef}>
         <Select name="templateUse" defaultValue="1" label="模板用途" fetch={DictUtils.getDictByType("templateuse")} renderItem={this.renderSelectOption.bind(this)} allowClear={false} style={{ width: '150px' }}
           onChange={this.handleSelectChange.bind(this)} />
         {/* <Radio.Group defaultValue={this.state.type} name="type" buttonStyle="solid" onChange={this.smsTypeChange.bind(this)} className="radio-group-nav">
