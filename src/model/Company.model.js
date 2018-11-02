@@ -14,6 +14,9 @@ export default class Company extends BaseModel {
 	static fields = {}
 	static modelName = 'Company'
 }
+Company.options = {
+	idAttribute: 'id',
+}
 
 Object.assign(Company.fields, BaseModel.fields, {
 	company: attr(),

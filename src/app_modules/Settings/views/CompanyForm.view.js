@@ -42,10 +42,11 @@ export default class CompanyFormView extends FormPage {
     //见FormPage.view.js
     const { onSubmit, saveFormRef, item } = this.props;
     // console.log('onSubmit',onSubmit)
+    console.log(item)
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         <FormItem className="row-hidden">
-          <Input name="id" type="hidden" defaultValue={item.id} />
+          <Input name="id" type="hidden" defaultValue={item.id ? item.id : null} />
         </FormItem>
         <FormItem>
           <Input
