@@ -1924,7 +1924,7 @@ PersonOfferShow.defaultProps = {
 }
 class PersonOfferEdit extends FormPage{
   state={
-    which:"0"
+    which:"2"
   }
 
   updateFieldValue(name,value){
@@ -1977,8 +1977,8 @@ class PersonOfferEdit extends FormPage{
   render(){
     const options = [
         /*{ label: '不通知', value: '0' },*/
-        { label: '不通知', value: '0'},
         { label: '邮件通知', value: '2'},
+        { label: '不通知', value: '0'},
     ];
     let {info} = this.props
     //console.log(this.props)

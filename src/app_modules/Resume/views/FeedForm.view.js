@@ -34,7 +34,7 @@ const RadioGroup = Radio.Group;
 class FeedForm extends Component{
 
   state={
-    which:'0',
+    which:'2',
     interviewFlag:true,
   }
 
@@ -76,9 +76,9 @@ class FeedForm extends Component{
     } = this.props
     const {location,updateFieldValue} = this.props;
     const options = [
+        { label: '邮件通知', value: '2'},
         { label: '不通知', value: '0' },
         { label: '短信通知', value: '1'},
-        { label: '邮件通知', value: '2'},
     ];
 
     // console.log(this.state.interviewFlag)

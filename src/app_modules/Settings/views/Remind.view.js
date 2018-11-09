@@ -34,11 +34,10 @@ const msgDay = [
   { keyName: "提前3天", keyValue: 72 },
   { keyName: "提前4天", keyValue: 96 },
   { keyName: "提前5天", keyValue: 120 },
-  { keyName: "提前6天", keyValue: 144 },
-  { keyName: "提前7天", keyValue: 168 },
-  { keyName: "提前8天", keyValue: 192 },
-  { keyName: "提前9天", keyValue: 216 },
-  { keyName: "提前10天", keyValue: 240 }
+  { keyName: "提前10天", keyValue: 240 },
+  { keyName: "提前15天", keyValue: 360 },
+  { keyName: "提前20天", keyValue: 480 },
+  { keyName: "提前30天", keyValue: 720 },
 ];
 const msgHour = [
   { keyName: "提前2小时", keyValue: 2 },
@@ -66,7 +65,7 @@ const msgBack = [
 
 // @FormCreate()
 class RemindFormView extends FormPage {
-  
+
   constructor(props) {
     super(props);
     this.state = {
