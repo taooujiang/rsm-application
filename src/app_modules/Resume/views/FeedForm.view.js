@@ -77,8 +77,8 @@ class FeedForm extends Component{
     const {location,updateFieldValue} = this.props;
     const options = [
         { label: '邮件通知', value: '2'},
-        { label: '不通知', value: '0' },
         { label: '短信通知', value: '1'},
+        { label: '不通知', value: '0' },
     ];
 
     // console.log(this.state.interviewFlag)
