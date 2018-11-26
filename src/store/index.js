@@ -20,6 +20,7 @@ import notifycation from "../reducer/notifycation";
 import dashboardReducer from "../app_modules/Dashboard/reducer";
 import resumeReducer from "../app_modules/Resume/reducer";
 import interviewReducer from "../app_modules/Interview/reducer";
+import jobReducer from "../app_modules/Job/reducer";
 
 import orm, { session } from "../model";
 const fetchRequestReducer = function(state = {}, action) {
@@ -141,6 +142,12 @@ const panes = {
     key: "resume/list",
     src: "/static/js/client/main.html#/resume/list"
   },
+  "resume/approval": {
+    title: "offer审批",
+    refresh: true,
+    key: "resume/approval",
+    src: "/static/js/client/main.html#/resume/approval"
+  },
   "resume/distributed": {
     title: "待分配简历",
     refresh: true,
@@ -224,10 +231,11 @@ const addTabByRouteMiddleware = history => {
       // }
       // else if (action.payload.pathname.indexOf("settings") > -1) {
       //   window.addTab && window.addTab(panes["settings"]);
-      // } 
+      // }
       else {
         window.addTab && window.addTab(panes[action.payload.pathname]);
       }
+      console.warn(window.location.href)
     }
     return next(action);
   };
@@ -278,6 +286,7 @@ export const injectReducer = (store, { key, reducer }) => {
 injectReducer(store, { key: "dashboardReducer", reducer: dashboardReducer });
 injectReducer(store, { key: "resumeReducer", reducer: resumeReducer });
 injectReducer(store, { key: "interviewReducer", reducer: interviewReducer });
+injectReducer(store, { key: "jobReducer", reducer: jobReducer });
 
 export { history };
 

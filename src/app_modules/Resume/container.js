@@ -16,6 +16,7 @@ import ModalView,{ModalWidthView,ModalDetailView} from 'app/components/Modal.vie
 import ResumeListView from './views/ResumeList.view'
 import ResumeDetailView from './views/ResumeDetail.view'
 import ResumeDetailSameView from './views/ResumeDetailSame.view'
+import ResumeApproval from './views/ResumeApproval.view'
 
 import EntryFormView from './views/EntryForm.view'
 import RelatedFormView from './views/RelatedForm.view'
@@ -42,6 +43,7 @@ import TalentForm from './views/TalentAction.view'
 import DistributedJob from './views/DistributedJob.view'
 
 import ResumeSide from './views/ResumeSlide.view'
+import ApprovalSide from './views/ApprovalSlide.view'
 import * as actions from './action'
 
 
@@ -121,6 +123,13 @@ let FolderContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: 
 let LabelFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(LabelFormView))
 let RemarksFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(RemarksFormView)
 let ResumeRemarkContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeRemarkView)
+
+let ApprovalContainer = connect((state)=>({
+    items:reducerListSelector(state.ORMReducer,"Resume"),
+    reduce:state.resumeReducer,
+    appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(ApprovalSide)(ResumeApproval))
+
 export {
   ResumeDetailContainer,
   ResumeDetailSameContainer,
@@ -143,7 +152,8 @@ export {
   FollowFormContainer,
   DeleteFormContainer,
   CreditFilingReasonFormContainer,
-  JoinTalentFormContainer
+  JoinTalentFormContainer,
+  ApprovalContainer
 }
 
 export default Container;

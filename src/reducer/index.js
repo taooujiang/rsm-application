@@ -154,7 +154,7 @@ const initialState = {
 
 const reducer = handleActions({
   'saveChannelPoint'(state,actions){
-		console.log("savePoint11111",actions.payload)
+		// console.log("savePoint11111",actions.payload)
 		const payload = actions.payload
 		window.localStorage.setItem("point",JSON.stringify(payload.channels))
     payload.channels.map((it)=>{
@@ -180,11 +180,11 @@ const reducer = handleActions({
 			var chn=state.channels.get(numId)
 			state.channels.set(numId,Object.assign({},chn,it))
     })
-		console.log("initChannel",state.channels)
+		// console.log("initChannel",state.channels)
 		return { ...state}
 	},
   'saveChannel'(state,actions){
-		console.log("saveChannelState",state)
+		// console.log("saveChannelState",state)
     const payload = actions.payload
     payload.channels.map((it)=>{
 			let numId = Number(it.id)
