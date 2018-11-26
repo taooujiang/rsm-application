@@ -190,7 +190,7 @@ class WeekTodoView extends Component{
             <List.Item className='week-todo-list-item' actions={defaultActions}>
               <List.Item.Meta
                 title={<div className='title'><span className='point'></span>{item.getScheduleStr()}&nbsp;{item.title}</div>}
-                
+
               />
               {item.content}
             </List.Item>
@@ -258,7 +258,7 @@ export default class Dashboard extends Component {
   render() {
 
     let {reduce,actions,children,appReducer,router} = this.props
-		let {spins:{noticeSpin,todoSpin,peopleSpin},notices,todos,people,unreadMessage:{dbsjNum,gxrzNum,hxrxgNum,xtxxNum,ygxgNum},hireData:{dfpResumeNum,recruitJobNum,sendOfferNum,todayInterviewNum,todayNewResumeNum},recentData}=reduce
+		let {spins:{noticeSpin,todoSpin,peopleSpin},notices,todos,people,unreadMessage:{dbsjNum,gxrzNum,hxrxgNum,xtxxNum,ygxgNum},hireData:{dfpResumeNum,recruitJobNum,sendOfferNum,todayInterviewNum,todayNewResumeNum,todayWaitEntryNum},recentData}=reduce
 
     return (
       <Layout direction="rows" className="dashboard">
@@ -369,6 +369,11 @@ export default class Dashboard extends Component {
 										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
 										<h1>{sendOfferNum}</h1>
 										<p>待发送offer</p>
+								</Col>
+                <Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待入职',permissionKey:"resume", key: 'entry' , refresh:true , src:"/static/js/client/main.html#/resume/list/query/4/end"})}>
+										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
+										<h1>{todayWaitEntryNum}</h1>
+										<p>今日待入职</p>
 								</Col>
 							</Row>
 						</Card>
