@@ -37,7 +37,7 @@ export default class ResumeSide extends Component{
   renderSelectOption(data,idx){
     return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
   }
-  renderJobOption(data,idx){
+  renderJobOption(it,idx){
     return (<Select.Option value={it.jobId} key={idx}>{it.jobTitle}</Select.Option>)
   }
 

@@ -238,16 +238,28 @@ export default class HeaderSide extends React.Component {
             "elite"
           )}
           {this.renderAuthMenuItem(
-            <Menu.Item key="5">
-              <Link
-                to={{
-                  pathname: "member/list"
-                  // state: { breadcrumbName: "员工管理" }
-                }}
-              >
-                <span>员工管理</span>
-              </Link>
-            </Menu.Item>,
+            <Menu.SubMenu key="5" title={<span>员工管理</span>}>
+              <Menu.Item key="5-1">
+                <Link
+                  to={{
+                    pathname: "member/list"
+                    // state: { breadcrumbName: "员工管理" }
+                  }}
+                >
+                  <span>员工管理</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="5-2">
+                <Link
+                  to={{
+                    pathname: "member/interpol"
+                    // state: { breadcrumbName: "员工管理" }
+                  }}
+                >
+                  <span>员工内推</span>
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>,
             "member"
           )}
           {this.renderAuthMenuItem(

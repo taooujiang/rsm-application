@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactRouter, {Router, Route, IndexRoute} from 'react-router'
 import {ResumeDetailContainer} from '../Resume/container'
-import Container, {FormContainer,DetailContainer,ExportContainer,ImportContainer,ImportResultContainer} from './container'
+import Container, {FormContainer,DetailContainer,ExportContainer,ImportContainer,ImportResultContainer,Interrpol} from './container'
 
 let Routes = (
   <Router>
@@ -16,6 +16,7 @@ let Routes = (
       <Route path="import" components={ImportContainer} breadcrumbName="导入"/>
       <Route path="importResult" components={ImportResultContainer} breadcrumbName="导入结果"/>
     </Route>
+    <Route path="interpol" component={Interrpol}></Route>
   </Router>
 )
 

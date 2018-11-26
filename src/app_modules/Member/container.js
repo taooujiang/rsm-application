@@ -18,6 +18,7 @@ import MemberDetailView from './views/Detail.view'
 import MemberExportView from './views/MemberExport.view'
 import MemberImportView from './views/MemberImport.view'
 import MemberImportResultView from './views/MemberImportResult.view'
+import MemberInterpol,{InterpolSide} from './views/MemberInterpol.view'
 import * as actions from './action'
 import * as resumeActions from '../Resume/action'
 
@@ -42,6 +43,10 @@ let Container = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Member"),
   reduce:state.memberReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(MemberSide)(MemberListView))
+let Interrpol = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Member"),
+  reduce:state.memberReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(InterpolSide)(MemberInterpol))
 let DetailContainer = connect((state,props)=>({
 	// item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
 	item:state.memberReducer.currentItem,
@@ -56,5 +61,5 @@ let ExportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: 
 let ImportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(MemberImportView)
 let ImportResultContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(MemberImportResultView)
 
-export {FormContainer,DetailContainer,ExportContainer,ImportContainer,ImportResultContainer}
+export {FormContainer,DetailContainer,ExportContainer,ImportContainer,ImportResultContainer,Interrpol}
 export default Container;
