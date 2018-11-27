@@ -25,7 +25,8 @@ import Container,{
   DeleteFormContainer,
   CreditFilingReasonFormContainer,
   JoinTalentFormContainer,
-  ApprovalContainer
+  ApprovalContainer,
+  OfferNopassFormContainer
 } from './container'
 import {Relate2JobFormContainer} from '../Elite/container'
 import {DetailContainer} from '../Job/container'
@@ -79,6 +80,7 @@ let RoutesResume =(
       <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
       <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
       <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
       <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
       <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
     </Route>
@@ -96,6 +98,7 @@ let RoutesResume =(
     <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
     <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
     <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+    <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
     <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
     <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
 
@@ -115,6 +118,7 @@ let RoutesResume =(
       <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
       <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
       <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
       <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
       <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
     </Route>
@@ -135,6 +139,7 @@ let RoutesResume =(
       <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
       <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
       <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
       <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
       <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
     </Route>

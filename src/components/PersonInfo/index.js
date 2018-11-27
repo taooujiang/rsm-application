@@ -260,6 +260,15 @@ class BaseInfoItem extends Component{
   }
 }
 
+class InfoInline extends Component{
+  render(){
+    return <div className="info-inline">
+      <label>{this.props.label}</label>
+      <span>{this.props.info}</span>
+    </div>
+  }
+}
+
 class FormItemWrapparCol extends Component{
   render(){
     return(
@@ -306,7 +315,7 @@ type :resume elite credit allocat
 status 0 1 2 3 4
 */
 
-export class PersonOption extends Component{
+class  PersonStage extends Component{
   renderStageLine(){
     let {type,item:{status}} = this.props
     if(type == "resume"){
@@ -322,6 +331,9 @@ export class PersonOption extends Component{
     }
     return null
   }
+}
+
+export class PersonOption extends PersonStage{
   render(){
     let {item:{status}} = this.props
     return (
@@ -656,7 +668,96 @@ class OptionButtonsSame extends OptionCommonFn{
     )
   }
 }
+/*offer审核中状态*/
+class OptionButtonsOffering extends OptionCommonFn{
+  render(){
+    let {item:{hrName,labelNames}} = this.props
+    return <div className="offering-box">
+            <h1><Icon type="icon-seal"/>offer审批中</h1>
+            <InfoInline label="审批职位" info="高级产品经理"/>
+            <InfoInline label="审批阶段" info="二级审批"/>
+            <InfoInline label="审批人" info="张三三"/>
 
+            <ButtonGroup>
+              <Button className="block" onClick={this.handleRemark.bind(this)}>审批通过</Button>
+              <Button className="block" onClick={this.handleRemark.bind(this)}>审批不通过</Button>
+              <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
+              <BaseInfoItem label="招聘负责人" info={hrName}/>
+
+              <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
+              <div className="tags-box">
+                { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
+              </div>
+            </ButtonGroup>
+        </div>
+  }
+}
+/*offer审核通过状态*/
+class OptionButtonsOffered extends OptionCommonFn{
+  render(){
+    let {item:{hrName,labelNames}} = this.props
+    return <div className="offering-box">
+              <h1><Icon type="icon-pass"/>offer审批通过</h1>
+              <InfoInline label="审批职位" info="高级产品经理"/>
+              <InfoInline label="审批阶段" info="二级审批"/>
+              <InfoInline label="审批人" info="张三三"/>
+
+            <ButtonGroup>
+                <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
+                <BaseInfoItem label="招聘负责人" info={hrName}/>
+
+                <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
+                <div className="tags-box">
+                  { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
+                </div>
+            </ButtonGroup>
+        </div>
+  }
+}
+/*offer审核不通过状态*/
+class OptionButtonsOffered extends OptionCommonFn{
+  render(){
+    let {item:{hrName,labelNames}} = this.props
+    return <div className="offering-box">
+              <h1><Icon type="icon-no_pass"/>offer审批不通过</h1>
+              <InfoInline label="审批职位" info="高级产品经理"/>
+              <InfoInline label="审批阶段" info="二级审批"/>
+              <InfoInline label="审批人" info="张三三"/>
+
+            <ButtonGroup>
+                <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
+                <BaseInfoItem label="招聘负责人" info={hrName}/>
+
+                <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
+                <div className="tags-box">
+                  { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
+                </div>
+            </ButtonGroup>
+        </div>
+  }
+}
+/*共享诚信库状态*/
+class OptionButtonsCreditShare extends OptionCommonFn{
+  onChange(val){
+    console.log(val)
+  }
+  render(){
+    return <div>
+      <h2>该候选人存在于其他公司的诚信库中</h2>
+      <ul>
+        <li>简历造假（浙江企蜂通信）</li>
+        <li>简历造假（浙江企蜂通信）</li>
+      </ul>
+
+      <ButtonGroup>
+        <Button className="half-block" onClick={this.addElite.bind(this,1)}>忽略</Button>
+        <Button className="half-block" onClick={this.handleRemark.bind(this)}>放入人才库</Button>
+      </ButtonGroup>
+
+      <Checkbox onChange={this.onChange}>不再对该简历进行诚信库提醒</Checkbox>
+    </div>
+  }
+}
 /*ItemChange*/
 class ItemChangeCommon extends Component{
   handleEdit(){

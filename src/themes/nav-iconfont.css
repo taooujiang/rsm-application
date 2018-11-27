@@ -123,7 +123,6 @@
 
 .anticon-icon-newResume:before { content: "\e630"; }
 
-
 .anticon-icon-user:before { content: "\e633"; }
 
 .anticon-icon-notification:before { content: "\e6f0"; }
@@ -133,3 +132,9 @@
 .anticon-icon-schedule:before { content: "\e716"; }
 
 .anticon-icon-team:before { content: "\e634"; }
+
+.anticon-icon-seal:before { content: "\e639"; }
+
+.anticon-icon-no_pass:before { content: "\e63a"; }
+
+.anticon-icon-pass:before { content: "\e605"; }

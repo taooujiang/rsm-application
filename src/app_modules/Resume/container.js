@@ -26,7 +26,7 @@ import LabelFormView from './views/LabelForm.view'
 import RemarksFormView from './views/remarksForm.view'
 import ResumeFolderListView from './views/ResumeFolderList.view'
 import ResumeSearchListView from './views/SearchResult.view'
-
+import OfferNopassForm from './views/OfferNopass.view'
 import JoinTalentFormView from './views/JoinTalentAction.view'
 
 import CreditFilingReasonFormView from './views/CreditFilingReason.view'
@@ -111,6 +111,7 @@ let JoinTalentFormContainer = connect(mapStateToProps, mapDispatchToProps, null,
 let EntryFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(EntryFormView))
 let RelatedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalWidthView)(RelatedFormView))
 let RejectFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(RejectFormView))
+let OfferNopassFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(OfferNopassForm))
 let FeedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalWidthView)(FeedFormView))
 
 let Forward2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Forward2OtherFormView))
@@ -153,7 +154,8 @@ export {
   DeleteFormContainer,
   CreditFilingReasonFormContainer,
   JoinTalentFormContainer,
-  ApprovalContainer
+  ApprovalContainer,
+  OfferNopassFormContainer
 }
 
 export default Container;
