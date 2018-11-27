@@ -61,16 +61,26 @@ export class ImgUpload extends FileUpload{
         }
         this.props.onChange(this.props.imgUrl)
     }
+    componentWillReceiveProps = (nextProps) => {
+      if(nextProps.imgUrl!=this.props.imgUrl){
+        this.setState({imgUrl:nextProps.imgUrl})
+        this.props.onChange(nextProps.imgUrl)
+      }
+    }
+    
     render(){
-        let { type ,beforeUpload } = this.props
+        let { type ,beforeUpload,btnText,accept,tipText,imgWidth } = this.props
         let {imgUrl} = this.state
         const uploadButton = (
-            <Button><Icon type="link"/>上传头像</Button>
+            <Button><Icon type="link"/>{btnText}</Button>
         )
         return(
-            <Upload name="file"  showUploadList={false} beforeUpload={beforeUpload} action={"/fileUpload/file/upload?type="+type} withCredentials={true} onChange={this.handleChange.bind(this)}>
-                {imgUrl ? <img src={imgUrl} alt="" />:uploadButton}
-            </Upload>
+          <Upload name="file"
+            accept={accept}
+            showUploadList={false} beforeUpload={beforeUpload} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+            {imgUrl ? <img src={imgUrl} width={imgWidth} alt="" /> : uploadButton}
+            {tipText ? <p>{tipText}</p> : null}
+          </Upload>
         )
     }
 }
@@ -95,5 +105,6 @@ ImgUpload.defaultProps = {
     onSuccess: function(){},
     onResponse:function(){},
     type:2,
+    btnText:"上传头像",
     beforeUpload:()=>{}
 }
