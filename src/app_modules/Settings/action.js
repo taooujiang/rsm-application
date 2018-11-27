@@ -57,6 +57,11 @@ export const channelListSave = createAction("STORE_CHANNEL")
 export const channelSave = createAction('UPSERT_CHANNEL')
 // channel list END
 
+// OfferApprove 
+export const offerApproveListSave = createAction("STORE_OFFERAPPROVE")
+// export const channelSave = createAction('UPSERT_CHANNEL')
+// OfferApprove  END
+
 export const userSaveList = createAction("STORE_USER")
 export const userRemove = createAction("REMOVE_USER")
 export const userSave = createAction("UPSERT_USER")
@@ -804,4 +809,16 @@ export function saveListAction(params) {
 			return dispatch(fetchFailure('formSpin', ex))
 		})
 	}
+}
+// offerapprove list
+export function offerApproveListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchOfferApproveList().then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(offerApproveListSave(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
 }
