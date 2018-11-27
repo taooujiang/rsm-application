@@ -55,6 +55,16 @@ import ChannelView from './views/Channel.view'
 
 import Ercode from './views/Ercode.view'
 
+import OfferApproveView from './views/RecruitImprovement/OfferApprove.view'
+import InterviewFeedbackView from './views/RecruitImprovement/InterviewFeedback.view'
+import InterviewJudgeView from './views/RecruitImprovement/InterviewJudge.view'
+import OtherSettingView from './views/RecruitImprovement/OtherSetting.view'
+import InternalRecommendView from './views/RecruitImprovement/InternalRecommend.view'
+
+import LevelSettingView from './views/SysProperty/LevelSetting.view'
+import ActionLogView from './views/SysProperty/ActionLog.view'
+
+import ShareView from './views/Company/Share.view'
 
 import * as actions from './action'
 
@@ -269,6 +279,58 @@ let ChannelContainer = connect((state)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ChannelView))
+
+
+let OfferApproveContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"OfferApprove"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(OfferApproveView))
+
+
+
+let InterviewFeedbackContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewFeedbackView))
+
+let InterviewJudgeContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewJudgeView))
+let OtherSettingContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(OtherSettingView))
+let InternalRecommendContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InternalRecommendView))
+
+let LevelSettingContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(LevelSettingView))
+
+let ActionLogContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ActionLogView))
+
+let ShareContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Channel"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ShareView))
+
+
+
 export {
     Container,
     RemindContainer,
@@ -304,7 +366,15 @@ export {
     ChannelContainer,
     AddMemberStepOrignContainer,
     AddMemberStepFirstContainer,
-    AddMemberStepCodeContainer
+    AddMemberStepCodeContainer,
+    OfferApproveContainer,
+    InterviewFeedbackContainer,
+    InterviewJudgeContainer,
+    OtherSettingContainer,
+    LevelSettingContainer,
+    InternalRecommendContainer,
+    ActionLogContainer,
+    ShareContainer
 }
 
 export default Container;

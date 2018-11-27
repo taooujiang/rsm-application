@@ -324,5 +324,11 @@ export default class API extends FetchAPI {
 		return this.fetchPost(`${APP_SERVER}/accountOperate/checkAndDisable`, {
 			body: params
 		})
+  }
+  
+  fetchOfferApproveList(params){
+		return this.fetchPostList(`${APP_SERVER}/sysSetOfferApproval/listJson`, {
+			body: params
+		})
 	}
 }
