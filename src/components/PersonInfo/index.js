@@ -715,7 +715,7 @@ class OptionButtonsOffered extends OptionCommonFn{
   }
 }
 /*offer审核不通过状态*/
-class OptionButtonsOffered extends OptionCommonFn{
+class OptionButtonsNoOffered extends OptionCommonFn{
   render(){
     let {item:{hrName,labelNames}} = this.props
     return <div className="offering-box">

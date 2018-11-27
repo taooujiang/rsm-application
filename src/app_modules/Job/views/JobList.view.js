@@ -122,10 +122,109 @@ export default class NewJobListView extends PageView {
         let that=this;
 
         let {reduce,items} = this.props
-        let {spins:{tableSpin},key,page} = reduce
+        let {spins:{tableSpin},key,page,isShow} = reduce
         let rowSelection={
           onChange:this.onSelectChange.bind(this),
           selectedRowKeys:this.state.selectedRowKeys
+        }
+
+        let tableColumn = [
+           {
+                title: "职位名称",
+                key: "jobTitle",
+                dataIndex: "jobTitle",
+                sorter: true,
+                render:(val,row)=>{
+                  if(process.env.NODE_ENV === 'development'){
+                    return(
+                      <Link to={`/job/jobrelease/${row.jobId}/4/1`}><JobTitleInTable item={row}/></Link>
+                    )
+                  }else{
+                    return(
+                      <Link onClick={this.openTab.bind(this,{
+                        title: '职位详情',
+                        key: 'job/jobrelease' ,
+                        src:`/static/js/client/main.html#/job/jobrelease/${row.jobId}/4/1`
+                      })}><JobTitleInTable item={row}/></Link>
+                    )
+                  }
+                },
+            }, {
+                title: "招聘负责人",
+                key: "hrName",
+                dataIndex: "hrName",
+                width: 150,
+            }, {
+                title: "招聘渠道",
+                key: "channelListIcon",
+                dataIndex: "channelListIcon",
+                width: 150,
+                render:(val)=>val.map((v)=><Icon type={v} style={{margin:'0 3px'}} />)
+            },{
+                title: "候选人总数",
+                key: "totalNum",
+                dataIndex: "totalNum",
+                width: 120,
+                render:(val,row)=>{
+                  if(process.env.NODE_ENV === 'development'){
+                    return(
+                      <SmartLink to={`/resume/list/query/0/${row.jobId}/end`}>{val}</SmartLink>
+                    )
+                  }else{
+                    return(
+                      <SmartLink onClick={this.openTab.bind(this,{
+                        title: '候选人管理',
+                        key: 'resume/list' ,
+                        refresh:true,
+                        src:`/static/js/client/main.html#/resume/list/query/0/${row.jobId}/end`
+                      })}>{val}</SmartLink>
+                    )
+                  }
+                }
+            },{
+                title: "待入职人数",
+                key: "pendingPost",
+                dataIndex: "pendingPost",
+                align:"center",
+                width: 120,
+                render:(val,row)=>{
+                  if(process.env.NODE_ENV === 'development'){
+                    return(
+                      <SmartLink to={`/resume/list/query/4/${row.jobId}/end`}>{val}</SmartLink>
+                    )
+                  }else{
+                    return(
+                      <SmartLink onClick={this.openTab.bind(this,{
+                        title: '候选人管理',
+                        key: 'resume/list' ,
+                        refresh:true,
+                        src:`/static/js/client/main.html#/resume/list/query/4/${row.jobId}/end`
+                      })}>{val}</SmartLink>
+                    )
+                  }
+                },
+            },{
+                title: "已入职人数",
+                key: "yrzNum",
+                dataIndex: "yrzNum",
+                align:"center",
+                width: 120,
+            },{
+                title: "招聘人数",
+                key: "hiringNumber",
+                dataIndex: "hiringNumber",
+                align:"center",
+                width: 120,
+            }
+        ]
+
+        if(isShow){
+          tableColumn.push({
+            title: "面试评分",
+            key: "point",
+            dataIndex: "point",
+            width: 150,
+          })
         }
         // alert("111")
         let tableConf = {
@@ -138,95 +237,7 @@ export default class NewJobListView extends PageView {
                 // console.log(selectedRows)
                 return this.renderToolbar()
             },
-            columns: [
-               {
-                    title: "职位名称",
-                    key: "jobTitle",
-                    dataIndex: "jobTitle",
-										sorter: true,
-										render:(val,row)=>{
-											if(process.env.NODE_ENV === 'development'){
-												return(
-													<Link to={`/job/jobrelease/${row.jobId}/4/1`}><JobTitleInTable item={row}/></Link>
-												)
-											}else{
-												return(
-													<Link onClick={this.openTab.bind(this,{
-														title: '职位详情',
-														key: 'job/jobrelease' ,
-														src:`/static/js/client/main.html#/job/jobrelease/${row.jobId}/4/1`
-													})}><JobTitleInTable item={row}/></Link>
-												)
-											}
-										},
-                }, {
-                    title: "招聘负责人",
-                    key: "hrName",
-                    dataIndex: "hrName",
-                    width: 150,
-                }, {
-                    title: "招聘渠道",
-                    key: "channelListIcon",
-                    dataIndex: "channelListIcon",
-                    width: 150,
-                    render:(val)=>val.map((v)=><Icon type={v} style={{margin:'0 3px'}} />)
-                },{
-                    title: "候选人总数",
-                    key: "totalNum",
-                    dataIndex: "totalNum",
-                    width: 120,
-                    render:(val,row)=>{
-											if(process.env.NODE_ENV === 'development'){
-												return(
-													<SmartLink to={`/resume/list/query/0/${row.jobId}/end`}>{val}</SmartLink>
-												)
-											}else{
-												return(
-													<SmartLink onClick={this.openTab.bind(this,{
-														title: '候选人管理',
-														key: 'resume/list' ,
-                            refresh:true,
-														src:`/static/js/client/main.html#/resume/list/query/0/${row.jobId}/end`
-													})}>{val}</SmartLink>
-												)
-											}
-										}
-                },{
-                    title: "待入职人数",
-                    key: "pendingPost",
-                    dataIndex: "pendingPost",
-                    align:"center",
-										width: 120,
-										render:(val,row)=>{
-											if(process.env.NODE_ENV === 'development'){
-												return(
-													<SmartLink to={`/resume/list/query/4/${row.jobId}/end`}>{val}</SmartLink>
-												)
-											}else{
-												return(
-													<SmartLink onClick={this.openTab.bind(this,{
-														title: '候选人管理',
-														key: 'resume/list' ,
-                            refresh:true,
-														src:`/static/js/client/main.html#/resume/list/query/4/${row.jobId}/end`
-													})}>{val}</SmartLink>
-												)
-											}
-										},
-                },{
-                    title: "已入职人数",
-                    key: "yrzNum",
-                    dataIndex: "yrzNum",
-                    align:"center",
-                    width: 120,
-                },{
-                    title: "招聘人数",
-                    key: "hiringNumber",
-                    dataIndex: "hiringNumber",
-                    align:"center",
-                    width: 120,
-                }
-            ]
+            columns: tableColumn
         }
         return (<DataTable  {...tableConf}  page={page} />)
         // return null
