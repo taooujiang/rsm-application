@@ -36,10 +36,12 @@ import Container, {
   AddMemberStepFirstContainer,
   AddMemberStepCodeContainer,
   OfferApproveContainer,
+  OfferApproveFormContainer,
   InterviewFeedbackContainer,
   InterviewJudgeContainer,
   OtherSettingContainer,
   LevelSettingContainer,
+  LevelSettingFormContainer,
   InternalRecommendContainer,
   ActionLogContainer,
   ShareContainer
@@ -108,6 +110,8 @@ let Routes = (
     </Route>
 
     <Route path="offer" components={OfferApproveContainer} breadcrumbName="Offer审批设置" >
+      <Route path="edit/:offerApproveId" components={OfferApproveFormContainer} breadcrumbName="编辑审批流程" />
+      <Route path="add" components={OfferApproveFormContainer} breadcrumbName="添加审批流程" />
 
     </Route>
     <Route path="interviewfeedback" components={InterviewFeedbackContainer} breadcrumbName="面试反馈模板设置" >
@@ -120,7 +124,9 @@ let Routes = (
 
     </Route>
     <Route path="level" components={LevelSettingContainer} breadcrumbName="职位级别设置" >
-
+      <Route path="add" components={LevelSettingFormContainer} breadcrumbName="添加职位级别" />
+      <Route path="edit/:levelSettingId" components={LevelSettingFormContainer} breadcrumbName="编辑职位级别" />
+    
     </Route>
     <Route path="internalrecommend" components={InternalRecommendContainer} breadcrumbName="内推设置" >
 
