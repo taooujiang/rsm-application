@@ -32,7 +32,7 @@ export const initialState = {
 		hxrxgNum:0, ygxgNum:0, dbsjNum:0, xtxxNum:0, gxrzNum:0
 	},
 	hireData:{
-		recruitJobNum:0, dfpResumeNum:0, todayNewResumeNum:0, todayInterviewNum:0, sendOfferNum:0
+		recruitJobNum:0, dfpResumeNum:0, todayNewResumeNum:0, todayInterviewNum:0, sendOfferNum:0,todayWaitEntryNum:0
 	},
 	recentData:{
 		lastFilteredNum : 0,
