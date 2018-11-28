@@ -331,6 +331,18 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  
+  fetchLevelSettingList(params) {
+    return this.fetchPostList(`${APP_SERVER}/sysPositionLevel/listJson`, {
+      body: params
+    })
+  }
+
+  fetchDeleteLevel(params) {
+    return this.fetchPost(`${APP_SERVER}/sysPositionLevel/deleteJson`, {
+      body: params
+    })
+  }
 }
 
 export const fetchShareSetting = (params) => {
@@ -343,3 +355,11 @@ export const saveShareSetting = (params) => {
     body: params
   })
 }
+
+export const saveLevelSetting = (params) => {
+  return new FetchAPI().fetchPost(`${APP_SERVER}/sysPositionLevel/saveJson`, {
+    body: params
+  })
+}
+
+// 

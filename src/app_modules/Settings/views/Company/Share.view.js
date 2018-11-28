@@ -37,9 +37,6 @@ export default class Share extends FormPage {
 
   handleSubmit(values) {
     let { actions, router } = this.props;
-    console.log(values, 'sss')
-    // actions.saveMailboxItemAction(values)
-    // actions.backRoute(router)
     this.setState({
       loading: true
     })
@@ -51,7 +48,6 @@ export default class Share extends FormPage {
     })
   }
   beforeUpload(file) {
-    console.log(file, 'file')
     let { name } = file
     let suffix = name.split(".").pop()
     if (file.size / 1024 > 200) {
@@ -83,9 +79,8 @@ export default class Share extends FormPage {
       }
     };
 
-    const { onSubmit, saveFormRef, item } = this.props
+    const { onSubmit,  } = this.props
     const { title, remark, photoUrl, id } = this.state
-    console.log(photoUrl)
     return (
       <Spin spinning={this.state.loading}>
         <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>

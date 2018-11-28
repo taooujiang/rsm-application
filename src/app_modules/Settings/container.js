@@ -56,12 +56,14 @@ import ChannelView from './views/Channel.view'
 import Ercode from './views/Ercode.view'
 
 import OfferApproveView from './views/RecruitImprovement/OfferApprove.view'
+import OfferApproveFormView from './views/RecruitImprovement/OfferApproveForm.view'
 import InterviewFeedbackView from './views/RecruitImprovement/InterviewFeedback.view'
 import InterviewJudgeView from './views/RecruitImprovement/InterviewJudge.view'
 import OtherSettingView from './views/RecruitImprovement/OtherSetting.view'
 import InternalRecommendView from './views/RecruitImprovement/InternalRecommend.view'
 
 import LevelSettingView from './views/SysProperty/LevelSetting.view'
+import LevelSettingFormView from './views/SysProperty/LevelSettingForm.view'
 import ActionLogView from './views/SysProperty/ActionLog.view'
 
 import ShareView from './views/Company/Share.view'
@@ -287,6 +289,12 @@ let OfferApproveContainer = connect((state)=>({
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(OfferApproveView))
 
+let OfferApproveFormContainer = connect((state)=>({
+  // items:reducerListSelector(state.ORMReducer,"OfferApprove"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(OfferApproveFormView)
+
 
 
 let InterviewFeedbackContainer = connect((state)=>({
@@ -312,10 +320,19 @@ let InternalRecommendContainer = connect((state)=>({
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InternalRecommendView))
 
 let LevelSettingContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Channel"),
+  items:reducerListSelector(state.ORMReducer,"LevelSetting"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(LevelSettingView))
+
+let LevelSettingFormContainer = connect((state,props)=>({
+  // items:reducerListSelector(state.ORMReducer,"LevelSetting"),
+  items:reducerListSelector(state.ORMReducer,"LevelSetting"),
+  item:reducerItemSelector(state.ORMReducer,"LevelSetting",props.params.levelSettingId),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(LevelSettingFormView)
+
 
 let ActionLogContainer = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Channel"),
@@ -368,10 +385,12 @@ export {
     AddMemberStepFirstContainer,
     AddMemberStepCodeContainer,
     OfferApproveContainer,
+    OfferApproveFormContainer,
     InterviewFeedbackContainer,
     InterviewJudgeContainer,
     OtherSettingContainer,
     LevelSettingContainer,
+    LevelSettingFormContainer,
     InternalRecommendContainer,
     ActionLogContainer,
     ShareContainer

@@ -118,6 +118,14 @@ export default class SettingsSide extends React.Component {
         </SubMenu>
 
         <SubMenu key="sub4" title={<span><Icon type="rocket" /><span>招聘提速</span></span>}>
+          <Menu.Item key="internalrecommend">
+            <Link to={{
+              pathname: 'settings/internalrecommend',
+              state: { breadcrumbName: "内推设置", keyPath: ['sub4', 'internalrecommend'] }
+            }}>
+              <span>内推设置</span>
+            </Link>
+          </Menu.Item>
           {this.renderAuthMenuItem(
             <Menu.Item key="remind">
               <Link to={{
@@ -182,14 +190,7 @@ export default class SettingsSide extends React.Component {
               <span>面试评分表设置</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="internalrecommend">
-            <Link to={{
-              pathname: 'settings/internalrecommend',
-              state: { breadcrumbName: "内推设置", keyPath: ['sub4', 'internalrecommend'] }
-            }}>
-              <span>内推设置</span>
-            </Link>
-          </Menu.Item>
+
           <Menu.Item key="other">
             <Link to={{
               pathname: 'settings/other',

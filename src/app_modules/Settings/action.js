@@ -62,6 +62,12 @@ export const offerApproveListSave = createAction("STORE_OFFERAPPROVE")
 // export const channelSave = createAction('UPSERT_CHANNEL')
 // OfferApprove  END
 
+// LevelSetting 
+export const levelSettingListSave = createAction("STORE_LEVELSETTING")
+export const levelSettingListRemove = createAction("REMOVE_LEVELSETTING")
+// export const channelSave = createAction('UPSERT_CHANNEL')
+// LevelSetting  END
+
 export const userSaveList = createAction("STORE_USER")
 export const userRemove = createAction("REMOVE_USER")
 export const userSave = createAction("UPSERT_USER")
@@ -812,13 +818,37 @@ export function saveListAction(params) {
 }
 // offerapprove list
 export function offerApproveListAction(value) {
-  return (dispatch, getState) => {
-    dispatch(fetchRequest('tableSpin'))
-    return new API().fetchOfferApproveList().then(json => {
-      dispatch(fetchSuccess('tableSpin'))
-      dispatch(offerApproveListSave(json))
-    }).catch(ex => {
-      return dispatch(fetchFailure('tableSpin', ex))
-    })
-  }
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchOfferApproveList().then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(offerApproveListSave(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+// levelSettingListSave list
+export function levelSettingListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchLevelSettingList().then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(levelSettingListSave(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+
+export function deleteLevelSettingAction(value, id) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchDeleteLevel({ id: id }).then(json => {
+      dispatch(levelSettingListRemove(id))
+      dispatch(fetchSuccess('tableSpin', true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
 }
