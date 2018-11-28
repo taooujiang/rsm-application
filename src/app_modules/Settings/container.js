@@ -16,7 +16,6 @@ import SettingsFormView from './views/Settings.view'
 import RemindFormView from './views/Remind.view'
 import CustomSystemFieldView from './views/CustomSystemField.view'
 import SystemFieldFormView from './views/SystemFieldForm.view'
-import ChannelSettingsView from './views/ChannelSettings.view'
 import ResumeLinkedFormView from './views/ResumeLinkedForm.view'
 import TalentLabelView from './views/TalentLabel.view'
 import TemplateView from './views/Template.view'
@@ -96,11 +95,6 @@ let SystemFieldFormContainer= connect((state,props)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SystemFieldFormView)
-let ChannelSettingsContainer = connect((state)=>({
-  item:reducerItemSelector(state.ORMReducer,"ChannelSettings",'account'),
-  reduce: state.settingsReducer,
-  appReducer:state.appReducer
-}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ChannelSettingsView))
 let ResumeLinkedContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ResumeLinkedFormView))
 let TalentLabelContainer = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Tag"),
@@ -309,7 +303,8 @@ let InterviewJudgeContainer = connect((state)=>({
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewJudgeView))
 let OtherSettingContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Channel"),
+  item:reducerItemSelector(state.ORMReducer,"ChannelSettings",'account'),
+
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(OtherSettingView))
@@ -353,7 +348,6 @@ export {
     RemindContainer,
     CustomSystemFieldContainer,
     SystemFieldFormContainer,
-    ChannelSettingsContainer,
     ResumeLinkedContainer,
     TalentLabelContainer,
     TemplateContainer,

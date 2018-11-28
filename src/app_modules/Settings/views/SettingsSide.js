@@ -146,16 +146,7 @@ export default class SettingsSide extends React.Component {
               </Link>
             </Menu.Item>, "template")
           }
-          {this.renderAuthMenuItem(
-            <Menu.Item key="channelsettings">
-              <Link to={{
-                pathname: 'settings/channelsettings',
-                state: { breadcrumbName: "渠道设置", keyPath: ['sub4', 'channelsettings'] }
-              }}>
-                <span>简历更新周期设置</span>
-              </Link>
-            </Menu.Item>, "update")
-          }
+
           {this.renderAuthMenuItem(
             <Menu.Item key="apply">
               <Link to={{
