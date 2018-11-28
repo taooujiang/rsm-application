@@ -12,10 +12,12 @@ export default class OfferApproveForm extends FormPage {
     levelArr: []
   }
   componentDidMount = () => {
-    const { items } = this.props
+    const { items, item } = this.props
+    console.log(item, 'mmmmmmmmmmmmmmmmmmmmmm')
     let exsistLevelArr = []
     if (items.length) {
       for (let index = 0; index < items.length; index++) {
+        if (item.positionLeavel == items[index].positionLeavel) continue
         exsistLevelArr.push(items[index].positionLeavel)
       }
     }
