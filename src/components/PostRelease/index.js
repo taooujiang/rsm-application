@@ -53,7 +53,7 @@ const { TextArea } = Input;
 function toStrings(str){
   return str + ""
 }
-
+/**/
 class BaseInfoItem extends Component{
   render(){
     return(
@@ -64,7 +64,7 @@ class BaseInfoItem extends Component{
     )
   }
 }
-
+/*基础信息编辑组件*/
 class BaseInfoEdit extends FormPage{
 
   static contextTypes = {
@@ -218,7 +218,7 @@ class BaseInfoEdit extends FormPage{
     )
   }
 }
-
+/*基础信息展示组件*/
 class BaseInfoShow extends Component{
   translateWorkExp(lower,upper){
     if(upper === "" && lower === ""){
@@ -282,7 +282,7 @@ class BaseInfoShow extends Component{
     )
   }
 }
-
+/*基础信息组件*/
 export class BaseInfo extends Component{
   state = {
     flag:this.props.edit,
@@ -301,51 +301,6 @@ export class BaseInfo extends Component{
     return this.state.flag ? this.renderInfo() : this.renderEdit()
   }
 
-  endingFire(){
-    let that = this
-    let {item:{status}} = this.props
-    let msg = '确认结束招聘后，简历将不再进入此职位，如果后续还有此类简历，简历直接进入人才库'
-    /*复用endFireAction 形参三个 只需要传jobId数组*/
-    if(status == 1){
-      return Modal.confirm({
-        title: '确认',
-        content: msg,
-        okText: '确认',
-        onOk:that.endingFireConfirm.bind(that,1),
-        cancelText: '取消'
-      })
-    }else{
-      this.endingFireConfirm(2)
-    }
-
-  }
-  endingFireConfirm(type){
-    let {actions,item:{jobId}} = this.props
-    actions.endingFireAction(null,null,[jobId],null,type)
-  }
-  onConfirm(){
-    let {actions,item:{jobId}} = this.props
-    actions.deleteJobAction({jobId:jobId})
-  }
-
-  deleteJob(){
-    let {actions,item:{jobId}} = this.props
-    let that = this
-    new API().fetchDeleteComfrim({jobId:jobId}).then((json)=>{
-      let msg = '是否删除该职位？'
-      if(json.isResume == 1){
-        msg = '职位下有候选人简历，继续删除，职位下的候选人将进入人才库。是否继续删除职位？'
-      }
-      return Modal.confirm({
-        title: '确认',
-        content: msg,
-        okText: '确认',
-        onOk:that.onConfirm.bind(that),
-        cancelText: '取消'
-      })
-    })
-  }
-
   switchFlag(){
     this.setState({
       flag: !this.state.flag
@@ -355,23 +310,13 @@ export class BaseInfo extends Component{
     let {item:{status}} = this.props
     return (
       <Row gutter={12} className="firstStep-box">
-        <Col span={20}>{this.renderWhich()}</Col>
-        {this.state.flag?
-          <Col span={4}>
-            <div className="optionBox">
-                <Button type="primary" block htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
-                <Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
-                <Button htmlType="button"  onClick={this.switchFlag.bind(this)} className="edit-button"><Icon type="edit" /></Button>
-            </div>
-          </Col>
-          :
-          null
-        }
+        <Col span={24}>{this.renderWhich()}</Col>
+        <Button htmlType="button"  onClick={this.switchFlag.bind(this)} className="edit-button"><Icon type="edit" /></Button>
       </Row>
     )
   }
 }
-
+/* 职位负责人 面试官组件*/
 class JobResponsibility extends Component{
 
   translateInterviewers(arr){
@@ -428,7 +373,7 @@ class JobResponsibility extends Component{
     )
   }
 }
-
+/*简历发布  接收规则组件*/
 class ChannelAdJobRule extends Component{
   render(){
     return (
@@ -478,6 +423,15 @@ class JobRules extends Component{
   }
 }
 
+/*面试满意度 组件*/
+class InterviewSatisfaction extends Component{
+  render(){
+    return <div>
+        面试满意度
+    </div>
+  }
+}
+
 export default class PostRelease extends Component{
   constructor(props){
     super(props)
@@ -505,6 +459,52 @@ export default class PostRelease extends Component{
     arr.push(active)
     return arr.join("/")
   }
+
+  endingFire(){
+    let that = this
+    let {item:{status}} = this.props
+    let msg = '确认结束招聘后，简历将不再进入此职位，如果后续还有此类简历，简历直接进入人才库'
+    /*复用endFireAction 形参三个 只需要传jobId数组*/
+    if(status == 1){
+      return Modal.confirm({
+        title: '确认',
+        content: msg,
+        okText: '确认',
+        onOk:that.endingFireConfirm.bind(that,1),
+        cancelText: '取消'
+      })
+    }else{
+      this.endingFireConfirm(2)
+    }
+
+  }
+  endingFireConfirm(type){
+    let {actions,item:{jobId}} = this.props
+    actions.endingFireAction(null,null,[jobId],null,type)
+  }
+  onConfirm(){
+    let {actions,item:{jobId}} = this.props
+    actions.deleteJobAction({jobId:jobId})
+  }
+
+  deleteJob(){
+    let {actions,item:{jobId}} = this.props
+    let that = this
+    new API().fetchDeleteComfrim({jobId:jobId}).then((json)=>{
+      let msg = '是否删除该职位？'
+      if(json.isResume == 1){
+        msg = '职位下有候选人简历，继续删除，职位下的候选人将进入人才库。是否继续删除职位？'
+      }
+      return Modal.confirm({
+        title: '确认',
+        content: msg,
+        okText: '确认',
+        onOk:that.onConfirm.bind(that),
+        cancelText: '取消'
+      })
+    })
+  }
+
   render(){
     /*
     * params中存储的max 和step
@@ -515,24 +515,37 @@ export default class PostRelease extends Component{
     let {max,step} = params
     let addFlag =  max != 4 /*true为新增 false为编辑或查看*/
     return(
-      <Tabs className="jobdetail-box" defaultActiveKey="1" activeKey={step} animated={false} tabPosition="left" onChange={this.handleChangePanel.bind(this)}>
-        <TabPane tab={<span><Icon type="copy" />基本信息</span>} key="1">
-          {/*baseinfo 通过max 判断是否为编辑状态*/}
-          <BaseInfo item={item} edit={ !addFlag } actions={actions}/>
-        </TabPane>
-        <TabPane tab={<span><Icon type="user" />负责人</span>} key="2" disabled={ max < 2} className="secondStep-panel">
-          <JobResponsibility item={item} actions={actions} router={router}/>
-          { addFlag ?
-              <Button onClick={this.handleNext.bind(this)} className="addSaveBtn">保存并进入下一步 <Icon type="double-right" /></Button>
-            :
-              null
-          }
-        </TabPane>
-        <TabPane tab={<span><Icon type="setting" />渠道设置</span>} key="3" disabled={ max < 3} className="thirdStep-panel">
-            <ChannelAdJobRule {...this.props} rules={rules}/>
-            {addFlag ? <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button> : null}
-        </TabPane>
-      </Tabs>
+      <Row gutter={12} className="jobdetail-box">
+        <Col span={20}>
+          <Tabs className="jobdetail-box" defaultActiveKey="1" activeKey={step} animated={false} tabPosition="left" onChange={this.handleChangePanel.bind(this)}>
+            <TabPane tab={<span><Icon type="copy" />基本信息</span>} key="1">
+              {/*baseinfo 通过max 判断是否为编辑状态*/}
+              <BaseInfo item={item} edit={ !addFlag } actions={actions}/>
+            </TabPane>
+            <TabPane tab={<span><Icon type="user" />负责人</span>} key="2" disabled={ max < 2} className="secondStep-panel">
+              <JobResponsibility item={item} actions={actions} router={router}/>
+              { addFlag ?
+                  <Button onClick={this.handleNext.bind(this)} className="addSaveBtn">保存并进入下一步 <Icon type="double-right" /></Button>
+                :
+                  null
+              }
+            </TabPane>
+            <TabPane tab={<span><Icon type="setting" />渠道设置</span>} key="3" disabled={ max < 3} className="thirdStep-panel">
+                <ChannelAdJobRule {...this.props} rules={rules}/>
+                {addFlag ? <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button> : null}
+            </TabPane>
+            <TabPane tab={<span><Icon type="setting" />面试满意度</span>} key="4" disabled={ max < 3} className="thirdStep-panel">
+                <InterviewSatisfaction/>
+            </TabPane>
+          </Tabs>
+        </Col>
+        <Col span={4}>
+          <div className="optionBox">
+              <Button type="primary" block htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
+              <Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
+          </div>
+        </Col>
+      </Row>
     )
   }
 }
