@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NestedComponent from 'app/decorators/NestedComponent'
+import SpinLoading from 'app/decorators/SpinLoading'
 import { Button, Card, Input, Divider, message, Select, InputNumber, Spin } from "antd"
 import BaseForm, { FormItem, customRules } from "components/BaseForm";
 // 不用DataTable 是因为min-height有差异
@@ -51,6 +52,8 @@ export default class InternalRecommend extends FormPage {
       this.setLoading(false)
     })
   }
+  
+  @SpinLoading(message)
   handleSubmit(values) {
     let { levelRewardList, rewardList, } = this.state
     if (this.state.isDomainNameChanged) {
@@ -61,19 +64,13 @@ export default class InternalRecommend extends FormPage {
         }
       })
     }
-    this.setLoading(true)
-    saveInternalRecommend({
+    return saveInternalRecommend({
       sysSetInterpolateAwardBeanList: rewardList,
       sysPositionLevelBeans: levelRewardList
-    }).then(res => {
-      this.setLoading(false)
-      message.success('保存成功');
-    }).catch(e => {
-      this.setLoading(false)
-      message.error(e.msg);
     })
   }
-  // todo,domainName -->state;when submit, diff them
+
+
   handleHostnameChange(e) {
     this.setState({
       isDomainNameChanged: true,
