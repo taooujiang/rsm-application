@@ -841,12 +841,15 @@ export function levelSettingListAction(value) {
     })
   }
 }
-
+export function deleteLevelSettingRouteAction(router,id) {
+  console.log(id)
+	return dispatch => dispatch(routerActions.push(`/settings/level/delete/${id}`))
+}
 export function deleteLevelSettingAction(value, id) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
-    return new API().fetchDeleteLevel({ id: id }).then(json => {
-      dispatch(levelSettingListRemove(id))
+    return new API().fetchDeleteLevel(value).then(json => {
+      dispatch(levelSettingListRemove(value.id))
       dispatch(fetchSuccess('tableSpin', true))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))

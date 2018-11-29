@@ -368,4 +368,10 @@ export const fetchInternalRecommend = (params) => {
   })
 }
 
+export const saveInternalRecommend = (params) => {
+  return new FetchAPI().fetchPost(`${APP_SERVER}/sysSetInterpolateAward/saveJson`, {
+    body: params
+  })
+}
+
 // 

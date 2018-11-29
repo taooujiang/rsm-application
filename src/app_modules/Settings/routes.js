@@ -41,6 +41,7 @@ import Container, {
   OtherSettingContainer,
   LevelSettingContainer,
   LevelSettingFormContainer,
+  LevelSettingDeleteFormContainer,
   InternalRecommendContainer,
   ActionLogContainer,
   ShareContainer
@@ -122,8 +123,9 @@ let Routes = (
     </Route>
     <Route path="level" components={LevelSettingContainer} breadcrumbName="职位级别设置" >
       <Route path="add" components={LevelSettingFormContainer} breadcrumbName="添加职位级别" />
+      <Route path="delete/:levelSettingId" components={LevelSettingDeleteFormContainer} breadcrumbName="删除职位级别" />
       <Route path="edit/:levelSettingId" components={LevelSettingFormContainer} breadcrumbName="编辑职位级别" />
-
+      
     </Route>
     <Route path="internalrecommend" components={InternalRecommendContainer} breadcrumbName="内推设置" >
 

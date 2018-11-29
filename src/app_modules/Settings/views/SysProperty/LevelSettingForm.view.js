@@ -7,7 +7,7 @@ import { FormPage } from "app/components/Page";
 import { saveLevelSetting } from '../../api'
 
 @WrapperComponent(ModalView)
-export default class OfferApproveForm extends FormPage {
+export default class LevelSettingForm extends FormPage {
   state = {
     levelArr: []
   }
@@ -86,6 +86,71 @@ export default class OfferApproveForm extends FormPage {
             name="positionLeavel"
             defaultValue={item.positionLeavel}
             rules={[{ required: true, message: "不可为空" }]}
+            // onChange={this.handleSelectChange.bind(this)}
+            fetch={this.state.levelArr} renderItem={this.renderSelectOption} />
+
+        </FormItem>
+      </BaseForm>
+    );
+  }
+}
+
+
+@WrapperComponent(ModalView)
+export class LevelSettingDeleteForm extends FormPage {
+  state = {
+    levelArr: []
+  }
+  componentDidMount = () => {
+    const { items, item } = this.props
+    let exsistLevelArr = []
+    if (items.length) {
+      for (let index = 0; index < items.length; index++) {
+        if (item.positionLeavel == items[index].positionLeavel) continue
+        let newItem = {
+          keyValue: items[index].positionLeavel,
+          keyName: items[index].positionLeavel + "级"
+        }
+        exsistLevelArr.push(newItem)
+      }
+    }
+    this.setState({
+      levelArr: exsistLevelArr
+    })
+  }
+
+  handleSubmit(values) {
+    let { actions, router } = this.props;
+    // if (
+    //     values &&
+    //     values.optionName.indexOf('$')>-1
+    // ) {
+    //   message.error("请勿输入特殊字符$");
+    //   return false;
+    // } else {
+    actions.deleteLevelSettingAction(values)
+    //   actions.saveOptionAction(values);
+    actions.backRoute(router);
+    // }
+  }
+  renderSelectOption(data, idx) {
+    return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
+  }
+  render() {
+    //见FormPage.view.js
+    const { onSubmit, saveFormRef, item, items } = this.props;
+    console.log(item, 'itemitemitem', items);
+    return (
+      <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
+
+        删除前，请确认该级别下的数据是否合并到其他级别？
+
+        <FormItem className="row-hidden">
+          <Input name="id" type="hidden" defaultValue={item.id} />
+        </FormItem>
+        <FormItem>
+          <Select label='合并级别'
+            name="unionId"
             // onChange={this.handleSelectChange.bind(this)}
             fetch={this.state.levelArr} renderItem={this.renderSelectOption} />
 

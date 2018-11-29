@@ -63,6 +63,7 @@ import InternalRecommendView from './views/RecruitImprovement/InternalRecommend.
 
 import LevelSettingView from './views/SysProperty/LevelSetting.view'
 import LevelSettingFormView from './views/SysProperty/LevelSettingForm.view'
+import {LevelSettingDeleteForm} from './views/SysProperty/LevelSettingForm.view'
 import ActionLogView from './views/SysProperty/ActionLog.view'
 
 import ShareView from './views/Company/Share.view'
@@ -329,6 +330,15 @@ let LevelSettingFormContainer = connect((state,props)=>({
 }), mapDispatchToProps, null, {pure: false})(LevelSettingFormView)
 
 
+let LevelSettingDeleteFormContainer = connect((state,props)=>({
+  // items:reducerListSelector(state.ORMReducer,"LevelSetting"),
+  items:reducerListSelector(state.ORMReducer,"LevelSetting"),
+  item:reducerItemSelector(state.ORMReducer,"LevelSetting",props.params.levelSettingId),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(LevelSettingDeleteForm)
+
+
 let ActionLogContainer = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Channel"),
   reduce: state.settingsReducer,
@@ -385,6 +395,7 @@ export {
     OtherSettingContainer,
     LevelSettingContainer,
     LevelSettingFormContainer,
+    LevelSettingDeleteFormContainer,
     InternalRecommendContainer,
     ActionLogContainer,
     ShareContainer
