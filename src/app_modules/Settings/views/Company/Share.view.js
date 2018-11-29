@@ -45,6 +45,8 @@ export default class Share extends FormPage {
       this.setState({
         loading: false
       })
+    }).catch(e => {
+      message.warning(e.msg)
     })
   }
   beforeUpload(file) {

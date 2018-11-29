@@ -443,7 +443,8 @@ export function saveChannelSettingsAction(value) {
 		dispatch(fetchRequest('channelSpin'))
 		return new API().fetchSaveChannelSettings(value).then(json => {
 			dispatch(fetchSuccess('channelSpin', true))
-			dispatch(channelListSettingsSave(Object.assign({id:'account'},json)))
+      // dispatch(channelListSettingsSave(Object.assign({id:'account'},json)))
+      dispatch(channelSettingsAction())
 		}).catch(ex => {
 			return dispatch(fetchFailure('channelSpin', ex))
 		})

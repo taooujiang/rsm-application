@@ -4,7 +4,6 @@ import ReactRouter, { Router, Route, IndexRoute, IndexRedirect } from 'react-rou
 import Container, {
   RemindContainer,
   CustomSystemFieldContainer,
-  ChannelSettingsContainer,
   SystemFieldFormContainer,
   ResumeLinkedContainer,
   TalentLabelContainer,
@@ -51,9 +50,7 @@ let Routes = (
   <Router>
     <IndexRoute component={CompanyContainer} />
     <IndexRedirect to="company" />
-    <Route path="channelsettings" components={ChannelSettingsContainer} breadcrumbName="渠道设置">
-      <Route path="set/:id" components={ResumeLinkedContainer} breadcrumbName="推荐规则" />
-    </Route>
+
     <Route path="remind" components={RemindContainer} breadcrumbName="提醒设置" />
     <Route path="field" components={CustomSystemFieldContainer} breadcrumbName="系统字段">
       <Route path="add" components={SystemFieldFormContainer} breadcrumbName="添加系统字段" />
@@ -126,7 +123,7 @@ let Routes = (
     <Route path="level" components={LevelSettingContainer} breadcrumbName="职位级别设置" >
       <Route path="add" components={LevelSettingFormContainer} breadcrumbName="添加职位级别" />
       <Route path="edit/:levelSettingId" components={LevelSettingFormContainer} breadcrumbName="编辑职位级别" />
-    
+
     </Route>
     <Route path="internalrecommend" components={InternalRecommendContainer} breadcrumbName="内推设置" >
 

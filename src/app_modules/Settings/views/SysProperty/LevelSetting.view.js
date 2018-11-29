@@ -53,7 +53,7 @@ export default class LevelSetting extends PageView {
         key: 'action',
         render: (text, record) => (
           <ButtonGroups handleClick={this.handleBtnGroupClick.bind(this, record)}>
-            {/* <Button icon="edit" actionkey="editRoute" tooltext="编辑" /> */}
+            <Button icon="edit" actionkey="editRoute" tooltext="编辑" />
             {/* 合并unionId */}
             <Button icon="delete" disabled={record.isDefault ? true : false} actionkey="deleteLevelSettingAction" confirm="确认删除" tooltext="删除" />
           </ButtonGroups>

@@ -362,4 +362,10 @@ export const saveLevelSetting = (params) => {
   })
 }
 
+export const fetchInternalRecommend = (params) => {
+  return new FetchAPI().fetchPostList(`${APP_SERVER}/sysSetInterpolateAward/infoList`, {
+    body: params
+  })
+}
+
 // 
