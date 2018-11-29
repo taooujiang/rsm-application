@@ -299,7 +299,8 @@ let InterviewFeedbackContainer = connect((state)=>({
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewFeedbackView))
 
 let InterviewJudgeContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Channel"),
+  item:reducerItemSelector(state.ORMReducer,"Remind",'account'),
+  items:reducerListSelector(state.ORMReducer,"SystemOption"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewJudgeView))
