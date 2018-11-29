@@ -776,6 +776,17 @@ export function offerOptionAction(values){
     }
 }
 
+export function cancelFeedAction(value){
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('formSpin'))
+      return new API().fetchCancelFeed(values).then(json => {
+          dispatch(fetchSuccess('formSpin',true))
+      }).catch(ex => {
+          return dispatch(fetchFailure('formSpin',ex))
+      })
+    }
+}
+
 export function setLabelAction(values){
   return (dispatch, getState) => {
       dispatch(fetchRequest('formSpin'))

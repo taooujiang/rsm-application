@@ -114,12 +114,12 @@ export default class EmailTemplateLinkage extends Component{
                 {this.renderBindEmailForm()}
                 {this.renderUnBindEmailForm()}
                 <Row>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                             <Input label="发件人" name="mailFrom" disabled={true} defaultValue={this.state.email}  rules={[{required:true,message:"发件人不能为空"},{type:'email',message:"邮箱格式不正确"}]}/>
                         </FormItem>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         {
                         textVisible ? (
                             <Remote url="">
@@ -130,16 +130,16 @@ export default class EmailTemplateLinkage extends Component{
                                 <div style={{paddingLeft:'25%',lineHeight:'39px'}}><span style={{color:'red'}}>已绑定邮箱</span>，<a onClick={this.showUnbindModal.bind(this)}>点击更改绑定</a>邮箱</div>
                             </Remote>
                         )
-                    }
+                      }
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                           <Input label="收件人" name="mailTo" defaultValue={mailTo} rules={[{required:true,message:"收件人不能为空"},{type:'email',message:"邮箱格式不正确"}]}/>
                         </FormItem>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                             <Select label="邮件模版" name="groupName" onChange={this.templateChange.bind(this)}  renderItem={this.renderEmailSelectOption} fetch={`${APP_SERVER}/template/listJson`} params={{item:{type:"2",templateUse:templateUse}}}>
                             </Select>
@@ -150,7 +150,7 @@ export default class EmailTemplateLinkage extends Component{
                             <Input label="邮件主题" name="mailSubject" defaultValue={mailSubject} rules={[{required:true,message:"邮件主题不能为空"},{validator:customRules.required},{max:20,message:"邮件主题不能超过20个字"}]}/>
                         </FormItem>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                             <FileUpload name="file" uploadType="1"  onResponse={this.responseType} action="/fileUpload/file/upload?type="></FileUpload>
                         </FormItem>
@@ -182,13 +182,13 @@ export  class SmsTemplateLinkage extends Component{
             <div>
                 {this.props.children}
                 <Row>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                             <Select label="短信模版" name="groupName1" onChange={this.templateChange.bind(this)}  renderItem={this.renderSmsSelectOption} fetch={`${APP_SERVER}/template/listJson`} params={{item:{type:"1",templateUse:templateUse}}}>
                             </Select>
                         </FormItem>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <FormItem {...formFullItemLayout}>
                             <Input label="收件人" name="smsMobilephone" defaultValue={receiver} rules={[{required:true,message:"收件人不能为空"},{validator:customRules.required},{validator:customRules.checkMobile}]}/>
                         </FormItem>

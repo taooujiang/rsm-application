@@ -42,7 +42,9 @@ let initialState = {
     tableSpin:false,
     formSpin:false,
   },
-  interviewInfo:new Object(),
+  interviewInfo:{
+    map:{}
+  },
   count:new Object(),
   checks:new Array(),
   item:new Object(),

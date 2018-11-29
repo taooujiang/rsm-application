@@ -112,7 +112,7 @@ let EntryFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pur
 let RelatedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalWidthView)(RelatedFormView))
 let RejectFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(RejectFormView))
 let OfferNopassFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(OfferNopassForm))
-let FeedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalWidthView)(FeedFormView))
+let FeedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(FeedFormView))
 
 let Forward2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Forward2OtherFormView))
 let Recommend2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Recommend2OtherFormView))

@@ -2313,7 +2313,10 @@ export class PersonFeedRecord extends Component{
     return detailType==2 || detailType==3 ||detailType==4 || detailType==10 ?(
       <div className="feedRecord-box">
           <Permission expression={status <= 2 && detailType==2 && !isLock && authorization}>
-            <Button icon="plus" onClick={this.handleAddFeed.bind(this,item)} className="add-feed">添加面试</Button>
+            <ButtonGroup className="btn-box">
+              <Button>请候选人为面试评分</Button>
+              <Button icon="plus" onClick={this.handleAddFeed.bind(this,item)} className="add-feed">添加面试</Button>
+            </ButtonGroup>
           </Permission>
 					{lists.length?
 					<Timeline>
@@ -2374,6 +2377,10 @@ class PersonFeedRecordItem extends Component{
     let {actions,router} = this.props
     actions.delayAction(router,id,type,time)
   }
+  handleCancleFeed(id){
+    let {actions} = this.props
+    actions.cancelFeedAction({id:id})
+  }
   renderInterviewList(it,item,resumeId){
     let {detailType} = this.props
     if(item.statusStr != 6 && detailType != 10){
@@ -2406,8 +2413,10 @@ class PersonFeedRecordItem extends Component{
     }
     if(item.statusStr == 1){
       return (<ButtonGroup>
-        <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>
-      </ButtonGroup>)
+        {/* <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>*/}
+        <Button>修改面试</Button>
+        <Button onClick={this.handleCancleFeed.bind(this,item.id)}>取消面试</Button>
+    </ButtonGroup>)
     }else if(item.isFeedback != 2 && item.statusStr != 6 && !urgeShow){
       return(<ButtonGroup>
         <Button onClick={this.handleUrge.bind(this,item.id)}>催促反馈</Button>
@@ -2423,16 +2432,19 @@ class PersonFeedRecordItem extends Component{
       3:"#ff8156",
       4:"#38c4a7"
     }
+    console.log(item)
     return(
       <div className="feedRecored-item">
         <div className="item-head"><Icon type="down" /><span className="item-head-time">{translateTime(item.interviewTime,"MM月DD日")}</span><span className="feed-status">{translateDic("interviewstate",item.statusStr)}</span></div>
         <div className="item-body">
           <div className="item-feed-info">
-            面试信息：
+            <span className="title">面试信息：</span>
             <Tag className="interview-stage-tag" color={json[item.type]}>{translateDic("interviewstage",item.type)}</Tag>
             {translateTime(item.interviewTime,"HH:mm")}
             {this.renderBtns()}
           </div>
+          <div className="item-feed-info"><span className="title">面试地址：</span>{item.currentAddress}</div>
+          <div className="item-feed-info"><span className="title">面试方式：</span>{translateDic("interviewWay",item.interviewWay)}</div>
           <div className="item-feedback-info">
             {this.renderFeedBackList()}
           </div>
