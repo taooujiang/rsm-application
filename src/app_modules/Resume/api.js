@@ -185,5 +185,8 @@ export default class API extends FetchAPI {
   fetchLockChange(params){
       return this.fetchPost(`${APP_SERVER}/resumeLockinfo/saveJson`, {body: params})
   }
+  fetchCancelFeed(params){
+    return this.fetchPost(`${APP_SERVER}/interviewPlan/deleteInterview`, {body: params})
+  }
 
 }

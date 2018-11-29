@@ -34,6 +34,7 @@ const RadioGroup = Radio.Group;
 class FeedForm extends Component{
 
   state={
+    time:'1',
     which:'2',
     interviewFlag:true,
   }
@@ -43,6 +44,9 @@ class FeedForm extends Component{
     }
     renderJobOption(data,idx){
         return (<Select.Option value={data.jobId} key={"Job"+idx}>{data.jobTitle}</Select.Option>)
+    }
+    renderAreaOption(data,idx){
+      return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
     }
     renderInterviewerOption(data,idx){
         return (<Select.Option value={data.account} key={"Interviewer"+idx}>{data.name}</Select.Option>)
@@ -64,6 +68,11 @@ class FeedForm extends Component{
         which:e.target.value
       })
     }
+    handleChangeTime(e){
+      this.setState({
+        time:e.target.value
+      })
+    }
 
   render() {
     let  {
@@ -80,6 +89,10 @@ class FeedForm extends Component{
         { label: '短信通知', value: '1'},
         { label: '不通知', value: '0' },
     ];
+    const sendOption = [
+      { label: "立即发送" ,value :"1"},
+      { label: "定时发送" ,value :"2"},
+    ]
 
     // console.log(this.state.interviewFlag)
     return (
@@ -91,31 +104,52 @@ class FeedForm extends Component{
             <Input type="hidden" name="type" defaultValue={type}/>
           </FormItem>
           <Row>
-          <Col span={12}>
-            <FormItem>
-              <Input label="面试阶段" name="feed"  readOnly defaultValue={DictUtils.getDictLabelByValue("interviewstage",type)}/>
-            </FormItem>
-            {createble?null:<span className="feed-disabled">当前候选人已安排完全部面试</span>}
-          </Col>
-          <Col span={12}>
-            <FormItem>
-              <DateTimePicker name="interviewTime" defaultDate={moment().add(1,"days")} defaultTime={moment().set({hour:9,minute:0,second:0})} label="面试时间" rules={[{required: true, message: "面试时间不可为空"}]}/>
-            </FormItem>
-          </Col>
-          <Col span={24}>
-            <FormItem>
-              <Select label="面试官" name="interviewerIds" mode="multiple"  fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[{required: true, message: "面试官不可为空"},{validator:customRules.maxLength,value:3,message:"面试官最多选择3个"}]}></Select>
-            </FormItem>
-          </Col>
+            <Col span={24}>
+              <FormItem>
+                <Input label="面试阶段" name="feed"  readOnly defaultValue={DictUtils.getDictLabelByValue("interviewstage",type)}/>
+              </FormItem>
+              {createble?null:<span className="feed-disabled">当前候选人已安排完全部面试</span>}
+            </Col>
+            <Col span={24}>
+              <FormItem>
+                <DateTimePicker name="interviewTime" defaultDate={moment().add(1,"days")} defaultTime={moment().set({hour:9,minute:0,second:0})} label="面试时间" rules={[{required: true, message: "面试时间不可为空"}]}/>
+              </FormItem>
+            </Col>
+            <Col span={24}>
+              <FormItem>
+                <Select label="面试官" name="interviewerIds" mode="multiple"  fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[{required: true, message: "面试官不可为空"},{validator:customRules.maxLength,value:3,message:"面试官最多选择3个"}]}></Select>
+              </FormItem>
+            </Col>
+            <Col span={24}>
+              <FormItem>
+                <Select label="面试方式" name="interviewWay"  fetch={DictUtils.getDictByType("interviewWay")} renderItem={this.renderSelectOption}></Select>
+              </FormItem>
+            </Col>
+            <Col span={24}>
+              <FormItem>
+                <Select label="面试地址" name="companyId"  fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} ></Select>
+              </FormItem>
+            </Col>
           </Row>
         <Row>
             <FormItem>
               <RadioGroup name="noticeType" label="通知候选人" options={options}  onChange={this.handleChange.bind(this)} defaultValue={this.state.which}/>
             </FormItem>
             {this.renderSmsOrEmail()}
-            <FormItem>
+            {/*<FormItem>
               <Checkbox label="通知面试官" name="interviewerNoticeType">短信通知</Checkbox>
+            </FormItem>*/}
+            <FormItem>
+              <RadioGroup name="sendTime" label="通知时间" options={sendOption}  onChange={this.handleChangeTime.bind(this)} defaultValue={this.state.time}/>
             </FormItem>
+            {
+              this.state.time == '2' ?
+              <FormItem>
+                <DateTimePicker name="interviewTime" defaultDate={moment().add(1,"days")} defaultTime={moment().set({hour:9,minute:0,second:0})} />
+              </FormItem>
+              :
+              null
+            }
           </Row>
       </BaseForm>
     )
@@ -130,7 +164,7 @@ export default class FeedFormView extends FormPage{
   }
   //处理表格提交后动作
   handleSubmit(values){
-    let {actions,location,router,reduce:{interviewInfo:{createble}}} = this.props;
+    let {actions,location,router,reduce:{interviewInfo:{map:{createble}}}} = this.props;
       if(createble){
         actions.feedArrange(values)
         actions.backRouteReload(router,location)
@@ -160,10 +194,10 @@ export default class FeedFormView extends FormPage{
         this.form.setFieldsValue(object)
     }
   render() {
-    let {params:{resumeId}, reduce:{interviewInfo},location:{state:{item}}} = this.props;
+    let {params:{resumeId}, reduce:{interviewInfo:{map}},location:{state:{item}}} = this.props;
     return (
       <Spin tip="Loading..." spinning={false}>
-        <FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)}  saveFormRef={this.saveFormRef} resumeId={resumeId} info={interviewInfo} item={item}>
+        <FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)}  saveFormRef={this.saveFormRef} resumeId={resumeId} info={map} item={item}>
             <Button type="primary" htmlType="submit"  onClick={this.onSubmit.bind(this)}>确认</Button>
             <Button>取消</Button>
         </FeedForm>
