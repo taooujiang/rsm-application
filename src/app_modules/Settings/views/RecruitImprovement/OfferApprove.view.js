@@ -7,17 +7,23 @@ import ButtonGroups from 'app/components/ButtonGroups'
 
 @NestedComponent()
 export default class OfferApprove extends PageView {
-  renderToolbar() {
-    return (
-      <ButtonGroups >
-        <Button type="primary" permission="company" actionkey="add">添加</Button>
-      </ButtonGroups>
-    )
-  }
   componentDidMount() {
     const { actions } = this.props
     actions.offerApproveListAction()
   }
+  renderToolbar() {
+		return (
+			<ButtonGroups handleClick={this.handleAddMenu.bind(this)}>
+				<Button type="primary" permission="company" actionkey="add">添加</Button>
+			</ButtonGroups>
+		)
+	}
+	handleAddMenu(actionkey){
+		let { actions, router } = this.props;
+		if(actionkey == "add"){
+			actions.addRoute(router)
+		}
+	}
   _renderSingleTable(dataSource) {
     let { actions, reduce, router } = this.props
     let { spins: { tableSpin } } = reduce
@@ -27,6 +33,7 @@ export default class OfferApprove extends PageView {
       rowkey: 'id',
       columns: [{
         title: "审批阶段",
+        align: "center",
         width: 100,
         dataIndex: 'stage',
         key: 'stage',
@@ -41,6 +48,7 @@ export default class OfferApprove extends PageView {
         },
       }, {
         title: "审批人",
+        align: "center",
         width: 100,
         dataIndex: 'accountName',
         key: 'accountName',
@@ -51,33 +59,7 @@ export default class OfferApprove extends PageView {
     )
   }
   renderTableList(items) {
-    let { actions, reduce, router } = this.props
-    let { spins: { tableSpin } } = reduce
-    const tableConf = {
-      loading: tableSpin,
-      dataSource: items,
-      rowkey: 'id',
-      columns: [{
-        title: "审批阶段",
-        width: 100,
-        dataIndex: 'company',
-        key: 'company',
-      }, {
-        title: "审批人",
-        width: 100,
-        dataIndex: 'companyArea',
-        key: 'companyArea',
-        render: (text, record) => (
-          record.province + record.city + record.county
-        ),
-      },
-      ],
-    }
-    console.log('dsadsadsad', items.map(e => { return this._renderSingleTable(e) }))
     if (items.length) return items.map(e => { return this._renderSingleTable(e) })
-    // return (
-    //   <DataTable  {...tableConf} pagination={false} />
-    // )
   }
   render() {
     let { actions, reduce, items, router } = this.props

@@ -69,13 +69,13 @@ class RemindFormView extends FormPage {
   constructor(props) {
     super(props);
     this.state = {
-			msg_1001: this.props.item.msg_1001
-		};
+      msg_1001: this.props.item.msg_1001
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.item["msg_1001"] != this.props.item["msg_1001"]) {
-			console.log(nextProps.item["msg_1001"],'componentWillReceiveProps',this.props.item["msg_1001"])
+      console.log(nextProps.item["msg_1001"], 'componentWillReceiveProps', this.props.item["msg_1001"])
       this.setState({
         msg_1001: nextProps.item["msg_1001"]
       });
@@ -98,9 +98,9 @@ class RemindFormView extends FormPage {
     }
   }
   initDayOrMonthValue(type) {
-		const{item}=this.props
+    const { item } = this.props
     let value = this.state.msg_1001
-    console.log(this.state.msg_1001,'valuevaluevaluevaluevalue')
+    console.log(this.state.msg_1001, 'valuevaluevaluevaluevalue')
     if (type == "day" && value == 1) {
       return true;
     } else if (type == "month" && value == 2) {
@@ -111,11 +111,11 @@ class RemindFormView extends FormPage {
   }
 
   componentDidMount() {
-    let { params, data, actions,item } = this.props;
-		actions.fetchRemindAction(params.id);
-		this.setState({
-			msg_1001:item["msg_1001"]
-		});
+    let { params, data, actions, item } = this.props;
+    actions.fetchRemindAction(params.id);
+    this.setState({
+      msg_1001: item["msg_1001"]
+    });
   }
   handleSubmit(values) {
     let { actions } = this.props;
@@ -398,6 +398,32 @@ class RemindFormView extends FormPage {
       </SwitchCard>
     );
   }
+  renderOfferApprove() {
+    let { item } = this.props;
+    return (
+      <SwitchCard
+        className="remind-inner-card"
+        title="Offer审批提醒"
+        bordered={false}
+        name="msg_1032"
+        defaultValue={this.initDefaultValue(item["msg_1032"])}
+      >
+        <Row>
+          <span>有offer需要审批或有offer审批结果反馈时，发消息提醒HR。</span>
+        </Row>
+        <Row>
+          <FormItem>
+            <Checkbox
+              name="msg_1033"
+              defaultValue={this.initDefaultValue(item["msg_1033"])}
+              valuePropName="checked"
+            />
+          </FormItem>
+          <span>是否开通短信提醒</span>
+        </Row>
+      </SwitchCard>
+    );
+  }
   renderType11() {
     let { item } = this.props;
     return (
@@ -594,6 +620,7 @@ class RemindFormView extends FormPage {
             {this.renderType14(item)}
             {this.renderType15(item)}
             {this.renderOfferType(item)}
+            {this.renderOfferApprove(item)}
           </Collapse>
           <h3 className="collapse-form-title">员工相关</h3>
           <Collapse>
