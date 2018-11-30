@@ -34,7 +34,7 @@ const RadioGroup = Radio.Group;
 class FeedForm extends Component{
 
   state={
-    time:'1',
+    time:'0',
     which:'2',
     interviewFlag:true,
   }
@@ -81,7 +81,9 @@ class FeedForm extends Component{
       children,
       saveFormRef,
       resumeId,
-      info:{type,createble}
+      info:{type,createble},
+      companyId,
+      id
     } = this.props
     const {location,updateFieldValue} = this.props;
     const options = [
@@ -90,8 +92,8 @@ class FeedForm extends Component{
         { label: '不通知', value: '0' },
     ];
     const sendOption = [
-      { label: "立即发送" ,value :"1"},
-      { label: "定时发送" ,value :"2"},
+      { label: "立即发送" ,value :"0"},
+      { label: "定时发送" ,value :"1"},
     ]
 
     // console.log(this.state.interviewFlag)
@@ -102,6 +104,9 @@ class FeedForm extends Component{
           </FormItem>
           <FormItem>
             <Input type="hidden" name="type" defaultValue={type}/>
+          </FormItem>
+          <FormItem>
+            <Input type="hidden" name="id" defaultValue={id}/>
           </FormItem>
           <Row>
             <Col span={24}>
@@ -127,7 +132,7 @@ class FeedForm extends Component{
             </Col>
             <Col span={24}>
               <FormItem>
-                <Select label="面试地址" name="companyId"  fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} ></Select>
+                <Select label="面试地址" name="companyId" defaultValue={companyId} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} ></Select>
               </FormItem>
             </Col>
           </Row>
@@ -140,12 +145,12 @@ class FeedForm extends Component{
               <Checkbox label="通知面试官" name="interviewerNoticeType">短信通知</Checkbox>
             </FormItem>*/}
             <FormItem>
-              <RadioGroup name="sendTime" label="通知时间" options={sendOption}  onChange={this.handleChangeTime.bind(this)} defaultValue={this.state.time}/>
+              <RadioGroup name="smsTimed" label="通知时间" options={sendOption}  onChange={this.handleChangeTime.bind(this)} defaultValue={this.state.time}/>
             </FormItem>
             {
               this.state.time == '2' ?
               <FormItem>
-                <DateTimePicker name="interviewTime" defaultDate={moment().add(1,"days")} defaultTime={moment().set({hour:9,minute:0,second:0})} />
+                <DateTimePicker name="smsTime" defaultDate={moment().add(1,"days")} defaultTime={moment().set({hour:9,minute:0,second:0})} />
               </FormItem>
               :
               null
@@ -194,10 +199,10 @@ export default class FeedFormView extends FormPage{
         this.form.setFieldsValue(object)
     }
   render() {
-    let {params:{resumeId}, reduce:{interviewInfo:{map}},location:{state:{item}}} = this.props;
+    let {params:{resumeId}, reduce:{interviewInfo:{map},companyId},location:{state:{item,id}}} = this.props;
     return (
       <Spin tip="Loading..." spinning={false}>
-        <FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)}  saveFormRef={this.saveFormRef} resumeId={resumeId} info={map} item={item}>
+        <FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)}  saveFormRef={this.saveFormRef} resumeId={resumeId} info={map} companyId={companyId} item={item} id={id}>
             <Button type="primary" htmlType="submit"  onClick={this.onSubmit.bind(this)}>确认</Button>
             <Button>取消</Button>
         </FeedForm>

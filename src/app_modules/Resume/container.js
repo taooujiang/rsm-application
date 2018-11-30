@@ -37,6 +37,7 @@ import Recommend2OtherFormView from './views/Recommend2Other.view'
 import ResumeRemarkView from './views/ResumeRemark.view'
 
 
+import ResumeImportView from './views/ResumeImport.view'
 import DistributedView from './views/Distributed.view'
 import DistributedForm from './views/DistributedAction.view'
 import TalentForm from './views/TalentAction.view'
@@ -125,6 +126,9 @@ let LabelFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pur
 let RemarksFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(RemarksFormView)
 let ResumeRemarkContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeRemarkView)
 
+
+let ResumeImportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeImportView)
+
 let ApprovalContainer = connect((state)=>({
     items:reducerListSelector(state.ORMReducer,"Resume"),
     reduce:state.resumeReducer,
@@ -155,7 +159,8 @@ export {
   CreditFilingReasonFormContainer,
   JoinTalentFormContainer,
   ApprovalContainer,
-  OfferNopassFormContainer
+  OfferNopassFormContainer,
+  ResumeImportContainer
 }
 
 export default Container;

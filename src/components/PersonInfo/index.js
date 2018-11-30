@@ -2324,7 +2324,7 @@ export class PersonFeedRecord extends Component{
               return <Timeline.Item
               dot={<Icon type="calendar" style={{ fontSize: '20px' ,color:"#fff"}} />
             } key={idx}>
-              <PersonFeedRecordItem item={it} actions={actions} router={router} detailType={detailType}/>
+              <PersonFeedRecordItem item={it} actions={actions} router={router} detailType={detailType} personInfo={item}/>
             </Timeline.Item>
             })}
 					</Timeline>
@@ -2381,6 +2381,10 @@ class PersonFeedRecordItem extends Component{
     let {actions} = this.props
     actions.cancelFeedAction({id:id})
   }
+  handleEditFeed(item,id){
+    let {actions} = this.props
+    actions.feedAction(router,item,id)
+  }
   renderInterviewList(it,item,resumeId){
     let {detailType} = this.props
     if(item.statusStr != 6 && detailType != 10){
@@ -2406,7 +2410,7 @@ class PersonFeedRecordItem extends Component{
     })
   }
   renderBtns(){
-    let {item,detailType} = this.props
+    let {item,detailType,personInfo} = this.props
     let {urgeShow} = this.state
     if(detailType == 10 ){/*为员工时不返回按钮**/
       return null
@@ -2414,7 +2418,7 @@ class PersonFeedRecordItem extends Component{
     if(item.statusStr == 1){
       return (<ButtonGroup>
         {/* <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button>*/}
-        <Button>修改面试</Button>
+        <Button onClick={this.handleEditFeed.bind(this,personInfo,item.id)}>修改面试</Button>
         <Button onClick={this.handleCancleFeed.bind(this,item.id)}>取消面试</Button>
     </ButtonGroup>)
     }else if(item.isFeedback != 2 && item.statusStr != 6 && !urgeShow){

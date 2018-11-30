@@ -46,11 +46,7 @@ export default class FileUpload extends Component{
         )
     }
 }
-FileUpload.defaultProps={
-  action:`/fileUpload/file/upload?type=`,
-  accept:"",
-  beforeUpload:()=>{}
-}
+
 
 export class ImgUpload extends FileUpload{
     constructor(props){
@@ -67,7 +63,7 @@ export class ImgUpload extends FileUpload{
         this.props.onChange(nextProps.imgUrl)
       }
     }
-    
+
     render(){
         let { type ,beforeUpload,btnText,accept,tipText,imgWidth } = this.props
         let {imgUrl} = this.state
@@ -94,7 +90,10 @@ FileUpload.propTypes = {
 FileUpload.defaultProps = {
     onSuccess: function(){},
     onResponse:function(){},
-    type:1
+    type:1,
+    action:`/fileUpload/file/upload?type=`,
+    accept:"",
+    beforeUpload:()=>{}
 }
 ImgUpload.propTypes = {
     onSuccess: PropTypes.func,

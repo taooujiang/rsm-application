@@ -63,7 +63,7 @@ export function createResumeRoute(){
        }
         return dispatch => dispatch(routerActions.push(path))
     },
-    feedAction:function(router,item) {
+    feedAction:function(router,item,id) {
         let pathname = router.getCurrentLocation().pathname
          let path = {
              pathname : `${pathname}/feed`,
@@ -72,6 +72,7 @@ export function createResumeRoute(){
                pathname:router.getCurrentLocation().pathname
              }
          }
+         if(id){path.state.id = id}
         return dispatch => dispatch(routerActions.push(path))
     },
      joinAction:function(router,ids,libType) {

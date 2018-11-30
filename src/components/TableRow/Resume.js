@@ -61,21 +61,21 @@ export default class Intro extends Component{
     let eduInfo = filterNull([item.lastSchool,item.lastMajor,item.lastSchoolStart+" - "+ translateToNow(item.lastSchoolEnd)]).join(" · ")
 
     return(
-      <SmartLink style={{color:'#323232'}} to={{pathname:`${item.id}/detail`,state:{orgin:this.props.pathname}}} className="resumeRowInfo">
+      <div className="resumeRowInfo">
         <div className="base">
-          <span className="name" style={{marginRight:10}}>{item.name}</span>
+          <span className="name" style={{marginRight:10}}><SmartLink style={{color:'#323232'}} to={{pathname:`${item.id}/detail`,state:{orgin:this.props.pathname}}} >{item.name}</SmartLink></span>
           <PersonIconShow item={item}/>
           <Tooltip title={titleInfo}>{titleInfo}</Tooltip>
         </div>
 				{this.isCollegeOrWorkExpShow(item.company,item.lastJobTitle,item.lastJobStart+" - "+ item.lastJobEnd)?<div style={{color:'#808080'}} className="company-info">
-					<Icon type="idcard" style={{marginRight:'5px'}}/>
-          <Tooltip title={companyInfo}>{companyInfo}</Tooltip>
+					<SmartLink style={{color:'#323232'}} to={{pathname:`${item.id}/detail`,state:{orgin:this.props.pathname}}} ><Icon type="idcard" style={{marginRight:'5px'}}/>
+          <Tooltip title={companyInfo}>{companyInfo}</Tooltip></SmartLink>
         </div>:null}
         {this.isCollegeOrWorkExpShow(item.lastSchool,item.lastMajor,item.lastSchoolStart+" - "+ item.lastSchoolEnd)?<div style={{color:'#808080'}} className="edu-info">
-					<Icon type="book" style={{marginRight:'5px'}}/>
-          <Tooltip title={eduInfo}>{eduInfo}</Tooltip>
+					<SmartLink style={{color:'#323232'}} to={{pathname:`${item.id}/detail`,state:{orgin:this.props.pathname}}} ><Icon type="book" style={{marginRight:'5px'}}/>
+          <Tooltip title={eduInfo}>{eduInfo}</Tooltip></SmartLink>
         </div>:null}
-      </SmartLink>
+      </div>
     )
   }
 }

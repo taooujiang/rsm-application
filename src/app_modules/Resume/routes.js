@@ -26,7 +26,8 @@ import Container,{
   CreditFilingReasonFormContainer,
   JoinTalentFormContainer,
   ApprovalContainer,
-  OfferNopassFormContainer
+  OfferNopassFormContainer,
+  ResumeImportContainer
 } from './container'
 import {Relate2JobFormContainer} from '../Elite/container'
 import {DetailContainer} from '../Job/container'
@@ -164,8 +165,8 @@ let Routes = (
     <Route path="distrib/:id" components={DistributedJobContainer}>
       {React.createElement(Route,{},RoutesResume.props.children)}
     </Route>
-    <Route path="approval" components={ApprovalContainer}>
-    </Route>
+    <Route path="approval" components={ApprovalContainer}></Route>
+    <Route path="import" components={ResumeImportContainer}></Route>
   </Router>
 )
 export {Container,RoutesResume}
