@@ -332,6 +332,18 @@ export default class API extends FetchAPI {
     })
   }
   
+  saveOfferApprove(params) {
+    return this.fetchPost(`${APP_SERVER}/sysSetOfferApproval/saveJson`, {
+      body: params
+    })
+  }
+
+  deleteOfferApprove(params) {
+    return this.fetchPost(`${APP_SERVER}/sysSetOfferApproval/deleteJson`, {
+      body: params
+    })
+  }
+
   fetchLevelSettingList(params) {
     return this.fetchPostList(`${APP_SERVER}/sysPositionLevel/listJson`, {
       body: params
@@ -370,6 +382,18 @@ export const fetchInternalRecommend = (params) => {
 
 export const saveInternalRecommend = (params) => {
   return new FetchAPI().fetchPost(`${APP_SERVER}/sysSetInterpolateAward/saveJson`, {
+    body: params
+  })
+}
+
+export const fechAvailableAccount = (params) => {
+  return new FetchAPI().fetchGet(`${APP_SERVER}/accountOperate/findUserByStatus?status=1`, {
+    body: params
+  })
+}
+
+export const fechUnavailableAccount = (params) => {
+  return new FetchAPI().fetchGet(`${APP_SERVER}/accountOperate/findUserByStatus?status=0`, {
     body: params
   })
 }

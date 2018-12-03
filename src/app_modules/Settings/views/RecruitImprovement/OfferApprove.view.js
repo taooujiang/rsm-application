@@ -4,6 +4,7 @@ import PageView from 'app/components/Page'
 import DataTable from 'app/components/DataTable'
 import { Button, Card, List, Avatar } from "antd"
 import ButtonGroups from 'app/components/ButtonGroups'
+import './style.less'
 
 @NestedComponent()
 export default class OfferApprove extends PageView {
@@ -12,18 +13,29 @@ export default class OfferApprove extends PageView {
     actions.offerApproveListAction()
   }
   renderToolbar() {
-		return (
-			<ButtonGroups handleClick={this.handleAddMenu.bind(this)}>
-				<Button type="primary" permission="company" actionkey="add">添加</Button>
-			</ButtonGroups>
-		)
-	}
-	handleAddMenu(actionkey){
-		let { actions, router } = this.props;
-		if(actionkey == "add"){
-			actions.addRoute(router)
-		}
-	}
+    return (
+      <ButtonGroups handleClick={this.handleAddMenu.bind(this)}>
+        <Button type="primary" permission="company" actionkey="add">添加</Button>
+      </ButtonGroups>
+    )
+  }
+  handleAddMenu(actionkey) {
+    let { actions, router } = this.props;
+    if (actionkey == "add") {
+      actions.addRoute(router)
+    }
+  }
+  handleDelete(id) {
+    let { actions, router } = this.props;
+    actions.offerApproveDeleteAction({ id })
+  }
+  handleEdit(data) {
+
+  }
+  handleBtnGroupClick(data, type) {
+    let { actions, router } = this.props;
+    actions[type]({ id: data.id })
+  }
   _renderSingleTable(dataSource) {
     let { actions, reduce, router } = this.props
     let { spins: { tableSpin } } = reduce
@@ -54,9 +66,27 @@ export default class OfferApprove extends PageView {
         key: 'accountName',
       }],
     }
-    return (
-      [<div>{dataSource.name}</div>, <DataTable  {...tableConf} pagination={false} />]
-    )
+    return [
+      <div className="offer-approvelist-item-title">
+        <h3>{dataSource.name}</h3>
+        <div>
+          {/* <Button type="primary" onClick={this.handleEdit.bind(this, dataSource)} style={{ marginRight: '10px' }}>
+            编辑
+          </Button>
+          <Button type="primary" onClick={this.handleDelete.bind(this, dataSource.id)} >
+            删除
+          </Button> */}
+          <ButtonGroups handleClick={this.handleBtnGroupClick.bind(this, dataSource)}>
+            <Button type="primary" actionkey="offerApproveEditAction" style={{ marginRight: '10px' }}>
+              编辑
+            </Button>
+            <Button type="primary" permission="company" confirm="确认删除" actionkey="offerApproveDeleteAction">删除</Button>
+          </ButtonGroups>
+
+        </div>
+      </div>,
+      <DataTable className="offer-approvelist-item"  {...tableConf} pagination={false} />
+    ]
   }
   renderTableList(items) {
     if (items.length) return items.map(e => { return this._renderSingleTable(e) })

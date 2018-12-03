@@ -284,7 +284,8 @@ let OfferApproveContainer = connect((state)=>({
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(OfferApproveView))
 
-let OfferApproveFormContainer = connect((state)=>({
+let OfferApproveFormContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"OfferApprove",props.params.offerApproveId),
   // items:reducerListSelector(state.ORMReducer,"OfferApprove"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
