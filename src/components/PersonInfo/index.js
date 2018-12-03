@@ -52,7 +52,7 @@ const ButtonGroup = Button.Group
 const {TextArea} = Input
 const RadioGroup = Radio.Group
 const MonthPicker = DatePicker.MonthPicker
-
+const InputGroup = Input.Group;
 
 /**打印函数start*/
 var CreatedOKLodop7766 = null, CLodopIsLocal;
@@ -2026,7 +2026,6 @@ class PersonOfferEdit extends FormPage{
   state={
     which:"2"
   }
-
   updateFieldValue(name,value){
       let {item} = this.props
        //console.log(item)
@@ -2074,16 +2073,27 @@ class PersonOfferEdit extends FormPage{
       which:e.target.value
     })
   }
+  renderAreaOption(data,idx){
+    return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
+  }
+  renderSelectOption(data,idx){
+    return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
+  }
   render(){
     const options = [
         /*{ label: '不通知', value: '0' },*/
         { label: '邮件通知', value: '2'},
         { label: '不通知', value: '0'},
     ];
+    const moneyOpt = [
+      {label:"月薪",value:'1'},
+      {label:"日薪",value:'2'},
+      {label:"年薪",value:'3'},
+    ]
     let {info} = this.props
     //console.log(this.props)
     return(
-      <BaseForm ref={this.saveFormRef}>
+      <BaseForm ref={this.saveFormRef} className="offer-edit">
         <FormItem>
           <Input type="hidden" name="resumeId" defaultValue={this.props.resumeId}/>
         </FormItem>
@@ -2092,6 +2102,17 @@ class PersonOfferEdit extends FormPage{
         </FormItem>
         <FormItem>
           <DatePicker label="预计入职日期" name="expectedEntryTime" defaultValue={info.expectedEntryTime?moment(info.expectedEntryTime):null} rules={[{required: true, message: "预计入职时间不可为空"},{validator:customRules.required}]}/>
+        </FormItem>
+        <InputGroup compact className="moneyGroup">
+          <FormItem>
+            <Select style={{width:80}} label="入职薪资" name="money" fetch={moneyOpt} renderItem={this.renderSelectOption}/>
+          </FormItem>
+          <FormItem className="moneyGroup-last">
+            <Input name="aaa"/>
+          </FormItem>
+        </InputGroup>
+        <FormItem>
+          <Select label="预计入职地址" name="companyId"  fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} ></Select>
         </FormItem>
         {/*<FormItem>
           <Input label="发件人" name="sendEmail"/>
