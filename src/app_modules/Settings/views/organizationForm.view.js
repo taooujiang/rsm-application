@@ -104,8 +104,7 @@ export default class OrganizationForm extends FormPage {
 					/>
 				</FormItem>
 				<FormItem>
-					{/* fetch 地址待后端更改 */}
-					<Select label="部门负责人" name="leaders" mode="multiple" defaultValue={parentOrg.accList} fetch={`${APP_SERVER}/accountOperate/getHrList`} renderItem={this.renderSelectOption} />
+					<Select label="部门负责人" name="leaders" mode="multiple" defaultValue={parentOrg.accList} fetch={`${APP_SERVER}/accountOperate/findUserByStatus?status=1`} renderItem={this.renderSelectOption} />
 				</FormItem>
 			</BaseForm>
 		);
