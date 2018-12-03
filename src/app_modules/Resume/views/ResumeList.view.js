@@ -204,8 +204,9 @@ export default class ResumeListView extends PageView {
           key: "channelIcon",
           dataIndex: "channelIcon",
           width: 120,
-          render:(val)=>{
-            return <Icon type={val} />
+          render:(val,row)=>{
+            let {channel} = row
+            return <Icon type={val} title={channel}/>
           }
       },{
           title: "来源",

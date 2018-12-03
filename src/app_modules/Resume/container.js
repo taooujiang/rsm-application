@@ -19,6 +19,7 @@ import ResumeDetailSameView from './views/ResumeDetailSame.view'
 import ResumeApproval from './views/ResumeApproval.view'
 
 import EntryFormView from './views/EntryForm.view'
+import EntryTimeView from './views/EntryTime.view'
 import RelatedFormView from './views/RelatedForm.view'
 import FeedFormView from './views/FeedForm.view'
 import RejectFormView from './views/RejectForm.view'
@@ -110,6 +111,7 @@ let JoinTalentFormContainer = connect(mapStateToProps, mapDispatchToProps, null,
 
 // let Container = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeListView)
 let EntryFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(EntryFormView))
+let EntryTimeContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(EntryTimeView))
 let RelatedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalWidthView)(RelatedFormView))
 let RejectFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(RejectFormView))
 let OfferNopassFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(OfferNopassForm))
@@ -139,6 +141,7 @@ export {
   ResumeDetailContainer,
   ResumeDetailSameContainer,
   ResumeDetailTabContainer,
+  EntryTimeContainer,
   EntryFormContainer,
   RelatedFormContainer,
   RejectFormContainer,

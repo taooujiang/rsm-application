@@ -13,7 +13,7 @@ import {
   Dropdown,
   Icon,
 } from 'antd'
-import {Link} from 'react-router'
+import SmartLink from 'app/components/SmartLink'
 import PageView from 'app/components/Page'
 import CalendarView from './Calendar.view'
 import {Layout,Fixed,Pane} from 'app/components/Layout'
@@ -158,7 +158,7 @@ export default class InterviewListView extends PageView {
             let {mobilephone,resumeId,name} = row
             return (
               <div>
-                <span style={{marginRight:10}}>{val}</span>
+                <SmartLink to={{pathname:`${resumeId}/detail`,state:{orgin:that.props.pathname}}}><span style={{marginRight:10}}>{val}</span></SmartLink>
                 {mobilephone ? <span onClick={that.handleCallPhone.bind(that,mobilephone,resumeId,name,2)} style={{cursor:"pointer"}}><Icon type="phone"/><span>{mobilephone}</span></span> : null}
               </div>
             )

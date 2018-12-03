@@ -4,7 +4,7 @@ import ReactRouter, {Router, Route, IndexRoute,IndexRedirect} from 'react-router
 import Container,{commincateContainer,hrReportContainer,ReportListContainer,ReasonReportContainer,WorkloadReportContainer,RecruitmentReportContainer,FeedbackReportContainer,ChannelReportContainer,CallReportContainer,RemarkReportContainer} from './container'
 import {
     ResumeDetailContainer,
-    EntryFormContainer,
+    EntryTimeContainer,
     RelatedFormContainer,
     FeedbackFormContainer,
     RejectFormContainer,
@@ -32,7 +32,7 @@ let Routes = (
     <Route path="remark" components={RemarkReportContainer}>
         <Route path=":resumeId/detail" components={ResumeDetailContainer} breadcrumbName="人才详情">
             <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-            <Route path="entry" components={EntryFormContainer} breadcrumbName="入职"/>
+            <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
             <Route path="related" components={RelatedFormContainer} breadcrumbName="关联职位"/>
             <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
             <Route path="feedback" components={FeedbackFormContainer} breadcrumbName="面试反馈"/>

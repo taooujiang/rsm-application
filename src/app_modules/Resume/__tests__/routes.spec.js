@@ -3,7 +3,7 @@ import {Router,createMemoryHistory } from 'react-router'
 import {shallow,mount,render} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import Routes,{RoutesResume} from '../routes'
-import Container,{JoinFormContainer,ResumeDetailContainer,OfferFormContainer,EntryFormContainer,RelatedFormContainer,FeedbackFormContainer,RejectFormContainer,FeedFormContainer,FolderContainer,RemarksFormContainer ,ResumeRemarkContainer} from '../container'
+import Container,{JoinFormContainer,ResumeDetailContainer,OfferFormContainer,EntryTimeContainer,RelatedFormContainer,FeedbackFormContainer,RejectFormContainer,FeedFormContainer,FolderContainer,RemarksFormContainer ,ResumeRemarkContainer} from '../container'
 
 import {DetailContainer} from 'app/app_modules/Job/container'
 import {creditFormContainer} from 'app/app_modules/Credit/container'

@@ -7,7 +7,7 @@ import {
   LabelFormContainer,
   ResumeDetailContainer,
   OfferFormContainer,
-  EntryFormContainer,
+  EntryTimeContainer,
   RelatedFormContainer,
   RejectFormContainer,
   FeedFormContainer,
@@ -33,7 +33,7 @@ let eliteRoute = (
     <Route path=":resumeId/detail" components={ResumeDetailContainer}>
 
 			<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-      <Route path="entry" components={EntryFormContainer} breadcrumbName="入职"/>
+      <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
       <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
       <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
       <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>

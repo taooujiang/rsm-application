@@ -18,7 +18,6 @@ import {
   Rate,
   Select
 } from 'antd'
-import {TreeSelectPicker} from 'app/components/TreeView'
 import {routerActions, push, replace} from 'react-router-redux'
 import {FormPage} from 'app/components/Page'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
@@ -27,9 +26,7 @@ const Option = Select.Option
 const {TextArea} = Input
 
 class EntryForm extends Component{
-  renderJobOption(data,idx){
-    return (<Select.Option value={data.jobId} key={idx}>{data.jobTitle}</Select.Option>)
-  }
+
   render() {
     const {
       form,
@@ -44,30 +41,14 @@ class EntryForm extends Component{
           <Input type="hidden" name="id" defaultValue={id} />
         </FormItem>
         <FormItem>
-          <Select name="jobId" label="职位" placeholder="请选择"  fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption}/>
-        </FormItem>
-        <FormItem>
-        <TreeSelectPicker
-          label="招聘部门"
-          name="groupId"
-          fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
-          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-          placeholder="选择部门"
-          treeDefaultExpandAll
-        />
-        </FormItem>
-        <FormItem>
-          <DatePicker label="入职日期" name="expectedEntryTime"   rules={[{required: true, message: "入职日期不可为空"}]}/>
-        </FormItem>
-        <FormItem>
-          <DatePicker label="预计转正日期" name="expectedEntryTime"   rules={[{required: true, message: "预计转正日期不可为空"}]}/>
+          <DatePicker label="预计入职日期" name="expectedEntryTime"   rules={[{required: true, message: "预计入职时间不可为空"}]}/>
         </FormItem>
       </BaseForm>
     )
   }
 }
 
-export default class EntryFormView extends FormPage{
+export default class EntryTimeView extends FormPage{
 
   //处理表格提交后动作
   handleSubmit(values){

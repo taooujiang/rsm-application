@@ -516,7 +516,7 @@ class OptionButtonsResume extends OptionCommonFn{
     return(
       <ButtonGroup style={{padding:'20px'}}>
         {this.renderButtons()}
-        <Button className="block" onClick={this.send2Other.bind(this)}>发送给面试官</Button>
+        <Button className="block" onClick={this.send2Other.bind(this)}>发送部门负责人</Button>
         <Button className="block"  confirm="是否批量淘汰" onClick={this.eliminate.bind(this)}>淘汰</Button>
         <Button className="block" onClick={this.send2OtherJob.bind(this)}>推荐到其他职位</Button>
         <Button className="half-block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>

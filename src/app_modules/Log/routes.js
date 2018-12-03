@@ -9,7 +9,7 @@ import {
   ResumeDetailTabContainer,
   ResumeDetailSameContainer,
   OfferFormContainer,
-  EntryFormContainer,
+  EntryTimeContainer,
   RelatedFormContainer,
   RejectFormContainer,
   FeedFormContainer,
@@ -42,7 +42,7 @@ let Routes = (
       <Router path=":resumeId">
         <Route path="detail" components={ResumeDetailContainer}>
           <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-          <Route path="entry" components={EntryFormContainer} breadcrumbName="入职" />
+          <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职" />
           <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位" />
           <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排" />
           <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈" />
@@ -60,7 +60,7 @@ let Routes = (
           <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库" />
         </Route>
         <Route path=":resumeId(/detail)/add" components={creditFormContainer} breadcrumbName="诚信记录" />
-        <Route path=":resumeId(/detail)/entry" components={EntryFormContainer} breadcrumbName="入职" />
+        <Route path=":resumeId(/detail)/entry" components={EntryTimeContainer} breadcrumbName="入职" />
         <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位" />
         <Route path=":resumeId(/detail)/feed" components={FeedFormContainer} breadcrumbName="面试安排" />
         <Route path=":resumeId(/detail)/feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈" />
@@ -78,7 +78,7 @@ let Routes = (
 
         <Route path=":resumeId/samedetail" components={ResumeDetailSameContainer}>
           <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-          <Route path="entry" components={EntryFormContainer} breadcrumbName="入职" />
+          <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职" />
           <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位" />
           <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排" />
           <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈" />
@@ -98,7 +98,7 @@ let Routes = (
 
         <Route path=":resumeId/tabdetail" components={ResumeDetailTabContainer}>
           <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-          <Route path="entry" components={EntryFormContainer} breadcrumbName="入职" />
+          <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职" />
           <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位" />
           <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排" />
           <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈" />

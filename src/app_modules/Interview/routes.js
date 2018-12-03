@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactRouter, {Router, Route, IndexRoute} from 'react-router'
 
 import Container,{CalendarContainer,DelayContainer,} from './container'
-import {OfferFormContainer,EntryFormContainer,RelatedFormContainer,JoinFormContainer,FeedFormContainer,FeedbackFormContainer,RejectFormContainer} from '../Resume/container'
+import {OfferFormContainer,EntryTimeContainer,RelatedFormContainer,JoinFormContainer,FeedFormContainer,FeedbackFormContainer,RejectFormContainer} from '../Resume/container'
 import {DetailContainer} from '../Job/container'
 import {ResumeDetailContainer} from '../Resume/container'
 import {creditFormContainer} from '../Credit/container'
