@@ -84,7 +84,7 @@ class TalentLabel extends Component{
       <div>
         {tags.map((tag, index) => {
           const tagElem = (
-            <Tag className='talent-tag' key={tag.optionId} closable={true} afterClose={ this.handleClose.bind(this,tag.optionId)}>
+            <Tag className='talent-tag' key={tag.optionId} closable={!tag.isSystem} afterClose={ this.handleClose.bind(this,tag.optionId)}>
               {tag.optionName}
             </Tag>
           );

@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import NestedComponent from 'app/decorators/NestedComponent'
 import PageView from 'app/components/Page'
 import DataTable from 'app/components/DataTable'
-import { Button, Card, List, Avatar } from "antd"
+import { Button, Card, List, Avatar,Input,Select } from "antd"
 import ButtonGroups from 'app/components/ButtonGroups'
+import AdvancedSearchForm from 'app/components/AdvancedSearch'
+import CalendarPicker from "app/components/CalendarPicker";
+import moment from "moment";
 
 @NestedComponent()
 export default class ActionLog extends PageView {
@@ -14,12 +17,96 @@ export default class ActionLog extends PageView {
       </ButtonGroups>
     )
   }
-  
+  componentDidMount(){
+    const{actions}=this.props
+    actions.actionLogListAction()
+  }
+  handleFilter(value){
+    let {time}=value
+    time = [value.time[0].format("YYYY-MM-DD"),value.time[1].format("YYYY-DD-MM")]
+    console.log({...value,time},'aaaaaaaaaaaaa')
+    // const{actions}=this.props
+    // actions.actionLogListAction()
+  }
+  renderSearchBar() {
+    let { reduce } = this.props
+    let keysOption = [
+      {
+        label: "姓名",
+        value: "name"
+      },
+      {
+        label: "用户名",
+        value: "account"
+      }
+    ]
+    return (
+      <AdvancedSearchForm  keysOption={keysOption} filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} autoSubmitForm={true}>
+        <CalendarPicker
+          label="统计时间"
+          name="time" />
+        <Input name="operateAccName" label="操作人" />
+        {/* todo，option需要后端接口 */}
+        <Select name="moduleId" label="操作模块" placeholder="请选择" fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderSelectOption} style={{ width: '120px' }} />
+      </AdvancedSearchForm>
+    )
+  }
+
+  renderTable(){
+		let { actions, reduce, items,router } = this.props
+		let { spins: { tableSpin } } = reduce
+		const tableConf = {
+			loading: tableSpin,
+			dataSource: items,
+			rowkey: 'id',
+			columns: [{
+				title: "操作时间",
+				width: 100,
+				dataIndex: 'inputTime',
+				key: 'inputTime',
+			}, {
+				title: "操作人",
+				width: 80,
+				dataIndex: 'operateAccName',
+				key: 'operateAccName',
+				
+			}, {
+				title: "账号",
+				width: 100,
+				dataIndex: 'operateAcc',
+				key: 'operateAcc',
+			},
+			{
+				title: '操作模块',
+				width: 100,
+				dataIndex: 'moduleName',
+				key: 'moduleName',
+			
+			},
+			{
+				title: '操作功能',
+				width: 100,
+				dataIndex: 'operateName',
+				key: 'operateName',
+			
+			},{
+				title: '详细描述',
+				width: 100,
+				dataIndex: 'content',
+				key: 'content',
+			
+			},],
+		}
+		return (
+			<DataTable style={{marginTop:'10px'}} {...tableConf} />
+		)
+  }
   render() {
 
     return (
       <Card title={<div><h3 className="card-title">操作日志</h3></div>} extra={this.renderToolbar()}	>
-        <div>操作日志</div>
+        {this.renderSearchBar()}
+        {this.renderTable()}
       </Card>
     )
   }
