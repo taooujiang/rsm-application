@@ -221,8 +221,8 @@ export default class NewJobListView extends PageView {
         if(isShow){
           tableColumn.push({
             title: "面试评分",
-            key: "point",
-            dataIndex: "point",
+            key: "interviewScale",
+            dataIndex: "interviewScale",
             width: 150,
           })
         }

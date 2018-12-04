@@ -2010,6 +2010,7 @@ class PersonOfferShow extends Component{
       <div>
         <BaseInfoItem label="offer" info='已发送'/>
         <BaseInfoItem label="预计入职日期" info={translateTime(info.expectedEntryTime,"YYYY-MM-DD")}/>
+        <BaseInfoItem label="入职薪资" info="月薪  40000"/>
         <BaseInfoItem label="发件人" info={info.mailFrom}/>
         <BaseInfoItem label="收件人" info={info.mailTo}/>
         <BaseInfoItem label="邮件主题" info={info.mailSubject}/>
