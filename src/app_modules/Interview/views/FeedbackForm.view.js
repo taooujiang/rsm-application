@@ -245,16 +245,16 @@ export default class FeedbackFormView extends FormPage{
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router,location} = this.props;
-    console.log(values)
-    // if(values.isFeedback == 1){
-    //   actions.backRoute(router)
-    // }else{
-    //   actions.feedBackSaveAction(values).then(()=>{
-    //     setTimeout(()=>{
-    //       actions.backRouteReload(router,location)
-    //     },2000)
-    //   })
-    // }
+    // console.log(values)
+    if(values.isFeedback == 1){
+      actions.backRoute(router)
+    }else{
+      actions.feedBackSaveAction(values).then(()=>{
+        setTimeout(()=>{
+          actions.backRouteReload(router,location)
+        },2000)
+      })
+    }
   }
   render() {
     let {params, reduce:{feedBack},location:{state:{interviewer,planId}}} = this.props;
