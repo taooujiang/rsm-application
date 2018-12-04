@@ -142,7 +142,7 @@ export default class SettingsSide extends React.Component {
                 pathname: 'settings/template',
                 state: { breadcrumbName: "模板设置", keyPath: ['sub4', 'template'] }
               }}>
-                <span>模板设置</span>
+                <span>通知模板设置</span>
               </Link>
             </Menu.Item>, "template")
           }

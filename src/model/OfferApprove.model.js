@@ -16,10 +16,8 @@ class OfferApprove extends BaseModel {
 
 Object.assign(OfferApprove.fields, BaseModel.fields, {
   id: attr(),
-  email: attr(),
-  password: attr(),
-  host: attr(),
-  emailType: attr(),
+  name:attr(),
+  stageList:attr(),
 })
 
 export default OfferApprove

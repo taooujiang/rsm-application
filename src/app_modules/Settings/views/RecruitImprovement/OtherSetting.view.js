@@ -78,9 +78,11 @@ export default class InterviewJudge extends PageView {
     return ([
       <Row><h3>诚信库名单开放设置</h3></Row>,
       <Row>
-        是否与其他企业共享诚信库名单
+        <div style={{display:'flex',justifyContent:'space-between'}}>
+          <span>是否与其他企业共享诚信库名单</span>
 
-        <Switch checked={Number(channel_1002)} onChange={this.handleSwitchChange.bind(this)} />
+          <Switch checkedChildren="开" unCheckedChildren="关" checked={Number(channel_1002)} onChange={this.handleSwitchChange.bind(this)} />
+        </div>
       </Row>,
       <Row>
         <Row>温馨提示：</Row>

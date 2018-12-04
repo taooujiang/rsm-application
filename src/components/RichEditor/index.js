@@ -86,6 +86,9 @@ export  class EditableRichEditor extends React.Component {
             {/* <Button onClick={this.addText.bind(this,"{所属部门}")}>所属部门</Button> */}
             <Button onClick={this.addText.bind(this,"{职位名称}")}>职位名称</Button>
             <Button onClick={this.addText.bind(this,"{面试时间}")}>面试时间</Button>
+            <Button onClick={this.addText.bind(this,"{地址}")}>地址</Button>
+            <Button onClick={this.addText.bind(this,"{薪资}")}>薪资</Button>
+            <Button onClick={this.addText.bind(this,"{面试方式}")}>面试方式</Button>
 
           </div>):(null)
 

@@ -817,7 +817,7 @@ export function saveListAction(params) {
 		})
 	}
 }
-// offerapprove list
+// offerapprove 
 export function offerApproveListAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -828,6 +828,37 @@ export function offerApproveListAction(value) {
       return dispatch(fetchFailure('tableSpin', ex))
     })
   }
+}
+
+export function offerApproveSaveAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().saveOfferApprove(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+
+      dispatch(offerApproveListAction())
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+
+export function offerApproveDeleteAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().deleteOfferApprove(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      
+      dispatch(offerApproveListAction())
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+
+export function offerApproveEditAction(row) {
+	let {id} = row
+	return dispatch => dispatch(routerActions.push(`/settings/offer/edit/${id}`))
 }
 // levelSettingListSave list
 export function levelSettingListAction(value) {
