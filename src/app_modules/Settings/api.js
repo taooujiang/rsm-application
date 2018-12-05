@@ -355,6 +355,12 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  
+  fetchActionLogList(params) {
+    return this.fetchPostList(`${APP_SERVER}/logUserOperate/listPageJson`, {
+      body: params
+    })
+  }
 }
 
 export const fetchShareSetting = (params) => {

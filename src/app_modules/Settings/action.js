@@ -62,6 +62,9 @@ export const offerApproveListSave = createAction("STORE_OFFERAPPROVE")
 // export const channelSave = createAction('UPSERT_CHANNEL')
 // OfferApprove  END
 
+// action log
+export const actionLogListSave = createAction("STORE_ACTIONLOG")
+
 // LevelSetting 
 export const levelSettingListSave = createAction("STORE_LEVELSETTING")
 export const levelSettingListRemove = createAction("REMOVE_LEVELSETTING")
@@ -859,6 +862,19 @@ export function offerApproveDeleteAction(value) {
 export function offerApproveEditAction(row) {
 	let {id} = row
 	return dispatch => dispatch(routerActions.push(`/settings/offer/edit/${id}`))
+}
+// Actionlog 
+
+export function actionLogListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchActionLogList().then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(actionLogListSave(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
 }
 // levelSettingListSave list
 export function levelSettingListAction(value) {

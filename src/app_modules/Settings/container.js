@@ -342,7 +342,7 @@ let LevelSettingDeleteFormContainer = connect((state,props)=>({
 
 
 let ActionLogContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Channel"),
+  items:reducerListSelector(state.ORMReducer,"ActionLog"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(ActionLogView))
