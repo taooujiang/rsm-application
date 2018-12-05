@@ -137,14 +137,14 @@ export default class NewJobListView extends PageView {
                 render:(val,row)=>{
                   if(process.env.NODE_ENV === 'development'){
                     return(
-                      <Link to={`/job/jobrelease/${row.jobId}/4/1`}><JobTitleInTable item={row}/></Link>
+                      <Link to={`/job/jobrelease/${row.jobId}/5/1`}><JobTitleInTable item={row}/></Link>
                     )
                   }else{
                     return(
                       <Link onClick={this.openTab.bind(this,{
                         title: '职位详情',
                         key: 'job/jobrelease' ,
-                        src:`/static/js/client/main.html#/job/jobrelease/${row.jobId}/4/1`
+                        src:`/static/js/client/main.html#/job/jobrelease/${row.jobId}/5/1`
                       })}><JobTitleInTable item={row}/></Link>
                     )
                   }

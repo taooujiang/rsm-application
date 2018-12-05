@@ -24,6 +24,7 @@ import {
     Switch,
     Select,
     Tabs,
+    Rate,
     Modal,
     TreeSelect,
     Tree,
@@ -425,10 +426,43 @@ class JobRules extends Component{
 
 /*面试满意度 组件*/
 class InterviewSatisfaction extends Component{
+  componentDidMount(){
+    let {actions,jobId} = this.props
+    actions.getScoreAction({jobId:jobId})
+  }
+  renderCompScore(){
+    let {score:{titleMap,avgMap}} = this.props
+    let titleCode = Object.keys(titleMap)
+    return titleCode.map((it,idx)=>{
+      return <li>
+        <span>{titleMap[it]}</span>
+        <Rate value={avgMap[it]} disabled/>
+      </li>
+    })
+  }
+  renderResumeScore(){
+    let {score:{titleMap,mapList}} = this.props
+    let titleCode = Object.keys(titleMap)
+    let columns = titleCode.map(it=>{
+      return {
+        title:titleMap[it],
+        key:it,
+        dataIndex:it
+      }
+    })
+    return <Table columns={columns} dataSource={mapList} pagination={false} bordered/>
+  }
   render(){
-    return <div>
-        面试满意度
-    </div>
+    return (<div className="intervew-satisfaction">
+      <Card title='综合评分'>
+        <ol>
+          {this.renderCompScore()}
+        </ol>
+      </Card>
+      <Card title='候选人评分'>
+        {this.renderResumeScore()}
+      </Card>
+    </div>)
   }
 }
 
@@ -511,9 +545,9 @@ export default class PostRelease extends Component{
     *  max 为当前可点击最大的step  如 新增时开始为1  填写完第一步max 设置为2  编辑时 设为4  以此来判断是编辑还是新增
     * step 为当前步数
     */
-    let {item,actions,router,params,reduce:{rules}} = this.props
-    let {max,step} = params
-    let addFlag =  max != 4 /*true为新增 false为编辑或查看*/
+    let {item,actions,router,params,reduce:{rules,score}} = this.props
+    let {max,step,jobId} = params
+    let addFlag =  max != 5 /*true为新增 false为编辑或查看*/
     return(
       <Row gutter={12} className="jobdetail-box">
         <Col span={20}>
@@ -534,8 +568,8 @@ export default class PostRelease extends Component{
                 <ChannelAdJobRule {...this.props} rules={rules}/>
                 {addFlag ? <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button> : null}
             </TabPane>
-            <TabPane tab={<span><Icon type="setting" />面试满意度</span>} key="4" disabled={ max < 3} className="thirdStep-panel">
-                <InterviewSatisfaction/>
+            <TabPane tab={<span><Icon type="setting" />面试满意度</span>} key="4" disabled={ max < 4} className="thirdStep-panel">
+                <InterviewSatisfaction actions={actions} jobId={jobId} score={score}/>
             </TabPane>
           </Tabs>
         </Col>

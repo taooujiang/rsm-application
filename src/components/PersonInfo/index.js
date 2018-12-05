@@ -1992,15 +1992,15 @@ export class PersonOffer extends Component{
     })
   }
   renderWhich(){
-    let {info,resumeId,actions,item,detailType,authorization} = this.props
-    if(detailType == 3 ||detailType == 4 || detailType == 10 || detailType == 1||!authorization){
+    let {info,resumeId,actions,item,item:{status},detailType,authorization} = this.props
+    if(detailType == 3 ||detailType == 4 || detailType == 10 || detailType == 1||!authorization || status ==2 ){
       return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
   }
   render(){
     let {item:{status},detailType} = this.props
-    return status < 3 && detailType == 2  ? <div className="list-no-data no-offer-record">暂无offer记录</div> : this.renderWhich()
+    return status < 2 && detailType == 2  ? <div className="list-no-data no-offer-record">暂无offer记录</div> : this.renderWhich()
   }
 }
 class PersonOfferShow extends Component{

@@ -18,6 +18,7 @@ export const toggleLoc = createAction("TOGGLE_LOC")
 export const togglePub = createAction("TOGGLE_PUB")
 
 export const saveItem = createAction("UPSERT_JOB")
+export const saveScore = createAction('SAVE_SCORE')
 
 export const saveJobCount = createAction("SAVE_JOBCOUNT")
 
@@ -156,6 +157,17 @@ export function jobSearchResultMergeAction(value){
       dispatch(fetchRequest('tableSpin'))
       return new API().fetchChannelJobInit(value).then(json => {
           dispatch(fetchSuccess('tableSpin',true))
+      }).catch(ex => {
+          return dispatch(fetchFailure('tableSpin',ex))
+      })
+  }
+}
+
+export function getScoreAction(value){
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('tableSpin'))
+      return new API().fetchScore(value).then(json => {
+          dispatch(saveScore(json))
       }).catch(ex => {
           return dispatch(fetchFailure('tableSpin',ex))
       })

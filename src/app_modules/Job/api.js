@@ -68,5 +68,8 @@ export default class API extends FetchAPI {
   fetchSynchron(params){
     return this.fetchPost(`${APP_SERVER}/jobDetailNew/synchronizeJob`,{body:params})
   }
+  fetchScore(params){
+    return this.fetchPost(`${APP_SERVER}/jobNew/mspfListJson`,{body:params})
+  }
 
 }

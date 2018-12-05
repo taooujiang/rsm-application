@@ -9,7 +9,7 @@
 
 
 import {fetchRequest,fetchSuccess,fetchFailure} from 'app-utils/reducerUtils'
-import CONSTANTS,{saveCompanySearchList,toggleLoc,togglePub,saveJobCount,saveRules,saveList,saveParams} from './action'
+import CONSTANTS,{saveCompanySearchList,toggleLoc,togglePub,saveJobCount,saveRules,saveList,saveParams,saveScore} from './action'
 import {handleActions} from 'redux-actions'
 
 // TODO: 调整本地数据结构
@@ -36,6 +36,11 @@ let initialState = {
   listData:new Object(),
   companys:[],
   count:0,
+  score:{
+    avgMap:{},
+    mapList: [],
+    titleMap:{}
+  },
   rules:new Array(),
   loc_list:new Array(),
   pub_list:new Array()
@@ -157,6 +162,13 @@ actions[saveJobCount] = (state,action)=>{
   return {
     ...state,
     count:action.payload.count
+  }
+}
+
+actions[saveScore] = (state,action)=>{
+  return {
+    ...state,
+    score:action.payload
   }
 }
 
