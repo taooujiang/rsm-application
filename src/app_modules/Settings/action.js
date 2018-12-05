@@ -892,6 +892,22 @@ export function interviewFeedbackListAction(value) {
     })
   }
 }
+
+export function interviewFeedbackTemplateDeleteAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().deleteOfferApprove(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(interviewFeedbackListAction())
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+export function interviewFeedbackTemplateEditAction(value) {
+  const{ id } = value
+	return dispatch => dispatch(routerActions.push(`/settings/interviewfeedback/edit/${id}`))
+}
 // levelSettingListSave list
 export function levelSettingListAction(value) {
   return (dispatch, getState) => {
@@ -905,7 +921,6 @@ export function levelSettingListAction(value) {
   }
 }
 export function deleteLevelSettingRouteAction(router,id) {
-  console.log(id)
 	return dispatch => dispatch(routerActions.push(`/settings/level/delete/${id}`))
 }
 export function deleteLevelSettingAction(value, id) {
