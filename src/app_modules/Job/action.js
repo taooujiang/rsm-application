@@ -265,6 +265,17 @@ export function resetAction(value){
   }
 }
 
+export function sheetAction(value){
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('itemSpin'))
+      return new API().fetchSheet(value).then(json => {
+          dispatch(fetchSuccess('itemSpin'))
+      }).catch(ex => {
+          return dispatch(fetchFailure('itemSpin',ex))
+      })
+  }
+}
+
 export function listCompany(value){
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))

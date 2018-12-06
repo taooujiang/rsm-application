@@ -556,9 +556,9 @@ export default class PostRelease extends Component{
     actions.itemUpsertAction(params)
   }
 
-  handleOpenFeedback(){
+  handleOpenFeedback(item){
     let {actions,router} = this.props
-    actions.scoreSheetAction(router)
+    actions.scoreSheetAction(router,item)
   }
 
   render(){
@@ -612,6 +612,7 @@ export default class PostRelease extends Component{
                 <Timeline>
                   {jobFeedbackList&&jobFeedbackList.map((it,idx)=>{
                     return <Timeline.Item key={idx}>
+                      <Button onClick={this.handleOpenFeedback.bind(this,it)}><Icon type="edit"/></Button>
                       <div className="title"><Tag color={interviewColor[it.type]}>{DictUtils.getDictLabelByValue("interviewstage",it.type)}</Tag></div>
                       <div className="content">{it.feedbackTemplateName}</div>
                     </Timeline.Item>

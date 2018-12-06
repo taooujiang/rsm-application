@@ -172,12 +172,13 @@ export function createResumeRoute(){
           }
           return dispatch => dispatch(routerActions.push(path))
     },
-    scoreSheetAction:function(router){
+    scoreSheetAction:function(router,item){
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname:`${pathname}/scroesheet`,
             state:{
-              pathname:pathname
+              pathname:pathname,
+              item:item
             }
         }
         return dispatch => dispatch(routerActions.push(path))

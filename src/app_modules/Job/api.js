@@ -71,5 +71,8 @@ export default class API extends FetchAPI {
   fetchScore(params){
     return this.fetchPost(`${APP_SERVER}/jobNew/mspfListJson`,{body:params})
   }
+  fetchSheet(params){
+    return this.fetchPost(`${APP_SERVER}/jobFeedbackNew/saveJson`,{body:params})
+  }
 
 }
