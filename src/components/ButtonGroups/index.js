@@ -97,7 +97,8 @@ export default class ButtonGroups extends Component {
         React.cloneElement(
           it,
           Object.assign({}, it.props, {
-            onClick: () => {
+            onClick: (e) => {
+              e.stopPropagation()
               handleClick(actionkey);
             }
           }),

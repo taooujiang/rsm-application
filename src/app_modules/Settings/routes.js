@@ -37,6 +37,7 @@ import Container, {
   OfferApproveContainer,
   OfferApproveFormContainer,
   InterviewFeedbackContainer,
+  InterviewFeedbackFormContainer,
   InterviewJudgeContainer,
   OtherSettingContainer,
   LevelSettingContainer,
@@ -113,6 +114,8 @@ let Routes = (
 
     </Route>
     <Route path="interviewfeedback" components={InterviewFeedbackContainer} breadcrumbName="面试反馈模板设置" >
+      <Route path="edit/:id" components={InterviewFeedbackFormContainer} breadcrumbName="编辑面试反馈模板" />
+      <Route path="add" components={InterviewFeedbackFormContainer} breadcrumbName="添加面试反馈模板" />
 
     </Route>
     <Route path="interviewjudge" components={InterviewJudgeContainer} breadcrumbName="面试评分表设置" >
@@ -125,7 +128,7 @@ let Routes = (
       <Route path="add" components={LevelSettingFormContainer} breadcrumbName="添加职位级别" />
       <Route path="delete/:levelSettingId" components={LevelSettingDeleteFormContainer} breadcrumbName="删除职位级别" />
       <Route path="edit/:levelSettingId" components={LevelSettingFormContainer} breadcrumbName="编辑职位级别" />
-      
+
     </Route>
     <Route path="internalrecommend" components={InternalRecommendContainer} breadcrumbName="内推设置" >
 

@@ -57,6 +57,8 @@ import Ercode from './views/Ercode.view'
 import OfferApproveView from './views/RecruitImprovement/OfferApprove.view'
 import OfferApproveFormView from './views/RecruitImprovement/OfferApproveForm.view'
 import InterviewFeedbackView from './views/RecruitImprovement/InterviewFeedback.view'
+import InterviewFeedbackFormView from './views/RecruitImprovement/InterviewFeedbackForm.view'
+
 import InterviewJudgeView from './views/RecruitImprovement/InterviewJudge.view'
 import OtherSettingView from './views/RecruitImprovement/OtherSetting.view'
 import InternalRecommendView from './views/RecruitImprovement/InternalRecommend.view'
@@ -294,10 +296,18 @@ let OfferApproveFormContainer = connect((state,props)=>({
 
 
 let InterviewFeedbackContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Channel"),
+  items:reducerListSelector(state.ORMReducer,"SysInterviewFeedback"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewFeedbackView))
+
+let InterviewFeedbackFormContainer = connect((state,props)=>({
+  item:reducerItemSelector(state.ORMReducer,"OfferApprove",props.params.id),
+  // items:reducerListSelector(state.ORMReducer,"OfferApprove"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(InterviewFeedbackFormView)
+
 
 let InterviewJudgeContainer = connect((state)=>({
   item:reducerItemSelector(state.ORMReducer,"Remind",'account'),
@@ -394,6 +404,7 @@ export {
     OfferApproveFormContainer,
     InterviewFeedbackContainer,
     InterviewJudgeContainer,
+    InterviewFeedbackFormContainer,
     OtherSettingContainer,
     LevelSettingContainer,
     LevelSettingFormContainer,

@@ -23,15 +23,19 @@ export default class Share extends FormPage {
   componentDidMount() {
     fetchShareSetting({})
       .then(res => {
-        const item = res.list[0]
-        const { title, remark, photoUrl, id } = item
+        const item = res.list[0]||{}
+        const { title , remark , photoUrl , id  } = item
         this.setState({
           title, remark, photoUrl, id,
           loading: false
         })
       })
       .catch(e => {
-        message.warning(e)
+        console.log(e)
+        message.warning(e.msg)
+        this.setState({
+          loading: false
+        })
       })
   }
 
@@ -47,6 +51,9 @@ export default class Share extends FormPage {
       })
     }).catch(e => {
       message.warning(e.msg)
+      this.setState({
+        loading: false
+      })
     })
   }
   beforeUpload(file) {
@@ -81,7 +88,7 @@ export default class Share extends FormPage {
       }
     };
 
-    const { onSubmit,  } = this.props
+    const { onSubmit, } = this.props
     const { title, remark, photoUrl, id } = this.state
     return (
       <Spin spinning={this.state.loading}>

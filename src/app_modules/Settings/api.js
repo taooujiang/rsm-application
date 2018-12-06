@@ -361,8 +361,14 @@ export default class API extends FetchAPI {
       body: params
     })
   }
-}
 
+  fetchInterviewFeedbackList(params) {
+    return this.fetchPostList(`${APP_SERVER}/sysInterviewFeedbackTemplate/listJson`, {
+      body: params
+    })
+  }
+}
+// 下列方法用于脱离redux下的场景
 export const fetchShareSetting = (params) => {
   return new FetchAPI().fetchPost(`${APP_SERVER}/sysSetShare/listJson`, {
     body: params
