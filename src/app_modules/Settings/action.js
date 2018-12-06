@@ -64,6 +64,7 @@ export const offerApproveListSave = createAction("STORE_OFFERAPPROVE")
 
 // action log
 export const actionLogListSave = createAction("STORE_ACTIONLOG")
+export const actionLogParamsSave = createAction("SAVE_ACTIONLOGPARAMS")
 
 // interviewfeedback
 export const interviewFeedbackListSave = createAction("STORE_SYSINTERVIEWFEEDBACK")
@@ -871,9 +872,10 @@ export function offerApproveEditAction(row) {
 export function actionLogListAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
-    return new API().fetchActionLogList().then(json => {
+    return new API().fetchActionLogList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       dispatch(actionLogListSave(json))
+      dispatch(actionLogParamsSave(value))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))
     })
