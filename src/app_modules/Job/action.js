@@ -269,7 +269,7 @@ export function sheetAction(value){
   return (dispatch, getState) => {
       dispatch(fetchRequest('itemSpin'))
       return new API().fetchSheet(value).then(json => {
-          dispatch(fetchSuccess('itemSpin'))
+          dispatch(fetchSuccess('itemSpin',true))
       }).catch(ex => {
           return dispatch(fetchFailure('itemSpin',ex))
       })
