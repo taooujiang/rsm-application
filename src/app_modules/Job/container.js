@@ -20,6 +20,8 @@ import JobListView from './views/JobList.view'
 import ChangeDeptView from './views/ChangeDept.view'
 import ChangeChargerView from './views/ChangeCharger.view'
 import ChangeFeederView from './views/ChangeFeeder.view'
+import ScoreSheetForm from './views/JobSheet.view'
+
 import JobSearchView from './views/JobImportSearch.view'
 import JobPostRelease from './views/JobPostRelease.view'
 import JobResetView from './views/JobReset.view'
@@ -75,7 +77,13 @@ let ChangeDeptFormContainer = connect(mapStateToProps,mapDispatchToProps,null,{p
 let ChangeChargerFormContainer = connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(WrapperComponent(ModalView)(ChangeChargerView))
 let ChangeFeederFormContainer = connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(WrapperComponent(ModalView)(ChangeFeederView))
 
+let ScoreSheetFormContainer = connect((state,props)=>{
+  return {
+  item:reducerItemSelector(state.ORMReducer,"Job",props.params.jobId),
+  reduce: state.jobReducer,
+  appReducer:state.appReducer
+}},mapDispatchToProps,null,{pure:false})(WrapperComponent(ModalView)(ScoreSheetForm))
 
-export {iframeContainer,syncResultContainer,DetailContainer,JobResetContainer,syncContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer}
+export {iframeContainer,ScoreSheetFormContainer,syncResultContainer,DetailContainer,JobResetContainer,syncContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer}
 
 export default Container;

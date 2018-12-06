@@ -29,17 +29,18 @@ var statusTrans = {
   11:"已取消",
 }
 
+var  interviewColor = {
+  2:"#ef6392",
+  3:"#f8744e",
+  4:"#13c7ac"
+}
+
 export default class InterviewType extends Component{
   render(){
-    let obj = {
-      2:"#ef6392",
-      3:"#f8744e",
-      4:"#13c7ac"
-    }
     let {item,resume} = this.props
     return(
       <div>
-        <Tag color={obj[resume ? item.interviewLevel:item.type]}>{DictUtils.getDictLabelByValue("interviewstage",resume ? item.interviewLevel:item.type)}</Tag>
+        <Tag color={interviewColor[resume ? item.interviewLevel:item.type]}>{DictUtils.getDictLabelByValue("interviewstage",resume ? item.interviewLevel:item.type)}</Tag>
         <Tag style={{borderColor:"#65b2f8",backgroundColor:"#fff",color:"#65b2f8"}}>
           <Icon type="warning" />
           <span>{DictUtils.getDictLabelByValue("interviewstate",resume ? item.interviewStatus :item.statusStr)}</span>
@@ -48,6 +49,8 @@ export default class InterviewType extends Component{
     )
   }
 }
+
+export {interviewColor}
 InterviewType.defaultProps = {
   resume:false
 }

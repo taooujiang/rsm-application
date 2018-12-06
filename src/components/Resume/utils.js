@@ -172,6 +172,16 @@ export function createResumeRoute(){
           }
           return dispatch => dispatch(routerActions.push(path))
     },
+    scoreSheetAction:function(router){
+        let pathname = router.getCurrentLocation().pathname
+        let path = {
+            pathname:`${pathname}/scroesheet`,
+            state:{
+              pathname:pathname
+            }
+        }
+        return dispatch => dispatch(routerActions.push(path))
+    },
     changeFeederPostAction:function(router,interviewerIds,jobId) {
           let pathname = router.getCurrentLocation().pathname
           let path = {

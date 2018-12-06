@@ -36,8 +36,8 @@ let {
   fetchFailure,fetchRequest,fetchSuccess
 } = createTypes(CONSTANTS)
 
-let {syncAction,changeDeptAction,changeChargerAction,changeFeederAction,changeFeederPostAction,changeChargerPostAction} =createResumeRoute()
-export {syncAction,changeDeptAction,changeChargerAction,changeFeederAction,changeFeederPostAction,changeChargerPostAction}
+let {syncAction,changeDeptAction,changeChargerAction,changeFeederAction,changeFeederPostAction,changeChargerPostAction,scoreSheetAction} =createResumeRoute()
+export {syncAction,changeDeptAction,changeChargerAction,changeFeederAction,changeFeederPostAction,changeChargerPostAction,scoreSheetAction}
 
 let {listRoute,backRoute,backListRoute,backRouteReload} = createActionRoute()
 export {listRoute,backRoute,backListRoute,backRouteReload}

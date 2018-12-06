@@ -28,6 +28,7 @@ import {
     Modal,
     TreeSelect,
     Tree,
+    Timeline ,
     Popconfirm
 } from 'antd'
 import WrapperComponent from "app/decorators/WrapperComponent"
@@ -44,6 +45,7 @@ import InputStrGroup from 'app/components/InputStrGroup'
 import DictUtils from 'app/utils/DictUtils'
 import {permissionStyle} from 'app/utils/ConfigUtils'
 import styles from './index.less'
+import {interviewColor} from 'app/components/TableRow/Interview'
 import moment from 'moment'
 
 const TreeNode=Tree.TreeNode
@@ -434,7 +436,7 @@ class InterviewSatisfaction extends Component{
     let {score:{titleMap,avgMap}} = this.props
     let titleCode = Object.keys(titleMap)
     return titleCode.map((it,idx)=>{
-      return <li>
+      return <li key={idx}>
         <span>{titleMap[it]}</span>
         <Rate value={avgMap[it]} disabled/>
       </li>
@@ -484,6 +486,12 @@ export default class PostRelease extends Component{
     let {router,actions,dispatch,params} = this.props
     let currRoute = router.getCurrentLocation().pathname
     let newRoute = currRoute.replace("/2/2","/3/3")
+    dispatch(routerActions.push(newRoute))
+  }
+  handleNextToFeed(){
+    let {router,actions,dispatch,params} = this.props
+    let currRoute = router.getCurrentLocation().pathname
+    let newRoute = currRoute.replace("/3/3","/4/4")
     dispatch(routerActions.push(newRoute))
   }
   routeTrans(route,active){
@@ -539,13 +547,27 @@ export default class PostRelease extends Component{
     })
   }
 
+  handleSwitchChange(checked){
+    let {actions,params:{jobId}} = this.props
+    let params = {
+      jobId:jobId,
+      isOffer: checked ? 1 : 0
+    }
+    actions.itemUpsertAction(params)
+  }
+
+  handleOpenFeedback(){
+    let {actions,router} = this.props
+    actions.scoreSheetAction(router)
+  }
+
   render(){
     /*
     * params中存储的max 和step
     *  max 为当前可点击最大的step  如 新增时开始为1  填写完第一步max 设置为2  编辑时 设为4  以此来判断是编辑还是新增
     * step 为当前步数
     */
-    let {item,actions,router,params,reduce:{rules,score}} = this.props
+    let {item,item:{jobFeedbackList,isOffer},actions,router,params,reduce:{rules,score}} = this.props
     let {max,step,jobId} = params
     let addFlag =  max != 5 /*true为新增 false为编辑或查看*/
     return(
@@ -566,7 +588,11 @@ export default class PostRelease extends Component{
             </TabPane>
             <TabPane tab={<span><Icon type="setting" />渠道设置</span>} key="3" disabled={ max < 3} className="thirdStep-panel">
                 <ChannelAdJobRule {...this.props} rules={rules}/>
-                {addFlag ? <Button  permission="releaseJob" type="primary" className="releaseJob">发布职位</Button> : null}
+                  { addFlag ?
+                      <Button onClick={this.handleNextToFeed.bind(this)} className="addSaveBtn">保存并进入下一步 <Icon type="double-right" /></Button>
+                    :
+                      null
+                  }
             </TabPane>
             <TabPane tab={<span><Icon type="setting" />面试满意度</span>} key="4" disabled={ max < 4} className="thirdStep-panel">
                 <InterviewSatisfaction actions={actions} jobId={jobId} score={score}/>
@@ -574,9 +600,26 @@ export default class PostRelease extends Component{
           </Tabs>
         </Col>
         <Col span={4}>
-          <div className="optionBox">
-              <Button type="primary" block htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
-              <Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
+          <div className="jobdetail-silde">
+            <div className="optionBox">
+                <Button type="primary" htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
+                <Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
+            </div>
+            <div className="feed-scoresheet">
+              <Card title="面试评价表" extra={
+                  <Button onClick={this.handleOpenFeedback.bind(this)}><Icon type="plus"/></Button>
+                }>
+                <Timeline>
+                  {jobFeedbackList&&jobFeedbackList.map((it,idx)=>{
+                    return <Timeline.Item key={idx}>
+                      <div className="title"><Tag color={interviewColor[it.type]}>{DictUtils.getDictLabelByValue("interviewstage",it.type)}</Tag></div>
+                      <div className="content">{it.feedbackTemplateName}</div>
+                    </Timeline.Item>
+                  })}
+                </Timeline>
+              </Card>
+            </div>
+            {isOffer ? <BaseInfoItem label="offer审批流程" info={<Switch defaultChecked={isOffer} onChange={this.handleSwitchChange.bind(this)}/>}/> : null}
           </div>
         </Col>
       </Row>

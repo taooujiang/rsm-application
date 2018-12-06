@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactRouter, {Router, Route, IndexRoute} from 'react-router'
 
-import Container, {iframeContainer,DetailContainer,JobResetContainer,syncContainer,syncResultContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer} from './container'
+import Container, {iframeContainer,ScoreSheetFormContainer,DetailContainer,JobResetContainer,syncContainer,syncResultContainer,SearchJobContainer,JobPostReleaseContainer,ChangeDeptFormContainer,ChangeChargerFormContainer,ChangeFeederFormContainer} from './container'
 import {OfferFormContainer,EntryTimeContainer,RelatedFormContainer,JoinFormContainer,FeedFormContainer,FeedbackFormContainer,RejectFormContainer} from '../Resume/container'
 import {ResumeDetailContainer} from '../Resume/container'
 import {creditFormContainer} from '../Credit/container'
@@ -30,6 +30,7 @@ let Routes = (
         <Route path="changeCharger" components={ChangeChargerFormContainer} breadcrumbName="修改负责人"/>
         <Route path="changeFeeder" components={ChangeFeederFormContainer} breadcrumbName="修改面试官"/>
         <Route path="reset" components={JobResetContainer} breadcrumbName="重新分配"/>
+        <Route path="scroesheet" components={ScoreSheetFormContainer} breadcrumbName="面试评价表"/>
       </Route>
 
     <Route path="search" components={SearchJobContainer} />
