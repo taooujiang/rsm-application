@@ -26,7 +26,7 @@ export default class InterviewFeedback extends PageView {
     actions.interviewFeedbackListAction()
   }
   renderCollpase() {
-    const { items,actions, } = this.props
+    const { items, actions, } = this.props
     return items.map(e => {
       return (
         <CollapsePanel item={e} actions={actions} />
@@ -60,7 +60,7 @@ class CollapsePanel extends Component {
     })
   }
   handleBtnGroupClick(id, type) {
-    let { actions,  } = this.props;
+    let { actions, } = this.props;
     actions[type]({ id })
   }
   _renderQuestionList(dataList = [], type) {
@@ -105,13 +105,13 @@ class CollapsePanel extends Component {
           display: 'flex',
           alignItems: 'center',
         }}>
-          <ButtonGroups  handleClick={this.handleBtnGroupClick.bind(this,item.id)}>
+          <ButtonGroups handleClick={this.handleBtnGroupClick.bind(this, item.id)}>
             <Button type="primary" actionkey="interviewFeedbackTemplateEditAction" style={{ marginRight: '10px' }}>
               编辑
-          </Button>
+            </Button>
             {/* <Button type="primary" permission="company" confirm="确认删除" actionkey="interviewFeedbackTemplateDeleteAction">删除</Button> */}
           </ButtonGroups>
-          <div style={{ marginLeft: '15px' }}>{this.state.isShow?'收起':'展开'}</div>
+          <div style={{ marginLeft: '15px' }}>{this.state.isShow ? '收起' : '展开'}</div>
         </div>
       </h3>)
     return (
