@@ -68,9 +68,9 @@ export default class ScoreSheetForm extends FormPage{
     let {item:{jobFeedbackList}} = this.props
     let feedItem = jobFeedbackList.filter(it=>{
       return it.type == val
-    })
-    if(feedItem.length){
-      this.form.setFieldsValue({"id":feedItem.id})
+    }).pop()
+    if(feedItem){
+      this.form.setFieldsValue({"id":feedItem.id,"feedbackTemplateName":feedItem.feedbackTemplateName,"feedbackTemplateId":feedItem.feedbackTemplateId})
     }
   }
 
