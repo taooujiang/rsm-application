@@ -1,7 +1,7 @@
 import React from "react";
 import ModalView from "app/components/Modal.view";
 import WrapperComponent from "app/decorators/WrapperComponent";
-import { Input, Modal, Select, Row, Col, Cascader, message } from "antd";
+import { Input, Button, Select, Row, Col, Cascader, message } from "antd";
 import BaseForm, { FormItem, customRules } from "components/BaseForm";
 import { FormPage } from "app/components/Page";
 import { fechAvailableAccount } from '../../api'
@@ -32,12 +32,13 @@ export default class InterviewFeedbackForm extends FormPage {
     // actions.offerApproveSaveAction(values);
     // actions.backRoute(router);
   }
-  renderSelectOption(data, idx) {
-    return (<Select.Option value={data.account} key={idx}>{data.name}</Select.Option>)
+  renderTemplateTypeSelectOption(data, idx) {
+    return (<Select.Option value={data.type} key={idx}>{data.name}</Select.Option>)
   }
 
   render() {
     const { onSubmit, saveFormRef, item, } = this.props;
+    const templateTypeSelectOption = [{ type: 1, name: "选择型" }, { type: 2, name: "打分型" }, { type: 3, name: "问答型" }]
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         {item.id ?
@@ -47,15 +48,56 @@ export default class InterviewFeedbackForm extends FormPage {
           null}
         <FormItem>
           <Input
-            label='审批流程名称'
+            label='模板名称'
+            name="name"
+            placeholder={"请输入模板名称"}
+            defaultValue={item.name}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
+          />
+        </FormItem>
+        <FormItem>
+          <Select name="type" label="模板类型" defaultValue={1} fetch={templateTypeSelectOption} renderItem={this.renderTemplateTypeSelectOption} />
+        </FormItem>
+        <FormItem style={{ paddingLeft: '0' }}>
+          <QuestionForm name="questionList" type={1} />
+        </FormItem>
+      </BaseForm>
+    );
+  }
+}
+
+class QuestionForm extends FormPage {
+
+
+  handleAddQuestion(type) {
+    console.log(type)
+  }
+  renderQuestionList() {
+
+  }
+  render() {
+    const { onSubmit, saveFormRef, item, } = this.props;
+
+    return (
+      <BaseForm style={{ border: "1px solid #e0e0e0", paddingTop: '15px', minHeight: '200px' }} onSubmit={onSubmit} ref={this.saveFormRef}>
+        <FormItem>
+          <Input
+            label='模板名称'
             name="name"
             placeholder={"请输入"}
-            defaultValue={item.name}
-            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
           />
         </FormItem>
 
+        {this.renderQuestionList()}
+        <Button onClick={this.handleAddQuestion.bind(this, this.props.type)} style={{ margin: '10px auto', display: 'block' }} type="primary">添加题目</Button>
+
+
       </BaseForm>
-    );
+      // return (
+      //   <div style={{ border: '1px solid #e0e0e0', minHeight: '200px' }}>
+      //     <Button onClick={this.handleAddQuestion.bind(this)} style={{ margin: '10px auto', display: 'block' }} type="primary">添加题目</Button>
+      //   </div>
+    )
   }
 }
