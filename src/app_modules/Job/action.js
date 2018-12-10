@@ -72,6 +72,23 @@ export function itemAction(value) {
         })
     }
 }
+
+export function changePushAction(value) {
+    return (dispatch, getState) => {
+        dispatch(fetchRequest('itemSpin'))
+        return new API().fetchItem(value).then(json => {
+            dispatch(fetchSuccess('itemSpin'))
+            let info = {
+              jobId:json.jobId,
+              isWebsite:json.isWebsite
+            }
+            dispatch(saveItem(info))
+        }).catch(ex => {
+            return dispatch(fetchFailure('itemSpin',ex))
+        })
+    }
+}
+
 export function itemUpsertAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))
