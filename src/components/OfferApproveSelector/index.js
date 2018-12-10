@@ -26,24 +26,12 @@ export default class OfferApproveSelector extends FormPage {
   handleSubmit(values) {
     let { actions, router, onChange } = this.props;
     let { stageList } = this.state
-    console.log(stageList, 'handleSubmithandleSubmithandleSubmit')
     onChange(stageList)
-    // if (
-    //     values &&
-    //     values.optionName.indexOf('$')>-1
-    // ) {
-    //   message.error("请勿输入特殊字符$");
-    //   return false;
-    // } else {
-    //   actions.saveOptionAction(values);
-    //   actions.backRoute(router);
-    // }
   }
   handleParentSubmit() {
     this.onSubmit.call(this)
   }
   renderSelectOption(data, idx) {
-    // return data.map((e, idx) => (<Option value={e.account} key={idx}>{e.name}</Option>))
     return (<Option value={data.account} key={idx}>{data.name}</Option>)
   }
   handleAddStage() {
@@ -90,21 +78,6 @@ export default class OfferApproveSelector extends FormPage {
           })
         }
       </BaseForm>
-      // <Row>
-      //   <Col span={6} style={{textAlign:'right'}}>
-      //     审批人
-      //   </Col>
-      //   <Col span={18}>
-      //     <Select
-      //       // name="approvalAccount"
-      //       showSearch
-      //       optionFilterProp="children"
-      //       // onBlur={this.handleChange.bind(this)}
-      //       rules={[{ required: true, message: `不可为空`, }]}>
-      //       {this.renderSelectOption(selectList)}
-      //     </Select>
-      //   </Col>
-      // </Row>
     );
   }
 }

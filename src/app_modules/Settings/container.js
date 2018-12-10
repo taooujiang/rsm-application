@@ -302,7 +302,7 @@ let InterviewFeedbackContainer = connect((state)=>({
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(InterviewFeedbackView))
 
 let InterviewFeedbackFormContainer = connect((state,props)=>({
-  item:reducerItemSelector(state.ORMReducer,"OfferApprove",props.params.id),
+  item:reducerItemSelector(state.ORMReducer,"SysInterviewFeedback",props.params.id),
   // items:reducerListSelector(state.ORMReducer,"OfferApprove"),
   reduce: state.settingsReducer,
   appReducer:state.appReducer

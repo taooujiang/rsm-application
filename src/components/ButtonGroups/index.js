@@ -18,8 +18,9 @@ import { hasPermission } from "app/utils/ConfigUtils";
 */
 
 export class Comfirm extends Component {
-  onConfirmClick() {
+  onConfirmClick(e) {
     const { onConfirm, title, content } = this.props;
+    e.stopPropagation()
     return Modal.confirm({
       title: "确认框",
       content: content,

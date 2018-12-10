@@ -894,6 +894,17 @@ export function interviewFeedbackListAction(value) {
     })
   }
 }
+export function interviewFeedbackSaveAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchSaveInterviewFeedback(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(interviewFeedbackListAction())
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 
 export function interviewFeedbackTemplateDeleteAction(value) {
   return (dispatch, getState) => {

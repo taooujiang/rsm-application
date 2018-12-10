@@ -109,7 +109,7 @@ class CollapsePanel extends Component {
             <Button type="primary" actionkey="interviewFeedbackTemplateEditAction" style={{ marginRight: '10px' }}>
               编辑
             </Button>
-            {/* <Button type="primary" permission="company" confirm="确认删除" actionkey="interviewFeedbackTemplateDeleteAction">删除</Button> */}
+            <Button type="primary" permission="company" confirm="确认删除" actionkey="interviewFeedbackTemplateDeleteAction">删除</Button>
           </ButtonGroups>
           <div style={{ marginLeft: '15px' }}>{this.state.isShow ? '收起' : '展开'}</div>
         </div>
