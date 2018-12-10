@@ -379,11 +379,27 @@ class JobResponsibility extends Component{
 }
 /*简历发布  接收规则组件*/
 class ChannelAdJobRule extends Component{
+  changeCheck(checked){
+    let {item:{jobId},actions} = this.props
+    actions.changePushAction({
+      jobId:jobId,
+      isWebsite:checked ? 1 : 0
+    })
+  }
   render(){
+    let {item:{isWebsite}} = this.props
+    console.log(isWebsite)
     return (
       <div className="thirdStep-box">
         {/*<ChannelList dataSource={DictUtils.getDictByType("channel")}/>*/}
-        <JobRules {...this.props}/>
+        <BaseInfoItem label="发布到内推官网" info={
+            <span>
+              {isWebsite ? <Switch defaultCheck={isWebsite} onChange={this.changeCheck.bind(this)}/> : null}
+              <div>请到遇仁公证号中查看内推职位</div>
+            </span>
+            }
+            />
+      <JobRules {...this.props}/>
       </div>
     )
   }
