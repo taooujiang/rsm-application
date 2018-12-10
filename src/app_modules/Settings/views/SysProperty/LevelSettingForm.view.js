@@ -108,7 +108,7 @@ export class LevelSettingDeleteForm extends FormPage {
       for (let index = 0; index < items.length; index++) {
         if (item.positionLeavel == items[index].positionLeavel) continue
         let newItem = {
-          keyValue: items[index].positionLeavel,
+          keyValue: items[index].id,
           keyName: items[index].positionLeavel + "级"
         }
         exsistLevelArr.push(newItem)
