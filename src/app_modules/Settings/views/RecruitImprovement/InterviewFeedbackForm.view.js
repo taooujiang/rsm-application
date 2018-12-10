@@ -1,7 +1,7 @@
 import React from "react";
 import ModalView from "app/components/Modal.view";
 import WrapperComponent from "app/decorators/WrapperComponent";
-import { Input, Button, Select, Row, Col, Divider, message } from "antd";
+import { Input, Button, Select, Row, Icon, Divider, message } from "antd";
 import BaseForm, { FormItem, customRules } from "components/BaseForm";
 import { FormPage } from "app/components/Page";
 import { fechAvailableAccount } from '../../api'
@@ -85,8 +85,8 @@ class QuestionForm extends React.Component {
     let { value, type } = this.props
     if (value.length) {
       let questionList = value.map(e => {
-        const { optionA, optionB, optionC, optionD, question, templateId, templateType, id } = e
-        return { optionA, optionB, optionC, optionD, question, templateId, templateType, id }
+        const { optionA, optionB, optionC, optionD, question, templateId, templateType, id, sort } = e
+        return { optionA, optionB, optionC, optionD, question, templateId, templateType, id, sort }
       })
       this.props.onChange(questionList)
       this.setState({ questionList })
@@ -106,14 +106,27 @@ class QuestionForm extends React.Component {
   }
   handleAddQuestion(type) {
     let { questionList } = this.state
-    questionList.push({ templateType: type, sort: questionList.length + 1 })
+    questionList.push({ templateType: type, sort: questionList.length + 1, key: Math.random() })
     this.setState({ questionList })
+  }
+  handleDeleteQuestion(sort) {
+    console.log(sort)
+    let { questionList } = this.state
+    console.log(questionList, 'handleDeleteQuestion')
+    questionList = questionList.filter(e => e.sort != sort).map((e, index) => ({ ...e, sort: index + 1 }))
+    console.log(questionList, 'questionListquestionListquestionList')
+    this.setState({
+      questionList
+    }, () => {
+      this.props.onChange(questionList)
+      console.log(questionList, '1111111111111')
+    })
   }
   renderQuestionList() {
     const { type } = this.props
     if (type == 1) {
       return this.state.questionList.map((e, index) => (
-        [<div style={{ paddingLeft: '30px', paddingRight: '50px' }}>
+        [<div key={e.id||e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px', position: 'relative' }}>
           <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
           <Input
             onChange={this.handleInputChange.bind(this, 'question', index)}
@@ -121,8 +134,9 @@ class QuestionForm extends React.Component {
             placeholder={"请输入"}
             rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
           />
+          <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />
         </div>,
-        <div style={{ padding: '10px 50px' }}>
+        <div style={{ padding: '10px 50px', position: 'relative' }}>
           <div className="interview-template-question-label">A</div>
           <Input
             defaultValue={e.optionA}
@@ -162,7 +176,7 @@ class QuestionForm extends React.Component {
       ))
     }
     return this.state.questionList.map((e, index) => (
-      [<div style={{ paddingLeft: '30px', paddingRight: '50px' }}>
+      [<div key={e.id||e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px' }}>
         <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
         <Input
           onChange={this.handleInputChange.bind(this, 'question', index)}
@@ -171,6 +185,7 @@ class QuestionForm extends React.Component {
           placeholder={"请输入"}
           rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
         />
+        <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />
       </div>, <Divider />]
     ))
   }
@@ -178,7 +193,7 @@ class QuestionForm extends React.Component {
 
     return (
       <div style={{ border: "1px solid #e0e0e0", paddingTop: '15px', minHeight: '200px' }} >
-        
+
         {this.renderQuestionList()}
 
         <Button onClick={this.handleAddQuestion.bind(this, this.props.type)}
