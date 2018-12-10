@@ -134,9 +134,9 @@ export function getCheckAction(value) {
   }
   let resetPar = Object.assign({},value,reset)
   return (dispatch, getState) => {
-    if(value.status == 4){
-      dispatch(saveChecks({checks:[]}))
-    }else{
+    // if(value.status == 4){
+    //   dispatch(saveChecks({checks:[]}))
+    // }else{}
       dispatch(fetchRequest('tableSpin'))
       return new API().fetchChecks(value).then(json => {
         dispatch(fetchSuccess('tableSpin'))
@@ -144,8 +144,6 @@ export function getCheckAction(value) {
       }).catch(ex => {
         return dispatch(fetchFailure('tableSpin',ex))
       })
-    }
-
   }
 }
 

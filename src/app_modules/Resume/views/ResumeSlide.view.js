@@ -42,7 +42,8 @@ export default class ResumeSide extends Component{
   }
   handleFilter(values){
     let {actions} = this.props
-    console.log(values,'ssssssssssssss')
+    values.isSearchFollowRemind = values.isSearchFollowRemind ? 1 : 0
+    //console.log(values,'ssssssssssssss')
     actions.listAction(values)
   }
   navgation(val){
@@ -112,7 +113,7 @@ export default class ResumeSide extends Component{
       <Select name="maritalStatus" label="婚姻状态" placeholder="请选择"  fetch={DictUtils.getDictByType("maritalstatus")} renderItem={this.renderSelectOption} />
       <Select name="trade" label="行业" placeholder="请选择"  fetch={DictUtils.getDictByType("industry")} renderItem={this.renderSelectOption} />
       <CalendarPicker label="入库时间" name="deliveryTimes"  minDate={moment().subtract(60,'days')}/>
-      <Checkbox label="跟进提醒" name="isRemind">已添加跟进提醒</Checkbox>
+      <Checkbox label="跟进提醒" name="isSearchFollowRemind">已添加跟进提醒</Checkbox>
       {/* <CalendarPicker label="入库时间" name="inputTimeArr"  />
       <Select name="sex" label="性别" placeholder="请选择"  fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} />*/}
         {/*<CalendarPicker label="最近联系" name="lastFollowTimeArr"  />*/}
