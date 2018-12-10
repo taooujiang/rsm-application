@@ -119,7 +119,7 @@ class FormItem extends Component{
     }
     if(field.props.fetch && typeof(field.props.fetch) == 'string' && field.props.fetch !=this.props.children.props.fetch)
     {
-        this.fetchData(field.props.fetch,field.props.params)
+        this.fetchData(field.props.fetch,field.props.params,field.props.method)
     }
 
   }
@@ -127,7 +127,7 @@ class FormItem extends Component{
     let {children,name,label} = this.props
     let field=children;
     if(typeof(field.props.fetch)== 'string' && field.props.fetch.length>0){
-        this.fetchData(field.props.fetch,field.props.params)
+        this.fetchData(field.props.fetch,field.props.params,field.props.method)
     }else if(field.props.fetch instanceof Array){
         this.setState({
           childData:field.props.fetch
@@ -139,14 +139,14 @@ class FormItem extends Component{
    * @param  {[type]} fetchUrl [description]
    * @return {[type]}          [description]
    */
-  fetchData(fetchUrl,params){
+  fetchData(fetchUrl,params,method){
     let body={}
-    if(params && /\/listJson?$/.test(fetchUrl)?'POST':'GET'){
+    if(params && /\/listJson?$/.test(fetchUrl) || method == 'post'){
       body={body:params}
     }
     new FetchAPI().fetch(fetchUrl,{
       ...body,
-			method:/\/listJson?$/.test(fetchUrl)?'POST':'GET' //兼容listJSON 使用POST请求处理
+			method:/\/listJson?$/.test(fetchUrl)|| method == 'post'?'POST':'GET' //兼容listJSON 使用POST请求处理
     }).then((json) => {
         this.setState({
           childData:json.list|| json ||[]

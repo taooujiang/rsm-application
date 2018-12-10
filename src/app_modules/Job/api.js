@@ -74,5 +74,7 @@ export default class API extends FetchAPI {
   fetchSheet(params){
     return this.fetchPost(`${APP_SERVER}/jobFeedbackNew/saveJson`,{body:params})
   }
-
+  fetchOfferApp(params){
+    return this.fetchPost(`${APP_SERVER}/jobNew/updateJson`,{body:params})
+  }
 }

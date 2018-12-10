@@ -88,6 +88,20 @@ export function itemUpsertAction(value) {
     }
 }
 
+export function offerAppAction(value){
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('tableSpin'))
+      return new API().fetchOfferApp(value).then(json => {
+          dispatch(fetchSuccess('tableSpin'))
+          let {approvalId,approvalName,isOffer,jobId} = json
+          let info = {jobId,approvalId,approvalName,isOffer}
+         dispatch(saveItem(info))
+      }).catch(ex => {
+          return dispatch(fetchFailure('tableSpin',ex))
+      })
+  }
+}
+
 export function listReportAction(value){
   return (dispatch, getState) => {
       dispatch(fetchRequest('tableSpin'))

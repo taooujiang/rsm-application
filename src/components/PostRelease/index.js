@@ -37,6 +37,7 @@ import API from 'app-modules/Job/api'
 import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import ButtonGroups from 'app/components/ButtonGroups'
 import Tags from 'app/components/Tags'
+import  FetchAPI from 'app/utils/FetchAPI'
 import {ModalDetailView} from 'app/components/Modal.view'
 import LinkagePullDown from 'app/components/LinkagePullDown'
 import {TreeSelectPicker} from 'app/components/TreeView'
@@ -436,10 +437,12 @@ class InterviewSatisfaction extends Component{
     let {score:{titleMap,avgMap}} = this.props
     let titleCode = Object.keys(titleMap)
     return titleCode.map((it,idx)=>{
-      return <li key={idx}>
-        <span>{titleMap[it]}</span>
-        <Rate value={avgMap[it]} disabled/>
-      </li>
+      if(it != 'name' && it != 'inputTime'){
+        return <li key={idx}>
+          <span>{titleMap[it]}</span>
+          <Rate value={avgMap[it]} disabled/>
+        </li>
+      }
     })
   }
   renderResumeScore(){
@@ -473,8 +476,22 @@ export default class PostRelease extends Component{
     super(props)
     this.state = {
       actionkey:1,
+      listOption:[],
+      defaultCheck:"",
+      over:false
     }
   }
+
+  componentDidMount(){
+    new FetchAPI().fetchPost('/sysSetOfferApproval/listJson',{body:{}}).then(res=>{
+      this.setState({
+        listOption:res.list,
+        defaultCheck:res.list[0] ? res.list[0].id : "",
+        over:true
+      })
+    })
+  }
+
   handleChangePanel(actionkey){
     let {router,params,dispatch} = this.props
     let currRoute = router.getCurrentLocation().pathname
@@ -548,12 +565,26 @@ export default class PostRelease extends Component{
   }
 
   handleSwitchChange(checked){
-    let {actions,params:{jobId}} = this.props
+    let {actions,params:{jobId},item:{approvalId}} = this.props
+    let {defaultCheck} = this.state
     let params = {
       jobId:jobId,
+      approvalId:approvalId || defaultCheck,
       isOffer: checked ? 1 : 0
     }
-    actions.itemUpsertAction(params)
+    actions.offerAppAction(params)
+  }
+  handleChangeSelect(val){
+    let {actions,params:{jobId},item:{approvalId}} = this.props
+    let params = {
+      jobId:jobId,
+      approvalId:val,
+      isOffer: 1
+    }
+    this.setState({
+      defaultCheck:val
+    })
+    actions.offerAppAction(params)
   }
 
   handleOpenFeedback(item){
@@ -562,6 +593,23 @@ export default class PostRelease extends Component{
       actions.scoreSheetAction(router,item)
     }else{
       actions.scoreSheetAction(router)
+    }
+  }
+  renderSwitch(){
+    let {item,item:{isOffer}} = this.props
+    if(item.jobId){
+      return <BaseInfoItem label="offer审批流程" info={<Switch defaultChecked={isOffer} onChange={this.handleSwitchChange.bind(this)}/>}/>
+    }
+  }
+  renderApproSelect(){
+    let {item,item:{isOffer}} = this.props
+    let {listOption,over} = this.state
+    if(isOffer&&over){
+      return <Select placeholder="请选择" className="approval-select" defaultValue={item.approvalId} onChange={this.handleChangeSelect.bind(this)}>
+        {listOption.map((it,idx)=>{
+          return <Select.Option key={idx} value={it.id}>{it.name}</Select.Option>
+        })}
+      </Select>
     }
   }
 
@@ -574,10 +622,11 @@ export default class PostRelease extends Component{
     let {item,item:{jobFeedbackList,isOffer},actions,router,params,reduce:{rules,score}} = this.props
     let {max,step,jobId} = params
     let addFlag =  max != 5 /*true为新增 false为编辑或查看*/
+    console.log()
     return(
       <Row gutter={12} className="jobdetail-box">
-        <Col span={20}>
-          <Tabs className="jobdetail-box" defaultActiveKey="1" activeKey={step} animated={false} tabPosition="left" onChange={this.handleChangePanel.bind(this)}>
+        <Col span={18}>
+          <Tabs className="jobdetail-box-tab" defaultActiveKey="1" activeKey={step} animated={false} tabPosition="left" onChange={this.handleChangePanel.bind(this)}>
             <TabPane tab={<span><Icon type="copy" />基本信息</span>} key="1">
               {/*baseinfo 通过max 判断是否为编辑状态*/}
               <BaseInfo item={item} edit={ !addFlag } actions={actions}/>
@@ -603,7 +652,7 @@ export default class PostRelease extends Component{
             </TabPane>
           </Tabs>
         </Col>
-        <Col span={4}>
+        <Col span={6}>
           <div className="jobdetail-silde">
             <div className="optionBox">
                 <Button type="primary" htmlType="button" onClick={this.endingFire.bind(this)}>{status == 1? "结束招聘" :"开始招聘"}</Button>
@@ -623,7 +672,8 @@ export default class PostRelease extends Component{
                 </Timeline>
               </Card>
             </div>
-            {isOffer ? <BaseInfoItem label="offer审批流程" info={<Switch defaultChecked={isOffer} onChange={this.handleSwitchChange.bind(this)}/>}/> : null}
+            {this.renderSwitch()}
+            {this.renderApproSelect()}
           </div>
         </Col>
       </Row>

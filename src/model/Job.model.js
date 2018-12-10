@@ -40,5 +40,8 @@ Object.assign(Job.fields,BaseModel.fields,{
   pendingPost:attr(),
   deliveryRms:attr(),
   comendRms:attr(),
-  pluginRms:attr()
+  pluginRms:attr(),
+  isOffer:attr(),
+  approvalId:attr(),
+  approvalName:attr()
 })

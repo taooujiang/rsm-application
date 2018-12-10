@@ -50,6 +50,9 @@ export default class JobviewSlide extends Component{
   renderHrOption(data,idx){
     return (<Select.Option value={data.account} key={idx}>{data.name}</Select.Option>)
   }
+  renderLevelOption(data,idx){
+    return (<Select.Option value={data.id} key={idx}>{data.positionName}</Select.Option>)
+  }
   handleChangeSelect(value){
     let {actions} = this.props
     let params = {jobType:value}
@@ -92,7 +95,8 @@ export default class JobviewSlide extends Component{
       />
       <Select name="channel" label="渠道筛选" placeholder="请选择"  fetch={DictUtils.getDictByType("channel")} renderItem={this.renderSelectOption} />
       <Select name="hrAcc" label="招聘负责人" placeholder="请选择"  fetch={`${APP_SERVER}/accountOperate/getHrList`} renderItem={this.renderHrOption} />
-    </AdvancedSearchPanel>)
+      <Select name="positionId" label="职位级别" placeholder="请选择" params={{}} method="post" fetch={`${APP_SERVER}/sysPositionLevel/findPositionLevelList`} renderItem={this.renderLevelOption} />
+  </AdvancedSearchPanel>)
   }
 
 }
