@@ -51,7 +51,7 @@ export default class InterviewFeedbackForm extends FormPage {
             name="name"
             placeholder={"请输入模板名称"}
             defaultValue={item.name}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={[{ max: 15, message: "最多输入15个字！" },{ validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name",id:item.id }, { required: true, message: `不可为空`, whitespace: true }]}
           />
         </FormItem>
         <FormItem>
@@ -85,8 +85,11 @@ class QuestionForm extends React.Component {
     let { value, type } = this.props
     if (value.length) {
       let questionList = value.map(e => {
-        const { optionA, optionB, optionC, optionD, question, templateId, templateType, id, sort } = e
-        return { optionA, optionB, optionC, optionD, question, templateId, templateType, id, sort }
+        const { optionA, optionB, optionC, optionD, question, /*templateId,*/ templateType,/* id,*/ sort } = e
+        return {
+          optionA, optionB, optionC, optionD, question, /*templateId,*/ templateType,/* id,*/ sort,
+          key: `${Math.random()}`
+        }
       })
       this.props.onChange(questionList)
       this.setState({ questionList })
@@ -109,24 +112,20 @@ class QuestionForm extends React.Component {
     questionList.push({ templateType: type, sort: questionList.length + 1, key: `${Math.random()}` })
     this.setState({ questionList })
   }
-  handleDeleteQuestion(sort) {
-    console.log(sort)
+  handleDeleteQuestion(sort, id) {
     let { questionList } = this.state
-    console.log(questionList, 'handleDeleteQuestion')
     questionList = questionList.filter(e => e.sort != sort).map((e, index) => ({ ...e, sort: index + 1 }))
-    console.log(questionList, 'questionListquestionListquestionList')
     this.setState({
       questionList
     }, () => {
       this.props.onChange(questionList)
-      console.log(questionList, '1111111111111')
     })
   }
   renderQuestionList() {
     const { type } = this.props
     if (type == 1) {
       return this.state.questionList.map((e, index) => (
-        [<div key={e.id||e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px', position: 'relative' }}>
+        [<div key={e.id || e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px', position: 'relative' }}>
           <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
           <Input
             onChange={this.handleInputChange.bind(this, 'question', index)}
@@ -134,7 +133,7 @@ class QuestionForm extends React.Component {
             placeholder={"请输入"}
             rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
           />
-          <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />
+          {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />}
         </div>,
         <div style={{ padding: '10px 50px', position: 'relative' }}>
           <div className="interview-template-question-label">A</div>
@@ -176,7 +175,7 @@ class QuestionForm extends React.Component {
       ))
     }
     return this.state.questionList.map((e, index) => (
-      [<div key={e.id||e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px' }}>
+      [<div key={e.id || e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px' }}>
         <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
         <Input
           onChange={this.handleInputChange.bind(this, 'question', index)}
@@ -185,7 +184,7 @@ class QuestionForm extends React.Component {
           placeholder={"请输入"}
           rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
         />
-        <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />
+        {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1, e.id)} className="interview-template-delete-icon" type="delete" />}
       </div>, <Divider />]
     ))
   }

@@ -307,7 +307,9 @@ let customRules={
        let name = rule.name
        let params = rule.params?rule.params:{}
        params[rule['name']]=value
-       console.log(params)
+       if(rule.id){
+        params.id = rule.id
+       }
        new FetchAPI().fetch(rule.value,{
          body:params,
          method:"POST"
