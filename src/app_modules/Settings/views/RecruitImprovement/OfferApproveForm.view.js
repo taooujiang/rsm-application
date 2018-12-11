@@ -33,7 +33,7 @@ export default class OfferApproveForm extends FormPage {
     let { actions, router } = this.props;
     this.state.subForm.handleParentSubmit()
     //flag stageList是否可提交
-    let flag = values.stageList ? values.stageList.every(e => e.approvalAccount) : !!values.stageList
+    let flag = values.stageList.length ? values.stageList.every(e => e.approvalAccount) : false
     if (!flag) {
       return void 0
     }
@@ -73,7 +73,7 @@ export default class OfferApproveForm extends FormPage {
             name="name"
             placeholder={"请输入"}
             defaultValue={item.name}
-            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name",id:item.id }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }]}
           />
         </FormItem>
 
@@ -175,7 +175,7 @@ class OfferApproveSelector extends FormPage {
                     onChange={this.handleAccChange.bind(this, index)}
                     fetch={selectList} renderItem={this.renderSelectOption.bind(this)} />
                 </FormItem>
-                {index == 0 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, e.stage)} className="offerapprove-delete-icon" type="delete" />}
+                {index + 1 == this.state.stageList.length && index != 0 ? <Icon onClick={this.handleDeleteQuestion.bind(this, e.stage)} className="offerapprove-delete-icon" type="delete" /> : null}
               </div>
             )
           })
