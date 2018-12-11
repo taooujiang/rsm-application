@@ -16,7 +16,6 @@ export default class OfferApproveForm extends FormPage {
   }
   componentDidMount = () => {
     const { item } = this.props
-    console.log(item, 'mmmmmmmmmmmmmmmmmmmmm')
     fechAvailableAccount().then(res => {
       this.setState({
         originalAccList: res,
@@ -33,7 +32,7 @@ export default class OfferApproveForm extends FormPage {
     let { actions, router } = this.props;
     this.state.subForm.handleParentSubmit()
     //flag stageList是否可提交
-    let flag = values.stageList.length ? values.stageList.every(e => e.approvalAccount) : false
+    let flag = values.stageList.length && values.stageList.every(e => e.approvalAccount)
     if (!flag) {
       return void 0
     }
@@ -52,7 +51,7 @@ export default class OfferApproveForm extends FormPage {
   }
   render() {
     //见FormPage.view.js
-    const { onSubmit, saveFormRef, item, } = this.props;
+    const { onSubmit, item, } = this.props;
     console.log(this.props);
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
@@ -77,16 +76,6 @@ export default class OfferApproveForm extends FormPage {
           />
         </FormItem>
 
-        {/* <p>流程阶段</p> */}
-        {/* <FormItem>
-          <Input
-            label='审批人'
-            name="optionName"
-            placeholder={"请输入"}
-            // defaultValue={item.optionName}
-            rules={[{ max: 10, message: "最多输入10个字！" },{ required: true, message: `不可为空`,whitespace:true }]}
-          />
-        </FormItem> */}
         <FormItem style={{ padding: '0' }}>
           <OfferApproveSelector defaultValue={item.stageList ? item.stageList : []}
             name="stageList" getSubForm={this.getSubForm.bind(this)} selectList={this.state.accSelectList} />
@@ -106,16 +95,14 @@ class OfferApproveSelector extends FormPage {
   componentDidMount = () => {
     this.props.getSubForm(this)
     const { value } = this.props
-    console.log(value, 'vvvv')
     let newValue = value.map((e) => ({ approvalAccount: e.approvalAccount, stage: e.stage, id: e.id }))
     this.setState({
       stageList: newValue,
-      // stageList: value
     })
   }
 
   handleSubmit(values) {
-    let { actions, router, onChange } = this.props;
+    let { onChange } = this.props;
     let { stageList } = this.state
     onChange(stageList)
   }

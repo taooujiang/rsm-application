@@ -18,16 +18,25 @@ export default class InterviewFeedbackForm extends FormPage {
 
   }
   handleSubmit(values) {
-    // console.log(values)
     let { actions, router } = this.props;
-    // this.state.subForm.handleParentSubmit()
-    // //flag stageList是否可提交
-    // let flag = values.stageList ? values.stageList.every(e => e.approvalAccount) : !!values.stageList
-    // if (!flag) {
-    //   return void 0
-    // }
+    this.state.subForm.handleParentSubmit()
+    let flag = false
+    if (this.state.type == 1) {
+      // 选择题检测ABCD四项是否填写
+      flag = values.questionList.length && values.questionList.every(e => e.question && e.optionA && e.optionB && e.optionC && e.optionD)
+    } else {
+      flag = values.questionList.length && values.questionList.every(e => e.question)
+    }
+    if (!flag) {
+      return void 0
+    }
     actions.interviewFeedbackSaveAction(values);
     actions.backRoute(router);
+  }
+  getSubForm(ref) {
+    this.setState({
+      subForm: ref
+    })
   }
   renderTemplateTypeSelectOption(data, idx) {
     return (<Select.Option value={data.type} key={idx}>{data.name}</Select.Option>)
@@ -51,14 +60,14 @@ export default class InterviewFeedbackForm extends FormPage {
             name="name"
             placeholder={"请输入模板名称"}
             defaultValue={item.name}
-            rules={[{ max: 15, message: "最多输入15个字！" },{ validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name",id:item.id }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }]}
           />
         </FormItem>
         <FormItem>
           <Select name="type" label="模板类型" defaultValue={item.type || 1} onChange={this.handleTemplateTypeChange.bind(this)} fetch={templateTypeSelectOption} renderItem={this.renderTemplateTypeSelectOption} />
         </FormItem>
         <FormItem style={{ paddingLeft: '0' }}>
-          <QuestionForm name="questionList" type={this.state.type} defaultValue={item.questionList || []} />
+          <QuestionForm getSubForm={this.getSubForm.bind(this)} name="questionList" type={this.state.type} defaultValue={item.questionList || []} />
         </FormItem>
       </BaseForm>
     );
@@ -67,14 +76,18 @@ export default class InterviewFeedbackForm extends FormPage {
 
 
 // { type: 1, name: "选择型" }, { type: 2, name: "打分型" }, { type: 3, name: "问答型" }
-class QuestionForm extends React.Component {
+class QuestionForm extends FormPage {
   state = {
     questionList: []
   }
-  constructor(props) {
-    super(props)
+  handleSubmit(values) {
+    let { onChange } = this.props;
+    let { questionList } = this.state
+    onChange(questionList)
   }
-
+  handleParentSubmit() {
+    this.onSubmit.call(this)
+  }
   componentWillReceiveProps = (nextProps) => {
     const { type } = nextProps
     if (type != this.props.type) {
@@ -82,6 +95,7 @@ class QuestionForm extends React.Component {
     }
   }
   componentDidMount() {
+    this.props.getSubForm(this)
     let { value, type } = this.props
     if (value.length) {
       let questionList = value.map(e => {
@@ -113,6 +127,7 @@ class QuestionForm extends React.Component {
     this.setState({ questionList })
   }
   handleDeleteQuestion(sort, id) {
+
     let { questionList } = this.state
     questionList = questionList.filter(e => e.sort != sort).map((e, index) => ({ ...e, sort: index + 1 }))
     this.setState({
@@ -125,81 +140,99 @@ class QuestionForm extends React.Component {
     const { type } = this.props
     if (type == 1) {
       return this.state.questionList.map((e, index) => (
-        [<div key={e.id || e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px', position: 'relative' }}>
-          <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
-          <Input
-            onChange={this.handleInputChange.bind(this, 'question', index)}
-            defaultValue={e.question}
-            placeholder={"请输入"}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
-          />
+        [<div key={e.id || e.key} className="interview-template-question" >
+          <FormItem style={{ paddingLeft: '30px', paddingRight: '50px' }}>
+            <Input
+              label={index + 1}
+              name={`${index}`}
+              onChange={this.handleInputChange.bind(this, 'question', index)}
+              defaultValue={e.question}
+              placeholder={"请输入"}
+              rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
+            />
+          </FormItem>
           {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />}
         </div>,
         <div style={{ padding: '10px 50px', position: 'relative' }}>
-          <div className="interview-template-question-label">A</div>
-          <Input
-            defaultValue={e.optionA}
-            onChange={this.handleInputChange.bind(this, 'optionA', index)}
-            placeholder={"请输入"}
-            rules={[{ required: true, message: `不可为空`, whitespace: true }]}
-          />
+          <FormItem style={{ paddingLeft: '30px', }}>
+            <Input
+              label="A"
+              name={`${index}A`}
+              defaultValue={e.optionA}
+              onChange={this.handleInputChange.bind(this, 'optionA', index)}
+              placeholder={"请输入"}
+              rules={[{ required: true, message: `不可为空`, whitespace: true }]}
+            />
+          </FormItem>
         </div>,
         <div style={{ padding: '10px 50px' }}>
-          <div className="interview-template-question-label">B</div>
-          <Input
-            defaultValue={e.optionB}
-            onChange={this.handleInputChange.bind(this, 'optionB', index)}
-            placeholder={"请输入"}
-            rules={[{ required: true, message: `不可为空`, whitespace: true }]}
-          />
+          <FormItem style={{ paddingLeft: '30px', }}>
+            <Input
+              label="B"
+              name={`${index}B`}
+              defaultValue={e.optionB}
+              onChange={this.handleInputChange.bind(this, 'optionB', index)}
+              placeholder={"请输入"}
+              rules={[{ required: true, message: `不可为空`, whitespace: true }]}
+            />
+          </FormItem>
         </div>,
         <div style={{ padding: '10px 50px' }}>
-          <div className="interview-template-question-label">C</div>
-          <Input
-            defaultValue={e.optionC}
-            onChange={this.handleInputChange.bind(this, 'optionC', index)}
-            placeholder={"请输入"}
-            rules={[{ required: true, message: `不可为空`, whitespace: true }]}
-          />
+          <FormItem style={{ paddingLeft: '30px', }}>
+            <Input
+              label="C"
+              name={`${index}C`}
+              defaultValue={e.optionC}
+              onChange={this.handleInputChange.bind(this, 'optionC', index)}
+              placeholder={"请输入"}
+              rules={[{ required: true, message: `不可为空`, whitespace: true }]}
+            />
+          </FormItem>
         </div>,
         <div style={{ padding: '10px 50px' }}>
-          <div className="interview-template-question-label">D</div>
-          <Input
-            defaultValue={e.optionD}
-            onChange={this.handleInputChange.bind(this, 'optionD', index)}
-            placeholder={"请输入"}
-            rules={[{ required: true, message: `不可为空`, whitespace: true }]}
-          />
+          <FormItem style={{ paddingLeft: '30px', }}>
+            <Input
+              label="D"
+              name={`${index}D`}
+              defaultValue={e.optionD}
+              onChange={this.handleInputChange.bind(this, 'optionD', index)}
+              placeholder={"请输入"}
+              rules={[{ required: true, message: `不可为空`, whitespace: true }]}
+            />
+          </FormItem>
         </div>, <Divider />
         ]
       ))
     }
     return this.state.questionList.map((e, index) => (
-      [<div key={e.id || e.key} className="interview-template-question" style={{ paddingLeft: '30px', paddingRight: '50px' }}>
-        <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div>
-        <Input
-          onChange={this.handleInputChange.bind(this, 'question', index)}
-          label={index + 1}
-          name="question"
-          placeholder={"请输入"}
-          rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
-        />
+      [<div key={e.id || e.key} className="interview-template-question" >
+        {/* <div style={{ marginLeft: '10px' }} className="interview-template-question-label">{`${index + 1}. `}</div> */}
+        <FormItem style={{ paddingLeft: '30px', paddingRight: '50px' }}>
+          <Input
+            onChange={this.handleInputChange.bind(this, 'question', index)}
+            label={index + 1}
+            name="question"
+            placeholder={"请输入"}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
+          />
+        </FormItem>
         {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1, e.id)} className="interview-template-delete-icon" type="delete" />}
       </div>, <Divider />]
     ))
   }
   render() {
+    const { onSubmit, saveFormRef, item, selectList } = this.props;
 
     return (
-      <div style={{ border: "1px solid #e0e0e0", paddingTop: '15px', minHeight: '200px' }} >
+      <BaseForm onSubmit={onSubmit} ref={this.saveFormRef} style={{ border: "1px solid #e0e0e0", paddingTop: '15px', minHeight: '200px' }} >
 
         {this.renderQuestionList()}
-
-        <Button onClick={this.handleAddQuestion.bind(this, this.props.type)}
+        {this.state.questionList.length > 4 ? null : <Button onClick={this.handleAddQuestion.bind(this, this.props.type)}
           style={{ margin: '10px auto', display: 'block' }} type="primary">
           添加题目
-        </Button>
-      </div>
+        </Button>}
+
+      </BaseForm>
     )
   }
 }
