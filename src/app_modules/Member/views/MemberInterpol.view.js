@@ -23,7 +23,7 @@ import AdvancedSearchPanel from "app/components/AdvancedSearchPanel";
 import ButtonGroups from "app/components/ButtonGroups";
 import LinkagePullDown from "app/components/LinkagePullDown";
 import CalendarPicker from "app/components/CalendarPicker";
-import TreeView,{TreeSelectPicker} from 'app/components/TreeView'
+import TreeView, { TreeSelectPicker } from 'app/components/TreeView'
 import PopoverShow from "app/components/PopoverShow";
 import Remote from "app/components/Remote";
 import InputStrGroup from "app/components/InputStrGroup";
@@ -76,12 +76,12 @@ export default class MemberListView extends PageView {
   constructor(props) {
     super(props);
   }
-
-  componentWillMount() {
+  componentDidMount() {
     let { actions } = this.props;
-    actions.listAction();
-    actions.sysFieldListAction();
+    actions.interpolListAction();
   }
+  
+  
   renderSelectOption(data, idx) {
     return (
       <Select.Option value={data.keyValue} key={idx}>
@@ -89,31 +89,14 @@ export default class MemberListView extends PageView {
       </Select.Option>
     );
   }
-  handleFilter(value) {
-    let { actions } = this.props;
-    actions.listAction(value);
-    actions.sysFieldListAction();
-  }
+  // handleFilter(value) {
+  //   let { actions } = this.props;
+  //   actions.listAction(value);
+  //   actions.sysFieldListAction();
+  // }
   handlerDetailRoute(id) {
     let { actions } = this.props;
     actions.detailRoute(id);
-  }
-  fieldsOption(options, value) {
-    let optionName = [];
-    let valueArr = [];
-    if (value instanceof Array) {
-      valueArr = value;
-    } else {
-      valueArr.push(value);
-    }
-    valueArr.map(item => {
-      options.map(it => {
-        if (it.optionValue == item) {
-          optionName.push(it.optionName);
-        }
-      });
-    });
-    return optionName.join(",");
   }
   renderTableList() {
     let self = this;
@@ -138,49 +121,49 @@ export default class MemberListView extends PageView {
       // 	}
       // },
       columns: [{
-         title: "员工姓名",
-         key: "name",
-         dataIndex: "name",
-         width: 100,
-       },{
+        title: "员工姓名",
+        key: "memberName",
+        dataIndex: "memberName",
+        width: 100,
+      }, {
         title: "电话号码",
-        key: "mobilephone",
-        dataIndex: "mobilephone",
+        key: "memberMobilephone",
+        dataIndex: "memberMobilephone",
         width: 140,
-      },{
+      }, {
         title: "所属部门",
         key: "deptName",
         dataIndex: "deptName",
         width: 130,
-      },{
+      }, {
         title: "积分总数",
-        key: "familyAddress",
-        dataIndex: "familyAddress",
+        key: "creditTotal",
+        dataIndex: "creditTotal",
         width: 150,
-      },{
+      }, {
         title: "积分余额",
-        key: "birth",
-        dataIndex: "birth",
+        key: "creditBalance",
+        dataIndex: "creditBalance",
         width: 150,
-      },{
+      }, {
         title: "已兑换积分",
-        key: "contractExpireTime",
-        dataIndex: "contractExpireTime",
+        key: "creditExchange",
+        dataIndex: "creditExchange",
         width: 150,
-      },{
+      }, {
         title: "现金总数",
-        key: "conversionTime",
-        dataIndex: "conversionTime",
+        key: "cashTotal",
+        dataIndex: "cashTotal",
         width: 150,
-      },{
+      }, {
         title: "现金余额",
-        key: "degree",
-        dataIndex: "degree",
+        key: "cashBalance",
+        dataIndex: "cashBalance",
         width: 150,
-      },{
+      }, {
         title: "已提取现金",
-        key: "duty",
-        dataIndex: "duty",
+        key: "cashExchange",
+        dataIndex: "cashExchange",
         width: 150,
       }]
     };
@@ -208,7 +191,6 @@ export default class MemberListView extends PageView {
     }
   }
   render() {
-    let props = this.props;
     return (
       <Card
         type="inner"
@@ -218,7 +200,6 @@ export default class MemberListView extends PageView {
           </div>
         }
       >
-        {/* this.renderSearchBar() */}
         {this.renderTableList()}
       </Card>
     );
