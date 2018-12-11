@@ -106,7 +106,7 @@ class QuestionForm extends React.Component {
   }
   handleAddQuestion(type) {
     let { questionList } = this.state
-    questionList.push({ templateType: type, sort: questionList.length + 1, key: Math.random() })
+    questionList.push({ templateType: type, sort: questionList.length + 1, key: `${Math.random()}` })
     this.setState({ questionList })
   }
   handleDeleteQuestion(sort) {

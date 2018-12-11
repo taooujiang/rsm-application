@@ -372,6 +372,12 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+
+  deleteInterviewFeedback(params) {
+    return this.fetchPost(`${APP_SERVER}/sysInterviewFeedbackTemplate/deleteJson`, {
+      body: params
+    })
+  }
 }
 // 下列方法用于脱离redux下的场景
 export const fetchShareSetting = (params) => {
