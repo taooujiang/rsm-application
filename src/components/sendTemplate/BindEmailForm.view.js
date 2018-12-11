@@ -26,6 +26,12 @@ import BaseForm,{FormItem} from 'components/BaseForm'
 import CountdownButton from 'components/CountdownButton'
 
 class EmailForm extends Component {
+  handleSelectChange(value){
+    this.props.saveFormRef.setFieldsValue({mailHost:value})
+  }
+  renderSelectOption(data,idx){
+		return (<Option value={data.keyValue} key={idx}>{data.keyName}</Option>)
+	}
   render() {
     const {
       form,
@@ -51,10 +57,16 @@ class EmailForm extends Component {
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem {...formFullItemLayout}>
+          <Select onChange={this.handleSelectChange.bind(this)} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhost") && DictUtils.getDictByType("mailhost").sort((a,b)=>a.keySort - b.keySort)} renderItem={this.renderSelectOption} />
+        </FormItem>
+        <FormItem {...formFullItemLayout}>
           <Input label="邮箱帐号" type="email" name="email" rules={[{type:"email",message:"邮箱格式不正确"},{required: true, message: "邮箱不可为空",}]}/>
         </FormItem>
         <FormItem {...formFullItemLayout}>
           <Input label="密码" type="password" name="password" rules={[{required: true, message: "密码不可为空",}]}/>
+        </FormItem>
+        <FormItem {...formFullItemLayout}>
+          <Input label="邮箱发送服务器" name="mailHost" rules={[{required: true, message: "邮箱服务器不可为空",}]}/>
         </FormItem>
         <FormItem {...formFullItemLayout} className="input-button-group">
           {

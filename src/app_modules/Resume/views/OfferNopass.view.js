@@ -34,10 +34,10 @@ export default class OfferNopassForm extends FormPage{
 
 
   handleSubmit(values){
-    // let {actions,router,location,params:{type}} = this.props;
-    // actions.joinEliteAction(values).then(()=>{
-    //   actions.backRouteReload(router,location)
-    // })
+    let {actions,router,location} = this.props;
+    actions.offerApprovalAction(values).then(()=>{
+      actions.backRouteReload(router,location)
+    })
   }
 
   render() {
@@ -49,11 +49,17 @@ export default class OfferNopassForm extends FormPage{
       saveFormRef,
       formFullItemLayout,
     } = this.props
-    let {location:{state:{ids,libType}}} = this.props
+    let id = this.props.location.state.item.offerApprovalDto.id
     return (
       <BaseForm onSubmit={this.handleSubmit.bind(this)} ref={this.saveFormRef}>
+        <FormItem>
+            <Input type="hidden" name="id" defaultValue={id}/>
+        </FormItem>
+        <FormItem>
+            <Input type="hidden" name="status" defaultValue={2}/>
+        </FormItem>
           <FormItem>
-            <TextArea name="filingRemark" label="offer不通过原因" placeholder="请输入原因"  rules={[{max:50,message:"原因描述限制50个字"}]} />
+            <TextArea name="approvalRemark" label="offer不通过原因" placeholder="请输入原因"  rules={[{max:50,message:"原因描述限制50个字"}]} />
           </FormItem>
       </BaseForm>
     )

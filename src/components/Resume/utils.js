@@ -106,6 +106,14 @@ export function createResumeRoute(){
          }
         return dispatch => dispatch(routerActions.push(path))
     },
+    openRejectAppro:function(router,item){
+      let pathname = router.getCurrentLocation().pathname
+        let path  = {
+          pathname : `${pathname}/nooffer` ,
+          state:{item:item,pathname:pathname}
+        }
+       return dispatch => dispatch(routerActions.push(path))
+    },
     offerAction:function(router,resumeId,name,item) {
 
         let pathname = filterPath(router.getCurrentLocation().pathname)

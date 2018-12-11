@@ -75,8 +75,8 @@ let {
 let {listRoute,backRoute,backRouteReload,backListRoute} = createActionRoute()
 export {listRoute,backRoute,backRouteReload,backListRoute}
 
- let {feedAction,delayAction,creditAction,entryAction,connectEliteAction,addLabelAction,feedbackAction,distributionAction,followActionction,talentAction,send2InterviewerAction,recommend2OtherAction,addEliteAction,followAction,deleteAction,joinAction} =createResumeRoute()
-export {feedAction,delayAction,creditAction,entryAction,connectEliteAction,addLabelAction,feedbackAction,distributionAction,followActionction,talentAction,send2InterviewerAction,recommend2OtherAction,addEliteAction,followAction,deleteAction,joinAction}
+ let {feedAction,delayAction,creditAction,entryAction,connectEliteAction,addLabelAction,feedbackAction,distributionAction,followActionction,talentAction,send2InterviewerAction,recommend2OtherAction,addEliteAction,followAction,deleteAction,joinAction,openRejectAppro} =createResumeRoute()
+export {feedAction,delayAction,creditAction,entryAction,connectEliteAction,addLabelAction,feedbackAction,distributionAction,followActionction,talentAction,send2InterviewerAction,recommend2OtherAction,addEliteAction,followAction,deleteAction,joinAction,openRejectAppro}
 
 export {urgeFeedbackAction}
 
@@ -293,6 +293,17 @@ export function getRemarkAction(value) {
               let data = json.data ? json.data : []
               dispatch(saveRemark(data))
             }
+        }).catch(ex => {
+            return dispatch(fetchFailure('formSpin',ex))
+        })
+    }
+}
+
+export function offerApprovalAction(value) {
+    return (dispatch, getState) => {
+        dispatch(fetchRequest('formSpin'))
+        return new API().fetchApproval(value).then(json => {
+            dispatch(fetchSuccess('formSpin',true))
         }).catch(ex => {
             return dispatch(fetchFailure('formSpin',ex))
         })

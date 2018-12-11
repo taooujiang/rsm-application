@@ -82,6 +82,7 @@ function translateDic(type,value){
 export default class PersonInfoDetail extends Component{
   render(){
     let {location:{pathname},params:{type}} = this.props
+    /*type 只有在人才库和诚信库才有  用以区分*/
     if(pathname.indexOf("distrib") >= 0){//待分配
         return <ResumeDetail {...this.props} detailType={1}/>
     }else if(pathname.indexOf("resume/list") >= 0||pathname.indexOf("log/1") >= 0||pathname.indexOf("report/remark") >= 0){//简历

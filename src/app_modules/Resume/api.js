@@ -188,5 +188,8 @@ export default class API extends FetchAPI {
   fetchCancelFeed(params){
     return this.fetchPost(`${APP_SERVER}/interviewPlan/deleteInterview`, {body: params})
   }
+  fetchApproval(params){
+    return this.fetchPost(`${APP_SERVER}/resumeOfferApproval/approval`, {body: params})
+  }
 
 }

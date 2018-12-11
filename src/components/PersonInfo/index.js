@@ -16,6 +16,7 @@ import {
     Dropdown,
     Tabs,
     Select,
+    Checkbox,
     Steps,
     Timeline,
     Upload,
@@ -37,6 +38,7 @@ import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import ButtonGroups from 'app/components/ButtonGroups'
 import FileUpload from 'app/components/FileUpload'
 import CalendarPicker from 'app/components/CalendarPicker'
+import DateTimePicker from 'app/components/DateTimePicker'
 import {ImgUpload} from 'app/components/FileUpload'
 import Permission from 'app/components/Permission'
 import EmailTemplateLinkage,{SmsTemplateLinkage,SmsTemplateInterView} from 'app/components/sendTemplate'
@@ -53,6 +55,21 @@ const {TextArea} = Input
 const RadioGroup = Radio.Group
 const MonthPicker = DatePicker.MonthPicker
 const InputGroup = Input.Group;
+const stageJson = {
+  1:"一级审批",
+  2:"二级审批",
+  3:"三级审批"
+}
+const moneyOpt = [
+  {label:"日薪",value:'1'},
+  {label:"月薪",value:'2'},
+  {label:"年薪",value:'3'},
+]
+const approvalStatus = {
+  0:"未审批",
+  1:"已通过",
+  2:"未通过"
+}
 
 /**打印函数start*/
 var CreatedOKLodop7766 = null, CLodopIsLocal;
@@ -263,7 +280,7 @@ class BaseInfoItem extends Component{
 class InfoInline extends Component{
   render(){
     return <div className="info-inline">
-      <label>{this.props.label}</label>
+      <label>{this.props.label}：</label>
       <span>{this.props.info}</span>
     </div>
   }
@@ -352,9 +369,16 @@ PersonOption.defaultProps = {
 /*按钮状态判断总组件*/
 class OptionButtons extends Component{
   renderWhich(){
-    let {actions,router,type,status,item} =this.props
-    let {isLock,authorization} = item
-		let {isSame} = this.props
+    let {actions,router,type,status,item,isSame} =this.props
+    let {isLock,authorization,defined7,offerApprovalDto} = item
+    /*先判断是否为共享诚信库*/
+    if(offerApprovalDto && offerApprovalDto.id){
+      return <OptionButtonOfferJudge {...this.props}/>
+    }
+    if(defined7 == 0){
+        return <OptionButtonsCreditShare {...this.props}/>
+    }
+    /*下面分别为简历人才待分配诚信 不分先后type*/
     if(type == 'resume'){
       if(!authorization){
         return <OptionButtonsSame {...this.props}/>
@@ -438,6 +462,17 @@ class OptionCommonFn extends Component{
   addLabel(){
     let {actions,router,item:{labels}} = this.props
     actions.addLabelAction(router,labels)
+  }
+  handleApproalReject(){
+    let {actions,router,item} = this.props
+    actions.openRejectAppro(router,item)
+  }
+  handleApproalPass(){
+    let {actions,item:{offerApprovalDto:{id}}} = this.props
+    actions.offerApprovalAction({
+      id:id,
+      status:1
+    })
   }
   eliminate(){
     let {actions,item:{id},router,location,orginJson} = this.props
@@ -668,71 +703,93 @@ class OptionButtonsSame extends OptionCommonFn{
     )
   }
 }
+/*offer审核状态中间组件*/
+class OptionButtonOfferJudge extends Component{
+  renderWhich(){
+    let {item:{offerApprovalDto:{status}}} = this.props
+    switch (status) {
+      case 0:
+        return <OptionButtonsOffering {...this.props}/>
+      case 1:
+        return <OptionButtonsOffered {...this.props}/>
+      case 2:
+        return <OptionButtonsNoOffered {...this.props}/>
+    }
+  }
+  render(){
+    return this.renderWhich()
+  }
+}
 /*offer审核中状态*/
 class OptionButtonsOffering extends OptionCommonFn{
   render(){
-    let {item:{hrName,labelNames}} = this.props
+    let {item:{hrName,labelNames,offerApprovalDto,offerApprovalDto:{approvalStage,approvalName,isApprovalAccount}}} = this.props
     return <div className="offering-box">
             <h1><Icon type="icon-seal"/>offer审批中</h1>
-            <InfoInline label="审批职位" info="高级产品经理"/>
-            <InfoInline label="审批阶段" info="二级审批"/>
-            <InfoInline label="审批人" info="张三三"/>
+            <InfoInline label="审批职位" info={offerApprovalDto.jobTitle}/>
+            <InfoInline label="审批阶段" info={stageJson[ approvalStage ]}/>
+            <InfoInline label="审批人" info={approvalName}/>
 
             <ButtonGroup>
-              <Button className="block" onClick={this.handleRemark.bind(this)}>审批通过</Button>
-              <Button className="block" onClick={this.handleRemark.bind(this)}>审批不通过</Button>
+              { isApprovalAccount ?
+                <div>
+                  <Button className="block" onClick={this.handleApproalPass.bind(this)}>审批通过</Button>
+                  <Button className="block" onClick={this.handleApproalReject.bind(this)}>审批不通过</Button>
+                </div>
+                :
+                null }
               <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
+            </ButtonGroup>
               <BaseInfoItem label="招聘负责人" info={hrName}/>
 
               <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
               <div className="tags-box">
                 { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
               </div>
-            </ButtonGroup>
         </div>
   }
 }
 /*offer审核通过状态*/
 class OptionButtonsOffered extends OptionCommonFn{
   render(){
-    let {item:{hrName,labelNames}} = this.props
+    let {item:{hrName,labelNames,offerApprovalDto,offerApprovalDto:{approvalStage,approvalName,isApprovalAccount}}} = this.props
     return <div className="offering-box">
               <h1><Icon type="icon-pass"/>offer审批通过</h1>
-              <InfoInline label="审批职位" info="高级产品经理"/>
-              <InfoInline label="审批阶段" info="二级审批"/>
-              <InfoInline label="审批人" info="张三三"/>
+              <InfoInline label="审批职位" info={offerApprovalDto.jobTitle}/>
+              <InfoInline label="审批阶段" info={stageJson[ approvalStage ]}/>
+              <InfoInline label="审批人" info={approvalName}/>
 
             <ButtonGroup>
                 <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
-                <BaseInfoItem label="招聘负责人" info={hrName}/>
-
-                <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
-                <div className="tags-box">
-                  { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
-                </div>
             </ButtonGroup>
+            <BaseInfoItem label="招聘负责人" info={hrName}/>
+
+            <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
+            <div className="tags-box">
+              { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
+            </div>
         </div>
   }
 }
 /*offer审核不通过状态*/
 class OptionButtonsNoOffered extends OptionCommonFn{
   render(){
-    let {item:{hrName,labelNames}} = this.props
+    let {item:{hrName,labelNames,offerApprovalDto,offerApprovalDto:{approvalStage,approvalName,isApprovalAccount}}} = this.props
     return <div className="offering-box">
               <h1><Icon type="icon-no_pass"/>offer审批不通过</h1>
-              <InfoInline label="审批职位" info="高级产品经理"/>
-              <InfoInline label="审批阶段" info="二级审批"/>
-              <InfoInline label="审批人" info="张三三"/>
+              <InfoInline label="审批职位" info={offerApprovalDto.jobTitle}/>
+              <InfoInline label="审批阶段" info={stageJson[ approvalStage ]}/>
+              <InfoInline label="审批人" info={approvalName}/>
 
             <ButtonGroup>
                 <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
-                <BaseInfoItem label="招聘负责人" info={hrName}/>
-
-                <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
-                <div className="tags-box">
-                  { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
-                </div>
             </ButtonGroup>
+            <BaseInfoItem label="招聘负责人" info={hrName}/>
+
+            <BaseInfoItem label="标签" info={<Button onClick={this.addLabel.bind(this)}><Icon type="plus"/></Button>}/>
+            <div className="tags-box">
+              { labelNames&&labelNames.map(it=>{return <Tag>{it}</Tag> })}
+            </div>
         </div>
   }
 }
@@ -742,11 +799,15 @@ class OptionButtonsCreditShare extends OptionCommonFn{
     console.log(val)
   }
   render(){
+    let {item:{shareSincerityList}} = this.props
     return <div>
       <h2>该候选人存在于其他公司的诚信库中</h2>
       <ul>
-        <li>简历造假（浙江企蜂通信）</li>
-        <li>简历造假（浙江企蜂通信）</li>
+        {/*<li>简历造假（浙江企蜂通信）</li>
+        <li>简历造假（浙江企蜂通信）</li>*/}
+        {shareSincerityList&&shareSincerityList.map((it)=>{
+          return <li>{item.optionId}<span>{item.orgId}</span></li>
+        })}
       </ul>
 
       <ButtonGroup>
@@ -754,7 +815,7 @@ class OptionButtonsCreditShare extends OptionCommonFn{
         <Button className="half-block" onClick={this.handleRemark.bind(this)}>放入人才库</Button>
       </ButtonGroup>
 
-      <Checkbox onChange={this.onChange}>不再对该简历进行诚信库提醒</Checkbox>
+      <Checkbox onChange={this.onChange.bind(this)}>不再对该简历进行诚信库提醒</Checkbox>
     </div>
   }
 }
@@ -2004,17 +2065,46 @@ export class PersonOffer extends Component{
   }
 }
 class PersonOfferShow extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      open:false
+    }
+  }
+  renderSalary(){
+    let {info:{salary,salaryType}} = this.props
+    let type = moneyOpt.filter(it=>{
+      return it.value == salaryType
+    }).pop().label
+    return type +" "+ salary
+  }
+  toggleArraw(){
+    this.setState({
+      open:!this.state.open
+    })
+  }
+  renderArraw(){
+    let {open} = this.state
+    return open ? <Icon type="down-circle" onClick={this.toggleArraw.bind(this)}/> : <Icon type="right-circle" onClick={this.toggleArraw.bind(this)}/>
+  }
   render(){
-    let {info,reSend} = this.props
+    let {info,info:{offerApprovals,salary,salaryType,status},reSend} = this.props
     return (
-      <div>
-        <BaseInfoItem label="offer" info='已发送'/>
+      <div className="offer-showinfo-box">
+        <BaseInfoItem label="offer" info={DictUtils.getDictLabelByValue("offerstatus",status)}/>
         <BaseInfoItem label="预计入职日期" info={translateTime(info.expectedEntryTime,"YYYY-MM-DD")}/>
-        <BaseInfoItem label="入职薪资" info="月薪  40000"/>
-        <BaseInfoItem label="发件人" info={info.mailFrom}/>
-        <BaseInfoItem label="收件人" info={info.mailTo}/>
-        <BaseInfoItem label="邮件主题" info={info.mailSubject}/>
-        <div dangerouslySetInnerHTML={{__html: info.mailContent}} />
+        <BaseInfoItem label="入职薪资" info={this.renderSalary()}/>
+        <BaseInfoItem label="offer邮件详情" info={this.renderArraw()}/>
+        { this.state.open ?
+          <div className="emailbox">
+            <BaseInfoItem label="发件人" info={info.mailFrom}/>
+            <BaseInfoItem label="收件人" info={info.mailTo}/>
+            <BaseInfoItem label="邮件主题" info={info.mailSubject}/>
+            <div dangerouslySetInnerHTML={{__html: info.mailContent}} />
+          </div>
+          :
+          null }
+        <BaseInfoItem label="offer审批" info={<PersonOfferApprovalPart approvalInfo={offerApprovals}/>}/>
         { reSend ? <Button onClick={this.props.handleEdit} style={{float:"right"}}>再发一封</Button> : null}
       </div>
     )
@@ -2023,9 +2113,34 @@ class PersonOfferShow extends Component{
 PersonOfferShow.defaultProps = {
   reSend:true
 }
+/*offer审批审批*/
+class PersonOfferApprovalPart extends Component{
+  render(){
+    return this.props.approvalInfo.map((it,idx)=>{
+      console.log(it)
+      return <div className="approval-item">
+        <div classNmae="approval-rows">
+          <span>{stageJson[ it.approvalStage ]}</span>
+          <span>{it.approvalName}</span>
+          <span>{it.inputTime}</span>
+          <span>{approvalStatus[ it.status ]}</span>
+        </div>
+        { it.approvalRemark ?
+          <div className="approval-remark">{it.approvalRemark}</div>
+          :
+          null }
+      </div>
+    })
+  }
+}
+PersonOfferApprovalPart.defaultProps = {
+  approvalInfo:[]
+}
+/*offer编辑状态*/
 class PersonOfferEdit extends FormPage{
   state={
-    which:"2"
+    which:"2",
+    time:"1"
   }
   updateFieldValue(name,value){
       let {item} = this.props
@@ -2074,25 +2189,48 @@ class PersonOfferEdit extends FormPage{
       which:e.target.value
     })
   }
+  handleChangeTime(e){
+    this.setState({
+      time:e.target.value
+    })
+  }
   renderAreaOption(data,idx){
     return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
   }
   renderSelectOption(data,idx){
     return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
   }
+  renderSendType(){
+    let {item:{isOpenOfferAppro}} = this.props
+    let {time} = this.state
+    const timeOpt = [
+      {label:"立即通知",value:'1'},
+      {label:"定时通知",value:'2'},
+    ]
+    if(!isOpenOfferAppro){
+      return <div>
+        <FormItem>
+          <RadioGroup name="sendType" label="通知时间" options={timeOpt}  onChange={this.handleChangeTime.bind(this)} defaultValue={time}/>
+        </FormItem>
+        {time == '2' ?
+          <FormItem>
+            <DateTimePicker name="sendTime" defaultDate={moment()} defaultTime={moment().set({hour:moment().add(1,"hours").get("hour"),minute:0,second:0})} rules={[{required: true, message: "通知时间不可为空"}]}/>
+          </FormItem>
+          :
+          null
+        }
+      </div>
+    }
+    return null
+  }
   render(){
     const options = [
-        /*{ label: '不通知', value: '0' },*/
-        { label: '邮件通知', value: '2'},
-        { label: '不通知', value: '0'},
+      /*{ label: '不通知', value: '0' },*/
+      { label: '邮件通知', value: '2'},
+      { label: '不通知', value: '0'},
     ];
-    const moneyOpt = [
-      {label:"月薪",value:'1'},
-      {label:"日薪",value:'2'},
-      {label:"年薪",value:'3'},
-    ]
-    let {info} = this.props
-    //console.log(this.props)
+
+    let {info,item:{isOpenOfferAppro}} = this.props
     return(
       <BaseForm ref={this.saveFormRef} className="offer-edit">
         <FormItem>
@@ -2102,16 +2240,20 @@ class PersonOfferEdit extends FormPage{
           <Input type="hidden" name="offerId" defaultValue={info.offerId}/>
         </FormItem>
         <FormItem>
+          <Input type="hidden" name="isApproval" defaultValue={isOpenOfferAppro}/>
+        </FormItem>
+        <FormItem>
           <DatePicker label="预计入职日期" name="expectedEntryTime" defaultValue={info.expectedEntryTime?moment(info.expectedEntryTime):null} rules={[{required: true, message: "预计入职时间不可为空"},{validator:customRules.required}]}/>
         </FormItem>
         <InputGroup compact className="moneyGroup">
           <FormItem>
-            <Select style={{width:80}} label="入职薪资" name="money" fetch={moneyOpt} renderItem={this.renderSelectOption}/>
+            <Select style={{width:80}} label="入职薪资" name="salaryType" fetch={moneyOpt} renderItem={this.renderSelectOption}/>
           </FormItem>
           <FormItem className="moneyGroup-last">
-            <Input name="aaa"/>
+            <Input name="salary"/>
           </FormItem>
         </InputGroup>
+        {this.renderSendType()}
         <FormItem>
           <Select label="预计入职地址" name="companyId"  fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} ></Select>
         </FormItem>
@@ -2125,7 +2267,7 @@ class PersonOfferEdit extends FormPage{
           <RadioGroup name="noticeType" label="通知候选人" options={options}  onChange={this.handleChange.bind(this)} defaultValue={this.state.which}/>
         </FormItem>
         {this.renderSmsOrEmail()}
-        <Button onClick={this.offerSubmit.bind(this)} style={{float:"right"}}>发送</Button>
+        <Button onClick={this.offerSubmit.bind(this)} style={{float:"right"}}>{isOpenOfferAppro ? "提交审核" : "发送"}</Button>
       </BaseForm>
     )
   }
