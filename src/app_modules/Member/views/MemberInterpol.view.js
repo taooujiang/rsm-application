@@ -80,8 +80,8 @@ export default class MemberListView extends PageView {
     let { actions } = this.props;
     actions.interpolListAction();
   }
-  
-  
+
+
   renderSelectOption(data, idx) {
     return (
       <Select.Option value={data.keyValue} key={idx}>
@@ -125,6 +125,13 @@ export default class MemberListView extends PageView {
         key: "memberName",
         dataIndex: "memberName",
         width: 100,
+        render(val, record, ) {
+          return (
+            <SmartLink to={`${record.id}`}>
+              {val}
+            </SmartLink>
+          )
+        }
       }, {
         title: "电话号码",
         key: "memberMobilephone",

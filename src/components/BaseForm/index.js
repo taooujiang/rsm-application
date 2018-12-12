@@ -441,10 +441,9 @@ let customRules={
       }
     },
     checkWithdrawalsMoney:(rule,value, callback) =>{
-      //fetch(url).then()
-      console.log(rule,value)
+      let message = rule.message||"可提现金额不足！"
       if(rule.moneyClear < parseFloat(value)){
-        callback("可提现金额不足！")
+        callback(message)
       }else{
         callback()
       }

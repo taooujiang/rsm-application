@@ -87,4 +87,16 @@ export default class MemberAPI extends FetchAPI {
       body: params
     })
   }
+
+  fetchInterpolExchange(params){
+    return this.fetchPost(`${APP_SERVER}/memberInterpolate/exchange`, {
+      body: params
+    })
+  }
+}
+
+export const fechInterpolDetail = (params) => {
+  return new FetchAPI().fetchPost(`${APP_SERVER}/memberInterpolate/infoJson`, {
+    body: params
+  })
 }

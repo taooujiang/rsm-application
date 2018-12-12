@@ -115,7 +115,7 @@ export default class InternalRecommend extends FormPage {
       render: (text, record) => (
         <div>
           <span>达到 </span>
-          <InputNumber style={{ width: 80 }} defaultValue={text} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
+          <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 80 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
           <span> 次</span>
         </div>
       ),
@@ -134,7 +134,7 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber style={{ width: 120 }} defaultValue={text} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 120 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
       ),
     }];
     return (<FormItem>
@@ -164,7 +164,7 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber style={{ width: 120 }} defaultValue={text} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 120 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
       ),
     },];
     return (<FormItem>
