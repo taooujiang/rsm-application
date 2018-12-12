@@ -86,6 +86,18 @@ export function listAction(value) {
   }
 }
 
+export function approvalRealAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchApprovalList(value).then(json => {
+      // dispatch(fetchSuccess('tableSpin'))
+      // dispatch(saveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin',ex))
+    })
+  }
+}
+
 export function listRealAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -104,6 +116,18 @@ export function getSameResumeAction(value) {
     return new API().fetchSameList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       dispatch(saveSameList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin',ex))
+    })
+  }
+}
+
+export function approvalReportAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchApprovalCount(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(saveCount(json))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin',ex))
     })
@@ -785,7 +809,18 @@ export function offerOptionAction(values){
     }
 }
 
-export function cancelFeedAction(value){
+export function offerSendAction(values){
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('formSpin'))
+      return new API().fetchAppSendOffer(values).then(json => {
+          dispatch(fetchSuccess('formSpin',true))
+      }).catch(ex => {
+          return dispatch(fetchFailure('formSpin',ex))
+      })
+    }
+}
+
+export function cancelFeedAction(values){
   return (dispatch, getState) => {
       dispatch(fetchRequest('formSpin'))
       return new API().fetchCancelFeed(values).then(json => {

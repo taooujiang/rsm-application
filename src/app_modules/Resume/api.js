@@ -14,11 +14,17 @@ export default class API extends FetchAPI {
   fetchList(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/listPageJson`, {body: params})
   }
+  fetchApprovalList(params){
+    return this.fetchPostList(`${APP_SERVER}/resumeOfferApproval/listPageJson`, {body: params})
+  }
   fetchClientList(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/clientListPageJson`, {body: params})
   }
   fetchListCount(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/statusNumJson`, {body: params})
+  }
+  fetchApprovalCount(params) {
+      return this.fetchPostList(`${APP_SERVER}/resumeOfferApproval/statusNum`, {body: params})
   }
   fetchChecks(params) {
       return this.fetchPostList(`${APP_SERVER}/resumeLibrary/noteNumJson`, {body: params})
@@ -178,6 +184,9 @@ export default class API extends FetchAPI {
   }
   fetchSendOffer(params){
       return this.fetchPost(`${APP_SERVER}/offer/sendOffer`, {body: params})
+  }
+  fetchAppSendOffer(params){
+      return this.fetchPost(`${APP_SERVER}/offer/sendApprovalOffer`, {body: params})
   }
   fetchSetLabel(params){
       return this.fetchPost(`${APP_SERVER}/resume/opt/addLabels`, {body: params})

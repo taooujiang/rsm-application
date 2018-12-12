@@ -31,7 +31,6 @@ export default class ResumeSide extends Component{
   }
   handleFilter(values){
     let {actions} = this.props
-    console.log(values,'ssssssssssssss')
     actions.listAction(values)
   }
   renderSelectOption(data,idx){
@@ -52,7 +51,7 @@ export default class ResumeSide extends Component{
       <Input name="name" label="姓名" placeholder="请输入姓名"/>
       <TreeSelectPicker
         label="招聘部门"
-        name="groupId"
+        name="deptId"
         fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
         placeholder="选择部门"

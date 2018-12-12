@@ -2054,7 +2054,7 @@ export class PersonOffer extends Component{
   }
   renderWhich(){
     let {info,resumeId,actions,item,item:{status},detailType,authorization} = this.props
-    if(detailType == 3 ||detailType == 4 || detailType == 10 || detailType == 1||!authorization || status ==2 ){
+    if(detailType == 3 ||detailType == 4 || detailType == 10 || detailType == 1|| !authorization || status ==2 ){
       return info.offerId ? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/> : <div className="list-no-data no-offer-record">暂无offer记录</div>
     }
     return this.state.edit ? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/> : <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
@@ -2071,6 +2071,9 @@ class PersonOfferShow extends Component{
       open:false
     }
   }
+  sendOffer(){
+
+  }
   renderSalary(){
     let {info:{salary,salaryType}} = this.props
     let type = moneyOpt.filter(it=>{
@@ -2083,12 +2086,27 @@ class PersonOfferShow extends Component{
       open:!this.state.open
     })
   }
+  renderOfferButton(){
+    let {reSend,info:{status,offerId}} = this.props
+    if(reSend){
+      if(status == 1){
+        return <Button onClick={this.props.handleEdit} style={{float:"left"}}>再发一封</Button>
+      }
+      if(status == 6){
+        return <Button onClick={this.props.handleEdit} style={{float:"left"}}>编辑offer</Button>
+      }
+      if(status == 5){
+        return <PersonOfferSend id={offerId}/>
+      }
+    }
+    return null
+  }
   renderArraw(){
     let {open} = this.state
     return open ? <Icon type="down-circle" onClick={this.toggleArraw.bind(this)}/> : <Icon type="right-circle" onClick={this.toggleArraw.bind(this)}/>
   }
   render(){
-    let {info,info:{offerApprovals,salary,salaryType,status},reSend} = this.props
+    let {info,info:{offerApprovals,salary,salaryType,status}} = this.props
     return (
       <div className="offer-showinfo-box">
         <BaseInfoItem label="offer" info={DictUtils.getDictLabelByValue("offerstatus",status)}/>
@@ -2105,7 +2123,8 @@ class PersonOfferShow extends Component{
           :
           null }
         <BaseInfoItem label="offer审批" info={<PersonOfferApprovalPart approvalInfo={offerApprovals}/>}/>
-        { reSend ? <Button onClick={this.props.handleEdit} style={{float:"right"}}>再发一封</Button> : null}
+        {this.renderOfferButton()}
+
       </div>
     )
   }
@@ -2113,11 +2132,45 @@ class PersonOfferShow extends Component{
 PersonOfferShow.defaultProps = {
   reSend:true
 }
+/*审核通过发送offer组件*/
+class PersonOfferSend extends FormPage{
+  state = {
+    time:"1"
+  }
+  sendOffer(){
+    this.form.validateFieldsAndScroll((err, values) => {
+        if (err) {
+            return;
+        }
+        actions.offerSendAction(values)
+    });
+  }
+  render(){
+    const timeOpt = [
+      {label:"立即通知",value:'1'},
+      {label:"定时通知",value:'2'},
+    ]
+    return <BaseForm ref={this.saveFormRef}>
+      <FormItem>
+        <Input type="hidden" name="id" defaultValue={this.props.id}/>
+      </FormItem>
+      <FormItem>
+        <RadioGroup name="sendType" label="通知时间" options={timeOpt}  onChange={this.handleChangeTime.bind(this)} defaultValue={time}/>
+      </FormItem>
+      { this.state.time == 2 ?
+        <FormItem>
+          <DateTimePicker name="sendTime" defaultDate={moment()} defaultTime={moment().set({hour:moment().add(1,"hours").get("hour"),minute:0,second:0})} rules={[{required: true, message: "通知时间不可为空"}]}/>
+        </FormItem>
+        : null  }
+        <Button onClick={this.sendOffer.bind(this)} style={{float:"left"}}>发送offer</Button>
+    </BaseForm>
+  }
+}
 /*offer审批审批*/
 class PersonOfferApprovalPart extends Component{
   render(){
     return this.props.approvalInfo.map((it,idx)=>{
-      console.log(it)
+      // console.log(it)
       return <div className="approval-item">
         <div classNmae="approval-rows">
           <span>{stageJson[ it.approvalStage ]}</span>

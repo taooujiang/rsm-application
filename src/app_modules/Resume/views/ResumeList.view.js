@@ -55,7 +55,6 @@ export default class ResumeListView extends PageView {
     let {actions,router,children,params} = this.props;
     console.log(params)
     // console.log(params)
-    // message.info(1111)
     if(JSON.stringify(params)=="{}" || params.resumeId!=undefined){
       actions.listAction({status:0})
       actions.listRealAction({status:0})

@@ -40,7 +40,11 @@ const CheckboxGroup = Checkbox.Group;
 
 
 @NestedComponent()
-export default class ResumeListView extends PageView {
+export default class ResumeApprovalView extends PageView {
+
+  // constructor(props){
+  //   super(props)
+  // }
 
   componentWillMount() {
     let {actions,router,children,params} = this.props;
@@ -48,15 +52,13 @@ export default class ResumeListView extends PageView {
     // console.log(params)
     // message.info(1111)
     if(JSON.stringify(params)=="{}" || params.resumeId!=undefined){
-      actions.listAction({status:0})
-      actions.listRealAction({status:0})
-      actions.listReportAction({status:0})
-      actions.getCheckAction({status:0})
+      actions.listAction({type:1})
+      actions.approvalRealAction({type:1})
+      actions.approvalReportAction({type:1})
     }else{
       actions.listAction(params)
-      actions.listRealAction(params)
-      actions.listReportAction(params)
-      actions.getCheckAction(params)
+      actions.approvalRealAction(params)
+      actions.approvalReportAction(params)
     }
   }
   componentWillReceiveProps(nextProps){
@@ -66,10 +68,10 @@ export default class ResumeListView extends PageView {
         selectedRows: [],
         selectedRowKeys: []
       })
+      console.log("recevice111")
       //console.log(nextProps.reduce.params)
-      actions.listRealAction(nextProps.reduce.params)
-      actions.listReportAction(nextProps.reduce.params)
-      actions.getCheckAction(nextProps.reduce.params)
+      actions.approvalRealAction(nextProps.reduce.params)
+      actions.approvalReportAction(nextProps.reduce.params)
     }
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
       if(nextProps.location.state && nextProps.location.state.key=="reload" && nextProps.location.state.listRefresh){
@@ -79,46 +81,32 @@ export default class ResumeListView extends PageView {
         }, () => {
           console.log("clear state select")
         })
-        actions.listRealAction(Object.assign({},nextProps.reduce.params,nextProps.reduce.page))
-        actions.listReportAction(nextProps.reduce.params)
-        actions.getCheckAction(nextProps.reduce.params)
+        console.log("recevice222")
+        actions.approvalRealAction(Object.assign({},nextProps.reduce.params,nextProps.reduce.page))
+        actions.approvalReportAction(nextProps.reduce.params)
       }
     }
   }
   handleRadioChange(values){
     let {actions,reduce:{params}} = this.props
     let {target:{value}} = values
-    actions.listAction({status:value,notes:[]})
-
-    /*清空复选框*/
-     this.form.form.setFieldsValue({notes:""})
-     // console.log(this.form.form.setFieldsValue)
-
+    actions.listAction({type:value})
   }
   formRef(form){
     this.form = form
   }
-  handleCheckChange(e){
-    let {actions} = this.props
-    actions.listAction({notes:e})
-  }
   handleFilter(value){
     let {actions} = this.props
-    actions.listRealAction(value)
+    actions.approvalRealAction(value)
   }
   renderSearchBar(){
     let {reduce:{count,checks},params} = this.props
     return (
       <AdvancedSearchForm classNames="radioGroupResetFormItem" autoSubmitForm={false} filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} ref={this.formRef.bind(this)}>
-        <RadioGroup className="resumeStatus radioGroupReset" name="status" onChange={this.handleRadioChange.bind(this)} defaultValue={params && params.status || 0}>
-          <RadioButton value="0">待审批<span className="count">{count.sxNum}</span></RadioButton>
-          <RadioButton value="1">已审批<span className="count">{count.yyNum}</span></RadioButton>
+        <RadioGroup className="resumeStatus radioGroupReset" name="type" onChange={this.handleRadioChange.bind(this)} defaultValue={1}>
+          <RadioButton value="1">待审批<span className="count">{count.dclNum}</span></RadioButton>
+          <RadioButton value="2">已审批<span className="count">{count.yclNum}</span></RadioButton>
         </RadioGroup>
-        <CheckboxGroup className="resumeType" name="notes" onChange={this.handleCheckChange.bind(this)}>
-          {checks.map((it,idx)=>{
-            return <Checkbox value={it.noteValue}>{it.noteName}<span className="reportNumber">({it.noteNum})</span></Checkbox>
-          })}
-        </CheckboxGroup>
       </AdvancedSearchForm>
     )
   }
