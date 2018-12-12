@@ -21,6 +21,13 @@ export default class MemberAPI extends FetchAPI {
       body: params
     })
   }
+
+  fetchInterpolList(params) {
+    return this.fetchPostList(`${APP_SERVER}/memberInterpolate/listPageJson`, {
+      body: params
+    })
+  }
+
 	fetchPersonBase(params){
 		return this.fetchGet(`${APP_SERVER}/resumeLibrary/detailInfoJson`, {body: params})
 	}
