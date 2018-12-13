@@ -56,12 +56,6 @@ export default class MemberInterpolForm extends FormPage {
     }
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
-        <FormItem className="row-hidden">
-          <Input name="id" type="hidden" defaultValue={item.id} />
-        </FormItem>
-        <FormItem className="row-hidden">
-          <Input name="type" type="hidden" defaultValue={typeMapper[type].type} />
-        </FormItem>
         <p>
           <span style={{ position: 'absolute' }}>员工姓名：</span>
           <span style={{ paddingLeft: '80px' }}>{memberName}</span>
@@ -70,6 +64,12 @@ export default class MemberInterpolForm extends FormPage {
           <span style={{ position: 'absolute' }}>{typeMapper[type].text}余额：</span>
           <span style={{ paddingLeft: '80px' }}>{typeMapper[type].balance}</span>
         </p>
+        <FormItem className="row-hidden">
+          <Input name="id" type="hidden" defaultValue={item.id} />
+        </FormItem>
+        <FormItem className="row-hidden">
+          <Input name="type" type="hidden" defaultValue={typeMapper[type].type} />
+        </FormItem>
         <FormItem style={{ paddingLeft: '80px' }}>
           <InputNumber style={{ width: '100%' }}
             label={typeMapper[type].label}

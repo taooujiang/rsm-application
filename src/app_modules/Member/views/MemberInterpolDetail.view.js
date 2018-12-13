@@ -5,54 +5,164 @@
  */
 
 import React, { Component, PropTypes } from 'react'
-import { Row, Col, Modal, Button, Input, Form, DatePicker, Layout, Spin, Select, TreeSelect } from 'antd'
+import Debounce from 'lodash-decorators/debounce';
+import { Row, Col, List, Button, Input, Avatar, message, Layout, Spin, Select, TreeSelect } from 'antd'
 import ModalView from 'app/components/Modal.view'
 import NestedComponent from 'app/decorators/NestedComponent'
 import WrapperComponent from 'app/decorators/WrapperComponent'
-import ErrorBoundary from 'app/components/ErrorBoundary'
+import moment from 'moment'
 import { fechInterpolDetail } from '../api'
 import SmartLink from "app/components/SmartLink";
 import './styles.less'
 @NestedComponent()
-@WrapperComponent(ModalView, { width: 600, footer: null })
+@WrapperComponent(ModalView, { width: 600, footer: null, isRouteStackPop: true })
 export default class MemberInterpolDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataList: []
+      scrollLoading: false,
+      isListLoading: false,
+      dataList: [],
+      totalRecord: 0,
+      page: 1
     }
   }
 
+  componentWillMount() {
+    // window.addEventListener('scroll', this.onScroll.bind(this))
+  }
+  componentWillUnmount() {
+    // const target = document.querySelector('.ant-modal-wrap')
+    // console.log(target,'ssssssssssssss')
+    // target.removeEventListener('scroll', this._handleScroll.bind(this, target))
+  }
+
+  // @Debounce(2000)
+  _handleScroll(target) {
+    let scrollTop = target.scrollTop
+    let clientHeight = target.clientHeight
+    let scrollHeight = target.scrollHeight
+    let isBottom = scrollTop + clientHeight === scrollHeight
+    const { totalRecord, dataList, page } = this.state
+    if (isBottom && totalRecord != dataList.length) {
+      if (totalRecord > dataList.length) {
+        return this.fetchData({
+          page: page + 1,
+          pageSize: 20,
+          intPosition: dataList.length,
+          totalRecord: this.state.totalRecord
+        })
+      } else {
+        message.warn('已加载全部记录')
+      }
+
+    }
+
+    console.log(target.scrollTop, target.clientHeight, target.scrollHeight, isBottom)
+  }
+  initScrollEvent() {
+    const target = document.querySelector('.ant-modal-wrap')
+    target.addEventListener('scroll', this._handleScroll.bind(this, target))
+  }
   componentDidMount() {
+    this.initScrollEvent()
     this.fetchData()
   }
 
-  fetchData() {
-    fechInterpolDetail({ id: this.props.params.id }).then(res => {
-      console.log(res.recordBeanPager.list)
+  fetchData(page) {
+    this.setState({
+      isListLoading: true,
+      scrollLoading: !!page
+    })
+    fechInterpolDetail({ item: { interpolateId: this.props.params.id, }, ...page }).then(res => {
+      // scrollLoading: true
+
+      const { totalRecord } = res
+      const { dataList } = this.state
+      if (page) {
+        this.setState({
+          dataList: dataList.concat(res.list),
+          totalRecord
+        })
+      } else {
+        this.setState({
+          dataList: res.list,
+          totalRecord
+        })
+      }
+    }).catch(e => {
+      message.error(e.msg)
+    }).finally(() => {
       this.setState({
-        dataList: res.recordBeanPager.list
+        isListLoading: false
       })
     })
   }
   componentWillReceiveProps = (nextProps) => {
-    // if(nextProps)
     let { key: newKey } = nextProps.location.state || {}
     let { key: oldKey } = this.props.location.state || {}
     if (newKey && newKey != oldKey) {
       // 兑换操作 在state生成key，在此接受 拉取新的兑换记录列表
+      // todo,不需要random key，设置为true即可
       this.fetchData()
     }
   }
-
+  _renderListItem(item) {
+    const { awardJob, awardNum, awardStage, awardType, id, status, inputTime } = item || {}
+    let recordNumText = ""
+    let titleText = ""
+    if (status) {
+      // status 0：收入  1：支出
+      const titleMapper = {
+        1: '兑换积分',
+        2: '提取现金'
+      }
+      titleText = titleMapper[awardType]
+      recordNumText = `-${awardNum}`
+    } else {
+      const titleMapper = {
+        1: '积分奖励',
+        2: '现金奖励'
+      }
+      titleText = `内推${`【${awardJob}】`}${awardStage}${titleMapper[awardType]}`
+    }
+    const iconTypeMapper = {
+      1: { icon: 'gift', color: '#fe8155' },
+      2: { icon: 'pay-circle', color: '#3a9fef' }
+    }
+    return (
+      <List.Item key={id}>
+        <List.Item.Meta
+          avatar={
+            <Avatar icon={iconTypeMapper[awardType].icon} style={{ backgroundColor: iconTypeMapper[awardType].color }} />
+          }
+          title={<div>{titleText}</div>}
+          description={inputTime}
+        />
+        <div>{recordNumText}</div>
+      </List.Item>
+    )
+  }
+  renderRecordList() {
+    const { isListLoading } = this.state
+    return (
+      <List
+        loading={isListLoading}
+        dataSource={this.state.dataList}
+        renderItem={this._renderListItem}
+      >
+        {this.state.scrollLoading && (
+          <div className="demo-loading-container">
+            <Spin />
+          </div>
+        )}
+      </List>
+    )
+  }
   render() {
     const { item, location } = this.props
-
     const { memberName, memberMobilephone, cashBalance, cashExchange, cashTotal, creditBalance, creditExchange, creditTotal, deptName, job, } = item || {}
     return (
-      // <Spin tip="Loading..." spinning={formSpin}>
-      //   <MemberForm  saveFormRef={this.saveFormRef} sysFieldList={sysFieldList} item={item} actions={actions} params={params} />
-      // </Spin>
       <div className="interpol-detail-wrapper">
         <div className="interpol-detail-header">
           <span style={{ fontSize: '18px', marginRight: '25px' }}>{memberName}</span>
@@ -64,8 +174,8 @@ export default class MemberInterpolDetail extends Component {
             <div>
               <div>当前可兑余额</div>
               <div className="interpol-detail-info-btn">
-                <span style={{color:'#fe8153',marginRight:'10px'}}><span style={{fontSize:'20px'}}>{creditBalance}</span>个</span>
-                <SmartLink to={`credit`}>
+                <span style={{ color: '#fe8153', marginRight: '10px' }}><span style={{ fontSize: '20px' }}>{creditBalance}</span>个</span>
+                <SmartLink style={{ display: 'inline-block', verticalAlign: 'bottom' }} to={`credit`}>
                   <Button>积分兑换</Button>
                 </SmartLink>
               </div>
@@ -76,8 +186,8 @@ export default class MemberInterpolDetail extends Component {
             <div>
               <div>当前提现余额</div>
               <div className="interpol-detail-info-btn">
-                <span style={{color:'#2199f0',marginRight:'10px'}}><span style={{fontSize:'20px'}}>{cashBalance}</span>元</span>
-                <SmartLink to={`cash`}>
+                <span style={{ color: '#2199f0', marginRight: '10px' }}><span style={{ fontSize: '20px' }}>{cashBalance}</span>元</span>
+                <SmartLink style={{ display: 'inline-block', verticalAlign: 'bottom' }} to={`cash`}>
                   <Button>提取现金</Button>
                 </SmartLink>
               </div>
@@ -86,11 +196,8 @@ export default class MemberInterpolDetail extends Component {
           </div>
         </div>
         <div className="interpol-detail-recordlist">
-          {this.state.dataList.map(e=>{
-            return(
-              <div>{e.status}{e.awardNum}</div>
-            )
-          })}
+          <div style={{ color: '#2b323c', marginTop: '10px', marginBottom: '25px' }}>奖励记录</div>
+          {this.renderRecordList()}
         </div>
       </div>
     )

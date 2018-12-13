@@ -96,7 +96,7 @@ export default class MemberAPI extends FetchAPI {
 }
 
 export const fechInterpolDetail = (params) => {
-  return new FetchAPI().fetchPost(`${APP_SERVER}/memberInterpolate/infoJson`, {
+  return new FetchAPI().fetchPost(`${APP_SERVER}/memberAwardRecord/listPageJson`, {
     body: params
   })
 }

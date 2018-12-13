@@ -33,6 +33,7 @@ let {
 
 export const memberListSave = createAction("STORE_MEMBER")
 export const interpolListSave = createAction("STORE_INTERPOL")
+export const interpolSave = createAction("UPSERT_INTERPOL")
 export const memberSave = createAction("UPSERT_MEMBER")
 export const currentMemberSave = createAction("UPSERT_CURRENTMEMBER")
 export const clearCurrentMember = createAction("CLEAR_CURRENTMEMBER")
@@ -128,7 +129,7 @@ export function interpolExchangeAction(value) {
       dispatch(fetchSuccess('tableSpin'))
       //console.log(json.list)
       let { list, ...page } = json
-      // dispatch(interpolListSave(json))
+      dispatch(interpolSave(json))
 
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))

@@ -8,7 +8,7 @@ class ModalView extends Component {
   handleBackRoute() {
     console.log(this.props.footer,'footerfooterfooterfooter')
     let {actions, history,router} = this.props
-    actions.backRoute(router,true)
+    actions.backRoute(router,this.props.isRouteStackPop)
   }
   handleSaveRoute(){
     let { formView } =this.refs

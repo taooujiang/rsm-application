@@ -136,8 +136,8 @@ export function createActionRoute() {
     return dispatch => dispatch(routerActions.push(hash))
   }
 
-  function backRoute(router, isStackPop = false) {
-    if (isStackPop) {
+  function backRoute(router, isRouteStackPop = false) {
+    if (isRouteStackPop) {
       let oldPathStack = router.location.pathname.split('/')
       oldPathStack.pop()
       let newPath = oldPathStack.join('/')
