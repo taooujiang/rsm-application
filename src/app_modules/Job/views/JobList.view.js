@@ -122,7 +122,7 @@ export default class NewJobListView extends PageView {
         let that=this;
 
         let {reduce,items} = this.props
-        let {spins:{tableSpin},key,page,isShow} = reduce
+        let {spins:{tableSpin},key,page,listShow} = reduce
         let rowSelection={
           onChange:this.onSelectChange.bind(this),
           selectedRowKeys:this.state.selectedRowKeys
@@ -218,7 +218,7 @@ export default class NewJobListView extends PageView {
             }
         ]
 
-        if(isShow){
+        if(listShow){
           tableColumn.push({
             title: "面试评分",
             key: "interviewScale",

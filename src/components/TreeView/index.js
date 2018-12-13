@@ -65,8 +65,18 @@ export class TreeSelectPicker extends Component {
 
 	constructor(props) {
 		super(props);
+		console.log(props)
 		this.state = {
-			value:props.value
+			value: props.defaultParent && props.treeData[0] ? props.treeData[0].value : props.value
+		}
+	}
+	componentWillReceiveProps(nextProps){
+		if(JSON.stringify(this.props.treeData) !== JSON.stringify(nextProps.treeData)){
+			if(nextProps.defaultParent){
+				this.setState({
+					value:nextProps.treeData[0].id
+				})
+			}
 		}
 	}
 	//
@@ -78,16 +88,14 @@ export class TreeSelectPicker extends Component {
 		},function(){
 			onChange(value)
 		})
-
 	}
 
 	render() {
 		const {onChange,treeData,children,value,allowClear,...otherProps} = this.props
-		// console.log(children,this.state.value)
 		if(allowClear==true){
 			return (<TreeSelect	{...otherProps} defaultValue={this.state.value}  treeData={treeData} allowClear={allowClear} onChange={onChange}	onSelect={this.onChange.bind(this)} />)
 		}else{
-			return (<TreeSelect	{...otherProps} value={this.state.value}  treeData={treeData}	onSelect={this.onChange.bind(this)} />)
+			return (<TreeSelect	{...otherProps} value={this.state.value} treeData={treeData}	onSelect={this.onChange.bind(this)} />)
 		}
 		// return React.createElement(TreeSelect,Object.assign({},otherProps))
 	}

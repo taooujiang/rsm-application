@@ -431,8 +431,8 @@ class OptionCommonFn extends Component{
     actions.send2InterviewerAction(router,[id])
   }
   send2OtherJob(){
-    let {actions,router,item:{id}} = this.props
-    actions.recommend2OtherAction(router,[id])
+    let {actions,router,item,item:{id}} = this.props
+    actions.recommend2OtherAction(router,[id],[item])
   }
   handleFollow(){
     let {actions,router,item:{id}} = this.props
@@ -508,8 +508,8 @@ class OptionCommonFn extends Component{
     //console.log(id)
     actions.connectEliteAction(router,[id])
   }
-  resumeUpgrading(target){
-    let {actions,router,item:{id,expectedEntryTime},item} = this.props
+  resumeUpgrading(current,target){
+    let {actions,router,item:{id,expectedEntryTime,status},item} = this.props
     let data = {id:id}
 
 
@@ -518,10 +518,10 @@ class OptionCommonFn extends Component{
         actions.entryInvite(data)
         break;
       case 2:
-        actions.feedAction(router,item)
+        status > 2 ? actions.offerbackEntryfeedAction(data) : actions.feedAction(router,item)
         break;
       case 3:
-        actions.entryOffer(data)
+        status > 3 ? actions.backEntryOffer(data) : actions.entryOffer(data)
         break;
       case 4:
         expectedEntryTime ? actions.entryWaiting(data) : actions.entryAction(router,id)
@@ -537,9 +537,9 @@ class OptionButtonsResume extends OptionCommonFn{
     const menu = (
       <Menu className="ant-button-menu" onClick={this.entry2Stage.bind(this)}>
         <Menu.Item key="1"><Button disabled={status < 1 ? false : true} type="ghost">邀约</Button></Menu.Item>
-        <Menu.Item key="2"><Button disabled={status < 2 ? false : true} type="ghost">面试</Button></Menu.Item>
-        <Menu.Item key="3"><Button disabled={status < 3 ? false : true} type="ghost">offer</Button></Menu.Item>
-        <Menu.Item key="4"><Button disabled={status < 4 ? false : true} type="ghost">待入职</Button></Menu.Item>
+        <Menu.Item key="2"><Button type="ghost">面试</Button></Menu.Item>
+        <Menu.Item key="3"><Button type="ghost">offer</Button></Menu.Item>
+        <Menu.Item key="4"><Button type="ghost">待入职</Button></Menu.Item>
       </Menu>
     )
     return status == 4 ? <Button className="block" onClick={this.entryJob.bind(this)}>入职</Button> : <Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this,status)}>进入下一阶段</Dropdown.Button>
@@ -2124,7 +2124,6 @@ class PersonOfferShow extends Component{
           null }
         <BaseInfoItem label="offer审批" info={<PersonOfferApprovalPart approvalInfo={offerApprovals}/>}/>
         {this.renderOfferButton()}
-
       </div>
     )
   }

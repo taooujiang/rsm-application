@@ -31,7 +31,11 @@ const RadioGroup = Radio.Group;
 const TreeNode = TreeSelect.TreeNode;
 
 export default class Forward2OtherForm extends FormPage{
-
+  state = {
+    dept:[],
+    defaultIn:[],
+    showDept:false
+  }
   componentDidMount(){
     new FetchAPI().fetch(`${APP_SERVER}/user/getInterviewerListJson`,{
       method:'GET'
@@ -40,6 +44,22 @@ export default class Forward2OtherForm extends FormPage{
           dept:json.list||[]
         });
     });
+    let {location:{state}} = this.props
+    if(state.ids.length == 1){
+      let {jobId} = state.rows[0]
+      new FetchAPI().fetch(`${APP_SERVER}/jobNew/findFzrList?jobId=${jobId}`,{
+        method:'GET'
+      }).then(res=>{
+        if(res.list.length){
+          this.setState({
+            defaultIn:res.list,
+            showDept:true
+          })
+        }
+      })
+
+    }
+
   }
 
   changeDept(value){
@@ -80,9 +100,9 @@ export default class Forward2OtherForm extends FormPage{
             <TreeSelectPicker
               label="用人部门"
               name="dept"
+              defaultParent={this.state.showDept}
               fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              // renderItem={this.renderTreeData.bind(this)}
               placeholder="选择部门"
               treeDefaultExpandAll
               rules={[{required:true,message:"所属部门不可为空"}]}
@@ -90,7 +110,7 @@ export default class Forward2OtherForm extends FormPage{
             />
         </FormItem>
         <FormItem>
-          <Select name="interviewers" label="面试官" placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple" rules={[{required:true,message:"面试官不可为空"}]}/>
+          <Select name="interviewers" label="部门负责人" defaultValue={this.state.defaultIn} placeholder="请选择" fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple" rules={[{required:true,message:"部门负责人不可为空"}]}/>
         </FormItem>
         <FormItem>
           <TextArea  name="words"  placeholder="请留言" rules={[{max:30,message:"留言字数限制30个"}]}/>

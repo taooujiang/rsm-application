@@ -581,6 +581,23 @@ export function entryOffer(value) {
     }
 }
 
+export function backEntryOffer(){
+  let data = {
+    ...value,
+    status:3
+  }
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('itemSpin'))
+      return new API().fetchBackEntryOffer(value).then(json => {
+          dispatch(fetchSuccess('itemSpin'))
+          dispatch(saveItem(data))
+          // dispatch(getOptionAction({resumeId:value.id}))
+      }).catch(ex => {
+          return dispatch(fetchFailure('itemSpin',ex))
+      })
+  }
+}
+
 export function entryWaiting(value) {
     let data = {
       ...value,
@@ -597,6 +614,8 @@ export function entryWaiting(value) {
         })
     }
 }
+
+
 
 export function getCurrentLabelAction(value){
   return (dispatch, getState) => {
@@ -708,6 +727,22 @@ export function feedArrange(value){
           dispatch(fetchSuccess('formSpin',true))
           dispatch(saveItem(data))
           //dispatch(addFeedData(json))
+      }).catch(ex => {
+          return dispatch(fetchFailure('formSpin',ex))
+      })
+    }
+}
+
+export function offerbackEntryfeedAction(values){
+  let data = {
+    ...values,
+    status:2
+  }
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('formSpin'))
+      return new API().fetchBackFeed(values).then(json => {
+          dispatch(fetchSuccess('formSpin',true))
+          dispatch(saveItem(data))
       }).catch(ex => {
           return dispatch(fetchFailure('formSpin',ex))
       })

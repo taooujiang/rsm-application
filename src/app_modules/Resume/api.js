@@ -200,5 +200,11 @@ export default class API extends FetchAPI {
   fetchApproval(params){
     return this.fetchPost(`${APP_SERVER}/resumeOfferApproval/approval`, {body: params})
   }
+  fetchBackFeed(params){
+    return this.fetchPost(`${APP_SERVER}/resume/opt/reversibleInterview`, {body: params})
+  }
+  fetchBackEntryOffer(params){
+    return this.fetchPost(`${APP_SERVER}/resume/opt/reversibleOffer`, {body: params})
+  }
 
 }

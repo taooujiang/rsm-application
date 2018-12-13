@@ -239,12 +239,13 @@ export function createResumeRoute(){
         }
         return dispatch => dispatch(routerActions.push(path))
     },
-    send2InterviewerAction:function(router,ids) {
+    send2InterviewerAction:function(router,ids,rows) {
         let pathname = router.getCurrentLocation().pathname
         let path = {
             pathname : `${pathname}/forward`,
             state:{
               ids:ids,
+              rows:rows,
               pathname:pathname
             }
         }

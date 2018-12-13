@@ -28,6 +28,7 @@ let initialState = {
     buttonSpin:false
   },
   list: new Map(),
+  listShow:false,
   // for Item detail
   item: new Object(),
   msg: new Object(),
@@ -120,9 +121,10 @@ const actions = {}
   *
   */
  actions[saveList]= (state,action)=>{
-  let {list,item,page,pageSize,totalRecord}=action.payload
+  let {list,item,page,pageSize,totalRecord,isOpen}=action.payload
   return {
     ...state,
+    listShow:isOpen?true:false,
     page:{
       current:page,
       pageSize:pageSize,
