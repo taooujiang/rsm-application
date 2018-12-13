@@ -45,6 +45,9 @@ export default class MemberInterpolDetail extends Component {
     let isBottom = scrollTop + clientHeight === scrollHeight
     const { totalRecord, dataList, page } = this.state
     if (isBottom && totalRecord != dataList.length) {
+      if (this.state.scrollLoading) {
+        return
+      }
       if (totalRecord > dataList.length) {
         return this.fetchData({
           page: page + 1,
@@ -74,15 +77,16 @@ export default class MemberInterpolDetail extends Component {
       isListLoading: true,
       scrollLoading: !!page
     })
-    fechInterpolDetail({ item: { interpolateId: this.props.params.id, }, ...page }).then(res => {
+    fechInterpolDetail({ item: { interpolateId: this.props.params.id, }, pageSize: 30, ...page }).then(res => {
       // scrollLoading: true
 
-      const { totalRecord } = res
+      const { totalRecord, page } = res
       const { dataList } = this.state
       if (page) {
         this.setState({
           dataList: dataList.concat(res.list),
-          totalRecord
+          totalRecord,
+          page: page
         })
       } else {
         this.setState({
@@ -94,7 +98,8 @@ export default class MemberInterpolDetail extends Component {
       message.error(e.msg)
     }).finally(() => {
       this.setState({
-        isListLoading: false
+        isListLoading: false,
+        scrollLoading: false
       })
     })
   }
