@@ -417,7 +417,22 @@ class OptionButtons extends Component{
       return <OptionButtonsAllocat {...this.props}/>
     }
     if(type == 'credit'){
-      return <OptionButtonsCredit {...this.props}/>
+
+      return <div className="elite-head">
+          <dl>
+            <dt>入库时间：</dt>
+            <dd>{item.filingTime}</dd>
+          </dl>
+          <dl>
+            <dt>操作者：</dt>
+            <dd>{item.filingAcc}</dd>
+          </dl>
+          <dl>
+            <dt>不良事件：</dt>
+            <dd>{item.adverseEvent}</dd>
+          </dl>
+        <OptionButtonsCredit {...this.props}/>
+      </div>
     }
   }
   render(){
