@@ -5,12 +5,10 @@
   .first-step-content {
     padding: 10px 20px;
     line-height: 20px;
-
-    .focus-info{
+    .focus-info {
       line-height: 24px;
       margin-bottom: 15px;
     }
-
     .upload-area {
       margin: 5px 0;
       .ant-upload-list-item i.anticon-cross {
@@ -23,11 +21,9 @@
       font-size: 14px;
       line-height: 40px;
     }
-
     .body {
       border: 1px solid #ccc;
       border-radius: 5px;
-
       .table-header {
         background-color: #f9fdff;
         line-height: 30px;
@@ -40,8 +36,8 @@
         padding-left: 10px;
       }
     }
-
-    .table-row .col-content, .table-row .ant-form-item {
+    .table-row .col-content,
+    .table-row .ant-form-item {
       display: inline-block;
       width: 32%;
       margin-bottom: 0;
@@ -53,7 +49,6 @@
       margin-top: -4px;
     }
   }
-
   .third-step-content {
     text-align: center;
     margin: 40px 0;
@@ -62,7 +57,6 @@
       color: #13ce67;
     }
   }
-
   .steps-action {
     text-align: right;
   }
@@ -82,19 +76,18 @@
 }
 
 .ant-popover-inner-content {
-  ul,li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
     padding: 0;
   }
   ul.props-list {
-    width:580px;
+    width: 580px;
   }
-
   li.props-item {
     display: inline-block;
     width: 288px;
-
     .props-label {
       display: inline-block;
       width: 96px;
@@ -103,7 +96,6 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .props-value {
       display: inline-block;
       width: 192px;
@@ -114,12 +106,43 @@
     }
   }
 }
-.ant-dropdown{
-	background-color: #fafafa;
+
+.ant-dropdown {
+  background-color: #fafafa;
 }
-.ant-table-fixed-right{
-	margin-right: 15px;
+
+.ant-table-fixed-right {
+  margin-right: 15px;
 }
-.ant-table-fixed-header .ant-table-body-inner{
-	overflow-y: hidden !important;
+
+.ant-table-fixed-header .ant-table-body-inner {
+  overflow-y: hidden !important;
+}
+
+.interpol-detail-wrapper {
+  .interpol-detail-header {}
+  .interpol-detail-info {
+    display: flex;
+    margin-top: 10px;
+    height: 160px;
+    border: 1px solid #d9d9d9;
+    padding: 30px 20px;
+    >div {
+      flex: 1;
+      color: #808080;
+    }
+    &-credit {
+      border-right: 1px solid #d9d9da;
+    }
+    &-cash {
+      >div {
+        padding-left: 40px;
+      }
+    }
+    &-btn {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+  }
+  .interpol-detail-recordlist {}
 }

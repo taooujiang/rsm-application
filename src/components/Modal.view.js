@@ -6,8 +6,9 @@ import {withRouter} from  'react-router'
 class ModalView extends Component {
 
   handleBackRoute() {
+    console.log(this.props.footer,'footerfooterfooterfooter')
     let {actions, history,router} = this.props
-    actions.backRoute(router)
+    actions.backRoute(router,true)
   }
   handleSaveRoute(){
     let { formView } =this.refs
