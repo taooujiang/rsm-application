@@ -44,7 +44,7 @@ export default class MemberInterpolDetail extends Component {
     let scrollHeight = target.scrollHeight
     let isBottom = scrollTop + clientHeight === scrollHeight
     const { totalRecord, dataList, page } = this.state
-    if (isBottom && totalRecord != dataList.length) {
+    if (isBottom) {
       if (this.state.scrollLoading) {
         return
       }
@@ -53,15 +53,11 @@ export default class MemberInterpolDetail extends Component {
           page: page + 1,
           pageSize: 20,
           intPosition: dataList.length,
-          totalRecord: this.state.totalRecord
         })
-      } else {
+      } else if (totalRecord == dataList.length) {
         message.warn('已加载全部记录')
       }
-
     }
-
-    console.log(target.scrollTop, target.clientHeight, target.scrollHeight, isBottom)
   }
   initScrollEvent() {
     const target = document.querySelector('.ant-modal-wrap')
@@ -77,7 +73,7 @@ export default class MemberInterpolDetail extends Component {
       isListLoading: true,
       scrollLoading: !!page
     })
-    fechInterpolDetail({ item: { interpolateId: this.props.params.id, }, pageSize: 30, ...page }).then(res => {
+    fechInterpolDetail({ interpolateId: this.props.params.id, pageSize: 30, page: 1, ...page }).then(res => {
       // scrollLoading: true
 
       const { totalRecord, page } = res

@@ -203,7 +203,7 @@ export default class MemberListView extends PageView {
         type="inner"
         title={
           <div>
-            <h3 className="card-title">员工列表</h3>
+            <h3 className="card-title">员工内推</h3>
           </div>
         }
       >

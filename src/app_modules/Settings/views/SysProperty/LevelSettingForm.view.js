@@ -37,14 +37,6 @@ export default class LevelSettingForm extends FormPage {
 
   handleSubmit(values) {
     let { actions, router } = this.props;
-    console.log(values, 'ssssssssssssss')
-    // if (
-    //     values &&
-    //     values.optionName.indexOf('$')>-1
-    // ) {
-    //   message.error("请勿输入特殊字符$");
-    //   return false;
-    // } else {
     saveLevelSetting(values).then(res => {
       message.success("保存成功");
       actions.levelSettingListAction()
@@ -52,9 +44,6 @@ export default class LevelSettingForm extends FormPage {
     }).catch(e => {
       message.error(e.msg);
     })
-    //   actions.saveOptionAction(values);
-    //   actions.backRoute(router);
-    // }
   }
   renderSelectOption(data, idx) {
     return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
@@ -63,6 +52,10 @@ export default class LevelSettingForm extends FormPage {
     //见FormPage.view.js
     const { onSubmit, saveFormRef, item, } = this.props;
     console.log(item, 'itemitemitem');
+    let validRules = item.id ?
+      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", id: item.id }, { required: true, message: `不可为空`, whitespace: true }]
+      :
+      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName" }, { required: true, message: `不可为空`, whitespace: true }]
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         {item.id ?
@@ -77,7 +70,7 @@ export default class LevelSettingForm extends FormPage {
             name="positionName"
             placeholder="请输入职位名称"
             defaultValue={item.positionName}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={validRules}
           />
         </FormItem>
 

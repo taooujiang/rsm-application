@@ -192,6 +192,11 @@ class MultiTab extends Component {
         key: "member/list",
         src: "/static/js/client/main.html#/member/list"
       },
+      "/member/interpol": {
+        title: "员工内推",
+        key: "member/interpol",
+        src: "/static/js/client/main.html#/member/interpol"
+      },
       '/soundlist': {
         title: "通话记录",
         key: "soundlist",
