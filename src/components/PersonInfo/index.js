@@ -637,10 +637,14 @@ status 0 1 2 3 4 */
 						: <Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>
 				}
 				renderRecommender() {
-					let {status, item: {
+					let {
+						status,
+						item: {
+							channel,
 							referrerName
-						}} = this.props
-					if (status == 0) {
+						}
+					} = this.props
+					if (status == 0 && (channel == 18 || channel == 19)) {
 						return <BaseInfoItem label="推荐人" info={<span> {
 								referrerName
 									? referrerName
