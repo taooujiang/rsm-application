@@ -12,11 +12,12 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import SideLayout from 'app/decorators/SideLayout'
 import WrapperComponent from 'app/decorators/WrapperComponent'
-import ModalView,{ModalWidthView,ModalDetailView} from 'app/components/Modal.view'
+import ModalView, {ModalWidthView, ModalDetailView} from 'app/components/Modal.view'
 import ResumeListView from './views/ResumeList.view'
 import ResumeDetailView from './views/ResumeDetail.view'
 import ResumeDetailSameView from './views/ResumeDetailSame.view'
 import ResumeApproval from './views/ResumeApproval.view'
+import Recommonder from './views/Recommonder.view'
 
 import EntryFormView from './views/EntryForm.view'
 import EntryTimeView from './views/EntryTime.view'
@@ -37,7 +38,6 @@ import Forward2OtherFormView from './views/Forward2Other.view'
 import Recommend2OtherFormView from './views/Recommend2Other.view'
 import ResumeRemarkView from './views/ResumeRemark.view'
 
-
 import ResumeImportView from './views/ResumeImport.view'
 import DistributedView from './views/Distributed.view'
 import DistributedForm from './views/DistributedAction.view'
@@ -48,62 +48,59 @@ import ResumeSide from './views/ResumeSlide.view'
 import ApprovalSide from './views/ApprovalSlide.view'
 import * as actions from './action'
 
-
-import {reducerListSelector,reducerItemSelector} from 'app-model/reducerSelector'
+import {reducerListSelector, reducerItemSelector} from 'app-model/reducerSelector'
 
 const mapStateToProps = (state) => {
-  return {reduce: state.resumeReducer,appConfig:state.appReducer}
+	return {reduce: state.resumeReducer, appConfig: state.appReducer}
 }
 const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-    dispatch
-  };
+	return {
+		actions: bindActionCreators(actions, dispatch),
+		dispatch
+	};
 }
 
-let Container = connect((state)=>({
-    items:reducerListSelector(state.ORMReducer,"Resume"),
-    reduce:state.resumeReducer,
-    appReducer:state.appReducer
+let Container = connect((state) => ({
+	items: reducerListSelector(state.ORMReducer, "Resume"),
+	reduce: state.resumeReducer,
+	appReducer: state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(ResumeSide)(ResumeListView))
 
-let SearchContainer = connect((state)=>({
-    items:reducerListSelector(state.ORMReducer,"Resume"),
-    reduce:state.resumeReducer
+let SearchContainer = connect((state) => ({
+	items: reducerListSelector(state.ORMReducer, "Resume"),
+	reduce: state.resumeReducer
 }), mapDispatchToProps, null, {pure: false})(ResumeSearchListView)
 
-
-let ResumeDetailContainer = connect((state,props)=>({
-    item:reducerItemSelector(state.ORMReducer,"Resume",props.params.resumeId),
-    reduce:state.resumeReducer
+let ResumeDetailContainer = connect((state, props) => ({
+	item: reducerItemSelector(state.ORMReducer, "Resume", props.params.resumeId),
+	reduce: state.resumeReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalDetailView)(ResumeDetailView))
 
-let ResumeDetailTabContainer = connect((state,props)=>({
-    item:reducerItemSelector(state.ORMReducer,"Resume",props.params.resumeId),
-    reduce:state.resumeReducer
+let ResumeDetailTabContainer = connect((state, props) => ({
+	item: reducerItemSelector(state.ORMReducer, "Resume", props.params.resumeId),
+	reduce: state.resumeReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalDetailView)(ResumeDetailView))
 
 //let ResumeDetailTabContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeDetailView)
 
-let ResumeDetailSameContainer = connect((state,props)=>({
-    item:reducerItemSelector(state.ORMReducer,"Resume",props.params.resumeId),
-    reduce:state.resumeReducer
+let ResumeDetailSameContainer = connect((state, props) => ({
+	item: reducerItemSelector(state.ORMReducer, "Resume", props.params.resumeId),
+	reduce: state.resumeReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalDetailView)(ResumeDetailSameView))
 
-let DistributedContainer = connect((state,ownProps)=>{
-  return {
-    items:reducerListSelector(state.ORMReducer,"Distributed"),
-    reduce:state.resumeReducer
-  }
+let DistributedContainer = connect((state, ownProps) => {
+	return {
+		items: reducerListSelector(state.ORMReducer, "Distributed"),
+		reduce: state.resumeReducer
+	}
 }, mapDispatchToProps, null, {pure: false})(DistributedView)
 
-let DistributedJobContainer = connect((state,ownProps)=>{
-  return {
-    items:reducerListSelector(state.ORMReducer,"Resume"),
-    reduce:state.resumeReducer
-  }
+let DistributedJobContainer = connect((state, ownProps) => {
+	return {
+		items: reducerListSelector(state.ORMReducer, "Resume"),
+		reduce: state.resumeReducer
+	}
 }, mapDispatchToProps, null, {pure: false})(DistributedJob)
-
 
 let DistributedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(DistributedForm))
 let TalentFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(TalentForm))
@@ -116,6 +113,7 @@ let RelatedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {p
 let RejectFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(RejectFormView))
 let OfferNopassFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(OfferNopassForm))
 let FeedFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(FeedFormView))
+let RecommonderFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Recommonder))
 
 let Forward2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Forward2OtherFormView))
 let Recommend2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Recommend2OtherFormView))
@@ -128,42 +126,42 @@ let LabelFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pur
 let RemarksFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(RemarksFormView)
 let ResumeRemarkContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeRemarkView)
 
-
 let ResumeImportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeImportView)
 
-let ApprovalContainer = connect((state)=>({
-    items:reducerListSelector(state.ORMReducer,"Resume"),
-    reduce:state.resumeReducer,
-    appReducer:state.appReducer
+let ApprovalContainer = connect((state) => ({
+	items: reducerListSelector(state.ORMReducer, "Resume"),
+	reduce: state.resumeReducer,
+	appReducer: state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(ApprovalSide)(ResumeApproval))
 
 export {
-  ResumeDetailContainer,
-  ResumeDetailSameContainer,
-  ResumeDetailTabContainer,
-  EntryTimeContainer,
-  EntryFormContainer,
-  RelatedFormContainer,
-  RejectFormContainer,
-  FeedFormContainer,
-  FolderContainer,
-  LabelFormContainer,
-  SearchContainer,
+	ResumeDetailContainer,
+	ResumeDetailSameContainer,
+	ResumeDetailTabContainer,
+	EntryTimeContainer,
+	EntryFormContainer,
+	RelatedFormContainer,
+	RejectFormContainer,
+	FeedFormContainer,
+	FolderContainer,
+	LabelFormContainer,
+	SearchContainer,
 	RemarksFormContainer,
 	ResumeRemarkContainer,
-  DistributedJobContainer,
-  DistributedContainer,
-  TalentFormContainer,
-  DistributedFormContainer,
-  Forward2OtherFormContainer,
-  Recommend2OtherFormContainer,
-  FollowFormContainer,
-  DeleteFormContainer,
-  CreditFilingReasonFormContainer,
-  JoinTalentFormContainer,
-  ApprovalContainer,
-  OfferNopassFormContainer,
-  ResumeImportContainer
+	DistributedJobContainer,
+	DistributedContainer,
+	TalentFormContainer,
+	DistributedFormContainer,
+	Forward2OtherFormContainer,
+	Recommend2OtherFormContainer,
+	FollowFormContainer,
+	DeleteFormContainer,
+	CreditFilingReasonFormContainer,
+	JoinTalentFormContainer,
+	ApprovalContainer,
+	OfferNopassFormContainer,
+	ResumeImportContainer,
+	RecommonderFormContainer
 }
 
 export default Container;

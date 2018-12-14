@@ -1,39 +1,40 @@
 import React, {Component} from 'react'
 import ReactRouter, {Router, Route, IndexRoute} from 'react-router'
 
-import Container,{
-  SearchContainer,
-  LabelFormContainer,
-  ResumeDetailContainer,
-  ResumeDetailTabContainer,
-  ResumeDetailSameContainer,
-  OfferFormContainer,
-  EntryTimeContainer,
-  EntryFormContainer,
-  RelatedFormContainer,
-  RejectFormContainer,
-  FeedFormContainer,
-  FolderContainer,
-  RemarksFormContainer ,
-  ResumeRemarkContainer,
-  DistributedContainer,
-  DistributedJobContainer,
-  TalentFormContainer,
-  DistributedFormContainer,
-  Forward2OtherFormContainer,
-  Recommend2OtherFormContainer,
-  FollowFormContainer,
-  DeleteFormContainer,
-  CreditFilingReasonFormContainer,
-  JoinTalentFormContainer,
-  ApprovalContainer,
-  OfferNopassFormContainer,
-  ResumeImportContainer
+import Container, {
+	SearchContainer,
+	LabelFormContainer,
+	ResumeDetailContainer,
+	ResumeDetailTabContainer,
+	ResumeDetailSameContainer,
+	OfferFormContainer,
+	EntryTimeContainer,
+	EntryFormContainer,
+	RelatedFormContainer,
+	RejectFormContainer,
+	FeedFormContainer,
+	FolderContainer,
+	RemarksFormContainer,
+	ResumeRemarkContainer,
+	DistributedContainer,
+	DistributedJobContainer,
+	TalentFormContainer,
+	DistributedFormContainer,
+	Forward2OtherFormContainer,
+	Recommend2OtherFormContainer,
+	FollowFormContainer,
+	DeleteFormContainer,
+	CreditFilingReasonFormContainer,
+	JoinTalentFormContainer,
+	ApprovalContainer,
+	OfferNopassFormContainer,
+	ResumeImportContainer,
+	RecommonderFormContainer
 } from './container'
 import {Relate2JobFormContainer} from '../Elite/container'
 import {DetailContainer} from '../Job/container'
 import {creditFormContainer} from '../Credit/container'
-import {DelayContainer,FeedBackFormContainer} from '../Interview/container'
+import {DelayContainer, FeedBackFormContainer} from '../Interview/container'
 // let Routes = (
 //   <Router component={null}>
 //
@@ -63,120 +64,125 @@ import {DelayContainer,FeedBackFormContainer} from '../Interview/container'
 //     </Route>
 //   </Router>
 // )
-/*joinelite是详情中添加人才的路由*/
-let RoutesResume =(
-  <Router path=":resumeId">
-    <Route path=":resumeId/detail" components={ResumeDetailContainer}>
-      <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-      <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
-      <Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
-      <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
-      <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
-      <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
-      <Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
-      <Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
-      <Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
-      <Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
-      <Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
-      <Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
-      <Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
-      <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
-      <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-      <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
-      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
-      <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
-      <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
-    </Route>
-    <Route path=":resumeId(/detail)/add" components={creditFormContainer} breadcrumbName="诚信记录" />
-    <Route path=":resumeId(/detail)/entry" components={EntryTimeContainer} breadcrumbName="入职"/>
-    <Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
-    <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
-    <Route path=":resumeId(/detail)/feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
-    <Route path=":resumeId(/detail)/feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
-    <Route path=":resumeId(/detail)/reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
-    <Route path=":resumeId/delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
-    <Route path=":resumeId/remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
-    <Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
-    <Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
-    <Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
-    <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
-    <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-    <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
-    <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
-    <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
-    <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
+/* joinelite是详情中添加人才的路由 */
+let RoutesResume = (<Router path=":resumeId">
+	<Route path=":resumeId/detail" components={ResumeDetailContainer}>
+		<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录"/>
+		<Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
+		<Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
+		<Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
+		<Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
+		<Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
+		<Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
+		<Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
+		<Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
+		<Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
+		<Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
+		<Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
+		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
+		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
+		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
+		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
+		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
+		<Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
+		<Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
+	</Route>
+	<Route path=":resumeId(/detail)/add" components={creditFormContainer} breadcrumbName="诚信记录"/>
+	<Route path=":resumeId(/detail)/entry" components={EntryTimeContainer} breadcrumbName="入职"/>
+	<Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
+	<Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
+	<Route path=":resumeId(/detail)/feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
+	<Route path=":resumeId(/detail)/feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
+	<Route path=":resumeId(/detail)/reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
+	<Route path=":resumeId/delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
+	<Route path=":resumeId/remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
+	<Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
+	<Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
+	<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
+	<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
+	<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
+	<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+	<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
+	<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
+	<Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
+	<Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
 
-    <Route path=":resumeId/samedetail" components={ResumeDetailSameContainer}>
-      <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-      <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
-      <Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
-      <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
-      <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
-      <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
-      <Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
-      <Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
-      <Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
-      <Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
-      <Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
-      <Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
-      <Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
-      <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
-      <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-      <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
-      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
-      <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
-      <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
-    </Route>
+	<Route path=":resumeId/samedetail" components={ResumeDetailSameContainer}>
+		<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录"/>
+		<Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
+		<Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
+		<Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
+		<Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
+		<Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
+		<Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
+		<Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
+		<Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
+		<Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
+		<Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
+		<Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
+		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
+		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
+		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
+		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
+		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
+		<Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
+		<Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
+	</Route>
 
-    <Route path=":resumeId/tabdetail" components={ResumeDetailTabContainer}>
-      <Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
-      <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
-      <Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
-      <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
-      <Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
-      <Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
-      <Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
-      <Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
-      <Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
-      <Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
-      <Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
-      <Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
-      <Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
-      <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
-      <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-      <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
-      <Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
-      <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
-      <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
-    </Route>
-  </Router>
-)
+	<Route path=":resumeId/tabdetail" components={ResumeDetailTabContainer}>
+		<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录"/>
+		<Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
+		<Route path="entinfo" components={EntryFormContainer} breadcrumbName="入职信息"/>
+		<Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
+		<Route path="feed" components={FeedFormContainer} breadcrumbName="面试安排"/>
+		<Route path="feedback" components={FeedBackFormContainer} breadcrumbName="面试反馈"/>
+		<Route path="reject" components={RejectFormContainer} breadcrumbName="拒绝"/>
+		<Route path="delay" components={DelayContainer} breadcrumbName="面试时间调整"/>
+		<Route path="remarks" components={RemarksFormContainer} breadcrumbName="备注"/>
+		<Route path="forward" components={Forward2OtherFormContainer} breadcrumbName="发送部门负责人"/>
+		<Route path="recommend" components={Recommend2OtherFormContainer} breadcrumbName="推荐给其他部门"/>
+		<Route path="label" components={LabelFormContainer} breadcrumbName="标签"/>
+		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
+		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
+		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
+		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
+		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
+		<Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
+		<Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
+	</Route>
+</Router>)
 
-let Routes = (
-  <Router component={null}>
-    <Route path="list(/query/:status(/:jobId)/end)" components={Container}>
-      {React.createElement(Route,{},RoutesResume.props.children)}
-    </Route>
-    <Route path="folder" components={FolderContainer}>
-      {React.createElement(Route,{},RoutesResume.props.children)}
-    </Route>
-		<Route path="search/:type/:text" components={SearchContainer}>
-      {React.createElement(Route,{},RoutesResume.props.children)}
-    </Route>
-    <Route path="distributed" components={DistributedContainer}>
-      <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
-      <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
-    </Route>
-    <Route path="distrib/:id" components={DistributedJobContainer}>
-      {React.createElement(Route,{},RoutesResume.props.children)}
-    </Route>
-    <Route path="approval" components={ApprovalContainer}></Route>
-    <Route path="import" components={ResumeImportContainer}></Route>
-  </Router>
-)
-export {Container,RoutesResume}
+let Routes = (<Router component={null}>
+	<Route path="list(/query/:status(/:jobId)/end)" components={Container}>
+		{React.createElement(Route, {}, RoutesResume.props.children)}
+	</Route>
+	<Route path="folder" components={FolderContainer}>
+		{React.createElement(Route, {}, RoutesResume.props.children)}
+	</Route>
+	<Route path="search/:type/:text" components={SearchContainer}>
+		{React.createElement(Route, {}, RoutesResume.props.children)}
+	</Route>
+	<Route path="distributed" components={DistributedContainer}>
+		<Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
+		<Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
+	</Route>
+	<Route path="distrib/:id" components={DistributedJobContainer}>
+		{React.createElement(Route, {}, RoutesResume.props.children)}
+	</Route>
+	<Route path="approval" components={ApprovalContainer}>
+		{React.createElement(Route, {}, RoutesResume.props.children)}
+	</Route>
+	<Route path="import" components={ResumeImportContainer}></Route>
+</Router>)
+
+export {
+	Container,
+	RoutesResume
+}
 export default Routes
-
 
 // export {Container}
 // export default Routes
