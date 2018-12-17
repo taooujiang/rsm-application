@@ -60,7 +60,7 @@ class EmailForm extends Component {
 		console.log(buttonChanged, content, disabled)
 		return (<BaseForm onSubmit={handleSubmit} ref={this.formRefs.bind(this)}>
 			<FormItem {...formFullItemLayout}>
-				<Select onChange={this.handleSelectChange.bind(this)} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhost") && DictUtils.getDictByType("mailhost").sort((a, b) => a.keySort - b.keySort)} renderItem={this.renderSelectOption}/>
+				<Select onChange={this.handleSelectChange.bind(this)} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhostsend") && DictUtils.getDictByType("mailhostsend").sort((a, b) => a.keySort - b.keySort)} renderItem={this.renderSelectOption}/>
 			</FormItem>
 			<FormItem {...formFullItemLayout}>
 				<Input label="邮箱帐号" type="email" name="email" rules={[
