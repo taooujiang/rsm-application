@@ -648,7 +648,7 @@ export function entryInvite(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchInvite(value).then(json => {
-      dispatch(fetchSuccess('itemSpin'))
+      dispatch(fetchSuccess('itemSpin', true))
       dispatch(saveItem(data))
       dispatch(getOptionAction({
         resumeId: value.id
@@ -667,7 +667,7 @@ export function entryOffer(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchEntryOffer(value).then(json => {
-      dispatch(fetchSuccess('itemSpin'))
+      dispatch(fetchSuccess('itemSpin', true))
       dispatch(saveItem(data))
       dispatch(getOptionAction({
         resumeId: value.id
@@ -678,7 +678,7 @@ export function entryOffer(value) {
   }
 }
 
-export function backEntryOffer() {
+export function backEntryOffer(value) {
   let data = {
     ...value,
     status: 3
@@ -686,7 +686,7 @@ export function backEntryOffer() {
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchBackEntryOffer(value).then(json => {
-      dispatch(fetchSuccess('itemSpin'))
+      dispatch(fetchSuccess('itemSpin', true))
       dispatch(saveItem(data))
       // dispatch(getOptionAction({resumeId:value.id}))
     }).catch(ex => {
@@ -703,7 +703,7 @@ export function entryWaiting(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchWaiting(value).then(json => {
-      dispatch(fetchSuccess('itemSpin'))
+      dispatch(fetchSuccess('itemSpin', true))
       dispatch(saveItem(data))
       dispatch(getOptionAction({
         resumeId: value.id

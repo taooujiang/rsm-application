@@ -574,7 +574,7 @@ status 0 1 2 3 4 */
 					//console.log(id)
 					actions.connectEliteAction(router, [id])
 				}
-				resumeUpgrading(current, target) {
+				resumeUpgrading(target) {
 					let {
 						actions,
 						router,
@@ -632,9 +632,10 @@ status 0 1 2 3 4 */
 							<Button type="ghost">待入职</Button>
 						</Menu.Item>
 					</Menu>)
-					return status == 4
-						? <Button className="block" onClick={this.entryJob.bind(this)}>入职</Button>
-						: <Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>
+					return [
+						<Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>,
+						<Button className="block" onClick={this.entryJob.bind(this)}>入职</Button>
+					]
 				}
 				renderRecommender() {
 					let {
@@ -1067,10 +1068,7 @@ status 0 1 2 3 4 */
 
 						<ButtonGroup>
 							<Button className="half-block" onClick={this.addElite.bind(this, 1)}>忽略</Button>
-							<Button className="half-block" onClick={this.handleRemark.bind(this)}>放入人才库</Button>
 						</ButtonGroup>
-
-						<Checkbox onChange={this.onChange.bind(this)}>不再对该简历进行诚信库提醒</Checkbox>
 					</div>
 				}
 			}
@@ -2736,10 +2734,12 @@ status 0 1 2 3 4 */
 							salaryType
 						}
 					} = this.props
-					let type = moneyOpt.filter(it => {
-						return it.value == salaryType
-					}).pop().label
-					return type + " " + salary
+					if (salaryType) {
+						let type = moneyOpt.filter(it => {
+							return it.value == salaryType
+						}).pop().label
+						return type + " " + salary
+					}
 				}
 				toggleArraw() {
 					this.setState({
