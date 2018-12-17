@@ -3469,6 +3469,27 @@ status 0 1 2 3 4 */
 						actions.fetchAdditionInfoAction({"resumeId": resumeId})
 					})
 				}
+				printerApplyForm() {
+					var LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'))
+					LODOP.PRINT_INIT("打印简历")
+					LODOP.SET_PRINT_PAGESIZE(1, 2100, 2970)
+
+					//设置页码
+					LODOP.ADD_PRINT_HTM('1030', '600', '150', '22', "<font style='font-size:12px;float:right;'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>");
+					LODOP.SET_PRINT_STYLEA(0, "ItemType", 1)
+
+					let stylesText = '.ApplyFormShowBox{background-color:#fff;width:100%;overflow:auto;padding:0 20px}.ApplyFormShowBox .content{margin:10px 20px}.ApplyFormShowBox .content .contentBase{font-size:12px;line-height:24px}.ApplyFormShowBox .title{text-align:center;font-size:20px}.ApplyFormShowBox .form-subtitle{background-color:#f7f7f7;height:50px;line-height:50px;font-size:15px;padding:0 20px}.ApplyFormShowBox .form-subtitle .interview-info{margin:0 auto;position:relative}.ApplyFormShowBox .form-subtitle .interview-info .interview-date{position:absolute;right:30px}.ApplyFormShowBox .form-subtitle .interview-info .printerBtn{position:absolute;right:0}.ApplyFormShowBox .ant-table-wrapper{display:block;flex:none}.ApplyFormShowBox .ant-table-wrapper .ant-table-placeholder{display:none}'
+					/* var LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'))
+						// LODOP.PRINT_INIT("打印简历")
+						// LODOP.SET_PRINT_PAGESIZE(1, 2100, 2970)*/
+
+					LODOP.ADD_PRINT_HTM(50, 50, 650, 980, stylesText + "<body>" + document.getElementById("papply-form-box").innerHTML + "</body>")
+					//打印链接和图片
+					//console.log(sourceUrl)
+					// LODOP.ADD_PRINT_URL(50,50,650,980,sourceUrl)
+					// /*打印预览*/
+					LODOP.PREVIEW()
+				}
 				handleImg(url, item) {
 					let that = this
 					if (item.type == 1) {
@@ -3484,7 +3505,7 @@ status 0 1 2 3 4 */
 								maskClosable: true,
 								centered: true,
 								width: '1100px',
-								content: (<ApplyFormView info={json}/>)
+								content: (<ApplyFormView info={json} handlePrinter={that.printerApplyForm.bind(this)}/>)
 							})
 						});
 
