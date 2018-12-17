@@ -1220,7 +1220,7 @@ status 0 1 2 3 4 */
 					return urlTarget.split(".").pop() == "html"
 				}
 				render() {
-					let {info, actions, id, detailType} = this.props
+					let {info, actions, id, detailType, item} = this.props
 					let {
 						resumeInfo,
 						objectives,
@@ -1251,7 +1251,7 @@ status 0 1 2 3 4 */
 							{
 								infoEdit
 									? <PersonBaseInfoEditHead actions={actions} id={id} info={resumeInfo} editChangeFn={this.changeFlag.bind(this, "infoEdit", false)}/>
-									: <PersonBaseInfoShowHead info={resumeInfo} id={id} detailType={detailType} editChangeFn={this.changeFlag.bind(this, "infoEdit", true)}/>
+									: <PersonBaseInfoShowHead item={item} info={resumeInfo} id={id} detailType={detailType} editChangeFn={this.changeFlag.bind(this, "infoEdit", true)}/>
 							}
 							{
 								salaryEdit
@@ -1346,6 +1346,30 @@ status 0 1 2 3 4 */
 					console.log(callOutJsonStr)
 					global.invokeMethod('OnCallJson', callOutJsonStr)
 				}
+				renderContact() {
+					let {info, id, detailType, item: {
+							downloadStatus
+						}} = this.props
+					if (downloadStatus) {
+						return <div className="contactInfo">
+							{
+								info.mobilephone
+									? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.mobilephone, id, info.name, detailType)}/>{info.mobilephone}</span>)
+									: null
+							}
+							{
+								info.alternativePhone
+									? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.alternativePhone, id, info.name, detailType)}/>{info.alternativePhone}</span>)
+									: null
+							}
+							{
+								info.email
+									? (<span><Icon type="mail"/>{info.email}</span>)
+									: null
+							}
+						</div>
+					}
+				}
 				render() {
 					let {info, id, detailType} = this.props
 					return (<div className="personinfo-detailHead">
@@ -1357,23 +1381,7 @@ status 0 1 2 3 4 */
 						<img src={info.photoUrl} className="person-headicon"/>
 						<div className="personinfo-headInfo">
 							<h2>{info.name}</h2>
-							<div className="contactInfo">
-								{
-									info.mobilephone
-										? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.mobilephone, id, info.name, detailType)}/>{info.mobilephone}</span>)
-										: null
-								}
-								{
-									info.alternativePhone
-										? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.alternativePhone, id, info.name, detailType)}/>{info.alternativePhone}</span>)
-										: null
-								}
-								{
-									info.email
-										? (<span><Icon type="mail"/>{info.email}</span>)
-										: null
-								}
-							</div>
+							{this.renderContact()}
 							<div>
 								{this.renderPersonBase()}
 							</div>

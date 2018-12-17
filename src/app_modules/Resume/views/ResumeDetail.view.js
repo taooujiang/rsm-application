@@ -31,6 +31,7 @@ import DictUtils from 'app-utils/DictUtils'
 import classnames from 'classnames'
 import {permissionStyle} from "app/utils/ConfigUtils";
 import SmartLink from 'app/components/SmartLink'
+import ResumeDownload from './DownloadModal.view'
 import Layout, {Fixed, Pane} from 'app/components/Layout'
 
 const ButtonGroup = Button.Group;
@@ -129,7 +130,7 @@ class ResumeDetail extends Component {
 			id: resumeId,
 			...viewLib
 		})
-		console.log(123123123, this.props)
+		// console.log(123123123, this.props)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -331,7 +332,7 @@ class ResumeDetail extends Component {
 						}}>
 						<Tabs animated={false} className="personInfoTabs" activeKey={this.state.defaultKey} onTabClick={this.handleTabChange.bind(this)}>
 							<TabPane tab="基本信息" key="1">
-								<PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} detailType={detailType}/>
+								<PersonTabBaseInfo actions={actions} id={resumeId} info={baseInfo} detailType={detailType} item={item}/>
 							</TabPane>
 							<TabPane tab="面试" key="2">
 								<PersonFeedRecord authorization={authorization} detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} item={item}/>
@@ -436,9 +437,10 @@ class PersonInfoPanelHead extends Component {
 		//console.log(callOutJsonStr)
 		global.invokeMethod('OnCallJson', callOutJsonStr)
 	}
+	handleGetContact() {}
 	render() {
 		let {info, detailType, filingReason} = this.props
-		let {isLock, havaSame, isFollowRemind} = info
+		let {isLock, havaSame, isFollowRemind, downloadStatus} = info
 		//console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
 		let userInfoText = ""
 		if (translateDic("sex", info.sex) && info.age) 
@@ -478,10 +480,16 @@ class PersonInfoPanelHead extends Component {
 				}
 			</Row>
 			<Row gutter={12} className="headInfoBottom">
-				<InfoItem icon="user" text={userInfoText}/>
-				<InfoItem icon="mobile" text={info.mobilephone} onClick={this.handleCallPhone.bind(this, info.mobilephone, info.id, info.name, detailType)}/>
-				<InfoItem icon="mail" text={info.email}/>
-				<InfoItem icon="mobile" text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>
+				<InfoItem icon="user" text={userInfoText}/> {
+					downloadStatus
+						? [
+							<InfoItem icon="mobile" text={info.mobilephone} onClick={this.handleCallPhone.bind(this, info.mobilephone, info.id, info.name, detailType)}/>,
+							<InfoItem icon="mail" text={info.email}/>,
+							<InfoItem icon="mobile" text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>
+						]
+						: <Button onClick={this.handleGetContact.bind(this)}>获取联系方式</Button>
+				}
+
 				<InfoItem icon="clock-circle" text={info.workYear}/>
 				<InfoItem icon="book" text={translateDic("education", info.degree)}/>
 				<InfoItem icon="environment" text={info.currentAddress}/> {
@@ -490,6 +498,7 @@ class PersonInfoPanelHead extends Component {
 						: null
 				}
 			</Row>
+			{/* <ResumeDownload actions={actions} router={router} channelResumeId={resumeOrgBean.channelResumeId} channel={channel} closeFn={this.closeFn.bind(this)} propTitle={title}/> */}
 		</div>)
 	}
 }
