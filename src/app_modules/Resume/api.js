@@ -351,5 +351,10 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  fetchImportResume(params) {
+    return this.fetchPost(`${APP_SERVER}/resumeLibrary/uploadResume`, {
+      body: params
+    })
+  }
 
 }

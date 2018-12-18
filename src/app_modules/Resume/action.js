@@ -905,6 +905,17 @@ export function sendScoreAction(value) {
   }
 }
 
+export function importResumeAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('formSpin'))
+    return new API().fetchImportResume(value).then(json => {
+      dispatch(fetchSuccess('formSpin', true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('formSpin', ex))
+    })
+  }
+}
+
 export function recommendAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))

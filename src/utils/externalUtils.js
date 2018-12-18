@@ -100,6 +100,12 @@ export default class ClientAPI {
           key: 'job/jobimport' ,
           src:`/static/js/client/main.html#/job/search`
         })
+      }else if(type == '7'){//导入候选人
+        parent.addTab&&parent.addTab({
+          title: '导入候选人',
+          key: 'resmue/import' ,
+          src:`/static/js/client/main.html#/resume/import`
+        })
       }
     }
     openSearchPage(type,content){

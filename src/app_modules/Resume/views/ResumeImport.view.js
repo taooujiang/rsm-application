@@ -12,10 +12,12 @@ import {
   Popover,
   Dropdown,
   Icon,
+  message
 } from 'antd'
 import {Link} from 'react-router'
 import moment from 'moment'
-import FileUpload from 'app/components/FileUpload'
+import {ImgUpload} from 'app/components/FileUpload'
+import DictUtils from 'app/utils/DictUtils'
 import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import PageView,{FormPage} from 'app/components/Page'
 import {Layout,Fixed,Pane} from 'app/components/Layout'
@@ -31,37 +33,70 @@ export default class ResumeImportView extends FormPage {
   fileUploadSuccess(){
 
   }
-  fileUploadResponse(){
-
+  fileUploadResponse(res){
+    return res.id
   }
-  handleSubmit(value){
-
+  beforeUpload(file){
+    let {name} = file
+    let suffix = name.split(".").pop()
+    /*①　用户可以上传doc、PDF、jpg、png、JPEG格式的简历；*/
+    if (suffix == "jpg" || suffix == "png" || suffix == "jpeg" || suffix == "pdf" || suffix == "doc" || suffix == "docx") {
+      return true
+    } else {
+      message.warning("只能上传doc、PDF、jpg、png、JPEG格式的简历")
+      return false
+    }
+  }
+  handleSubmit(){
+    let {actions} = this.props
+    this.form.validateFieldsAndScroll({force:true},(err,values) => {
+       if (err) {
+         return;
+       }
+       // console.log(values)
+       actions.importResumeAction(values)
+     });
+  }
+  renderSelectOption(data,idx){
+    return <Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>
+  }
+  renderJobOption(it,idx){
+    return (<Select.Option value={it.jobId} key={idx}>{it.jobTitle}</Select.Option>)
+  }
+  renderRefferOption(data, idx) {
+		return (< Select.Option value = {data.id} key = {idx} > {data.name} < /Select.Option>)
   }
 
   render() {
     let {children} = this.props
       return (
-        <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} className="resume-import-form">
+        <BaseForm ref={this.saveFormRef} className="resume-import-form">
           <Layout direction='rows' className="resume-import">
               <Pane>
-                <FileUpload onSuccess={this.fileUploadSuccess.bind(this)} onResponse={this.fileUploadResponse.bind(this)} text="点击上传候选人简历"/>
-              </Pane>
+                <FormItem>
+                  <ImgUpload type={6} name="sourceFileId" btnText="点击上传候选人简历" beforeUpload={this.beforeUpload} onResponse={this.fileUploadResponse} onSuccess={this.fileUploadSuccess}></ImgUpload>
+                </FormItem>
+            </Pane>
               <Fixed style={{width:500}}>
                 <FormItem>
-                  <Input label="姓名" name="name"/>
+                  <Input label="姓名" name="name" placeholder = "请填写姓名"/>
                 </FormItem>
                 <FormItem>
-                  <Input label="性别" name="sex"/>
+                  <Select label="性别" name="sex" placeholder = "请选择" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption}></Select>
                 </FormItem>
                 <FormItem>
-                  <Input label="电话号码" name="mobilephone"/>
+                  <Input label="电话号码" name="mobilephone" placeholder = "请填写电话号码"/>
                 </FormItem>
                 <FormItem>
-                  <Input label="邮箱号码" name="email"/>
+                  <Input label="邮箱号码" name="email" placeholder = "请填写邮箱号码"/>
                 </FormItem>
                 <FormItem>
-                  <Input label="关联职位" name="jobid"/>
+                  <Select label="关联职位" name="jobId" placeholder = "请选择" fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption}></Select>
                 </FormItem>
+                <FormItem>
+                  <Select label="推荐人" name="referrer" placeholder = "请选择" fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
+                </FormItem>
+                <Button onClick={this.handleSubmit.bind(this)}>提交</Button>
               </Fixed>
           </Layout>
         </BaseForm>
