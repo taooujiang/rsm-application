@@ -76,7 +76,8 @@ export default class LogListView extends Component {
           { label: "跟进提醒", value: 9 },
           { label: "解锁提醒", value: 10 },
           { label: "诚信库提醒", value: 11 },
-          { label: "offer反馈提醒", value: 12 }
+          { label: "offer反馈提醒", value: 12 },
+          { label: "offer审批", value: 15 }
         ];
         break;
       case "2":
