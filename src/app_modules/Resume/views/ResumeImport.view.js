@@ -121,10 +121,10 @@ export default class ResumeImportView extends FormPage {
 										]}/>
                 </FormItem>
                 <FormItem>
-                  <Select label="关联职位" name="jobId" placeholder = "请选择" fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption} ></Select>
+                  <Select label="关联职位" name="jobId" placeholder = "请选择" showSearch fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption} ></Select>
                 </FormItem>
                 <FormItem>
-                  <Select label="推荐人" name="referrer" placeholder = "请选择" fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
+                  <Select label="推荐人" name="referrer" placeholder = "请选择" showSearch fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
                 </FormItem>
                 <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>
               </Fixed>

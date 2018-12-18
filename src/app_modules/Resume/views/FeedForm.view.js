@@ -140,7 +140,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试官" name="interviewerIds" mode="multiple" fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
+						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
 								{
 									required: true,
 									message: "面试官不可为空"

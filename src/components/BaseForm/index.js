@@ -183,6 +183,26 @@ class FormItem extends Component{
       }
     //  console.log(treeDataProp)
     }
+    /*下拉框showSearch为true 默认搜索函数  如需覆盖 filterOption*/
+    if(field.type === Select && field.props.showSearch){
+      if(!otherProps.filterOption){
+        otherProps.filterOption = function(input,option){
+          console.log(11111)
+          let result = option.props.children
+          if(typeof(result) == "string" && result.indexOf(input) >= 0){
+            return true
+          }
+         if(typeof(result) == "object" && result instanceof Array){
+           /*遍历后判断数组长度区分是否匹配*/
+           return result.filter(it=>{
+             return it.indexOf(input)>=0
+           }).length
+         }
+         return false
+        }
+      }
+    }
+
     if(childData.length==0){
       return React.createElement(field.type,Object.assign({},otherProps,containerToProp,treeDataProp))
     }else if(field.props.renderItem){
@@ -222,6 +242,8 @@ class FormItem extends Component{
         style:{marginBottom:0}
       }
     }
+    // console.log(element)
+
     return (<Form.Item label={label} {...Object.assign({},...formLayout,this.props)} colon={false} {...styles}>
       {getFieldDecorator(name,{...otherProps,initialValue:defaultValue})(this.renderField())}
     </Form.Item>)
