@@ -341,5 +341,15 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  fetchIgnore(params) {
+    return this.fetchPost(`${APP_SERVER}/resumeLibrary/ignoreJson`, {
+      body: params
+    })
+  }
+  fetchSendScore(params) {
+    return this.fetchPost(`${APP_SERVER}/interviewPlan/candidateMspf`, {
+      body: params
+    })
+  }
 
 }

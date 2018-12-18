@@ -87,37 +87,37 @@ const stageJson = {
 			function needCLodop() {
 				try {
 					var ua = navigator.userAgent;
-					if (ua.match(/Windows\sPhone/i)) 
+					if (ua.match(/Windows\sPhone/i))
 						return true;
-					if (ua.match(/iPhone|iPod/i)) 
+					if (ua.match(/iPhone|iPod/i))
 						return true;
-					if (ua.match(/Android/i)) 
+					if (ua.match(/Android/i))
 						return true;
-					if (ua.match(/Edge\D?\d+/i)) 
+					if (ua.match(/Edge\D?\d+/i))
 						return true;
-					
+
 					var verTrident = ua.match(/Trident\D?\d+/i);
 					var verIE = ua.match(/MSIE\D?\d+/i);
 					var verOPR = ua.match(/OPR\D?\d+/i);
 					var verFF = ua.match(/Firefox\D?\d+/i);
 					var x64 = ua.match(/x64/i);
-					if ((!verTrident) && (!verIE) && (x64)) 
+					if ((!verTrident) && (!verIE) && (x64))
 						return true;
 					else if (verFF) {
 						verFF = verFF[0].match(/\d+/);
-						if ((verFF[0] >= 41) || (x64)) 
+						if ((verFF[0] >= 41) || (x64))
 							return true;
 						}
 					else if (verOPR) {
 						verOPR = verOPR[0].match(/\d+/);
-						if (verOPR[0] >= 32) 
+						if (verOPR[0] >= 32)
 							return true;
 						}
 					else if ((!verTrident) && (!verIE)) {
 						var verChrome = ua.match(/Chrome\D?\d+/i);
 						if (verChrome) {
 							verChrome = verChrome[0].match(/\d+/);
-							if (verChrome[0] >= 41) 
+							if (verChrome[0] >= 41)
 								return true;
 							}
 						}
@@ -181,18 +181,18 @@ const stageJson = {
 								message.info("请正确安装打印插件！")
 								global.invokeMethod('CefToShellExe', "CLodop_Setup_for_Win32NT.exe")
 							}
-							if (oEMBED && oEMBED.parentNode) 
+							if (oEMBED && oEMBED.parentNode)
 								oEMBED.parentNode.removeChild(oEMBED);
-							if (oOBJECT && oOBJECT.parentNode) 
+							if (oOBJECT && oOBJECT.parentNode)
 								oOBJECT.parentNode.removeChild(oOBJECT);
 							}
 						} else {
 						var is64IE = isIE && !!(ua.match(/x64/i));
 						//=====如果页面有Lodop就直接使用，没有则新建:==========
 						if (oOBJECT || oEMBED) {
-							if (isIE) 
+							if (isIE)
 								LODOP = oOBJECT;
-							else 
+							else
 								LODOP = oEMBED;
 							}
 						else if (!CreatedOKLodop7766) {
@@ -200,15 +200,15 @@ const stageJson = {
 							LODOP.setAttribute("width", 0);
 							LODOP.setAttribute("height", 0);
 							LODOP.setAttribute("style", "position:absolute;left:0px;top:-100px;width:0px;height:0px;");
-							if (isIE) 
+							if (isIE)
 								LODOP.setAttribute("classid", "clsid:2105C259-1E0C-4534-8141-A753534CB4CA");
-							else 
+							else
 								LODOP.setAttribute("type", "application/x-print-lodop");
 							document.documentElement.appendChild(LODOP);
 							CreatedOKLodop7766 = LODOP;
-						} else 
+						} else
 							LODOP = CreatedOKLodop7766;
-						
+
 						//=====Lodop插件未安装时提示下载地址:==========
 						if ((!LODOP) || (!LODOP.VERSION)) {
 							// if (ua.indexOf('Chrome') >= 0)
@@ -222,7 +222,7 @@ const stageJson = {
 						}
 					}
 					if (LODOP.VERSION < "6.2.2.3") {
-						if (!needCLodop()) 
+						if (!needCLodop())
 							// document.body.innerHTML = (is64IE ? strHtm64_Update : strHtmUpdate) + document.body.innerHTML;
 							return LODOP;
 						}
@@ -484,6 +484,12 @@ status 0 1 2 3 4 */
 							id
 						}} = this.props
 					actions.followAction(router, [id])
+				}
+				ingnoreHonesty() {
+					let {actions, item: {
+							id
+						}} = this.props
+					actions.ignoreHonestAction({id: id})
 				}
 				handleRemark() {
 					let {actions, router, callback} = this.props
@@ -1045,9 +1051,6 @@ status 0 1 2 3 4 */
 			}
 			/* 共享诚信库状态 */
 			class OptionButtonsCreditShare extends OptionCommonFn {
-				onChange(val) {
-					console.log(val)
-				}
 				render() {
 					let {item: {
 							shareSincerityList
@@ -1067,7 +1070,7 @@ status 0 1 2 3 4 */
 						</ul>
 
 						<ButtonGroup>
-							<Button className="half-block" onClick={this.addElite.bind(this, 1)}>忽略</Button>
+							<Button className="block" onClick={this.ingnoreHonesty.bind(this)}>知道了</Button>
 						</ButtonGroup>
 					</div>
 				}
@@ -3277,6 +3280,18 @@ status 0 1 2 3 4 */
 					let {actions, router} = this.props
 					actions.feedAction(router, item)
 				}
+				handleSendScoreSms(item){
+					let {actions} = this.props
+			    return Modal.confirm({
+				    title: '请候选人为面试评分',
+				    content: "面试评分结果记录在职位详情中，是否邀请候选人为面试评分？",
+				    okText: '确认',
+				    onOk:function(){
+							actions.sendScoreAction({resumeId:item.id})
+						},
+				    cancelText: '取消'
+					})
+			  }
 				render() {
 					let {
 						info: {
@@ -3286,6 +3301,7 @@ status 0 1 2 3 4 */
 						router,
 						detailType,
 						item,
+						item:{interviewScore},
 						authorization
 					} = this.props
 					let {status, isLock} = item
@@ -3298,7 +3314,7 @@ status 0 1 2 3 4 */
 						? (<div className="feedRecord-box">
 							<Permission expression={status <= 2 && detailType == 2 && !isLock && authorization}>
 								<ButtonGroup className="btn-box">
-									<Button>请候选人为面试评分</Button>
+									{interviewScore ? null : <Button onClick={this.handleSendScoreSms.bind(this,item)}>请候选人为面试评分</Button>}
 									<Button icon="plus" onClick={this.handleAddFeed.bind(this, item)} className="add-feed">添加面试</Button>
 								</ButtonGroup>
 							</Permission>

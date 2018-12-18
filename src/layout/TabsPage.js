@@ -259,7 +259,7 @@ class MultiTab extends Component {
           );
           // document.querySelector(`iframe[name=${activeKey}]`)
           // todo
-          if(newPane.src.indexOf("/resume/list") >= 0){
+          if(newPane.src.indexOf("/resume/list") >= 0){//当客户端点击时 不作此操作会导致在简历详情不返回列表
             document.body
               .querySelector(`iframe[name='${activeKey}']`)
               .src = newPane.src;

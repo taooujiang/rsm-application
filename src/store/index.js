@@ -196,6 +196,12 @@ const panes = {
     key: "member/list",
     src: "/static/js/client/main.html#/member/list"
   },
+  "member/interpol": {
+    refresh: true,
+    title: "员工内推",
+    key: "member/interpol",
+    src: "/static/js/client/main.html#/member/interpol"
+  },
   soundlist: {
     title: "通话记录",
     refresh: true,

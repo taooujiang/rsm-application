@@ -795,6 +795,22 @@ export function deleteAdditionInfoAction(value) {
   }
 }
 
+export function ignoreHonestAction(value) {
+  let data = {
+    ...value,
+    defined7: 1
+  }
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchIgnore(value).then(json => {
+      dispatch(fetchSuccess('tableSpin', true))
+      dispatch(saveItem(data))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+
 export function fetchAdditionInfoAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -871,6 +887,18 @@ export function forwardAction(value) {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchForward(value).then(json => {
       dispatch(fetchSuccess('formSpin', true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('formSpin', ex))
+    })
+  }
+}
+
+export function sendScoreAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('formSpin'))
+    return new API().fetchSendScore(value).then(json => {
+      dispatch(fetchSuccess('formSpin', true))
+      dispatch(saveItem({id:value.resumeId,interviewScore:1}))
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin', ex))
     })
