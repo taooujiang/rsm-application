@@ -15,6 +15,7 @@ import {
 	Icon
 } from 'antd'
 import classnames from 'classnames'
+import {routerActions, push, replace} from 'react-router-redux'
 import {Link} from 'react-router'
 import NestedComponent from 'app/decorators/NestedComponent'
 import DictUtils from 'app-utils/DictUtils'
@@ -31,7 +32,17 @@ export default class PersonInfoDetailSame extends Component {
 		let {actions, params} = this.props
 		actions.getSameResumeAction({id: params.resumeId})
 	}
-	jump2Another(id) {}
+	switchSame(it) {
+		let {router, dispatch, location: {
+				state
+			}} = this.props
+		let newLocation = {
+			pathname: router.getCurrentLocation().pathname.replace(/\/\S{32}\/samedetail/, `/${it.id}/samedetail`),
+			state: state
+		}
+		console.log(newLocation)
+		dispatch(routerActions.push(newLocation))
+	}
 	render() {
 		let {reduce: {
 				sameList
@@ -43,7 +54,7 @@ export default class PersonInfoDetailSame extends Component {
 			<ul className="sameDetail-inner">
 				{
 					sameList.map((it, idx) => {
-						return (<li key={idx} className={resumeId == it.id
+						return (<li key={idx} onClick={this.switchSame.bind(this,it)} className={resumeId == it.id
 								? "choose"
 								: ""}>
 							<div className="icon">{it.name && it.name.slice(0, 1)}</div>

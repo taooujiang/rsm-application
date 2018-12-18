@@ -48,7 +48,7 @@ let initialState = {
   count:new Object(),
   checks:new Array(),
   item:new Object(),
-  sameList:new Object(),
+  sameList:new Array(),
   feedInfo:{
     list:[]
   },
