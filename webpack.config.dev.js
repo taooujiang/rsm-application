@@ -241,6 +241,10 @@ var webpackConfig = {
         changeOrigin: true,
         target: "http://192.168.1.77:8086"
       },
+      "/email":{
+        changeOrigin: true,
+        target: "http://192.168.1.77:8086"
+      },
       "/memberAwardRecord":{
         changeOrigin: true,
         target: "http://192.168.1.77:8086"

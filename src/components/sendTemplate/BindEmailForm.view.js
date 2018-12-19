@@ -27,14 +27,9 @@ import DictUtils from 'app/utils/DictUtils'
 import CountdownButton from 'components/CountdownButton'
 
 class EmailForm extends Component {
-	handleSelectChange(value) {
-		this.form.setFieldsValue({mailHost: value})
-	}
+
 	renderSelectOption(data, idx) {
 		return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
-	}
-	formRefs(form) {
-		this.form = form
 	}
 	render() {
 		const {
@@ -57,10 +52,10 @@ class EmailForm extends Component {
 				span: 18
 			}
 		};
-		console.log(buttonChanged, content, disabled)
-		return (<BaseForm onSubmit={handleSubmit} ref={this.formRefs.bind(this)}>
+		// console.log(buttonChanged, content, disabled)
+		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
 			<FormItem {...formFullItemLayout}>
-				<Select onChange={this.handleSelectChange.bind(this)} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhostsend") && DictUtils.getDictByType("mailhostsend").sort((a, b) => a.keySort - b.keySort)} renderItem={this.renderSelectOption}/>
+				<Select onChange={this.props.handleSelectChange} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhostsend") && DictUtils.getDictByType("mailhostsend").sort((a, b) => a.keySort - b.keySort)} renderItem={this.renderSelectOption}/>
 			</FormItem>
 			<FormItem {...formFullItemLayout}>
 				<Input label="邮箱帐号" type="email" name="email" rules={[
@@ -138,7 +133,10 @@ class EmailFormView extends FormPage {
 	//处理表格提交后动作
 	handleOk() {
 		this.onSubmit()
-
+	}
+	handleSelectChange(value) {
+		// console.log(value,this)
+		this.form.setFieldsValue({mailHost: value})
 	}
 	handleSubmit(values) {
 		let {hideModal, getEmailConfig} = this.props
@@ -193,10 +191,9 @@ class EmailFormView extends FormPage {
 			}
 		}, 1000)
 	}
-
 	configAccountPwd() {
-
-		return new API().fetchCheckEmailPaw({email: this.form.getFieldValue('email'), password: this.form.getFieldValue('password')}).then(json => {
+		// console.log(this,this.form)
+		return new API().fetchCheckEmailPaw({email: this.form.getFieldValue('email'), password: this.form.getFieldValue('password'),mailHost:this.form.getFieldValue('mailHost')}).then(json => {
 			if (json.status == 0) {
 				// this.sendCode()
 				let {buttonChanged} = this.state
@@ -229,7 +226,7 @@ class EmailFormView extends FormPage {
 		let {buttonChanged, content, disabled} = this.state
 		//	let model=preduce.list[0]
 		return (<Modal title="绑定邮箱" visible={true} onOk={this.handleOk.bind(this)} onCancel={hideModal} okText="确认" cancelText="取消">
-			<EmailForm onSubmit={this.onSubmit} buttonChanged={buttonChanged} saveFormRef={this.saveFormRef} content={content} disabled={disabled} configAccountPwd={this.configAccountPwd.bind(this)}></EmailForm>
+			<EmailForm onSubmit={this.onSubmit} handleSelectChange={this.handleSelectChange.bind(this)} buttonChanged={buttonChanged} saveFormRef={this.saveFormRef} content={content} disabled={disabled} configAccountPwd={this.configAccountPwd.bind(this)}></EmailForm>
 		</Modal>)
 	}
 }
