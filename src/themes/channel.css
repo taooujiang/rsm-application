@@ -101,6 +101,17 @@
 	width: 100px; height: 56px;
 	background: url('channel_sprites.png') -0 -896px;
 }
+
+.channel-img-18 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites.png') -0 -955px;
+}
+
+.channel-img-19 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites.png') -0 -1009px;
+}
+
 /*未登录*/
 .channel-logout-img-1 {
 	width: 100px; height: 56px;
@@ -201,4 +212,14 @@
 .channel-logout-img-17 {
 	width: 100px; height: 56px;
 	background: url('channel_sprites_logout.png') -0 -896px;
+}
+
+.channel-logout-img-18 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -955px;
+}
+
+.channel-logout-img-19 {
+	width: 100px; height: 56px;
+	background: url('channel_sprites_logout.png') -0 -1009px;
 }
