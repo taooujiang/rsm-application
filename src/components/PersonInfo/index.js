@@ -2820,6 +2820,9 @@ status 0 1 2 3 4 */
 				state = {
 					time: "1"
 				}
+				handleChangeTime(e) {
+					this.setState({time: e.target.value})
+				}
 				sendOffer() {
 					this.form.validateFieldsAndScroll((err, values) => {
 						if (err) {
@@ -3278,7 +3281,8 @@ status 0 1 2 3 4 */
 				}
 				handleAddFeed(item) {
 					let {actions, router} = this.props
-					actions.feedAction(router, item)
+					/*新增时 feedItem 为空json  防报错*/
+					actions.feedAction(router, item,{})
 				}
 				handleSendScoreSms(item){
 					let {actions} = this.props

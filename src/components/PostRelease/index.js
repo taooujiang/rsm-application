@@ -463,14 +463,14 @@ class ChannelAdJobRule extends Component {
 		})
 	}
 	render() {
-		let {item: {
+		let {item,item: {
 				isWebsite
 			}} = this.props
 		console.log(isWebsite)
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<BaseInfoItem label="发布到内推官网" info={<span > {
-					isWebsite
+					item
 						? <Switch defaultCheck={isWebsite} onChange={this.changeCheck.bind(this)}/>
 						: null
 				}<div>请到遇仁公证号中查看内推职位</div>
