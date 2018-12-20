@@ -77,7 +77,7 @@ export default class OfferApproveForm extends FormPage {
         </FormItem>
 
         <FormItem style={{ padding: '0' }}>
-          <OfferApproveSelector defaultValue={item.stageList ? item.stageList : []}
+          <OfferApproveSelector defaultValue={item.stageList ? item.stageList : [{ stage: 1, approvalAccount: '' }]}
             name="stageList" getSubForm={this.getSubForm.bind(this)} selectList={this.state.accSelectList} />
         </FormItem>
       </BaseForm>
