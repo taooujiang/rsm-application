@@ -125,6 +125,9 @@ class BaseInfoEdit extends FormPage {
 	renderAreaOption(data, idx) {
 		return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
 	}
+	renderLevelOption(data,idx){
+    return (<Select.Option value={data.id} key={idx}>{data.positionName}</Select.Option>)
+  }
 	onChangedValues(value, option) {
 		// console.log(value,option)
 		// if(changedValues.companyId){
@@ -238,6 +241,11 @@ class BaseInfoEdit extends FormPage {
 							]}/>
 					</FormItem>
 				</Col>
+				<Col span={12}>
+					<FormItem>
+						<Select label="职位级别" name="positionId" defaultValue={item.positionId} params={{}} method="post" fetch={`${APP_SERVER}/sysPositionLevel/findPositionLevelList`} renderItem={this.renderLevelOption}/>
+					</FormItem>
+				</Col>
 				<Col span={24}>
 					<FormItem>
 						<Input label="工作地点" name="addressAll" disabled="disabled" defaultValue={item.addressAll} addonAfter={<Icon type = "edit" onClick = {
@@ -332,6 +340,9 @@ class BaseInfoShow extends Component {
 				<Col span={8}>
 					<BaseInfoItem label="招聘人数" info={item.hiringNumber}/>
 				</Col>
+				<Col span={8}>
+					<BaseInfoItem label="职位级别" info={item.positionName}/>
+				</Col>
 				<Col span={24}>
 					<BaseInfoItem label="工作地点" info={item.addressAll}/>
 				</Col>
@@ -372,8 +383,8 @@ export class BaseInfo extends Component {
 	renderWhich() {
 		console.log(this.state,this.props.edit)
 		return this.state.flag
-			? this.renderEdit()
-			: this.renderInfo()
+			?  this.renderInfo()
+			: this.renderEdit()
 	}
 
 	switchFlag() {
