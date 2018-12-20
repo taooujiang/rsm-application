@@ -2760,12 +2760,12 @@ status 0 1 2 3 4 */
 					if (reSend) {
 						if (status == 1) {
 							return <Button onClick={this.props.handleEdit} style={{
-									float: "left"
+									float: "right"
 								}}>再发一封</Button>
 						}
 						if (status == 6) {
 							return <Button onClick={this.props.handleEdit} style={{
-									float: "left"
+									float: "right"
 								}}>编辑offer</Button>
 						}
 						if (status == 5) {
@@ -2841,6 +2841,7 @@ status 0 1 2 3 4 */
 							value: '2'
 						}
 					]
+					let {time } = this.state
 					return <BaseForm ref={this.saveFormRef}>
 						<FormItem>
 							<Input type="hidden" name="id" defaultValue={this.props.id}/>
@@ -2863,8 +2864,8 @@ status 0 1 2 3 4 */
 									</FormItem>
 								: null
 						}
-						<Button onClick={this.sendOffer.bind(this)} style={{
-								float: "left"
+						<Button type="primary" onClick={this.sendOffer.bind(this)} style={{
+								float: "right"
 							}}>发送offer</Button>
 					</BaseForm>
 				}
@@ -2875,11 +2876,10 @@ status 0 1 2 3 4 */
 					return this.props.approvalInfo.map((it, idx) => {
 						// console.log(it)
 						return <div className="approval-item">
-							<div classNmae="approval-rows">
-								<span>{stageJson[it.approvalStage]}</span>
-								<span>{it.approvalName}</span>
-								<span>{it.inputTime}</span>
-								<span>{approvalStatus[it.status]}</span>
+							<div className="approval-rows">
+								<span className="stage">{stageJson[it.approvalStage]}</span>
+								<span className="nameTime">{it.approvalName} {it.inputTime}</span>
+								<span className="result">{approvalStatus[it.status]}</span>
 							</div>
 							{
 								it.approvalRemark

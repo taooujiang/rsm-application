@@ -45,9 +45,9 @@ import ChannelList from 'app/components/ChannelList'
 import InputStrGroup from 'app/components/InputStrGroup'
 import DictUtils from 'app/utils/DictUtils'
 import {permissionStyle} from 'app/utils/ConfigUtils'
-import styles from './index.less'
 import {interviewColor} from 'app/components/TableRow/Interview'
 import moment from 'moment'
+import styles from './index.less'
 
 const TreeNode = Tree.TreeNode
 const TabPane = Tabs.TabPane;
@@ -398,7 +398,7 @@ export class BaseInfo extends Component {
 			}} = this.props
 		return (<Row gutter={12} className="firstStep-box">
 			<Col span={24}>{this.renderWhich()}</Col>
-			<Button htmlType="button" onClick={this.switchFlag.bind(this)} className="edit-button"><Icon type="edit"/></Button>
+			{this.state.flag ? <Button htmlType="button" onClick={this.switchFlag.bind(this)} className="edit-button"><Icon type="edit"/></Button> : null}
 		</Row>)
 	}
 }
@@ -543,9 +543,9 @@ class InterviewSatisfaction extends Component {
 		let titleCode = Object.keys(titleMap)
 		return titleCode.map((it, idx) => {
 			if (it != 'name' && it != 'inputTime') {
-				return <li key={idx}>
+				return <li key={idx} className="score-item">
 					<span>{titleMap[it]}</span>
-					<Rate value={avgMap[it]} disabled="disabled"/>
+					<Rate className="score-rate" value={avgMap[it]} disabled="disabled"/>
 				</li>
 			}
 		})
@@ -561,16 +561,19 @@ class InterviewSatisfaction extends Component {
 		let columns = titleCode.map(it => {
 			return {title: titleMap[it], key: it, dataIndex: it}
 		})
-		return <Table columns={columns} dataSource={mapList} pagination={false} bordered="bordered"/>
+		let locale = {
+      emptyText: <div className='table-no-data'>暂无数据</div>
+    }
+		return <Table className="resume-score-table" columns={columns} locale={locale} dataSource={mapList} pagination={false} bordered="bordered"/>
 	}
 	render() {
 		return (<div className="intervew-satisfaction">
-			<Card title='综合评分'>
+			<Card title='综合评分' className="holistic-scoring">
 				<ol>
 					{this.renderCompScore()}
 				</ol>
 			</Card>
-			<Card title='候选人评分'>
+			<Card title='候选人评分' className="candidate-scoring">
 				{this.renderResumeScore()}
 			</Card>
 		</div>)
@@ -780,7 +783,7 @@ export default class PostRelease extends Component {
 					</TabPane>
 					{
 						isInterviewScale && !addFlag
-							? <TabPane tab={<span> < Icon type = "setting" /> 面试满意度</span>} key="4" disabled={max < 4} className="thirdStep-panel">
+							? <TabPane tab={<span> < Icon type = "setting" /> 面试满意度</span>} key="4" disabled={max < 4} className="fourthStep-panel">
 									<InterviewSatisfaction actions={actions} jobId={jobId} score={score}/>
 								</TabPane>
 							: null
