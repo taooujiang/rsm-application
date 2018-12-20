@@ -76,7 +76,7 @@ export function itemAction(value) {
 export function changePushAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))
-        return new API().fetchItem(value).then(json => {
+        return new API().fetchUpsertItem(value).then(json => {
             dispatch(fetchSuccess('itemSpin'))
             let info = {
               jobId:json.jobId,

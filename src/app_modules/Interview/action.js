@@ -34,8 +34,8 @@ let {
   fetchFailure,fetchRequest,fetchSuccess
 } = createTypes(CONSTANTS)
 
-let {feedbackAction,delayAction} =createResumeRoute()
-export {feedbackAction,delayAction}
+let {feedbackAction,delayAction,feedAction} =createResumeRoute()
+export {feedbackAction,delayAction,feedAction}
 
 export {getFeedStageAction}
 

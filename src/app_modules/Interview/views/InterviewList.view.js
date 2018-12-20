@@ -210,9 +210,11 @@ export default class InterviewListView extends PageView {
     actions.feedbackAction(router,id,resumeId)
   }
 
-  handleDelay(id,resumeId,type,time){
+  handleChangeFeed(item){
     let {actions,router} = this.props
-    actions.delayAction(router,id,type,time,resumeId)
+    console.log(111111,item,item)
+    /*分两个item传入  第一个面试中要用item的email 和mobilephone 第二个为面试信息*/
+    actions.feedAction(router,item,item,item.resumeId)
   }
 
   handleUrge(id){
@@ -237,7 +239,7 @@ export default class InterviewListView extends PageView {
     if(statusStr == 1){
       return (
         <Button.Group style={{whiteSpace:"inherit"}}>
-          <Button onClick={this.handleDelay.bind(this,id,resumeId,type,interviewTime)}>调整时间</Button>
+          <Button onClick={this.handleChangeFeed.bind(this,row)}>修改面试</Button>
           <Button onClick={this.handleFeedBack.bind(this,resumeId,id)}>填写反馈</Button>
         </Button.Group>
       )

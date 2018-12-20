@@ -1344,7 +1344,7 @@ status 0 1 2 3 4 */
 						IsContact: "0"
 					};
 					let callOutJsonStr = JSON.stringify({callOutJson});
-					console.log(callOutJsonStr)
+					//console.log(callOutJsonStr)
 					global.invokeMethod('OnCallJson', callOutJsonStr)
 				}
 				renderContact() {
@@ -1433,7 +1433,7 @@ status 0 1 2 3 4 */
 				}
 				render() {
 					let {info} = this.props
-					console.log(moment(info.birthYear), moment(info.startWorkingYear))
+				//	console.log(moment(info.birthYear), moment(info.startWorkingYear))
 					return (<BaseForm ref={this.saveFormRef} className="baseInfo-edit">
 						<FormItem>
 							<Input type="hidden" name="channelResumeId" defaultValue={info.channelResumeId}/>
@@ -1568,7 +1568,7 @@ status 0 1 2 3 4 */
 						if (err) {
 							return;
 						}
-						console.log(values)
+						//console.log(values)
 						actions.savePersonBaseAction(values, id).then(() => {
 							this.props.editChangeFn()
 						})
@@ -3265,7 +3265,7 @@ status 0 1 2 3 4 */
 					actions.getFeedDataAction({resumeId: resumeId})
 				}
 				componentWillReceiveProps(nextProps) {
-					console.log(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state), nextProps)
+					//console.log(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state), nextProps)
 					let {actions, resumeId} = this.props
 					if (JSON.stringify(nextProps.resumeId) !== JSON.stringify(this.props.resumeId)) {
 						actions.getFeedDataAction({resumeId: nextProps.resumeId})
@@ -3376,9 +3376,9 @@ status 0 1 2 3 4 */
 					let {actions} = this.props
 					actions.cancelFeedAction({id: id})
 				}
-				handleEditFeed(item, id) {
-					let {actions} = this.props
-					actions.feedAction(router, item, id)
+				handleEditFeed(item, feedItem) {
+					let {actions,router} = this.props
+					actions.feedAction(router, item, feedItem)
 				}
 				renderInterviewList(it, item, resumeId) {
 					let {detailType} = this.props
@@ -3421,7 +3421,7 @@ status 0 1 2 3 4 */
 					if (item.statusStr == 1) {
 						return (<ButtonGroup>
 							{/* <Button className="reset-interview-time" onClick={this.handlDelay.bind(this,item.id,item.resumeId,item.type,item.interviewTime)}>调整面试时间</Button> */}
-							<Button onClick={this.handleEditFeed.bind(this, personInfo, item.id)}>修改面试</Button>
+							<Button onClick={this.handleEditFeed.bind(this, personInfo, item)}>修改面试</Button>
 							<Button onClick={this.handleCancleFeed.bind(this, item.id)}>取消面试</Button>
 						</ButtonGroup>)
 					} else if (item.isFeedback != 2 && item.statusStr != 6 && !urgeShow) {
@@ -3439,7 +3439,7 @@ status 0 1 2 3 4 */
 						3: "#ff8156",
 						4: "#38c4a7"
 					}
-					console.log(item)
+					//console.log(item)
 					return (<div className="feedRecored-item">
 						<div className="item-head"><Icon type="down"/>
 							<span className="item-head-time">{translateTime(item.interviewTime, "MM月DD日")}</span>

@@ -52,8 +52,12 @@ class FeedForm extends Component {
 		return (<Select.Option value={data.account} key={"Interviewer" + idx}>{data.name}</Select.Option>)
 	}
 	renderSmsOrEmail() {
-		const {updateFieldValue, item} = this.props
+		const {updateFieldValue, item,id,feedItem} = this.props
 		let {which} = this.state
+		let flag = which
+		if(id){
+			flag = feedItem.noticeType
+		}
 
 		if (which == "1") {
 			return (<SmsTemplateLinkage updateFieldValue={updateFieldValue} receiver={item.mobilephone}/>)
@@ -82,7 +86,8 @@ class FeedForm extends Component {
 				createble
 			},
 			companyId,
-			id
+			id,
+			feedItem
 		} = this.props
 		const {location, updateFieldValue} = this.props;
 		const options = [
@@ -107,13 +112,13 @@ class FeedForm extends Component {
 			}
 		]
 
-		// console.log(this.state.interviewFlag)
+		console.log(feedItem)
 		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
 			<FormItem>
-				<Input type="hidden" name="resumeId" defaultValue={resumeId}/>
+				<Input type="hidden" name="resumeId" defaultValue={id ? feedItem.resumeId :resumeId}/>
 			</FormItem>
 			<FormItem>
-				<Input type="hidden" name="type" defaultValue={type}/>
+				<Input type="hidden" name="type" defaultValue={id ? feedItem.type : type}/>
 			</FormItem>
 			<FormItem>
 				<Input type="hidden" name="id" defaultValue={id}/>
@@ -121,17 +126,17 @@ class FeedForm extends Component {
 			<Row>
 				<Col span={24}>
 					<FormItem>
-						<Input label="面试阶段" name="feed" readOnly="readOnly" defaultValue={DictUtils.getDictLabelByValue("interviewstage", type)}/>
+						<Input label="面试阶段" name="feed" readOnly="readOnly" defaultValue={DictUtils.getDictLabelByValue("interviewstage", id ? feedItem.type : type)}/>
 					</FormItem>
 					{
-						createble
+						createble || id
 							? null
 							: <span className="feed-disabled">当前候选人已安排完全部面试</span>
 					}
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<DateTimePicker name="interviewTime" defaultDate={moment().add(1, "days")} defaultTime={moment().set({hour: 9, minute: 0, second: 0})} label="面试时间" rules={[{
+						<DateTimePicker name="interviewTime" defaultDate={id ? moment(feedItem.interviewTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.interviewTime) : moment().set({hour: 9, minute: 0, second: 0})} label="面试时间" rules={[{
 									required: true,
 									message: "面试时间不可为空"
 								}
@@ -140,7 +145,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
+						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch  defaultValue={id ? feedItem.interviewerIds : null} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
 								{
 									required: true,
 									message: "面试官不可为空"
@@ -154,18 +159,18 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试方式" name="interviewWay" fetch={DictUtils.getDictByType("interviewWay")} renderItem={this.renderSelectOption}></Select>
+						<Select label="面试方式" name="interviewWay" defaultValue={id ? feedItem.interviewWay : null} fetch={DictUtils.getDictByType("interviewWay")} renderItem={this.renderSelectOption}></Select>
 					</FormItem>
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试地址" name="companyId" defaultValue={companyId} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
+						<Select label="面试地址" name="companyId" defaultValue={id ? feedItem.companyId : null} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
 					</FormItem>
 				</Col>
 			</Row>
 			<Row>
 				<FormItem>
-					<RadioGroup name="noticeType" label="通知候选人" options={options} onChange={this.handleChange.bind(this)} defaultValue={this.state.which}/>
+					<RadioGroup name="noticeType" label="通知候选人" options={options} onChange={this.handleChange.bind(this)} defaultValue={id ? feedItem.noticeType+"" : this.state.which}/>
 				</FormItem>
 				{this.renderSmsOrEmail()}
 				{/*<FormItem>
@@ -173,12 +178,12 @@ class FeedForm extends Component {
             </FormItem>*/
 				}
 				<FormItem>
-					<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={this.state.time}/>
+					<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
 				</FormItem>
 				{
 					this.state.time == '1'
 						? <FormItem>
-								<DateTimePicker name="smsTime" defaultDate={moment().add(1, "days")} defaultTime={moment().set({hour: 9, minute: 0, second: 0})}/>
+								<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: 9, minute: 0, second: 0})}/>
 							</FormItem>
 						: null
 				}
@@ -192,14 +197,19 @@ export default class FeedFormView extends FormPage {
 	componentWillMount() {
 		let {actions, params: {
 				resumeId
-			}} = this.props;
-		actions.getFeedStageAction({resumeId: resumeId})
+			},location:{state:{id}}} = this.props;
+		if(!id){
+			actions.getFeedStageAction({resumeId: resumeId})
+		}
 	}
 	//处理表格提交后动作
 	handleSubmit(values) {
 		let {
 			actions,
 			location,
+			location:{
+				state:{id}
+			},
 			router,
 			reduce: {
 				interviewInfo: {
@@ -209,7 +219,7 @@ export default class FeedFormView extends FormPage {
 				}
 			}
 		} = this.props;
-		if (createble) {
+		if (createble || id) {
 			actions.feedArrange(values)
 			actions.backRouteReload(router, location)
 		}
@@ -264,12 +274,21 @@ export default class FeedFormView extends FormPage {
 			location: {
 				state: {
 					item,
-					id
+					id,
+					feedItem
 				}
 			}
 		} = this.props;
+		let datas = {
+			resumeId:resumeId,
+		 	info:map,
+			companyId:companyId,
+			item:item,
+			id:id,
+			feedItem:feedItem
+		}
 		return (<Spin tip="Loading..." spinning={false}>
-			<FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)} saveFormRef={this.saveFormRef} resumeId={resumeId} info={map} companyId={companyId} item={item} id={id}>
+			<FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)} saveFormRef={this.saveFormRef} {...datas}>
 				<Button type="primary" htmlType="submit" onClick={this.onSubmit.bind(this)}>确认</Button>
 				<Button>取消</Button>
 			</FeedForm>

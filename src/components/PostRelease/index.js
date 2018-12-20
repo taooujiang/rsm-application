@@ -736,7 +736,7 @@ export default class PostRelease extends Component {
 			item: {
 				jobFeedbackList,
 				isOffer,
-				interviewScale
+				isInterviewScale
 			},
 			actions,
 			router,
@@ -748,7 +748,6 @@ export default class PostRelease extends Component {
 		} = this.props
 		let {max, step, jobId} = params
 		let addFlag = max != 5/* true为新增 false为编辑或查看 */
-		console.log()
 		return (<Row gutter={12} className="jobdetail-box">
 			<Col span={18}>
 				<Tabs className="jobdetail-box-tab" defaultActiveKey="1" activeKey={step} animated={false} tabPosition="left" onChange={this.handleChangePanel.bind(this)}>
@@ -768,7 +767,7 @@ export default class PostRelease extends Component {
 						<ChannelAdJobRule {...this.props} rules={rules}/>
 					</TabPane>
 					{
-						interviewScale && !addFlag
+						isInterviewScale && !addFlag
 							? <TabPane tab={<span> < Icon type = "setting" /> 面试满意度</span>} key="4" disabled={max < 4} className="thirdStep-panel">
 									<InterviewSatisfaction actions={actions} jobId={jobId} score={score}/>
 								</TabPane>

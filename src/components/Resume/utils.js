@@ -71,17 +71,18 @@ export function createResumeRoute() {
       }
       return dispatch => dispatch(routerActions.push(path))
     },
-    feedAction: function(router, item, id) {
+    feedAction: function(router, item, feedItem,resumeId) {
       let pathname = router.getCurrentLocation().pathname
       let path = {
-        pathname: `${pathname}/feed`,
+        pathname: resumeId?  `${pathname}/${resumeId}/feed` :`${pathname}/feed` ,
         state: {
           item: item,
           pathname: router.getCurrentLocation().pathname
         }
       }
-      if (id) {
-        path.state.id = id
+      if (feedItem.id) {
+        path.state.id = feedItem.id
+        path.state.feedItem = feedItem
       }
       return dispatch => dispatch(routerActions.push(path))
     },
