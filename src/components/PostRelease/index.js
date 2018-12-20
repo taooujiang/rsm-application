@@ -54,7 +54,7 @@ const TabPane = Tabs.TabPane;
 const {TextArea} = Input;
 
 function toStrings(str) {
-	return str + ""
+	return str ? str + "" : ""
 }
 /**/
 class BaseInfoItem extends Component {
@@ -161,7 +161,7 @@ class BaseInfoEdit extends FormPage {
 						<Input type="hidden" name="jobCode" defaultValue={item.jobCode}/>
 					</FormItem>
 					<FormItem>
-						<Input type="hidden" name="jobId" defaultValue={item.jobId}/>
+						<Input type="hidden" name="jobId" defaultValue={item.jobId == 0 ? "" : item.jobId}/>
 					</FormItem>
 				</Col>
 			</Row>
@@ -370,9 +370,10 @@ export class BaseInfo extends Component {
 			: null
 	}
 	renderWhich() {
+		console.log(this.state,this.props.edit)
 		return this.state.flag
-			? this.renderInfo()
-			: this.renderEdit()
+			? this.renderEdit()
+			: this.renderInfo()
 	}
 
 	switchFlag() {
@@ -471,7 +472,7 @@ class ChannelAdJobRule extends Component {
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<BaseInfoItem label="发布到内推官网" info={<span > {
 					item
-						? <Switch defaultCheck={isWebsite} onChange={this.changeCheck.bind(this)}/>
+						? <Switch defaultCheck={isWebsite == 1} onChange={this.changeCheck.bind(this)}/>
 						: null
 				}<div>请到遇仁公证号中查看内推职位</div>
 			</span>
