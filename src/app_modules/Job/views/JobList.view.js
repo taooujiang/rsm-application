@@ -159,7 +159,7 @@ export default class NewJobListView extends PageView {
                 key: "channelListIcon",
                 dataIndex: "channelListIcon",
                 width: 150,
-                render:(val)=>val.map((v)=><Icon type={v} style={{margin:'0 3px'}} />)
+                render:(val)=>val.map((v)=><Icon type={v.icon} style={{margin:'0 3px'}} title={DictUtils.getDictLabelByValue("channel",v.channel)}/>)
             },{
                 title: "候选人总数",
                 key: "totalNum",

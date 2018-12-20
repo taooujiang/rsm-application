@@ -33,7 +33,7 @@ Object.assign(Job.fields,BaseModel.fields,{
   totalNum:attr(),
   channelListIcon:attr({
     fieldName:"channelList",
-    get:(val)=> val==""?[]:val.map((it)=>`icon-channel${it.channel}`)
+    get:(val)=> val==""?[]:val.map(it=>{return {icon:`icon-channel${it.channel}`,channel:it.channel}})
   }),
   hiringNumber:attr(),
   yrzNum:attr(),

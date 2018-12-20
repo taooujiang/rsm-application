@@ -478,7 +478,7 @@ class ChannelAdJobRule extends Component {
 		let {item,item: {
 				isWebsite
 			}} = this.props
-		console.log(isWebsite)
+		// console.log(isWebsite)
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<BaseInfoItem label="发布到内推官网" info={<span > {

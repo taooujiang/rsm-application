@@ -211,7 +211,8 @@ class QuestionForm extends FormPage {
           <Input
             onChange={this.handleInputChange.bind(this, 'question', index)}
             label={index + 1}
-            name="question"
+            name={`question${index}`}
+            defaultValue={e.question}
             placeholder={"请输入"}
             rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
           />
