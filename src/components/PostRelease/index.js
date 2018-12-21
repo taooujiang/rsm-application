@@ -801,7 +801,7 @@ export default class PostRelease extends Component {
 						<Button htmlType="button" style={permissionStyle("deleteJob")} onClick={this.deleteJob.bind(this)}>删除职位</Button>
 					</div>
 					<div className="feed-scoresheet">
-						<Card title="面试评价表" extra={<Button onClick = {
+						<Card title="面试反馈表" extra={<Button onClick = {
 								this.handleOpenFeedback.bind(this)
 							} > <Icon type="plus"/></Button>}>
 							<Timeline>
