@@ -36,6 +36,12 @@ export default class OfferApproveForm extends FormPage {
     if (!flag) {
       return void 0
     }
+    if (values.stageList.length) {
+      values.stageList = values.stageList.map(e => {
+        const { id, approvalAccount, stage } = e
+        return { id, approvalAccount, stage }
+      })
+    }
     actions.offerApproveSaveAction(values);
     actions.backRoute(router);
   }

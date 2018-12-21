@@ -11,11 +11,12 @@ const Option = Select.Option
 @WrapperComponent(ModalView)
 export default class InterviewFeedbackForm extends FormPage {
   state = {
-    type: 1
+    type: 1,
+    usedType: 1
   }
   componentDidMount = () => {
     const { item } = this.props
-
+    this.setState({ type: item.type || 1, usedType: item.type || 1 })
   }
   handleSubmit(values) {
     let { actions, router } = this.props;
@@ -67,7 +68,8 @@ export default class InterviewFeedbackForm extends FormPage {
           <Select name="type" label="模板类型" defaultValue={item.type || 1} onChange={this.handleTemplateTypeChange.bind(this)} fetch={templateTypeSelectOption} renderItem={this.renderTemplateTypeSelectOption} />
         </FormItem>
         <FormItem style={{ paddingLeft: '0' }}>
-          <QuestionForm getSubForm={this.getSubForm.bind(this)} name="questionList" type={this.state.type} defaultValue={item.questionList || []} />
+          <QuestionForm getSubForm={this.getSubForm.bind(this)} name="questionList" type={this.state.type}
+            usedType={this.state.usedType} defaultValue={item.questionList || []} />
         </FormItem>
       </BaseForm>
     );
@@ -89,8 +91,9 @@ class QuestionForm extends FormPage {
     this.onSubmit.call(this)
   }
   componentWillReceiveProps = (nextProps) => {
-    const { type } = nextProps
-    if (type != this.props.type) {
+    const { type, usedType } = nextProps
+    console.log(type, this.props.type)
+    if ((type != this.props.type) && (type != usedType)) {
       this.setState({ questionList: [{ templateType: type, sort: 1 }] })
     }
   }
@@ -228,6 +231,7 @@ class QuestionForm extends FormPage {
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef} style={{ border: "1px solid #e0e0e0", paddingTop: '15px', minHeight: '200px' }} >
 
         {this.renderQuestionList()}
+
         {this.state.questionList.length > 4 ? null : <Button onClick={this.handleAddQuestion.bind(this, this.props.type)}
           style={{ margin: '10px auto', display: 'block' }} type="primary">
           添加题目
