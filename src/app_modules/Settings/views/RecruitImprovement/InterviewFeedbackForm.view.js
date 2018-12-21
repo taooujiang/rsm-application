@@ -12,11 +12,10 @@ const Option = Select.Option
 export default class InterviewFeedbackForm extends FormPage {
   state = {
     type: 1,
-    usedType: 1
   }
   componentDidMount = () => {
     const { item } = this.props
-    this.setState({ type: item.type || 1, usedType: item.type || 1 })
+    this.setState({ type: item.type || 1, usedType: item.type })
   }
   handleSubmit(values) {
     let { actions, router } = this.props;
@@ -76,11 +75,18 @@ export default class InterviewFeedbackForm extends FormPage {
   }
 }
 
-
+const questionTypeMapper = {
+  1: 'selectQuestionList',
+  2: 'rateQuestionList',
+  3: 'answerQuestionList',
+}
 // { type: 1, name: "选择型" }, { type: 2, name: "打分型" }, { type: 3, name: "问答型" }
 class QuestionForm extends FormPage {
   state = {
-    questionList: []
+    questionList: [{ templateType: 1, sort: 1 }],
+    selectQuestionList: [{ templateType: 1, sort: 1 }],
+    rateQuestionList: [{ templateType: 2, sort: 1 }],
+    answerQuestionList: [{ templateType: 3, sort: 1 }]
   }
   handleSubmit(values) {
     let { onChange } = this.props;
@@ -92,14 +98,37 @@ class QuestionForm extends FormPage {
   }
   componentWillReceiveProps = (nextProps) => {
     const { type, usedType } = nextProps
-    console.log(type, this.props.type)
-    if ((type != this.props.type) && (type != usedType)) {
-      this.setState({ questionList: [{ templateType: type, sort: 1 }] })
+    console.log(type, this.props.type, 777, usedType)
+    // this.setState({ [questionTypeMapper[type]]: this.state.questionList },()=>{console.log(this.state,11111)})
+    // if (!!usedType && usedType != this.props.type) {
+    //   this.setState({ [questionTypeMapper[type]]: this.state.questionList }, () => { console.log(this.state, 11111) })
+    // }
+    if (!!usedType && (this.props.usedType != usedType)) {//拿到初始化的questionList存入state对应list
+      console.log(usedType, this.props.usedType, this.props.value)
+      this.setState({ [questionTypeMapper[usedType]]: this.props.value })
+    }
+    if (type != this.props.type) {//切换了类型
+      console.log('dsadsadasdsa', type, this.props.type)
+      this.setState({
+        // questionList: this.state[questionTypeMapper[type]],
+        [questionTypeMapper[this.props.type]]: this.state.questionList
+      }, () => {
+        this.setState({
+          questionList: this.state[questionTypeMapper[type]]
+        })
+        console.log(this.state, this.props.type, type, 'this.state.questionListthis.state.questionListthis.state.questionList')
+      })
+      // if (type != usedType) {//还原为state中对应的数据
+      //   console.log(this.state[questionTypeMapper[type]], 666)
+      //   // this.setState({ questionList: [{ templateType: type, sort: 1 }] })
+      //   this.setState({ questionList: this.state[questionTypeMapper[type]] })
+      // }
     }
   }
   componentDidMount() {
     this.props.getSubForm(this)
-    let { value, type } = this.props
+    let { value, type, usedType } = this.props
+    console.log(usedType, 'usedTypeusedTypeusedTypeusedTypeusedTypeusedType')
     if (value.length) {
       let questionList = value.map(e => {
         const { optionA, optionB, optionC, optionD, question, /*templateId,*/ templateType,/* id,*/ sort } = e
@@ -121,6 +150,7 @@ class QuestionForm extends FormPage {
     this.setState({
       questionList
     }, () => {
+      //console.log(this.state,22222)
       this.props.onChange(questionList)
     })
   }
@@ -214,7 +244,7 @@ class QuestionForm extends FormPage {
           <Input
             onChange={this.handleInputChange.bind(this, 'question', index)}
             label={index + 1}
-            name={`question${index}`}
+            name={`question${index}${type}`}
             defaultValue={e.question}
             placeholder={"请输入"}
             rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }]}
