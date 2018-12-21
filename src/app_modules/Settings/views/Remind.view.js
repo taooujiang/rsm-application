@@ -195,7 +195,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -232,7 +232,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -269,7 +269,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -305,7 +305,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -342,7 +342,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -368,7 +368,7 @@ class RemindFormView extends FormPage {
   //             <FormItem>
   //               <Checkbox name="msg_1018" defaultValue={this.initDefaultValue(item['msg_1018'])} valuePropName="checked" />
   //             </FormItem>
-  //             是否开通短信提醒
+  //             是否开通短信提醒（10雨点/条）
   //           </Row>
   //        </SwitchCard>)
   // }
@@ -393,7 +393,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -419,7 +419,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -456,7 +456,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -484,7 +484,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -521,7 +521,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -549,7 +549,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
@@ -575,7 +575,7 @@ class RemindFormView extends FormPage {
               valuePropName="checked"
             />
           </FormItem>
-          <span>是否开通短信提醒</span>
+          <span>是否开通短信提醒（10雨点/条）</span>
         </Row>
       </SwitchCard>
     );
