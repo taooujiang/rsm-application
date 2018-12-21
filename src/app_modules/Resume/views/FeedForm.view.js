@@ -95,7 +95,7 @@ class FeedForm extends Component {
 				label: '邮件通知',
 				value: '2'
 			}, {
-				label: '短信通知',
+				label: '短信通知（10雨点/条）',
 				value: '1'
 			}, {
 				label: '不通知',
@@ -237,7 +237,8 @@ export default class FeedFormView extends FormPage {
 		} = this.props
 		var object = {}
 		let interviewTime
-		let {name, jobTitle} = interviewInfo
+		// let {name, jobTitle} = interviewInfo
+		let {name, jobTitle} = item
 		if (this.form.getFieldValue("interviewTime")) {
 			interviewTime = this.form.getFieldValue("interviewTime").format("YYYY-MM-DD HH:mm")
 		}
@@ -258,6 +259,7 @@ export default class FeedFormView extends FormPage {
 		}
 
 		object[fieldName] = value
+		//console.log(123123123,object,item)
 		this.form.setFieldsValue(object)
 	}
 	render() {
