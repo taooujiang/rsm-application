@@ -366,6 +366,9 @@ class ResumeDetail extends Component {
 }
 
 class PersonInfoPanelHead extends Component {
+	state ={
+		showModal:false
+	}
 	handleDelete(info) {
 		let {actions, router, location: {
 				state
@@ -437,17 +440,26 @@ class PersonInfoPanelHead extends Component {
 		//console.log(callOutJsonStr)
 		global.invokeMethod('OnCallJson', callOutJsonStr)
 	}
-	handleGetContact() {}
+	handleGetContact() {
+		this.setState({
+			showModal:true
+		})
+	}
+	closeFn(){
+		this.setState({
+			showModal:false
+		})
+	}
 	render() {
-		let {info, detailType, filingReason} = this.props
-		let {isLock, havaSame, isFollowRemind, downloadStatus} = info
+		let {info,info:{isLock, havaSame, isFollowRemind, downloadStatus,channel,channelResumeId}, detailType, filingReason,actions,router} = this.props
+		// let {isLock, havaSame, isFollowRemind, downloadStatus,channel} = info
 		//console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
 		let userInfoText = ""
-		if (translateDic("sex", info.sex) && info.age) 
+		if (translateDic("sex", info.sex) && info.age)
 			userInfoText = `${translateDic("sex", info.sex)} · ${info.age}`
-		if (translateDic("sex", info.sex) && !info.age) 
+		if (translateDic("sex", info.sex) && !info.age)
 			userInfoText = `${translateDic("sex", info.sex)}`
-		if (!translateDic("sex", info.sex) && info.age) 
+		if (!translateDic("sex", info.sex) && info.age)
 			userInfoText = `${info.age}`
 
 			//console.log(info)
@@ -489,7 +501,10 @@ class PersonInfoPanelHead extends Component {
 						]
 						: <Button onClick={this.handleGetContact.bind(this)}>获取联系方式</Button>
 				}
-
+				{this.state.showModal ?
+					<ResumeDownload actions={actions} row={info} router={router} channelResumeId={channelResumeId} channel={channel} closeFn={this.closeFn.bind(this)} propTitle="下载渠道简历"/>
+					: null
+				}
 				<InfoItem icon="clock-circle" text={info.workYear}/>
 				<InfoItem icon="book" text={translateDic("education", info.degree)}/>
 				<InfoItem icon="environment" text={info.currentAddress}/> {
