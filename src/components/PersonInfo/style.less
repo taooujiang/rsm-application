@@ -46,6 +46,18 @@
       border:1px solid #eee;
       padding: 10px 20px;
       margin-top: 20px;
+      .approval-rows{
+        display: flex;
+        >.stage{
+          flex: 0 0 200px;
+        }
+        >.nameTime{
+          flex: 1;
+        }
+        >.result{
+          flex: 0 0 100px;
+        }
+      }
     }
   }
 
@@ -457,6 +469,19 @@
   /*offerbox*/
   .offering-box{
     padding: 20px;
+    .anticon.anticon-icon-pass,.anticon.anticon-icon-seal,.anticon.anticon-icon-no_pass{
+      margin-right: 10px;
+      font-size: 28px;
+    }
+    .anticon.anticon-icon-pass{
+      color:#33c7a7;
+    }
+    .anticon.anticon-icon-seal{
+      color:#ff8154;
+    }
+    .anticon.anticon-icon-no_pass{
+      color: #e9568a;
+    }
     >.ant-btn-group{
       margin-top: 20px;
       width: 100%;
