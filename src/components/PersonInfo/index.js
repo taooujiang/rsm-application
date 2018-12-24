@@ -1055,15 +1055,12 @@ status 0 1 2 3 4 */
 					let {item: {
 							shareSincerityList
 						}} = this.props
-					return <div>
+					return <div className="creditShare-box">
 						<h2>该候选人存在于其他公司的诚信库中</h2>
-						<ul>
-							{/*<li>简历造假（浙江企蜂通信）</li>
-        <li>简历造假（浙江企蜂通信）</li>*/
-							}
+						<ul className="credit-tips">
 							{
 								shareSincerityList && shareSincerityList.map((it) => {
-									return <li>{item.optionId}<span>{item.orgId}</span>
+									return <li>{it.optionId}<span>{it.orgId}</span>
 									</li>
 								})
 							}
@@ -2659,7 +2656,8 @@ status 0 1 2 3 4 */
 				constructor(props) {
 					super(props)
 					this.state = {
-						edit: true
+						edit: true,
+						editFlag:false
 					}
 				}
 				componentWillMount() {
@@ -2692,6 +2690,13 @@ status 0 1 2 3 4 */
 						edit: !edit
 					})
 				}
+				editOfferFn(){
+					let {edit} = this.state
+					this.setState({
+						edit: !edit,
+						editFlag:true
+					})
+				}
 				renderWhich() {
 					let {
 						info,
@@ -2706,12 +2711,12 @@ status 0 1 2 3 4 */
 					} = this.props
 					if (detailType == 3 || detailType == 4 || detailType == 10 || detailType == 1 || !authorization || status == 2) {
 						return info.offerId
-							? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)}/>
+							? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)} offerEditFn={this.editOfferFn.bind(this)}/>
 							: <div className="list-no-data no-offer-record">暂无offer记录</div>
 					}
 					return this.state.edit
-						? <PersonOfferEdit resumeId={resumeId} actions={actions} item={item} info={info} handleReset={this.changeEdit.bind(this)}/>
-						: <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}/>
+						? <PersonOfferEdit resumeId={resumeId} actions={actions} editFlag={this.state.editFlag} item={item} info={info} handleReset={this.changeEdit.bind(this)}/>
+					: <PersonOfferShow info={info} handleEdit={this.changeEdit.bind(this)}  offerEditFn={this.editOfferFn.bind(this)}/>
 				}
 				render() {
 					let {item: {
@@ -2764,7 +2769,7 @@ status 0 1 2 3 4 */
 								}}>再发一封</Button>
 						}
 						if (status == 6) {
-							return <Button onClick={this.props.handleEdit} style={{
+							return <Button onClick={this.props.offerEditFn} style={{
 									float: "right"
 								}}>编辑offer</Button>
 						}
@@ -2951,7 +2956,7 @@ status 0 1 2 3 4 */
 					this.setState({time: e.target.value})
 				}
 				renderAreaOption(data, idx) {
-					return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
+					return (<Select.Option value={data.addressAll} key={idx}>{data.addressAll}</Select.Option>)
 				}
 				renderSelectOption(data, idx) {
 					return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
@@ -3002,7 +3007,7 @@ status 0 1 2 3 4 */
 						}
 					];
 
-					let {info, item: {
+					let {info,editFlag, item: {
 							isOpenOfferAppro
 						}} = this.props
 					return (<BaseForm ref={this.saveFormRef} className="offer-edit">
@@ -3013,7 +3018,7 @@ status 0 1 2 3 4 */
 							<Input type="hidden" name="offerId" defaultValue={info.offerId}/>
 						</FormItem>
 						<FormItem>
-							<Input type="hidden" name="isApproval" defaultValue={isOpenOfferAppro}/>
+							<Input type="hidden" name="isApproval" defaultValue={ editFlag ? 1 : isOpenOfferAppro}/>
 						</FormItem>
 						<FormItem>
 							<DatePicker label="预计入职日期" name="expectedEntryTime" defaultValue={info.expectedEntryTime
@@ -3039,7 +3044,7 @@ status 0 1 2 3 4 */
 						</InputGroup>
 						{this.renderSendType()}
 						<FormItem>
-							<Select label="预计入职地址" name="companyId" fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
+							<Select label="预计入职地址" name="entryAddress" fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
 						</FormItem>
 						{/*<FormItem>
           <Input label="发件人" name="sendEmail"/>
@@ -3056,8 +3061,8 @@ status 0 1 2 3 4 */
 								float: "right"
 							}}>{
 								isOpenOfferAppro
-									? "提交审核"
-									: "发送"
+
+
 							}</Button>
 					</BaseForm>)
 				}
@@ -3456,7 +3461,7 @@ status 0 1 2 3 4 */
 								{this.renderBtns()}
 							</div>
 							<div className="item-feed-info">
-								<span className="title">面试地址：</span>{item.currentAddress}</div>
+								<span className="title">面试地址：</span>{item.companyName}</div>
 							<div className="item-feed-info">
 								<span className="title">面试方式：</span>{translateDic("interviewWay", item.interviewWay)}</div>
 							<div className="item-feedback-info">
