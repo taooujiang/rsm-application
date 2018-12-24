@@ -38,8 +38,8 @@ export default class OfferApproveForm extends FormPage {
     }
     if (values.stageList.length) {
       values.stageList = values.stageList.map(e => {
-        const { id, approvalAccount, stage } = e
-        return { id, approvalAccount, stage }
+        const { /*id,*/ approvalAccount, stage } = e
+        return { /*id,*/ approvalAccount, stage }
       })
     }
     actions.offerApproveSaveAction(values);
@@ -101,7 +101,7 @@ class OfferApproveSelector extends FormPage {
   componentDidMount = () => {
     this.props.getSubForm(this)
     const { value } = this.props
-    let newValue = value.map((e) => ({ approvalAccount: e.approvalAccount, stage: e.stage, id: e.id }))
+    let newValue = value.map((e) => ({ approvalAccount: e.approvalAccount, stage: e.stage, /*id: e.id*/ }))
     this.setState({
       stageList: newValue,
     })
