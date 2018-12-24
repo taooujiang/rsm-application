@@ -978,7 +978,7 @@ export function followOptionAction(values) {
   }
 }
 
-export function offerOptionAction(values) {
+export function offerOptionAction(values,isOpenOfferAppro) {
 
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
@@ -987,6 +987,9 @@ export function offerOptionAction(values) {
       let data = {
         id: values.resumeId,
         expectedEntryTime: values.expectedEntryTime
+      }
+      if(json.isApproval == 0){
+        json.status = 1
       }
       dispatch(saveOffer(json))
       dispatch(saveItem(data))

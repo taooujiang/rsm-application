@@ -59,7 +59,7 @@ export default class OfferNopassForm extends FormPage{
             <Input type="hidden" name="status" defaultValue={2}/>
         </FormItem>
           <FormItem>
-            <TextArea name="approvalRemark" label="offer不通过原因" placeholder="请输入原因"  rules={[{max:50,message:"原因描述限制50个字"}]} />
+            <TextArea name="approvalRemark" label="offer不通过原因" placeholder="请输入原因"  rules={[{required: true, message: "原因不可为空"},{validator:customRules.required},{max:200,message:"原因描述限制200个字"}]} />
           </FormItem>
       </BaseForm>
     )

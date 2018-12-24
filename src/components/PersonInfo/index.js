@@ -2934,12 +2934,14 @@ status 0 1 2 3 4 */
 					}
 				}
 				offerSubmit() {
-					let {actions} = this.props
+					let {actions,item: {
+							isOpenOfferAppro
+						}} = this.props
 					this.form.validateFieldsAndScroll((err, values) => {
 						if (err) {
 							return;
 						}
-						actions.offerOptionAction(values)
+						actions.offerOptionAction(values,isOpenOfferAppro)
 					});
 				}
 				handleChange(e) {
