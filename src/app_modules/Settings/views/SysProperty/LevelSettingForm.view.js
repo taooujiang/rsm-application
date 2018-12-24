@@ -53,9 +53,9 @@ export default class LevelSettingForm extends FormPage {
     const { onSubmit, saveFormRef, item, } = this.props;
     console.log(item, 'itemitemitem');
     let validRules = item.id ?
-      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", id: item.id }, { required: true, message: `不可为空`, whitespace: true }]
+      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", id: item.id }, { required: true, message: `职位级别不可为空`, whitespace: true },{ validator: customRules.required}]
       :
-      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName" }, { required: true, message: `不可为空`, whitespace: true }]
+      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName" }, { required: true, message: `职位级别不可为空`, whitespace: true },{ validator: customRules.required}]
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         {item.id ?
@@ -66,9 +66,9 @@ export default class LevelSettingForm extends FormPage {
           null}
         <FormItem>
           <Input
-            label='职位名称'
+            label='职位级别'
             name="positionName"
-            placeholder="请输入职位名称"
+            placeholder="请输入职位级别"
             defaultValue={item.positionName}
             rules={validRules}
           />
@@ -78,7 +78,7 @@ export default class LevelSettingForm extends FormPage {
           <Select label='职级等级'
             name="positionLeavel"
             defaultValue={item.positionLeavel}
-            rules={[{ required: true, message: "不可为空" }]}
+            rules={[{ required: true, message: "职级等级不可为空" }]}
             // onChange={this.handleSelectChange.bind(this)}
             fetch={this.state.levelArr} renderItem={this.renderSelectOption} />
 

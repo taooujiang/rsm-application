@@ -153,12 +153,12 @@ export default class NewJobListView extends PageView {
                 title: "招聘负责人",
                 key: "hrName",
                 dataIndex: "hrName",
-                width: 150,
+                width: 120,
             }, {
                 title: "招聘渠道",
                 key: "channelListIcon",
                 dataIndex: "channelListIcon",
-                width: 150,
+                width: 100,
                 render:(val)=>val.map((v)=><Icon type={v.icon} style={{margin:'0 3px'}} title={DictUtils.getDictLabelByValue("channel",v.channel)}/>)
             },{
                 title: "候选人总数",
@@ -208,13 +208,13 @@ export default class NewJobListView extends PageView {
                 key: "yrzNum",
                 dataIndex: "yrzNum",
                 align:"center",
-                width: 120,
+                width: 100,
             },{
                 title: "招聘人数",
                 key: "hiringNumber",
                 dataIndex: "hiringNumber",
                 align:"center",
-                width: 120,
+                width: 100,
             }
         ]
 
@@ -223,7 +223,7 @@ export default class NewJobListView extends PageView {
             title: "面试评分",
             key: "interviewScale",
             dataIndex: "interviewScale",
-            width: 150,
+            width: 100,
           })
         }
         // alert("111")
