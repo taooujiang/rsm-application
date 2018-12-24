@@ -80,7 +80,7 @@ export default class OfferApprove extends PageView {
             <Button type="primary" actionkey="offerApproveEditAction" style={{ marginRight: '10px' }}>
               编辑
             </Button>
-            <Button type="primary" permission="company" confirm="确认删除" actionkey="offerApproveDeleteAction">删除</Button>
+            <Button type="primary" permission="company" confirm="删除后，已设置该审核流程的职位自动关闭offer审核功能，是否确定删除？" actionkey="offerApproveDeleteAction">删除</Button>
           </ButtonGroups>
 
         </div>
@@ -90,6 +90,7 @@ export default class OfferApprove extends PageView {
   }
   renderTableList(items) {
     if (items.length) return items.map(e => { return this._renderSingleTable(e) })
+    else{return <div className='table-no-data offerApproval-setting-nodata'>暂无数据</div>}
   }
   render() {
     let { actions, reduce, items, router } = this.props

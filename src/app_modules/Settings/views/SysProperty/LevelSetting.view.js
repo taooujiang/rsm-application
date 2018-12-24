@@ -35,7 +35,7 @@ export default class LevelSetting extends PageView {
       dataSource: items,
       rowkey: 'id',
       columns: [{
-        title: "职位名称",
+        title: "职位级别",
         width: 100,
         dataIndex: 'positionName',
         key: 'positionName',

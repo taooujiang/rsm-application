@@ -3285,16 +3285,21 @@ status 0 1 2 3 4 */
 					actions.feedAction(router, item,{})
 				}
 				handleSendScoreSms(item){
-					let {actions} = this.props
-			    return Modal.confirm({
-				    title: '请候选人为面试评分',
-				    content: "面试评分结果记录在职位详情中，是否邀请候选人为面试评分？",
-				    okText: '确认',
-				    onOk:function(){
-							actions.sendScoreAction({resumeId:item.id})
-						},
-				    cancelText: '取消'
-					})
+					let {actions,info:{isOpen}} = this.props
+
+					if(isOpen){
+						return Modal.confirm({
+							title: '请候选人为面试评分',
+							content: "面试评分结果记录在职位详情中，是否邀请候选人为面试评分？",
+							okText: '确认',
+							onOk:function(){
+								actions.sendScoreAction({resumeId:item.id})
+							},
+							cancelText: '取消'
+						})
+					}else{
+						message.warning("请联系管理员开启面试评分功能")
+					}
 			  }
 				render() {
 					let {

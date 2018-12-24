@@ -451,7 +451,7 @@ class PersonInfoPanelHead extends Component {
 		})
 	}
 	render() {
-		let {info,info:{isLock, havaSame, isFollowRemind, downloadStatus,channel,channelResumeId}, detailType, filingReason,actions,router} = this.props
+		let {info,info:{isLock, havaSame, isFollowRemind, downloadStatus,channel,channelId,channelResumeId}, detailType, filingReason,actions,router} = this.props
 		// let {isLock, havaSame, isFollowRemind, downloadStatus,channel} = info
 		//console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
 		let userInfoText = ""
@@ -502,7 +502,7 @@ class PersonInfoPanelHead extends Component {
 						: <Button onClick={this.handleGetContact.bind(this)}>获取联系方式</Button>
 				}
 				{this.state.showModal ?
-					<ResumeDownload actions={actions} row={info} router={router} channelResumeId={channelResumeId} channel={channel} closeFn={this.closeFn.bind(this)} propTitle="下载渠道简历"/>
+					<ResumeDownload actions={actions} row={info} router={router} channelResumeId={channelResumeId} channel={channelId} closeFn={this.closeFn.bind(this)} propTitle="下载渠道简历"/>
 					: null
 				}
 				<InfoItem icon="clock-circle" text={info.workYear}/>

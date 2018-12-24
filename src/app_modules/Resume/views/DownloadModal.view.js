@@ -73,12 +73,13 @@ export default class ResumeDownload extends FormPage {
 	}
 
 	componentWillMount() {
-		let {actions, channelResumeId, channel, closeFn, router} = this.props
+		let {actions, channelResumeId, channel, closeFn, router,row} = this.props
 		let that = this
 		let params = {
 			type: "download_confrim",
 			resumeId: channelResumeId,
-			channelId: channel
+			channelId: channel,
+			orgId:row.orgId
 		}
 		let messageFlag = true
 		let JsToPython = new ClientAPI().JsToPython
@@ -95,7 +96,7 @@ export default class ResumeDownload extends FormPage {
 			console.log("download_resume1111", value)
 			closeFn()
 			if (value.ok) {
-				actions.saveContratAction(value, router)
+				actions.saveContratAction(value,row.id)
 			} else {
 				if (messageFlag) {
 					message.error(value.msg)
@@ -112,16 +113,17 @@ export default class ResumeDownload extends FormPage {
 			location,
 			closeFn,
 			channelResumeId,
-			channel
+			channel,
+			row
 		} = this.props
 		let params = {
 			type: "download_resume",
 			resumeId: channelResumeId,
 			channelId: channel,
+			orgId:row.orgId,
 			payType: values.payType
 		}
 		let JsToPython = new ClientAPI().JsToPython
-		console.log(params)
 		JsToPython(params)
 		this.setState({spinFlag: true})
 	}
