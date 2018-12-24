@@ -90,6 +90,7 @@ export default class OfferApprove extends PageView {
   }
   renderTableList(items) {
     if (items.length) return items.map(e => { return this._renderSingleTable(e) })
+    else{return <div className='table-no-data offerApproval-setting-nodata'>暂无数据</div>}
   }
   render() {
     let { actions, reduce, items, router } = this.props
