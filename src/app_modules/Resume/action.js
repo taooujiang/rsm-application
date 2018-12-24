@@ -160,8 +160,8 @@ export function approvalRealAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
     return new API().fetchApprovalList(value).then(json => {
-      // dispatch(fetchSuccess('tableSpin'))
-      // dispatch(saveList(json))
+      dispatch(fetchSuccess('tableSpin'))
+       dispatch(saveList(json))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))
     })

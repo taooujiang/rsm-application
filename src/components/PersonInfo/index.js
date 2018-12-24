@@ -2852,11 +2852,7 @@ status 0 1 2 3 4 */
 						{
 							this.state.time == 2
 								? <FormItem>
-										<DateTimePicker name="sendTime" defaultDate={moment()} defaultTime={moment().set({
-												hour: moment().add(1, "hours").get("hour"),
-												minute: 0,
-												second: 0
-											})} rules={[{
+										<DateTimePicker name="sendTime" defaultDate={moment().add(1, "days")} defaultTime={moment().set({hour: 9, minute: 0, second: 0})} rules={[{
 													required: true,
 													message: "通知时间不可为空"
 												}
@@ -2980,11 +2976,7 @@ status 0 1 2 3 4 */
 							{
 								time == '2'
 									? <FormItem>
-											<DateTimePicker name="sendTime" defaultDate={moment()} defaultTime={moment().set({
-													hour: moment().add(1, "hours").get("hour"),
-													minute: 0,
-													second: 0
-												})} rules={[{
+											<DateTimePicker name="sendTime" defaultDate={moment().add(1, "days")} defaultTime={moment().set({hour: 9, minute: 0, second: 0})} rules={[{
 														required: true,
 														message: "通知时间不可为空"
 													}
@@ -3037,10 +3029,10 @@ status 0 1 2 3 4 */
 							<FormItem>
 								<Select style={{
 										width: 80
-									}} label="入职薪资" name="salaryType" fetch={moneyOpt} renderItem={this.renderSelectOption}/>
+									}} label="入职薪资" name="salaryType" fetch={moneyOpt} defaultValue="2" renderItem={this.renderSelectOption}/>
 							</FormItem>
 							<FormItem className="moneyGroup-last">
-								<Input name="salary"/>
+								<Input name="salary" rules={[{validator: customRules.integer}]}/>
 							</FormItem>
 						</InputGroup>
 						{this.renderSendType()}

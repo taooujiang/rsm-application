@@ -92,6 +92,8 @@ function filterPath(path) {
     return filterPathSpec(path, 2)
   } else if (path.indexOf("/resume/list") >= 0) {
     return "/resume/list"
+  } else if (path.indexOf("/resume/approval") >= 0) {
+    return "/resume/approval"
   } else if (path.indexOf("/interview/calendar") >= 0) {
     return "/interview/calendar"
   } else if (path.indexOf("/interview/list") >= 0) {

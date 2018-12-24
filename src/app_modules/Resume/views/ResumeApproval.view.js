@@ -48,7 +48,7 @@ export default class ResumeApprovalView extends PageView {
 
 	componentWillMount() {
 		let {actions, router, children, params} = this.props;
-		console.log(params)
+		// console.log(params)
 		// console.log(params)
 		// message.info(1111)
 		if (JSON.stringify(params) == "{}" || params.resumeId != undefined) {
@@ -124,9 +124,10 @@ export default class ResumeApprovalView extends PageView {
 		let {spins: {
 				tableSpin
 			}, key} = reduce
+			// console.log(items)
 		let page = reduce.page
-		let ids = items.map((it, idx) => it.id)
 		let pathname = this.props.location.pathname
+		console.log(1111,this,pathname)
 		/* 筛选和邀约 */
 		let columns = [
 			{
@@ -138,9 +139,9 @@ export default class ResumeApprovalView extends PageView {
 					return <SmartLink style={{
 							color: '#323232'
 						}} to={{
-							pathname: `${row.id}/detail`,
+							pathname: `${row.resumeId}/detail`,
 							state: {
-								orgin: this.props.pathname
+								orgin: pathname
 							}
 						}}>{val}</SmartLink>
 				}

@@ -126,6 +126,7 @@ class ResumeDetail extends Component {
 				state
 			}} = this.props
 		let viewLib = translateOrgin(state)
+		// console.log(11111,state)
 		actions.itemAction({
 			id: resumeId,
 			...viewLib
@@ -309,7 +310,7 @@ class ResumeDetail extends Component {
 				filingReason
 			} />}>
 			{
-				viewLibType != 1
+				viewLibType != 1 && viewLibType != 6
 					? null
 					: <div className={classnames(
 								"arrowLeft", prevId
@@ -317,7 +318,7 @@ class ResumeDetail extends Component {
 								: "disabled")} onClick={this.handleClickLeft.bind(this)}><Icon type="left" theme="outlined"/></div>
 			}
 			{
-				viewLibType != 1
+				viewLibType != 1 && viewLibType != 6
 					? null
 					: <div className={classnames(
 								"arrowRight", nextId
