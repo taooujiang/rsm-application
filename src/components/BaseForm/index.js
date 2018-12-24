@@ -381,7 +381,7 @@ let customRules={
         //console.log(value)
         if(value instanceof Array){
             value.map((it,idx)=>{
-                if((it+"").trim().length <= 0 || !it){
+                if((it+"").trim().length <= 0 || (!it && it != 0)){
                     callback("必须填写非空字符！")
                     return false
                 }

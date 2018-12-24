@@ -78,7 +78,7 @@ export default class OfferApproveForm extends FormPage {
             name="name"
             placeholder={"请输入"}
             defaultValue={item.name}
-            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }]}
+            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true },{validator: customRules.required}]}
           />
         </FormItem>
 
@@ -164,7 +164,7 @@ class OfferApproveSelector extends FormPage {
                     showSearch
                     optionFilterProp="children"
                     defaultValue={e.approvalAccount}
-                    rules={[{ required: true, message: `不可为空`, }]}
+                    rules={[{ required: true, message: `不可为空`, },{validator: customRules.required}]}
                     onChange={this.handleAccChange.bind(this, index)}
                     fetch={selectList} renderItem={this.renderSelectOption.bind(this)} />
                 </FormItem>
