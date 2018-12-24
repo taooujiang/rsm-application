@@ -14,7 +14,7 @@ import CONSTANTS,{
   saveCount,
   saveChecks,saveSameList,
   saveDetail,saveBaseInfo,
-  saveResumeInfo,saveResumeObj,saveResumeJob,saveResumePro,saveResumeEdu,saveResumeLan,saveResumeCre,saveResumeTra,
+  saveResumeInfo,saveResumeObj,saveResumeJob,saveResumePro,saveResumeEdu,saveResumeLan,saveResumeCre,saveResumeTra,saveContrat,
   addFeedData,
   saveFeedData,
   saveRemark,
@@ -110,6 +110,14 @@ actions[saveSameList]= (state,action)=>{
   return {
     ...state,
     sameList:action.payload
+  }
+}
+
+actions[saveContrat]= (state,action)=>{
+  let resumeInfo = Object.assign({},state.baseInfo.resumeInfo,action.payload)
+  return {
+    ...state,
+    baseInfo:Object.assign({},state.baseInfo,{resumeInfo:resumeInfo})
   }
 }
 

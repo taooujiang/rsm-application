@@ -57,6 +57,9 @@ Object.assign(Resume.fields,Intro.fields,{
       return DictUtils.getDictLabelByValue("channel",val)
     }
   }),
+  channelId:attr({
+    fieldName:"channel",
+  }),
   expectedEntryTime:attr({
     get:(val)=>{
       return val ? moment(val).format("YYYY-MM-DD") : ""

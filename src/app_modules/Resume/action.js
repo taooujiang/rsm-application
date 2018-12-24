@@ -53,6 +53,8 @@ export const saveResumeLan = createAction("SAVE_RESUMELAN")
 export const saveResumeCre = createAction("SAVE_RESUMECRE")
 export const saveResumeTra = createAction("SAVE_RESUMETRA")
 
+export const saveContrat = createAction("SAVE_CONTRAT")
+
 export const saveDistr = createAction("STORE_DISTRIBUTED")
 
 export const saveFeedData = createAction("SAVE_FEEDDATA")
@@ -187,6 +189,14 @@ export function getSameResumeAction(value) {
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))
     })
+  }
+}
+
+export function saveContratAction(value,id){
+  return (dispatch,getState) =>{
+    console.log(value)
+    dispatch(saveItem({id:id,email:value.email,mobilephone:value.phone}))
+    dispatch(saveContrat({email:value.email,mobilephone:value.phone}))
   }
 }
 
