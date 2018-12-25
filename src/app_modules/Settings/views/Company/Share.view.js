@@ -58,7 +58,7 @@ export default class Share extends FormPage {
   }
   beforeUpload(file) {
     let { name } = file
-    let suffix = name.split(".").pop()
+    let suffix = name.split(".").pop().toLocaleLowerCase()
     if (file.size / 1024 > 200) {
       message.warning("图片限制大小为200KB")
       return false

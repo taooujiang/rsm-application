@@ -78,15 +78,15 @@ class FeedbackType extends Component {
 	}
 
 	renderWhichType() {
-		let {type, dataSource} = this.props
+		let {type, dataSource,readOnly} = this.props
 		return dataSource.sort((a,b)=>{
 			return a.sort - b.sort
 		}).map((it, idx) => {
-			console.log(it)
+			// console.log(it)
 			if (type == 1) {
 				return (<li className="question-item">
 					<div className="title">{it.question}</div>
-					<RadioGroup options={it.option.map(it => {
+					<RadioGroup disabled={readOnly} options={it.option.map(it => {
 							return {value: it.option, label: it.option}
 						})} defaultValue={it.answer} onChange={this.handleRadioChange.bind(this, it)}/>
 				</li>)
@@ -94,13 +94,13 @@ class FeedbackType extends Component {
 			if (type == 2) {
 				return (<li className="question-item">
 					<div className="title">{it.question}</div>
-					<Rate defaultValue={it.answer} onChange={this.handleRateChange.bind(this, it)}/>
+					<Rate disabled={readOnly} defaultValue={it.answer} onChange={this.handleRateChange.bind(this, it)}/>
 				</li>)
 			}
 			if (type == 3) {
 				return (<li className="question-item">
 					<div className="title">{it.question}</div>
-					<TextArea defaultValue={it.answer} onChange={this.handleInputChange.bind(this, it)}></TextArea>
+					<TextArea readOnly={readOnly} defaultValue={it.answer} onChange={this.handleInputChange.bind(this, it)}></TextArea>
 				</li>)
 			}
 		})
@@ -231,7 +231,7 @@ class FeedbackForm extends Component {
 						}
 					]}></Select>
 			</FormItem>
-			<FeedbackType dataSource={obj.questionAnswerDtoList} type={obj.type} whileChange={this.changeTypeVal.bind(this)}/>
+			<FeedbackType dataSource={obj.questionAnswerDtoList} readOnly={obj.isFeedback == 1} type={obj.type} whileChange={this.changeTypeVal.bind(this)}/>
 			<FormItem>
 				<TextArea label="综合评价" name="feedback" readOnly={obj.isFeedback == 1} defaultValue={obj.feedback} rules={[
 						{

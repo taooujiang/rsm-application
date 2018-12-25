@@ -38,7 +38,7 @@ export default class ResumeImportView extends FormPage {
   }
   beforeUpload(file){
     let {name} = file
-    let suffix = name.split(".").pop()
+    let suffix = name.split(".").pop().toLocaleLowerCase()
     /*①　用户可以上传doc、PDF、jpg、png、JPEG格式的简历；*/
     if (suffix == "jpg" || suffix == "png" || suffix == "jpeg" || suffix == "pdf" || suffix == "doc" || suffix == "docx") {
       return true

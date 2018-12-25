@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {
 	Row,
 	Avatar,
@@ -118,6 +119,16 @@ class ResumeDetail extends Component {
 		this.state = {
 			defaultKey: "1"
 		}
+	}
+	static childContextTypes = {
+		viewLibType: PropTypes.number
+	}
+
+	getChildContext(){
+		 let { actions ,location:{state}} =this.props;
+		 return {
+				viewLibType: translateOrgin(state).viewLibType
+		 };
 	}
 	componentDidMount() {
 		let {actions, params: {

@@ -535,13 +535,17 @@ status 0 1 2 3 4 */
 				handleApproalPass() {
 					let {
 						actions,
+						item,
 						item: {
 							offerApprovalDto: {
 								id
 							}
-						}
+						},
+						orginJson
 					} = this.props
-					actions.offerApprovalAction({id: id, status: 1})
+					actions.offerApprovalAction({id: id, status: 1}).then(() => {
+						actions.itemAction({id: item.id, viewLibType: orginJson.viewLibType})
+					})
 				}
 				eliminate() {
 					let {actions, item: {
@@ -2933,6 +2937,9 @@ status 0 1 2 3 4 */
 					which: "2",
 					time: "1"
 				}
+				static contextTypes = {
+					viewLibType: PropTypes.number
+				}
 				updateFieldValue(name, value) {
 					let {item} = this.props
 					//console.log(item)
@@ -2972,14 +2979,17 @@ status 0 1 2 3 4 */
 					}
 				}
 				offerSubmit() {
-					let {actions,item: {
+					let {actions,item,item: {
 							isOpenOfferAppro
 						}} = this.props
+						let {viewLibType} = this.context
 					this.form.validateFieldsAndScroll((err, values) => {
 						if (err) {
 							return;
 						}
-						actions.offerOptionAction(values,isOpenOfferAppro)
+						actions.offerOptionAction(values,isOpenOfferAppro).then(()=>{
+							actions.itemAction({id:item.id,viewLibType:viewLibType})
+						})
 					});
 				}
 				handleChange(e) {
