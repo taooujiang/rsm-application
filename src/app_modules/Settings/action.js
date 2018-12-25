@@ -585,7 +585,7 @@ export function reloadAction(row) {
 export function adminChangeAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('itemSpin'))
-    return new API().fetchAdminChange(value).then(json => {
+    return new API().fetchAdminChangeNew(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))

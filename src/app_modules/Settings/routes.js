@@ -70,7 +70,7 @@ let Routes = (
 
       <Route path="addform" components={AddMemberStepOrignContainer} breadcrumbName="新增用户" />
       <Route path="addvalid" components={AddMemberStepCodeContainer} breadcrumbName="输入验证码" />
-      <Route path="handover/:nowAcc" components={handoverContainer} breadcrumbName="管理员交接" />
+      <Route path="handover/:nowAcc" components={handoverContainer} breadcrumbName="成员交接" />
       <Route path="edit/:account" components={accountEditContainer} breadcrumbName="编辑用户" />
     </Route>
     <Route path="mailbox" components={mailboxContainer} breadcrumbName="邮箱" >

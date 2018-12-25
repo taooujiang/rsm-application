@@ -188,6 +188,11 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  fetchAdminChangeNew(params) {
+    return this.fetchPost(`${APP_SERVER}/accountOperate/accChange`, {
+      body: params
+    })
+  }
   fetchHrChange(params) {
     return this.fetchPost(`${APP_SERVER}/accountOperate/checkAndDeleteAccount`, {
       body: params
@@ -331,7 +336,7 @@ export default class API extends FetchAPI {
       body: params
     })
   }
-  
+
   saveOfferApprove(params) {
     return this.fetchPost(`${APP_SERVER}/sysSetOfferApproval/saveJson`, {
       body: params
@@ -355,7 +360,7 @@ export default class API extends FetchAPI {
       body: params
     })
   }
-  
+
   fetchActionLogList(params) {
     return this.fetchPostList(`${APP_SERVER}/logUserOperate/listPageJson`, {
       body: params
@@ -421,4 +426,4 @@ export const fechUnavailableAccount = (params) => {
   })
 }
 
-// 
+//
