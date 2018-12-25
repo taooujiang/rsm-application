@@ -129,6 +129,14 @@ export default class UserRightView extends PageView {
           key: "deptName",
           dataIndex: "deptName",
           width: 120,
+        },{
+          title: "绑定微信",
+          key: "isWxBind",
+          dataIndex: "isWxBind",
+          width: 120,
+          render:(val)=>{
+            return val ? "已绑定" : ""
+          }
         }, {
           title: "操作",
           dataIndex: "userId",

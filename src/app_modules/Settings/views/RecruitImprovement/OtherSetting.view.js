@@ -33,13 +33,6 @@ export default class InterviewJudge extends PageView {
     let { actions, item } = this.props
     actions.saveChannelSettingsAction({ channel_1001: value })
   }
-  renderToolbar() {
-    return (
-      <ButtonGroups >
-        <Button type="primary" permission="company" actionkey="add">添加</Button>
-      </ButtonGroups>
-    )
-  }
   renderUpdateCycleSettingForm() {
     let { channel_1001 } = this.state
     return ([
@@ -95,7 +88,7 @@ export default class InterviewJudge extends PageView {
   render() {
     // let { actions, item } = this.props
     return (
-      <Card title={<div><h3 className="card-title">其他设置</h3></div>} extra={this.renderToolbar()}	>
+      <Card title={<div><h3 className="card-title">其他设置</h3></div>} >
         {this.renderUpdateCycleSettingForm()}
         {this.renderBlacklistSettingForm()}
       </Card>
