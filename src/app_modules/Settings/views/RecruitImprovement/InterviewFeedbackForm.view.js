@@ -30,6 +30,10 @@ export default class InterviewFeedbackForm extends FormPage {
     if (!flag) {
       return void 0
     }
+    values.questionList = values.questionList.map(e => {
+      const { sort, question, optionA, optionB, optionC, optionD } = e
+      return { sort, question, optionA, optionB, optionC, optionD }
+    })
     actions.interviewFeedbackSaveAction(values);
     actions.backRoute(router);
   }
@@ -60,7 +64,7 @@ export default class InterviewFeedbackForm extends FormPage {
             name="name"
             placeholder={"请输入模板名称"}
             defaultValue={item.name}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true },{ validator: customRules.required}]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
           />
         </FormItem>
         <FormItem>
@@ -157,7 +161,9 @@ class QuestionForm extends FormPage {
   handleAddQuestion(type) {
     let { questionList } = this.state
     questionList.push({ templateType: type, sort: questionList.length + 1, key: `${Math.random()}` })
-    this.setState({ questionList })
+    this.setState({ questionList }, () => {
+      this.props.onChange(questionList)
+    })
   }
   handleDeleteQuestion(sort, id) {
 
@@ -171,7 +177,7 @@ class QuestionForm extends FormPage {
   }
   renderQuestionList() {
     const { type } = this.props
-    const fieldsRules = [{ required: true, message: `不可为空`, whitespace: true },{ validator: customRules.required}]
+    const fieldsRules = [{ required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]
     if (type == 1) {
       return this.state.questionList.map((e, index) => (
         [<div key={e.id || e.key} className="interview-template-question" >
@@ -182,7 +188,7 @@ class QuestionForm extends FormPage {
               onChange={this.handleInputChange.bind(this, 'question', index)}
               defaultValue={e.question}
               placeholder={"请输入"}
-              rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true },{ validator: customRules.required}]}
+              rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
             />
           </FormItem>
           {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />}
@@ -248,7 +254,7 @@ class QuestionForm extends FormPage {
             name={`question${index}${type}`}
             defaultValue={e.question}
             placeholder={"请输入"}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true },{ validator: customRules.required}]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
           />
         </FormItem>
         {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1, e.id)} className="interview-template-delete-icon" type="delete" />}
