@@ -3082,9 +3082,9 @@ status 0 1 2 3 4 */
 						<Button onClick={this.offerSubmit.bind(this)} style={{
 								float: "right"
 							}}>{
-								isOpenOfferAppro
-
-
+								isOpenOfferAppro || editFlag?
+									"提交审核"
+									: "发送"
 							}</Button>
 					</BaseForm>)
 				}

@@ -67,6 +67,37 @@ class FeedForm extends Component {
 			return null
 		}
 	}
+	renderTimeType(){
+		const {id} = this.props
+		const sendOption = [
+			{
+				label: "立即发送",
+				value: "0"
+			}, {
+				label: "定时发送",
+				value: "1"
+			}
+		]
+		let {which,time} = this.state
+		let flag = which
+		if(id){
+			flag = feedItem.noticeType
+		}
+		if(flag == "0"){
+			return null
+		}else{
+			return this.state.time == '1' ?
+					[<FormItem>
+							<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
+						</FormItem>,
+					<FormItem>
+						<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
+					</FormItem>]
+				: <FormItem>
+						<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
+					</FormItem>
+		}
+	}
 	handleChange(e) {
 		this.setState({which: e.target.value})
 	}
@@ -102,16 +133,6 @@ class FeedForm extends Component {
 				value: '0'
 			}
 		];
-		const sendOption = [
-			{
-				label: "立即发送",
-				value: "0"
-			}, {
-				label: "定时发送",
-				value: "1"
-			}
-		]
-
 		// console.log(feedItem)
 		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
 			<FormItem>
@@ -172,21 +193,9 @@ class FeedForm extends Component {
 				<FormItem>
 					<RadioGroup name="noticeType" label="通知候选人" options={options} onChange={this.handleChange.bind(this)} defaultValue={id ? feedItem.noticeType+"" : this.state.which}/>
 				</FormItem>
+				<span style={{display:"block",margin:"-15px 0 12px 100px"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
 				{this.renderSmsOrEmail()}
-				{/*<FormItem>
-              <Checkbox label="通知面试官" name="interviewerNoticeType">短信通知</Checkbox>
-            </FormItem>*/
-				}
-				<FormItem>
-					<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
-				</FormItem>
-				{
-					this.state.time == '1'
-						? <FormItem>
-								<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
-							</FormItem>
-						: null
-				}
+				{this.renderTimeType()}
 			</Row>
 		</BaseForm>)
 	}
