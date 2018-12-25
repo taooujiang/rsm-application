@@ -29,6 +29,13 @@ export default class UserRightView extends PageView {
     actions.listUserAction()
   }
 
+  componentWillReceiveProps(nextProps){
+      let {actions,reduce:{params}} = nextProps
+    	if (nextProps.location.state && nextProps.location.state.key == "reload") {
+          actions.listUserAction(params)
+      }
+  }
+
   // handover(){
   //     let {actions} = this.props
   //     actions.jumpTohandoverAction()
@@ -95,7 +102,7 @@ export default class UserRightView extends PageView {
     const { appReducer: { user: { account } } } = this.props
     let tableConf = {
       loading: tableSpin,
-      rowKey: key,
+      rowKey: "account",
       dataSource: items,
       onChange: this.onChange.bind(this),
       // title:()=>{

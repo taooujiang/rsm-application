@@ -57,7 +57,7 @@ export const channelListSave = createAction("STORE_CHANNEL")
 export const channelSave = createAction('UPSERT_CHANNEL')
 // channel list END
 
-// OfferApprove 
+// OfferApprove
 export const offerApproveListSave = createAction("STORE_OFFERAPPROVE")
 // export const channelSave = createAction('UPSERT_CHANNEL')
 // OfferApprove  END
@@ -69,11 +69,12 @@ export const actionLogParamsSave = createAction("SAVE_ACTIONLOGPARAMS")
 // interviewfeedback
 export const interviewFeedbackListSave = createAction("STORE_SYSINTERVIEWFEEDBACK")
 
-// LevelSetting 
+// LevelSetting
 export const levelSettingListSave = createAction("STORE_LEVELSETTING")
 export const levelSettingListRemove = createAction("REMOVE_LEVELSETTING")
 // export const channelSave = createAction('UPSERT_CHANNEL')
 // LevelSetting  END
+export const saveParams = createAction("SAVE_PARAMS")
 
 export const userSaveList = createAction("STORE_USER")
 export const userRemove = createAction("REMOVE_USER")
@@ -176,6 +177,9 @@ export function listUserAction(value) {
     return new API().fetchRightList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       let { list, ...page } = json
+      if(value){
+        dispatch(saveParams(value))
+      }
       dispatch(userSaveList(json))
       // dispatch(saveRightsList(list, page))
     }).catch(ex => {
@@ -191,7 +195,6 @@ export function saveUserAction(value) {
       return new API().fetchEditUser(data).then(json => {
         dispatch(fetchSuccess('itemSpin', true))
         dispatch(userSave(json))
-        dispatch(listUserAction())
       }).catch(ex => {
         return dispatch(fetchFailure('itemSpin', ex))
       })
@@ -507,9 +510,14 @@ export function route2AddUserCodeAction(acc, data) {
 }
 
 export function route2UserListAction() {
-
+let path = {
+  pathname:"/settings/userRights",
+  state:{
+    key:"reload"
+  }
+}
   return dispatch => {
-    dispatch(routerActions.push(`/settings/userRights`))
+    dispatch(routerActions.push(path))
     // dispatch(listUserAction())
   }
 }
@@ -522,7 +530,7 @@ export function disabledAction(row) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchDisabledAcc(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(listUserAction())
+      dispatch(listUserAction(getState().settingsReducer.params))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -553,7 +561,7 @@ export function enableAction(row) {
         return
       }
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(listUserAction())
+      dispatch(listUserAction(getState().settingsReducer.params))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -824,7 +832,7 @@ export function saveListAction(params) {
     })
   }
 }
-// offerapprove 
+// offerapprove
 export function offerApproveListAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -867,7 +875,7 @@ export function offerApproveEditAction(row) {
   let { id } = row
   return dispatch => dispatch(routerActions.push(`/settings/offer/edit/${id}`))
 }
-// Actionlog 
+// Actionlog
 
 export function actionLogListAction(value) {
   return (dispatch, getState) => {

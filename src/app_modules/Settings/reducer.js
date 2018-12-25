@@ -10,7 +10,7 @@
 import { newList, newItem, saveList, saveItem, fetchRequest, fetchSuccess, fetchFailure } from 'app-utils/reducerUtils'
 
 import { handleActions } from 'redux-actions'
-import CONSTANTS, { orgTreeSave, authTreeSave, parentOrgSave, parentOrgRemove, roleDetailSave, roleDetailRemove, remindSave, actionLogListSave, actionLogParamsSave } from './action'
+import CONSTANTS, { saveParams,orgTreeSave, authTreeSave, parentOrgSave, parentOrgRemove, roleDetailSave, roleDetailRemove, remindSave, actionLogListSave, actionLogParamsSave } from './action'
 
 // TODO: 调整本地数据结构
 let initialState = {
@@ -100,6 +100,13 @@ actions[authTreeSave] = (state, action) => {
   return {
     ...state,
     authTree: action.payload
+  }
+}
+actions[saveParams] = (state, action) => {
+  console.log(action)
+  return {
+    ...state,
+    params:action.payload
   }
 }
 actions[parentOrgSave] = (state, action) => {
