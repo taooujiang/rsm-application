@@ -393,7 +393,8 @@ status 0 1 2 3 4 */
 					if (offerApprovalDto && offerApprovalDto.id) {
 						return <OptionButtonOfferJudge {...this.props}/>
 					}
-					if (defined7 == 0) {
+					// console.log(defined7,item,"skldfjklsdkljf")
+					if (defined7 == 0 && defined7 != "") {
 						return <OptionButtonsCreditShare {...this.props}/>
 					}
 					/* 下面分别为简历人才待分配诚信 不分先后type */
@@ -938,20 +939,24 @@ status 0 1 2 3 4 */
 					let {
 						item: {
 							hrName,
+							authorization,
 							labelNames,
 							offerApprovalDto,
 							offerApprovalDto: {
 								approvalStage,
 								approvalName,
-								isApprovalAccount
+								isApprovalAccount,
+								isJumpCurrentApproval
 							}
 						}
 					} = this.props
+					console.log(authorization,isJumpCurrentApproval,"aaaaaa")
 					return <div className="offering-box">
 						<h1><Icon type="icon-seal"/>offer审批中</h1>
 						<InfoInline label="审批职位" info={offerApprovalDto.jobTitle}/>
 						<InfoInline label="审批阶段" info={stageJson[approvalStage]}/>
 						<InfoInline label="审批人" info={approvalName}/>
+						<span className="account-error">审批人帐号异常</span>
 
 						<ButtonGroup>
 							{
@@ -961,6 +966,11 @@ status 0 1 2 3 4 */
 											<Button className="block" onClick={this.handleApproalReject.bind(this)}>审批不通过</Button>
 										</div>
 									: null
+							}
+							{
+								isJumpCurrentApproval && authorization
+								? <Button className="block" onClick={this.handleApproalPass.bind(this)}>跳过</Button>
+								: null
 							}
 							<Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
 						</ButtonGroup>
@@ -2788,7 +2798,8 @@ status 0 1 2 3 4 */
 						}
 						if (status == 6) {
 							return <Button onClick={this.props.offerEditFn} style={{
-									float: "right"
+									float: "right",
+									marginTop:10
 								}}>编辑offer</Button>
 						}
 						if (status == 5) {

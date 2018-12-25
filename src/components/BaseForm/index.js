@@ -187,7 +187,7 @@ class FormItem extends Component{
     if(field.type === Select && field.props.showSearch){
       if(!otherProps.filterOption){
         otherProps.filterOption = function(input,option){
-          console.log(11111)
+          // console.log(11111)
           let result = option.props.children
           if(typeof(result) == "string" && result.indexOf(input) >= 0){
             return true

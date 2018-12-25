@@ -123,11 +123,10 @@ export default class ResumeApprovalView extends PageView {
 		let {reduce, actions, items} = this.props
 		let {spins: {
 				tableSpin
-			}, key} = reduce
+			}, key,params:{type}} = reduce
 			// console.log(items)
 		let page = reduce.page
 		let pathname = this.props.location.pathname
-		console.log(1111,this,pathname)
 		/* 筛选和邀约 */
 		let columns = [
 			{
@@ -167,6 +166,19 @@ export default class ResumeApprovalView extends PageView {
 				width: 120
 			}
 		]
+		if(type == 2){
+			 columns.push({
+				title: "审批状态",
+				key: "status",
+				dataIndex: "status",
+				width: 120,
+				render:(val)=>{
+					/*0 待审批 1 通过 2 驳回*/
+					/*只有已审批才有该选项 所以只有1 2 两个选项*/
+					return val == 1 ? "通过" : "驳回"
+				}
+			})
+		}
 
 		let tableConf = {
 			loading: tableSpin,

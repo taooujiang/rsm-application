@@ -79,7 +79,8 @@ export default class CalendarView extends Component {
         <Col span={6}><span>面试总数<span className="calendar-fontColor">{counts.mxtotal}</span>人</span></Col>
         {/*<Col span={6}><span>已面试<span className="calendar-fontColor">{counts.already}</span>人</span></Col>
         <Col span={6}><span>待面试<span className="calendar-fontColor">{counts.waite}</span>人</span></Col>*/}
-        <Col span={6}><span>取消面试<span className="calendar-fontColor">{counts.refuse}</span>人</span></Col>
+        <Col span={6}><span>已调整<span className="calendar-fontColor">{counts.ytzCount}</span>人</span></Col>
+        <Col span={6}><span>已取消<span className="calendar-fontColor">{counts.refuse}</span>人</span></Col>
         </Row>)
   }
   handleFeedBack(id,resumeId){
@@ -89,6 +90,12 @@ export default class CalendarView extends Component {
   handleDelay(id,resumeId,type,time){
     let {actions,router} =this.props
     actions.delayAction(router,id,type,time,resumeId)
+  }
+  handleChangeFeed(item){
+    let {actions,router} = this.props
+    // console.log(111111,item,item)
+    /*分两个item传入  第一个面试中要用item的email 和mobilephone 第二个为面试信息*/
+    actions.feedAction(router,item,item,item.resumeId)
   }
   handleUrge(id){
     let {actions,reduce:{params}} = this.props
@@ -123,7 +130,7 @@ export default class CalendarView extends Component {
         /*待面试*/
         if(statusStr == 1){
           return [
-              <Button icon="clock-circle-o" onClick={that.handleDelay.bind(that,id,resumeId,type,interviewTime)}>调整时间</Button>,
+              <Button icon="clock-circle-o" onClick={that.handleChangeFeed.bind(that,item)}>修改面试</Button>,
               <Button icon="edit" onClick={that.handleFeedBack.bind(that,id,resumeId)}>填写反馈</Button>
           ]
         }

@@ -68,7 +68,7 @@ class FeedForm extends Component {
 		}
 	}
 	renderTimeType(){
-		const {id} = this.props
+		const {id,feedItem} = this.props
 		const sendOption = [
 			{
 				label: "立即发送",

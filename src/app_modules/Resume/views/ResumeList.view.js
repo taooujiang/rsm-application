@@ -256,16 +256,16 @@ export default class ResumeListView extends PageView {
 				dataIndex: "originalWay",
 				width: 200,
 				render: (val, row) => {
-					let {isChangeDate, interviewLevel, interviewStatus} = row
+					let { interviewLevel, interviewStatus} = row
 					return (<div>
-						{
+						{/*
 							isChangeDate
 								? <Tag style={{
 											padding: "1px 3px",
 											marginBottom: 5
 										}}><Icon type="icon-shijiantiaozheng"/>时间调整</Tag>
 								: null
-						}
+						*/}
 						<InterviewType item={row} resume={true}/>
 					</div>)
 				}

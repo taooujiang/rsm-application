@@ -47,7 +47,7 @@ export default class ResumeSide extends Component{
     let {params} = this.props
     //console.log("val",this.state.val)
     return (<AdvancedSearchPanel setResetForm = {this.setResetForm.bind(this)} filterSubmitHandler={this.handleFilter.bind(this)} module="1">
-      <Select label="应聘职位" name="jobId" fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption}></Select>
+      <Select label="应聘职位" name="jobId" showSearch fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption}></Select>
       <Input name="name" label="姓名" placeholder="请输入姓名"/>
       <TreeSelectPicker
         label="招聘部门"

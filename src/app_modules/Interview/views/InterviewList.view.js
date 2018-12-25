@@ -212,7 +212,7 @@ export default class InterviewListView extends PageView {
 
   handleChangeFeed(item){
     let {actions,router} = this.props
-    console.log(111111,item,item)
+    // console.log(111111,item,item)
     /*分两个item传入  第一个面试中要用item的email 和mobilephone 第二个为面试信息*/
     actions.feedAction(router,item,item,item.resumeId)
   }
