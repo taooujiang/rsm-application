@@ -79,7 +79,9 @@ class FeedbackType extends Component {
 
 	renderWhichType() {
 		let {type, dataSource} = this.props
-		return dataSource.map((it, idx) => {
+		return dataSource.sort((a,b)=>{
+			return a.sort - b.sort
+		}).map((it, idx) => {
 			console.log(it)
 			if (type == 1) {
 				return (<li className="question-item">
