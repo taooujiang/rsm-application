@@ -13,11 +13,11 @@ export default class ActionLog extends PageView {
 
   componentDidMount() {
     const { actions } = this.props
-    actions.actionLogListAction()
+    actions.actionLogListAction({time:[moment().subtract(30,"days").format("YYYY-MM-DD"),moment().format("YYYY-MM-DD")]})
   }
   handleFilter(value) {
     let { time } = value
-    if (time && time.length) time = [value.time[0].format("YYYY-MM-DD"), value.time[1].format("YYYY-DD-MM")]
+    if (time && time.length) time = [moment(value.time[0]).format("YYYY-MM-DD"), moment(value.time[1]).format("YYYY-MM-DD")]
     const { actions,reduce } = this.props
     actions.actionLogListAction({ ...value, time })
   }
@@ -36,8 +36,8 @@ export default class ActionLog extends PageView {
     return (
       <AdvancedSearchForm keysOption={keysOption} filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} autoSubmitForm={true}>
         <CalendarPicker
-          label="统计时间"
-          name="time" />
+          label="操作时间"
+          name="time" defaultValue={[moment().subtract(30,"days"),moment()]} />
         <Input name="operateAccName" label="操作人" />
         {/* todo，option需要后端接口 */}
         <Select name="moduleId" label="操作模块" placeholder="请选择" fetch={`${APP_SERVER}/logUserOperate/getMenuListJson`} renderItem={this.renderModuleSelectOption} style={{ width: '200px' }} />
