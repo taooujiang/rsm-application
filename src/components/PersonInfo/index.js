@@ -3426,8 +3426,11 @@ status 0 1 2 3 4 */
 					actions.delayAction(router, id, type, time)
 				}
 				handleCancleFeed(id) {
-					let {actions} = this.props
-					actions.cancelFeedAction({id: id})
+					let {actions,personInfo} = this.props
+					// console.log(this.props)
+					actions.cancelFeedAction({id: id}).then(()=>{
+						actions.getFeedDataAction({resumeId: personInfo.id})
+					})
 				}
 				handleEditFeed(item, feedItem) {
 					let {actions,router} = this.props
