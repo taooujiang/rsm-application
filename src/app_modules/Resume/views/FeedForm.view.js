@@ -59,9 +59,9 @@ class FeedForm extends Component {
 			flag = feedItem.noticeType
 		}
 
-		if (which == "1") {
+		if (flag == "1") {
 			return (<SmsTemplateLinkage updateFieldValue={updateFieldValue} receiver={item.mobilephone}/>)
-		} else if (which == "2") {
+		} else if (flag == "2") {
 			return (<EmailTemplateLinkage mailSubject="面试通知函" updateFieldValue={updateFieldValue} templateUse="1" mailTo={item.email}/>)
 		} else {
 			return null
@@ -112,7 +112,7 @@ class FeedForm extends Component {
 			}
 		]
 
-		console.log(feedItem)
+		// console.log(feedItem)
 		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
 			<FormItem>
 				<Input type="hidden" name="resumeId" defaultValue={id ? feedItem.resumeId :resumeId}/>
@@ -159,7 +159,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试方式" name="interviewWay" defaultValue={id ? feedItem.interviewWay : null} fetch={DictUtils.getDictByType("interviewWay")} renderItem={this.renderSelectOption}></Select>
+						<Select label="面试方式" name="interviewWay" defaultValue={id ? feedItem.interviewWay+"" : null} fetch={DictUtils.getDictByType("interviewWay")} renderItem={this.renderSelectOption}></Select>
 					</FormItem>
 				</Col>
 				<Col span={24}>
@@ -183,7 +183,7 @@ class FeedForm extends Component {
 				{
 					this.state.time == '1'
 						? <FormItem>
-								<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: 9, minute: 0, second: 0})}/>
+								<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
 							</FormItem>
 						: null
 				}

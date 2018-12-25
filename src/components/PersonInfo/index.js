@@ -509,6 +509,11 @@ status 0 1 2 3 4 */
 					actions.creditAction(router, id)
 				}
 				entryNextStage(status) {
+					let {item:{isOpenOfferAppro,offerStatus},dispatch} = this.props
+					if(isOpenOfferAppro && offerStatus != 1){
+						message.warning("请先完成offer审批")
+						return false
+					}
 					let target = parseInt(status) + 1
 					this.resumeUpgrading(target)
 				}
@@ -621,7 +626,8 @@ status 0 1 2 3 4 */
 			class OptionButtonsResume extends OptionCommonFn {
 
 				renderButtons() {
-					let {status} = this.props
+					let {status,item:{offerStatus,isOpenOfferAppro}} = this.props
+					//console.log('是不是真的',isOpenOfferAppro,offerStatus,status)
 					const menu = (<Menu className="ant-button-menu" onClick={this.entry2Stage.bind(this)}>
 						<Menu.Item key="1">
 							<Button disabled={status < 1
@@ -635,13 +641,15 @@ status 0 1 2 3 4 */
 							<Button type="ghost">offer</Button>
 						</Menu.Item>
 						<Menu.Item key="4">
-							<Button type="ghost">待入职</Button>
+							{/*待入职状态是否打开 * 1 审核未开启 则打开  * 2 审核开启并且当前为offer阶段并且offerstatus不为未发送***/}
+							<Button disabled={!(!isOpenOfferAppro || (isOpenOfferAppro && status == 3 && offerStatus != 1))} type="ghost">待入职</Button>
 						</Menu.Item>
 					</Menu>)
-					return [
+
+					return status == 4 ?[
 						<Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>,
 						<Button className="block" onClick={this.entryJob.bind(this)}>入职</Button>
-					]
+					] : <Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>
 				}
 				renderRecommender() {
 					let {
@@ -2660,6 +2668,17 @@ status 0 1 2 3 4 */
 						editFlag:false
 					}
 				}
+				static childContextTypes = {
+			    actions: PropTypes.object
+			  }
+
+			  getChildContext(){
+			     let { actions } =this.props;
+			     return {
+			        actions:actions
+			     };
+			  }
+
 				componentWillMount() {
 					let {info} = this.props
 					//console.log(info)
@@ -2734,7 +2753,6 @@ status 0 1 2 3 4 */
 						open: false
 					}
 				}
-				sendOffer() {}
 				renderSalary() {
 					let {
 						info: {
@@ -2825,10 +2843,14 @@ status 0 1 2 3 4 */
 				state = {
 					time: "1"
 				}
+				static contextTypes = {
+					actions: PropTypes.object
+				}
 				handleChangeTime(e) {
 					this.setState({time: e.target.value})
 				}
 				sendOffer() {
+					let {actions} = this.context
 					this.form.validateFieldsAndScroll((err, values) => {
 						if (err) {
 							return;
@@ -2849,7 +2871,7 @@ status 0 1 2 3 4 */
 					let {time } = this.state
 					return <BaseForm ref={this.saveFormRef}>
 						<FormItem>
-							<Input type="hidden" name="id" defaultValue={this.props.id}/>
+							<Input type="hidden" name="offerId" defaultValue={this.props.id}/>
 						</FormItem>
 						<FormItem>
 							<RadioGroup name="sendType" label="通知时间" options={timeOpt} onChange={this.handleChangeTime.bind(this)} defaultValue={time}/>
@@ -2956,7 +2978,7 @@ status 0 1 2 3 4 */
 					this.setState({time: e.target.value})
 				}
 				renderAreaOption(data, idx) {
-					return (<Select.Option value={data.addressAll} key={idx}>{data.addressAll}</Select.Option>)
+					return (<Select.Option value={data.area + data.address} key={idx}>{data.addressAll}</Select.Option>)
 				}
 				renderSelectOption(data, idx) {
 					return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
