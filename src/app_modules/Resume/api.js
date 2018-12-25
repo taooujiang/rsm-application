@@ -216,6 +216,11 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  fetcEntry(params) {
+    return this.fetchPost(`${APP_SERVER}/entry/candidateEntry`, {
+      body: params
+    })
+  }
   fetchCom(params) {
     return this.fetchGet(`${APP_SERVER}/callrecord/queryByResumeId`, {
       body: params

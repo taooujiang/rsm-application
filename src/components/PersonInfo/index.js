@@ -394,7 +394,7 @@ status 0 1 2 3 4 */
 						return <OptionButtonOfferJudge {...this.props}/>
 					}
 					// console.log(defined7,item,"skldfjklsdkljf")
-					if (defined7 == 0 && defined7 != "") {
+					if (defined7 === 0) {
 						return <OptionButtonsCreditShare {...this.props}/>
 					}
 					/* 下面分别为简历人才待分配诚信 不分先后type */
@@ -561,27 +561,29 @@ status 0 1 2 3 4 */
 					})
 				}
 				entryJob() {
-					let {actions, router, dispatch, item: {
-							id
-						}, orginJson} = this.props
-					let params = {
-						ids: [id]
-					}
-					let newLocation = {
-						pathname: orginJson.nextPath,
-						state: {
-							orgin: orginJson.orgin
-						}
-					}
-					if (orginJson.nextPath.indexOf('/detail') < 0) {
-						newLocation.state = Object.assign({}, newLocation.state, {
-							key: "reload",
-							listRefresh: true
-						})
-					}
-					actions.entryJobAction(params, orginJson.viewLibType).then(() => {
-						dispatch(routerActions.push(newLocation))
-					})
+					let {actions, router, dispatch, item, orginJson} = this.props
+						/*old*/
+					// let params = {
+					// 	ids: [id]
+					// }
+					// let newLocation = {
+					// 	pathname: orginJson.nextPath,
+					// 	state: {
+					// 		orgin: orginJson.orgin
+					// 	}
+					// }
+					// if (orginJson.nextPath.indexOf('/detail') < 0) {
+					// 	newLocation.state = Object.assign({}, newLocation.state, {
+					// 		key: "reload",
+					// 		listRefresh: true
+					// 	})
+					// }
+					// actions.entryJobAction(params, orginJson.viewLibType).then(() => {
+					// 	dispatch(routerActions.push(newLocation))
+					// })
+
+					/*new*/
+					actions.entryInfoAction(router,item.id,item)
 				}
 				relateJob() {
 					let {actions, router, item: {

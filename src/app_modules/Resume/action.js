@@ -123,7 +123,8 @@ let {
   deleteAction,
   joinAction,
   openRejectAppro,
-  recoAction
+  recoAction,
+  entryInfoAction
 } = createResumeRoute()
 export {
   feedAction,
@@ -143,7 +144,8 @@ export {
   deleteAction,
   joinAction,
   openRejectAppro,
-  recoAction
+  recoAction,
+  entryInfoAction
 }
 
 export {
@@ -724,7 +726,16 @@ export function entryWaiting(value) {
   }
 }
 
-
+export function entryFormAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('itemSpin'))
+    return new API().fetcEntry(value).then(json => {
+      dispatch(fetchSuccess('itemSpin', true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('itemSpin', ex))
+    })
+  }
+}
 
 export function getCurrentLabelAction(value) {
   return (dispatch, getState) => {

@@ -10,13 +10,7 @@ import moment from "moment";
 
 @NestedComponent()
 export default class ActionLog extends PageView {
-  renderToolbar() {
-    return (
-      <ButtonGroups >
-        <Button type="primary" permission="company" actionkey="add">添加</Button>
-      </ButtonGroups>
-    )
-  }
+
   componentDidMount() {
     const { actions } = this.props
     actions.actionLogListAction()
@@ -77,7 +71,7 @@ export default class ActionLog extends PageView {
         key: 'operateAccName',
 
       }, {
-        title: "账号",
+        title: "帐号",
         width: 100,
         dataIndex: 'operateAcc',
         key: 'operateAcc',
@@ -110,7 +104,7 @@ export default class ActionLog extends PageView {
   render() {
 
     return (
-      <Card title={<div><h3 className="card-title">操作日志</h3></div>} extra={this.renderToolbar()}	>
+      <Card title={<div><h3 className="card-title">操作日志</h3></div>}	>
         {this.renderSearchBar()}
         {this.renderTable()}
       </Card>

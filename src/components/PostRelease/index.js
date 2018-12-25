@@ -381,7 +381,7 @@ export class BaseInfo extends Component {
 			: null
 	}
 	renderWhich() {
-		console.log(this.state,this.props.edit)
+		// console.log(this.state,this.props.edit)
 		return this.state.flag
 			?  this.renderInfo()
 			: this.renderEdit()
@@ -478,12 +478,12 @@ class ChannelAdJobRule extends Component {
 		let {item,item: {
 				isWebsite
 			}} = this.props
-		// console.log(isWebsite)
+		console.log(isWebsite == 1)
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<BaseInfoItem label="发布到内推官网" info={<span > {
 					item
-						? <Switch defaultCheck={isWebsite == 1} onChange={this.changeCheck.bind(this)}/>
+						? <Switch defaultChecked={isWebsite == 1} onChange={this.changeCheck.bind(this)}/>
 						: null
 				}<div>请到遇仁公证号中查看内推职位</div>
 			</span>
@@ -749,6 +749,7 @@ export default class PostRelease extends Component {
 		let {
 			item,
 			item: {
+				status,
 				jobFeedbackList,
 				isOffer,
 				isInterviewScale

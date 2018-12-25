@@ -13,6 +13,7 @@ import {
   Input,
   Form,
   DatePicker,
+  Checkbox,
   Layout,
   Spin,
   Rate,
@@ -21,14 +22,20 @@ import {
 import {TreeSelectPicker} from 'app/components/TreeView'
 import {routerActions, push, replace} from 'react-router-redux'
 import {FormPage} from 'app/components/Page'
-import BaseForm,{FormItem} from 'app/components/BaseForm'
+import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import moment from 'moment'
 const Option = Select.Option
 const {TextArea} = Input
 
 class EntryForm extends Component{
-  renderJobOption(data,idx){
-    return (<Select.Option value={data.jobId} key={idx}>{data.jobTitle}</Select.Option>)
+  state = {
+    checked:false
+  }
+  handleChange(e){
+
+    this.setState({
+      checked:e.target.checked
+    })
   }
   render() {
     const {
@@ -37,30 +44,42 @@ class EntryForm extends Component{
       children,
       saveFormRef,
       id,
+      item,
+      item:{
+        resumes,
+        orgId
+      }
     } = this.props
+    let {checked} = this.state
+    let jobTitle = resumes.filter(it=>it.isCurrentResume == 1).pop().jobTitle
+    // console.log(checked)
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>
           <Input type="hidden" name="id" defaultValue={id} />
         </FormItem>
         <FormItem>
-          <Select name="jobId" label="职位" placeholder="请选择"  fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption}/>
+          <Input name="jobTitle" label="入职职位" defaultValue={jobTitle} rules={[{required:true,message:"入职职位不可为空"},{validator:customRules.required}]}/>
         </FormItem>
         <FormItem>
         <TreeSelectPicker
-          label="招聘部门"
-          name="groupId"
+          label="入职部门"
+          name="deptId"
           fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
           dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
           placeholder="选择部门"
+          rules={[{required:true,message:"入职部门不可为空"}]}
           treeDefaultExpandAll
         />
         </FormItem>
         <FormItem>
-          <DatePicker label="入职日期" name="expectedEntryTime"   rules={[{required: true, message: "入职日期不可为空"}]}/>
+          <DatePicker label="入职日期" name="joinTime" defaultValue={moment()} rules={[{required: true, message: "入职日期不可为空"}]}/>
         </FormItem>
         <FormItem>
-          <DatePicker label="预计转正日期" name="expectedEntryTime"   rules={[{required: true, message: "预计转正日期不可为空"}]}/>
+          <DatePicker label="预计转正日期" name="conversionTime" defaultValue={moment().add(3,"months")} disabled={checked} rules={[{required: true, message: "预计转正日期不可为空"}]}/>
+        </FormItem>
+        <FormItem>
+          <Checkbox label="实习" name="internship" defaultChecked={checked} onChange={this.handleChange.bind(this)}/>
         </FormItem>
       </BaseForm>
     )
@@ -72,17 +91,16 @@ export default class EntryFormView extends FormPage{
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router,dispatch,location} = this.props
-
-      actions.entryWaiting(values).then(()=>{
-        actions.backRouteReload(router,location)
-      })
+    actions.entryFormAction(values).then(()=>{
+      actions.backRouteReload(router,location)
+    })
   }
   render() {
-    let {location:{state:{id}}} = this.props
+    let {location:{state:{id,item}}} = this.props
 
     return (
       <Spin tip="Loading..." spinning={false}>
-        <EntryForm handleSubmit={this.handleSubmit}  saveFormRef={this.saveFormRef} id={id}>
+        <EntryForm handleSubmit={this.handleSubmit}  saveFormRef={this.saveFormRef} id={id} item={item}>
             <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)}>确认</Button>
             <Button>取消</Button>
         </EntryForm>

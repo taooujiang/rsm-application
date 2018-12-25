@@ -66,7 +66,7 @@ export default class Share extends FormPage {
     if (suffix == "jpg" || suffix == "png" || suffix == "jpeg") {
       return true
     } else {
-      message.warning("只能上传图片文件")
+      message.warning("请上传JPG、PNG、JPEG格式图片")
       return false
     }
   }
