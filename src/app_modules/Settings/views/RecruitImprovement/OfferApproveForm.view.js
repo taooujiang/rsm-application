@@ -7,6 +7,7 @@ import BaseForm, { FormItem, customRules } from "components/BaseForm";
 import { FormPage } from "app/components/Page";
 import { fechAvailableAccount } from '../../api'
 // Array.prototype OfferApproveSelector
+import './style.less'
 const Option = Select.Option
 @WrapperComponent(ModalView)
 export default class OfferApproveForm extends FormPage {
@@ -78,12 +79,13 @@ export default class OfferApproveForm extends FormPage {
             name="name"
             placeholder={"请输入"}
             defaultValue={item.name}
-            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true },{validator: customRules.required}]}
+            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
           />
         </FormItem>
 
-        <FormItem style={{ padding: '0' }}>
-          <OfferApproveSelector defaultValue={item.stageList ? item.stageList : [{ stage: 1, approvalAccount: '' }]}
+        <FormItem >
+          <OfferApproveSelector label="流程阶段"
+            defaultValue={item.stageList ? item.stageList : [{ stage: 1, approvalAccount: '' }]}
             name="stageList" getSubForm={this.getSubForm.bind(this)} selectList={this.state.accSelectList} />
         </FormItem>
       </BaseForm>
@@ -120,10 +122,12 @@ class OfferApproveSelector extends FormPage {
   }
   handleAddStage() {
     let { stageList } = this.state
-    if (stageList.length >= 3) return message.warn('最多添加三个流程')
+    // if (stageList.length >= 3) return message.warn('最多添加三个流程')
     stageList.push({ stage: stageList.length + 1, approvalAccount: '' })
     this.setState({
       stageList
+    }, () => {
+      this.props.onChange(stageList)
     })
   }
   handleAccChange(index, val) {
@@ -141,7 +145,7 @@ class OfferApproveSelector extends FormPage {
     this.setState({
       stageList
     }, () => {
-      this.onSubmit.call(this)
+      this.props.onChange(stageList)
     })
   }
   render() {
@@ -152,8 +156,7 @@ class OfferApproveSelector extends FormPage {
       3: "三级审批",
     }
     return (
-      <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
-        流程阶段<Icon onClick={this.handleAddStage.bind(this)} type="plus" />
+      <BaseForm className="offerapproveform-subform" onSubmit={onSubmit} ref={this.saveFormRef}>
         {
           this.state.stageList.map((e, index) => {
             return (
@@ -164,15 +167,19 @@ class OfferApproveSelector extends FormPage {
                     showSearch
                     optionFilterProp="children"
                     defaultValue={e.approvalAccount}
-                    rules={[{ required: true, message: `不可为空`, },{validator: customRules.required}]}
+                    rules={[{ required: true, message: `不可为空`, }, { validator: customRules.required }]}
                     onChange={this.handleAccChange.bind(this, index)}
                     fetch={selectList} renderItem={this.renderSelectOption.bind(this)} />
                 </FormItem>
-                {index + 1 == this.state.stageList.length && index != 0 ? <Icon onClick={this.handleDeleteQuestion.bind(this, e.stage)} className="offerapprove-delete-icon" type="delete" /> : null}
+                {index + 1 == this.state.stageList.length && index != 0 ? <Icon onClick={this.handleDeleteQuestion.bind(this, e.stage)} className="offerapprove-delete-icon" type="close-circle" /> : null}
+
               </div>
             )
           })
         }
+        {this.state.stageList.length > 2 ? null : <div className="offerapproveform-addbtn-group" onClick={this.handleAddStage.bind(this)}>
+          <span className="offerapproveform-addbtn">添加</span>
+        </div>}
       </BaseForm>
     );
   }
