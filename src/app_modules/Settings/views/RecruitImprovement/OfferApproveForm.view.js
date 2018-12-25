@@ -124,6 +124,8 @@ class OfferApproveSelector extends FormPage {
     stageList.push({ stage: stageList.length + 1, approvalAccount: '' })
     this.setState({
       stageList
+    },()=>{
+      this.props.onChange(stageList)
     })
   }
   handleAccChange(index, val) {
