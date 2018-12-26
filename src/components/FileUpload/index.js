@@ -65,7 +65,7 @@ export class ImgUpload extends FileUpload{
     }
 
     render(){
-        let { type ,beforeUpload,btnText,accept,tipText,imgWidth } = this.props
+        let { type ,beforeUpload,btnText,accept,tipText,imgWidth ,disabled} = this.props
         let {imgUrl} = this.state
         const uploadButton = (
             <Button><Icon type="link"/>{btnText}</Button>
@@ -73,7 +73,7 @@ export class ImgUpload extends FileUpload{
         return(
           <Upload name="file"
             accept={accept}
-            showUploadList={false} beforeUpload={beforeUpload} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+            showUploadList={false} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
             {imgUrl ? <img src={imgUrl} width={imgWidth} alt="" /> : uploadButton}
             {tipText ? <p>{tipText}</p> : null}
           </Upload>
@@ -105,5 +105,6 @@ ImgUpload.defaultProps = {
     onResponse:function(){},
     type:2,
     btnText:"上传头像",
-    beforeUpload:()=>{}
+    beforeUpload:()=>{},
+    disabled:false
 }

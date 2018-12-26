@@ -29,9 +29,14 @@ export default class ResumeImportView extends FormPage {
 
   constructor(props) {
     super(props);
+    this.state= {
+      disabled:false
+    }
   }
   fileUploadSuccess(){
-
+    this.setState({
+      disabled:false
+    })
   }
   fileUploadResponse(res){
     return res.id
@@ -41,6 +46,9 @@ export default class ResumeImportView extends FormPage {
     let suffix = name.split(".").pop().toLocaleLowerCase()
     /*①　用户可以上传doc、PDF、jpg、png、JPEG格式的简历；*/
     if (suffix == "jpg" || suffix == "png" || suffix == "jpeg" || suffix == "pdf" || suffix == "doc" || suffix == "docx") {
+      this.setState({
+        disabled:true
+      })
       return true
     } else {
       message.warning("只能上传doc、PDF、jpg、png、JPEG格式的简历")
@@ -67,17 +75,18 @@ export default class ResumeImportView extends FormPage {
     return (<Select.Option value={it.jobId} key={idx}>{it.jobTitle}</Select.Option>)
   }
   renderRefferOption(data, idx) {
-		return (< Select.Option value = {data.id} key = {idx} > {data.name} < /Select.Option>)
+		return (< Select.Option value = {data.id} key = {idx} > {`${data.name}(${data.mobilephone})`} < /Select.Option>)
   }
 
   render() {
     let {children} = this.props
+    let {disabled} = this.state
       return (
         <BaseForm ref={this.saveFormRef} className="resume-import-form">
           <Layout direction='rows' className="resume-import">
               <Pane className="fileUploadArea">
                 <FormItem className="fileUploadItem">
-                  <ImgUpload type={6} name="sourceFileId" btnText="点击上传候选人简历" beforeUpload={this.beforeUpload} onResponse={this.fileUploadResponse} onSuccess={this.fileUploadSuccess}></ImgUpload>
+                  <ImgUpload type={6} name="sourceFileId" btnText="点击上传候选人简历" disabled={disabled} beforeUpload={this.beforeUpload.bind(this)} onResponse={this.fileUploadResponse} onSuccess={this.fileUploadSuccess.bind(this)}></ImgUpload>
                 </FormItem>
             </Pane>
               <Fixed style={{width:500}}>
