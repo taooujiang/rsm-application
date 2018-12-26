@@ -130,7 +130,7 @@ export default class MemberInterpolDetail extends Component {
         1: '积分奖励',
         2: '现金奖励'
       }
-      titleText = `内推${`【${awardJob}】`}${awardStage}${titleMapper[awardType]}`
+      titleText = `内推${awardJob ? `【${awardJob}】` : ''}${awardStage}${titleMapper[awardType]}`
     }
     const iconTypeMapper = {
       1: { icon: 'gift', color: '#fe8155' },
