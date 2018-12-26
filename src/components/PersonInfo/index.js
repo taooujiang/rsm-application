@@ -511,7 +511,7 @@ status 0 1 2 3 4 */
 				}
 				entryNextStage(status) {
 					let {item:{isOpenOfferAppro,offerStatus},dispatch} = this.props
-					if(isOpenOfferAppro && offerStatus != 1){
+					if(isOpenOfferAppro && offerStatus != 1 && status == 3){
 						message.warning("请先完成offer审批")
 						return false
 					}
@@ -614,7 +614,7 @@ status 0 1 2 3 4 */
 						case 2:
 							status > 2
 								? actions.offerbackEntryfeedAction(data)
-								: actions.feedAction(router, item)
+								: actions.feedAction(router, item,{})
 							break;
 						case 3:
 							status > 3
@@ -1239,7 +1239,11 @@ status 0 1 2 3 4 */
 				}
 				urlIsHtml(url) {
 					let urlTarget = url
-					return urlTarget.split(".").pop() == "html"
+					if(urlTarget){
+						return  urlTarget.split(".").pop() == "html"
+					}else{
+						return false
+					}
 				}
 				render() {
 					let {info, actions, id, detailType, item} = this.props
@@ -1369,10 +1373,8 @@ status 0 1 2 3 4 */
 					global.invokeMethod('OnCallJson', callOutJsonStr)
 				}
 				renderContact() {
-					let {info, id, detailType, item: {
-							downloadStatus
-						}} = this.props
-					if (downloadStatus) {
+					let {info, id, detailType, item} = this.props
+					if (item && item.downloadStatus || detailType == 10) {
 						return <div className="contactInfo">
 							{
 								info.mobilephone
@@ -2991,6 +2993,7 @@ status 0 1 2 3 4 */
 						}
 						actions.offerOptionAction(values,isOpenOfferAppro).then(()=>{
 							actions.itemAction({id:item.id,viewLibType:viewLibType})
+							actions.getOfferAction({resumeId:item.id})
 						})
 					});
 				}

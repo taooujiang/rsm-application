@@ -102,7 +102,7 @@ export default class UserRightView extends PageView {
     const { appReducer: { user: { account } } } = this.props
     let tableConf = {
       loading: tableSpin,
-      rowKey: "account",
+      rowKey: "userId",
       dataSource: items,
       onChange: this.onChange.bind(this),
       // title:()=>{

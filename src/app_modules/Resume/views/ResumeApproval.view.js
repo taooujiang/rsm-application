@@ -156,13 +156,13 @@ export default class ResumeApprovalView extends PageView {
 				width: 150
 			}, {
 				title: "招聘负责人",
-				key: "manage",
-				dataIndex: "manage",
+				key: "hrName",
+				dataIndex: "hrName",
 				width: 150
 			}, {
 				title: "offer审批发起时间",
-				key: "offertime",
-				dataIndex: "offertime",
+				key: "inputTime",
+				dataIndex: "inputTime",
 				width: 120
 			}
 		]
@@ -175,7 +175,7 @@ export default class ResumeApprovalView extends PageView {
 				render:(val)=>{
 					/*0 待审批 1 通过 2 驳回*/
 					/*只有已审批才有该选项 所以只有1 2 两个选项*/
-					return val == 1 ? "通过" : "驳回"
+					return val == 1 ? "已通过" : "未通过"
 				}
 			})
 		}

@@ -32,7 +32,6 @@ class EntryForm extends Component{
     checked:false
   }
   handleChange(e){
-
     this.setState({
       checked:e.target.checked
     })
@@ -56,7 +55,7 @@ class EntryForm extends Component{
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>
-          <Input type="hidden" name="id" defaultValue={id} />
+          <Input type="hidden" name="resumeId" defaultValue={id} />
         </FormItem>
         <FormItem>
           <Input name="jobTitle" label="入职职位" defaultValue={jobTitle} rules={[{required:true,message:"入职职位不可为空"},{validator:customRules.required}]}/>
@@ -91,6 +90,9 @@ export default class EntryFormView extends FormPage{
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router,dispatch,location} = this.props
+    if(!values.internship){
+      values.internship = false
+    }
     actions.entryFormAction(values).then(()=>{
       actions.backRouteReload(router,location)
     })

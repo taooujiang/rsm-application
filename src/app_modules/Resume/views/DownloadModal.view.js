@@ -35,6 +35,7 @@ class DownloadForm extends Component {
 
 	renderSelectRadio(data) {
 		if (data.ok) {
+			console.log(data,"render")
 			if (data.payType && data.payType.length > 0) {
 				return data.payType.map((it, idx) => {
 					return <Radio value={it.type}>
@@ -86,6 +87,7 @@ export default class ResumeDownload extends FormPage {
 		JsToPython(params)
 		emitter.on("download_confrim", function(value) {
 			if (value.ok) {
+				console.log(value,"emiter_console",that)
 				that.setState({pythonData: value, spinFlag: false})
 			} else {
 				message.info(value.msg, 5)

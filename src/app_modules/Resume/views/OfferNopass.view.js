@@ -22,7 +22,7 @@ import {
 } from 'antd'
 import moment from 'moment'
 import {FormPage} from 'app/components/Page'
-import BaseForm,{FormItem} from 'app/components/BaseForm'
+import BaseForm,{FormItem,customRules } from 'app/components/BaseForm'
 import  FetchAPI from 'app/utils/FetchAPI'
 const Option = Select.Option
 const {TextArea} = Input

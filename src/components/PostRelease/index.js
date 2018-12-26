@@ -377,7 +377,7 @@ export class BaseInfo extends Component {
 	renderEdit() {
 		let {item} = this.props
 		return item
-			? <BaseInfoEdit {...this.props} handleSubmit={this.saveJob} switchFn={this.switchFlag.bind(this)}/>
+			? <BaseInfoEdit {...this.props} switchFn={this.switchFlag.bind(this)}/>
 			: null
 	}
 	renderWhich() {

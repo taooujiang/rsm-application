@@ -55,6 +55,7 @@ class FeedForm extends Component {
 		const {updateFieldValue, item,id,feedItem} = this.props
 		let {which} = this.state
 		let flag = which
+		console.log(feedItem)
 		if(id){
 			flag = feedItem.noticeType
 		}
@@ -91,7 +92,7 @@ class FeedForm extends Component {
 							<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
 						</FormItem>,
 					<FormItem>
-						<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment().add(1, "days")} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
+						<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment()} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
 					</FormItem>]
 				: <FormItem>
 						<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
