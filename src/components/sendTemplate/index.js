@@ -131,8 +131,8 @@ export default class EmailTemplateLinkage extends Component {
 							</Remote>)
 							: (<Remote url="">
 								<div style={{
-										paddingLeft: '25%',
-										lineHeight: '39px'
+										paddingLeft: '100px',
+										margin: '-8px 0 12px 0'
 									}}>
 									<span style={{
 											color: 'red'

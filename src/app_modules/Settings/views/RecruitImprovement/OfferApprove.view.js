@@ -96,7 +96,7 @@ export default class OfferApprove extends PageView {
     let { actions, reduce, items, router } = this.props
 
     return (
-      <Card title={<div><h3 className="card-title">Offer审批设置</h3></div>} extra={this.renderToolbar()}	>
+      <Card className="offer-approval-setting" title={<div><h3 className="card-title">Offer审批设置</h3></div>} extra={this.renderToolbar()}	>
         {this.renderTableList(items)}
       </Card>
     )

@@ -16,7 +16,7 @@ export default class User extends BaseModel {
   static modelName = 'User'
 }
 User.options = {
-	idAttribute: 'userId',
+	idAttribute: 'account',
 }
 Object.assign(User.fields,BaseModel.fields,{
   userId:attr(),

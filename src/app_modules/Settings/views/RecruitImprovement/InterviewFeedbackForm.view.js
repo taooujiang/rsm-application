@@ -7,6 +7,10 @@ import { FormPage } from "app/components/Page";
 import { fechAvailableAccount } from '../../api'
 import './style.less'
 // Array.prototype OfferApproveSelector
+
+function replaceWhitespace(str){
+  return str.replace(" ","")
+}
 const Option = Select.Option
 @WrapperComponent(ModalView)
 export default class InterviewFeedbackForm extends FormPage {
@@ -23,9 +27,9 @@ export default class InterviewFeedbackForm extends FormPage {
     let flag = false
     if (this.state.type == 1) {
       // 选择题检测ABCD四项是否填写
-      flag = values.questionList.length && values.questionList.every(e => e.question && e.optionA && e.optionB && e.optionC && e.optionD)
+      flag = values.questionList.length && values.questionList.every(e => replaceWhitespace(e.question) && replaceWhitespace(e.optionA) && replaceWhitespace(e.optionB) && replaceWhitespace(e.optionC) && replaceWhitespace(e.optionD))
     } else {
-      flag = values.questionList.length && values.questionList.every(e => e.question)
+      flag = values.questionList.length && values.questionList.every(e => replaceWhitespace(e.question))
     }
     if (!flag) {
       return void 0
@@ -64,7 +68,7 @@ export default class InterviewFeedbackForm extends FormPage {
             name="name"
             placeholder={"请输入模板名称"}
             defaultValue={item.name}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空` }, { validator: customRules.required }]}
           />
         </FormItem>
         <FormItem>
@@ -177,7 +181,7 @@ class QuestionForm extends FormPage {
   }
   renderQuestionList() {
     const { type } = this.props
-    const fieldsRules = [{ required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]
+    const fieldsRules = [{ required: true, message: `不可为空` }, { validator: customRules.required }]
     if (type == 1) {
       return this.state.questionList.map((e, index) => (
         [<div key={e.id || e.key} className="interview-template-question" >
@@ -188,7 +192,7 @@ class QuestionForm extends FormPage {
               onChange={this.handleInputChange.bind(this, 'question', index)}
               defaultValue={e.question}
               placeholder={"请输入"}
-              rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
+              rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`}, { validator: customRules.required }]}
             />
           </FormItem>
           {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1)} className="interview-template-delete-icon" type="delete" />}
@@ -254,7 +258,7 @@ class QuestionForm extends FormPage {
             name={`question${index}${type}`}
             defaultValue={e.question}
             placeholder={"请输入"}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { required: true, message: `不可为空`}, { validator: customRules.required }]}
           />
         </FormItem>
         {this.state.questionList.length == 1 ? null : <Icon onClick={this.handleDeleteQuestion.bind(this, index + 1, e.id)} className="interview-template-delete-icon" type="delete" />}

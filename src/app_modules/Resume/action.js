@@ -661,10 +661,11 @@ export function entryInvite(value) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchInvite(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(saveItem(data))
+      // dispatch(saveItem(data))
       dispatch(getOptionAction({
         resumeId: value.id
       }))
+      dispatch(itemAction({id:value.id}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -680,10 +681,11 @@ export function entryOffer(value) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchEntryOffer(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(saveItem(data))
+      // dispatch(saveItem(data))
       dispatch(getOptionAction({
         resumeId: value.id
       }))
+      dispatch(itemAction({id:value.id}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -699,8 +701,8 @@ export function backEntryOffer(value) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchBackEntryOffer(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(saveItem(data))
-      // dispatch(getOptionAction({resumeId:value.id}))
+      // dispatch(saveItem(data))
+      dispatch(itemAction({id:value.id}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -1025,7 +1027,7 @@ export function cancelFeedAction(values) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchCancelFeed(values).then(json => {
-      dispatch(fetchSuccess('formSpin', true))
+      dispatch(fetchSuccess('formSpin', true,"取消成功"))
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin', ex))
     })

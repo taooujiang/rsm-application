@@ -46,7 +46,7 @@ class FeedForm extends Component {
 		return (<Select.Option value={data.jobId} key={"Job" + idx}>{data.jobTitle}</Select.Option>)
 	}
 	renderAreaOption(data, idx) {
-		return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
+		return (<Select.Option value={data.addressAll} key={idx}>{data.addressAll}</Select.Option>)
 	}
 	renderInterviewerOption(data, idx) {
 		return (<Select.Option value={data.account} key={"Interviewer" + idx}>{data.name}</Select.Option>)
@@ -105,6 +105,9 @@ class FeedForm extends Component {
 	handleChangeTime(e) {
 		this.setState({time: e.target.value})
 	}
+	handleChange(val){
+		console.log(val)
+	}
 
 	render() {
 		let {
@@ -144,6 +147,9 @@ class FeedForm extends Component {
 			</FormItem>
 			<FormItem>
 				<Input type="hidden" name="id" defaultValue={id}/>
+			</FormItem>
+			<FormItem>
+				<Input type="hidden" name="companyAddress1" defaultValue={id}/>
 			</FormItem>
 			<Row>
 				<Col span={24}>
@@ -186,7 +192,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试地址" name="companyId" defaultValue={id ? feedItem.companyId : null} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
+						<Select label="面试地址" name="companyName" defaultValue={id ? feedItem.companyName : null} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} onChange={this.handleChange.bind(this)}></Select>
 					</FormItem>
 				</Col>
 			</Row>
@@ -194,7 +200,7 @@ class FeedForm extends Component {
 				<FormItem>
 					<RadioGroup name="noticeType" label="通知候选人" options={options} onChange={this.handleChange.bind(this)} defaultValue={id ? feedItem.noticeType+"" : this.state.which}/>
 				</FormItem>
-				<span style={{display:"block",margin:"-15px 0 12px 100px"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
+				<span style={{display:"block",margin:"-15px 0 12px 100px",color:"#bfbfbf"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
 				{this.renderSmsOrEmail()}
 				{this.renderTimeType()}
 			</Row>
@@ -246,11 +252,17 @@ export default class FeedFormView extends FormPage {
 			}
 		} = this.props
 		var object = {}
-		let interviewTime
+		let interviewTime,interviewWay,companyName
 		// let {name, jobTitle} = interviewInfo
 		let {name, jobTitle} = item
 		if (this.form.getFieldValue("interviewTime")) {
 			interviewTime = this.form.getFieldValue("interviewTime").format("YYYY-MM-DD HH:mm")
+		}
+		if (this.form.getFieldValue("interviewWay")) {
+			interviewWay = DictUtils.getDictLabelByValue("interviewWay",this.form.getFieldValue("interviewWay"))
+		}
+		if (this.form.getFieldValue("companyName")) {
+			companyName = this.form.getFieldValue("companyName")
 		}
 		let translate = [
 			{
@@ -259,6 +271,10 @@ export default class FeedFormView extends FormPage {
 				'职位名称': jobTitle
 			}, {
 				'姓名': name
+			},{
+				"面试方式":interviewWay
+			},{
+				"面试地址":companyName
 			}
 		]
 
@@ -266,6 +282,8 @@ export default class FeedFormView extends FormPage {
 			value = value.replace("{面试时间}", interviewTime)
 			value = value.replace("{职位名称}", jobTitle)
 			value = value.replace("{姓名}", name)
+			value = value.replace("{面试方式}", interviewWay)
+			value = value.replace("{地址}", companyName)
 		}
 
 		object[fieldName] = value

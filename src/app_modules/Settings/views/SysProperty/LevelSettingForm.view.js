@@ -102,9 +102,11 @@ export class LevelSettingDeleteForm extends FormPage {
     if (items.length) {
       for (let index = 0; index < items.length; index++) {
         if (item.positionLeavel == items[index].positionLeavel) continue
+        console.log(items)
         let newItem = {
           keyValue: items[index].id,
-          keyName: items[index].positionLeavel + "级"
+          keyName: items[index].positionLeavel + "级",
+          deleteName:items[index].positionName
         }
         exsistLevelArr.push(newItem)
       }
@@ -129,7 +131,7 @@ export class LevelSettingDeleteForm extends FormPage {
     // }
   }
   renderSelectOption(data, idx) {
-    return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
+    return (<Select.Option value={data.keyValue} key={idx}>{data.deleteName}</Select.Option>)
   }
   render() {
     //见FormPage.view.js

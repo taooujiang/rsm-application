@@ -52,13 +52,13 @@ class HandoverForm extends Component {
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
         <FormItem>
-          <Input type="hidden" name="oldAdminAcct" defaultValue={account} />
+          <Input type="hidden" name="oldAcc" defaultValue={account} />
         </FormItem>
         <FormItem>
-          <Select label="选择成员" name="newAdminAcct"
+          <Select label="选择成员" name="newAcc"
             placeholder="请选择交接对象"
             showSearch
-            fetch={`${APP_SERVER}/accountOperate/findAllAdmin`} renderItem={this.renderNewAcc} rules={[{ required: true, message: "交接对象不可为空" }]} />
+            fetch={`${APP_SERVER}/accountOperate/findUserByHrAndAdminEnable`} renderItem={this.renderNewAcc} rules={[{ required: true, message: "交接对象不可为空" }]} />
         </FormItem>
       </BaseForm>
     )

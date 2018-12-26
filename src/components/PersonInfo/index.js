@@ -1080,7 +1080,8 @@ status 0 1 2 3 4 */
 							shareSincerityList
 						}} = this.props
 					return <div className="creditShare-box">
-						<h2>该候选人存在于其他公司的诚信库中</h2>
+						<h3>该候选人存在于其他公司的诚信库中</h3>
+						<h2><Icon type="laptop" />不良事件：</h2>
 						<ul className="credit-tips">
 							{
 								shareSincerityList && shareSincerityList.map((it) => {
@@ -2687,13 +2688,15 @@ status 0 1 2 3 4 */
 					}
 				}
 				static childContextTypes = {
-			    actions: PropTypes.object
+			    actions: PropTypes.object,
+			    resumeId: PropTypes.string
 			  }
 
 			  getChildContext(){
-			     let { actions } =this.props;
+			     let { actions ,resumeId} =this.props;
 			     return {
-			        actions:actions
+			        actions:actions,
+							resumeId:resumeId
 			     };
 			  }
 
@@ -2801,7 +2804,8 @@ status 0 1 2 3 4 */
 					if (reSend) {
 						if (status == 1) {
 							return <Button onClick={this.props.handleEdit} style={{
-									float: "right"
+									float: "right",
+									marginTop:10
 								}}>再发一封</Button>
 						}
 						if (status == 6) {
@@ -2863,18 +2867,23 @@ status 0 1 2 3 4 */
 					time: "1"
 				}
 				static contextTypes = {
-					actions: PropTypes.object
+					actions: PropTypes.object,
+					resumeId:PropTypes.string,
+					viewLibType: PropTypes.number
 				}
 				handleChangeTime(e) {
 					this.setState({time: e.target.value})
 				}
 				sendOffer() {
-					let {actions} = this.context
+					let {actions,resumeId,viewLibType} = this.context
 					this.form.validateFieldsAndScroll((err, values) => {
 						if (err) {
 							return;
 						}
-						actions.offerSendAction(values)
+						actions.offerSendAction(values).then(()=>{
+							actions.itemAction({id:resumeId,viewLibType:viewLibType})
+							actions.getOfferAction({resumeId:resumeId})
+						})
 					});
 				}
 				render() {
@@ -2948,6 +2957,10 @@ status 0 1 2 3 4 */
 					let {item} = this.props
 					//console.log(item)
 					var object = {}
+					let exprctedEntryTime = moment(this.form.getFieldValue("expectedEntryTime")).format("YYYY-MM-DD HH:mm")
+					let salaryType = moneyOpt.filter(it=>it.value == this.form.getFieldValue("salaryType"))
+					let salary = this.form.getFieldValue("salary")
+					let entryAddress = this.form.getFieldValue("entryAddress")
 					let translate = [
 						// {'面试时间':interviewTime},
 						{
@@ -2957,15 +2970,19 @@ status 0 1 2 3 4 */
 						}, {
 							'入职时间': item.expectedEntryTime
 						}, {
-							'所属部门': ''
+							'薪资': salaryType + salary
+						}, {
+							'地址': entryAddress
 						}
 					]
-					let exprctedEntryTime = moment(this.form.getFieldValue("expectedEntryTime")).format("YYYY-MM-DD HH:mm")
+
 					if (value.length) {
 						// value = value.replace("{面试时间}",interviewTime)
 						value = value.replace("{职位名称}", item.jobTitle)
 						value = value.replace("{姓名}", item.name)
 						value = value.replace("{入职时间}", exprctedEntryTime)
+						value = value.replace("{薪资}", salaryType.pop().label + "-" + salary)
+						value = value.replace("{地址}", entryAddress)
 						//value = value.replace("{所属部门}",'')
 					}
 					object[name] = value
@@ -3023,7 +3040,7 @@ status 0 1 2 3 4 */
 							value: '2'
 						}
 					]
-					if (!isOpenOfferAppro) {
+					if (!isOpenOfferAppro && !editFlag) {
 						return <div>
 							<FormItem>
 								<RadioGroup name="sendType" label="通知时间" options={timeOpt} onChange={this.handleChangeTime.bind(this)} defaultValue={time}/>
@@ -3431,9 +3448,18 @@ status 0 1 2 3 4 */
 				handleCancleFeed(id) {
 					let {actions,personInfo} = this.props
 					// console.log(this.props)
-					actions.cancelFeedAction({id: id}).then(()=>{
-						actions.getFeedDataAction({resumeId: personInfo.id})
+					return Modal.confirm({
+						title: '取消面试',
+						content: "是否确定取消该场面试",
+						okText: '确认',
+						onOk:function(){
+							actions.cancelFeedAction({id: id}).then(()=>{
+								actions.getFeedDataAction({resumeId: personInfo.id})
+							})
+						},
+						cancelText: '取消'
 					})
+
 				}
 				handleEditFeed(item, feedItem) {
 					let {actions,router} = this.props
@@ -3441,7 +3467,7 @@ status 0 1 2 3 4 */
 				}
 				renderInterviewList(it, item, resumeId) {
 					let {detailType} = this.props
-					if (item.statusStr != 6 && detailType != 10) {
+					if (item.statusStr != 6 && item.statusStr != 8 && detailType != 10) {
 						return it.isFeedback
 							? <Button onClick={this.handleFeedBack.bind(this, resumeId, it.interviewPlanId, it.interviewerId)}>查看反馈</Button>
 							: <Button onClick={this.handleFeedBack.bind(this, resumeId, it.interviewPlanId, it.interviewerId)}>填写反馈</Button>
@@ -3483,7 +3509,7 @@ status 0 1 2 3 4 */
 							<Button onClick={this.handleEditFeed.bind(this, personInfo, item)}>修改面试</Button>
 							<Button onClick={this.handleCancleFeed.bind(this, item.id)}>取消面试</Button>
 						</ButtonGroup>)
-					} else if (item.isFeedback != 2 && item.statusStr != 6 && !urgeShow) {
+					} else if (item.isFeedback != 2 && item.statusStr != 6 && item.statusStr != 8 && !urgeShow) {
 						return (<ButtonGroup>
 							<Button onClick={this.handleUrge.bind(this, item.id)}>催促反馈</Button>
 						</ButtonGroup>)

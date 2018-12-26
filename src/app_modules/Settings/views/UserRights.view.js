@@ -26,7 +26,7 @@ export default class UserRightView extends PageView {
   }
   componentDidMount() {
     let { actions, router } = this.props;
-    actions.listUserAction()
+    actions.listUserAction({isEnable:1})
   }
 
   componentWillReceiveProps(nextProps){
@@ -77,7 +77,7 @@ export default class UserRightView extends PageView {
       <AdvancedSearchForm keysOption={keysOption} filterSubmitHandler={this.handleFilter.bind(this)} isSearchBtnHide={true} autoSubmitForm={true}>
         <Input name="name" label="姓名" />
         <Select name="roleId" label="角色类别" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderRoleOption} style={{ width: '120px' }} />
-        <Select name="isEnable" label="帐号状态" placeholder="请选择" fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderEnableOption} style={{ width: '120px' }} />
+        <Select name="isEnable" label="帐号状态" placeholder="请选择" defaultValue={1} fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderEnableOption} style={{ width: '120px' }} />
       </AdvancedSearchForm>
     )
   }
@@ -102,7 +102,7 @@ export default class UserRightView extends PageView {
     const { appReducer: { user: { account } } } = this.props
     let tableConf = {
       loading: tableSpin,
-      rowKey: "userId",
+      rowKey: "account",
       dataSource: items,
       onChange: this.onChange.bind(this),
       // title:()=>{
