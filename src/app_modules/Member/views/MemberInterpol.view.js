@@ -40,7 +40,7 @@ const confirm = Modal.confirm;
 export class InterpolSide extends Component {
   handleFilter(values) {
     let { actions } = this.props;
-    actions.listAction(values);
+    actions.interpolListAction(values);
   }
   renderSelectOption(data, idx) {
     return (
