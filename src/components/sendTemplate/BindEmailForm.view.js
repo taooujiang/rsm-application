@@ -54,6 +54,9 @@ class EmailForm extends Component {
 		};
 		// console.log(buttonChanged, content, disabled)
 		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
+			<FormItem>
+				<Input type="hidden" name="place" defaultValue={this.props.place}/>
+			</FormItem>
 			<FormItem {...formFullItemLayout}>
 				<Select onChange={this.props.handleSelectChange} label="选择邮箱" name="emailType" fetch={DictUtils.getDictByType("mailhostsend") && DictUtils.getDictByType("mailhostsend").sort((a, b) => a.keySort - b.keySort)} renderItem={this.renderSelectOption}/>
 			</FormItem>
@@ -226,9 +229,13 @@ class EmailFormView extends FormPage {
 		let {buttonChanged, content, disabled} = this.state
 		//	let model=preduce.list[0]
 		return (<Modal title="绑定邮箱" visible={true} onOk={this.handleOk.bind(this)} onCancel={hideModal} okText="确认" cancelText="取消">
-			<EmailForm onSubmit={this.onSubmit} handleSelectChange={this.handleSelectChange.bind(this)} buttonChanged={buttonChanged} saveFormRef={this.saveFormRef} content={content} disabled={disabled} configAccountPwd={this.configAccountPwd.bind(this)}></EmailForm>
+			<EmailForm onSubmit={this.onSubmit} place={this.props.place} handleSelectChange={this.handleSelectChange.bind(this)} buttonChanged={buttonChanged} saveFormRef={this.saveFormRef} content={content} disabled={disabled} configAccountPwd={this.configAccountPwd.bind(this)}></EmailForm>
 		</Modal>)
 	}
+}
+/*默认place 个人中心为1  其他默认为0*/
+EmailFormView.defaultProps = {
+	place:0
 }
 
 export default EmailFormView

@@ -83,20 +83,25 @@ export default class MemberInterpolDetail extends Component {
           dataList: dataList.concat(res.list),
           totalRecord,
           page: page
+        },()=>{
+          this.setLoadEnd()
         })
       } else {
         this.setState({
           dataList: res.list,
           totalRecord
+        },()=>{
+          this.setLoadEnd()
         })
       }
     }).catch(e => {
       message.error(e.msg)
-    }).finally(() => {
-      this.setState({
-        isListLoading: false,
-        scrollLoading: false
-      })
+    })
+  }
+  setLoadEnd(){
+    this.setState({
+      isListLoading: false,
+      scrollLoading: false
     })
   }
   componentWillReceiveProps = (nextProps) => {
@@ -204,4 +209,3 @@ export default class MemberInterpolDetail extends Component {
     )
   }
 }
-

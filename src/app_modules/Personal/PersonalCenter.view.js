@@ -183,7 +183,7 @@ export default class PersonalView extends PageView {
         return (
             <Card type="inner">
                 {children}
-                {visible?<EmailFormView hideModal={this.hideModal.bind(this)} getEmailConfig={this.refreshInfo.bind(this)}></EmailFormView>:null}
+                {visible?<EmailFormView hideModal={this.hideModal.bind(this)} place={1} getEmailConfig={this.refreshInfo.bind(this)}></EmailFormView>:null}
                 <PersonalHead actions={actions} router={router} accountInfo={item} showModal={this.showModal.bind(this)}/>
                 <Card title="奖励金记录">
                 {this.renderTableList()}
