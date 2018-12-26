@@ -52,15 +52,15 @@ export class InterpolSide extends Component {
   render() {
     return (
       <AdvancedSearchPanel filterSubmitHandler={this.handleFilter.bind(this)}>
-        <Input name="name" label="姓名" placeholder="请输入姓名" />
+        <Input name="memberName" label="姓名" placeholder="请输入姓名" />
         <Input
-          name="mobilephone"
+          name="memberMobilephone"
           label="移动电话"
           placeholder="请输入移动电话"
         />
         <TreeSelectPicker
           label="招聘部门"
-          name="groupId"
+          name="memberDept"
           fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
           dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
           placeholder="选择部门"

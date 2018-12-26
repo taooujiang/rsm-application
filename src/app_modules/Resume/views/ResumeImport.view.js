@@ -92,24 +92,12 @@ export default class ResumeImportView extends FormPage {
 										]}/>
                 </FormItem>
                 <FormItem>
-                  <Select label="性别" name="sex" placeholder = "请选择" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} rules={[
-											{
-												required: true,
-												message: "性别不可为空"
-											}, {
-												validator: customRules.required
-											}
-										]}></Select>
+                  <Select label="性别" name="sex" placeholder = "请选择" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption}></Select>
                 </FormItem>
                 <FormItem>
                   <Input label="电话号码" name="mobilephone" placeholder = "请填写电话号码" rules={[
-											{
-												required: true,
-												message: "电话号码不可为空"
-											}, {
+											 {
 												validator: customRules.checkMobile
-											}, {
-												validator: customRules.required
 											}
 										]}/>
                 </FormItem>
@@ -121,7 +109,12 @@ export default class ResumeImportView extends FormPage {
 										]}/>
                 </FormItem>
                 <FormItem>
-                  <Select label="关联职位" name="jobId" placeholder = "请选择" showSearch fetch={`${APP_SERVER}/jobNew/getJobList`} renderItem={this.renderJobOption} ></Select>
+                  <Select label="关联职位" name="jobId" placeholder = "请选择" showSearch fetch={`${APP_SERVER}/jobNew/getJobList?jobType=1`} renderItem={this.renderJobOption} rules={[
+                    {
+                      required: true,
+                      message: "关联职位不可为空"
+                    }
+                    ]}></Select>
                 </FormItem>
                 <FormItem>
                   <Select label="推荐人" name="referrer" placeholder = "请选择" showSearch fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
