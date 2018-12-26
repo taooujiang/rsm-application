@@ -956,13 +956,13 @@ status 0 1 2 3 4 */
 							}
 						}
 					} = this.props
-					console.log(authorization,isJumpCurrentApproval,"aaaaaa")
+					// console.log(authorization,isJumpCurrentApproval,"aaaaaa")
 					return <div className="offering-box">
 						<h1><Icon type="icon-seal"/>offer审批中</h1>
 						<InfoInline label="审批职位" info={offerApprovalDto.jobTitle}/>
 						<InfoInline label="审批阶段" info={stageJson[approvalStage]}/>
 						<InfoInline label="审批人" info={approvalName}/>
-						<span className="account-error">审批人帐号异常</span>
+						{isJumpCurrentApproval ? <span className="account-error">审批人帐号异常</span> : null}
 
 						<ButtonGroup>
 							{
