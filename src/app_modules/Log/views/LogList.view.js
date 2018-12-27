@@ -63,6 +63,8 @@ export default class LogListView extends Component {
         actions.logListAction({ fatherType: 4 });
       } else if (newId == 5) {
         actions.updateLogListAction({ fatherType: 5, msgType: 14 });
+      } else if (newId == 6) {
+        actions.logListAction({ fatherType: 6 });
       }
     }
   }
@@ -123,6 +125,15 @@ export default class LogListView extends Component {
     }
   }
   renderDescription(item) {
+    if(this.props.params.type == 6){
+      return (
+        <div>
+          <p>{item.messageContent}</p>
+          <p>{item.msgCenterContent}</p>
+          <p>{item.startTime}</p>
+        </div>
+      );
+    }
     return (
       <div>
         <p>{item.messageContent}</p>
@@ -131,12 +142,11 @@ export default class LogListView extends Component {
       </div>
     );
   }
-  handleClick(id, resumeId , resumeIsDelete) {
+  handleClick(id, resumeId , resumeIsDelete,item) {
+    let { actions, router } = this.props;
     if (this.props.params.type == 5) {
-      let { actions, router } = this.props;
       actions.detailRoute(router, id);
     } else if (this.props.params.type == 1) {
-      let { actions, router } = this.props;
       if(resumeIsDelete == 1){
         return message.warning("简历已被删除")
       }else{
@@ -151,6 +161,13 @@ export default class LogListView extends Component {
       // })
 
 
+    } else if (this.props.params.type == 6) {
+      if(resumeIsDelete == 1){
+        return message.warning("简历已被删除")
+      }
+      if(item.bussinessId == 2){
+        actions.resumeDetailRoute(resumeId,router);
+      }
     }
   }
   render() {
@@ -170,7 +187,8 @@ export default class LogListView extends Component {
                 this,
                 item.messageId,
                 item.resumeId,
-                item.resumeIsDelete
+                item.resumeIsDelete,
+                item
               )}
             >
               <List.Item.Meta

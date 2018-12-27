@@ -511,7 +511,8 @@ status 0 1 2 3 4 */
 				}
 				entryNextStage(status) {
 					let {item:{isOpenOfferAppro,offerStatus},dispatch} = this.props
-					if(isOpenOfferAppro && offerStatus != 1 && status == 3){
+					console.log(isOpenOfferAppro,offerStatus,status)
+					if(isOpenOfferAppro && offerStatus == 1 && status == 3){
 						message.warning("请先完成offer审批")
 						return false
 					}

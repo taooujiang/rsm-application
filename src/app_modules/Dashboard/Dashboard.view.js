@@ -258,7 +258,7 @@ export default class Dashboard extends Component {
   render() {
 
     let {reduce,actions,children,appReducer,router} = this.props
-		let {spins:{noticeSpin,todoSpin,peopleSpin},notices,todos,people,unreadMessage:{dbsjNum,gxrzNum,hxrxgNum,xtxxNum,ygxgNum},hireData:{dfpResumeNum,recruitJobNum,sendOfferNum,todayInterviewNum,todayNewResumeNum,todayWaitEntryNum},recentData}=reduce
+		let {spins:{noticeSpin,todoSpin,peopleSpin},notices,todos,people,unreadMessage:{dbsjNum,gxrzNum,hxrxgNum,xtxxNum,ygxgNum,wjldNum},hireData:{dfpResumeNum,recruitJobNum,sendOfferNum,todayInterviewNum,todayNewResumeNum,todayWaitEntryNum},recentData}=reduce
 
     return (
       <Layout direction="rows" className="dashboard">
@@ -306,6 +306,14 @@ export default class Dashboard extends Component {
 							<p>更新日志</p>
 						</Link>
 					</div>
+          <div>
+						<Link to={{ pathname: "log/6" }}>
+							<Badge count={wjldNum}>
+								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
+							</Badge>
+							<p>未接来电</p>
+						</Link>
+					</div>
 				</Card>)
 				:
 				(<Card title='重要提醒' className="direction-column-card">
@@ -338,6 +346,12 @@ export default class Dashboard extends Component {
 								<Icon type="icon-sync" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>更新日志</p>
+					</div>
+          <div onClick={this.handleLogClick.bind(this,'6')}>
+							<Badge count={wjldNum}>
+								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
+							</Badge>
+							<p>未接来电</p>
 					</div>
 				</Card>)}
         </Fixed>

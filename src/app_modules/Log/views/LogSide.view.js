@@ -15,7 +15,7 @@ export default class LogView extends Component {
 	}
 
 	render() {
-		const { routeParams,logReducer: { unreadMessage: { hxrxgNum, ygxgNum, dbsjNum, xtxxNum, gxrzNum } } } = this.props
+		const { routeParams,logReducer: { unreadMessage: { hxrxgNum, ygxgNum, dbsjNum, xtxxNum, gxrzNum, wjldNum } } } = this.props
 		return (
 			<Menu
 				onClick={this.handleClick}
@@ -56,6 +56,13 @@ export default class LogView extends Component {
 						<Link to={{ pathname: "log/5" }}>
 							<span>更新日志</span>
 							<Badge count={gxrzNum}>
+							</Badge>
+						</Link>
+					</Menu.Item>
+					<Menu.Item key="6">
+						<Link to={{ pathname: "log/6" }}>
+							<span>未接来电</span>
+							<Badge count={wjldNum}>
 							</Badge>
 						</Link>
 					</Menu.Item>
