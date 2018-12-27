@@ -350,7 +350,7 @@ class ResumeDetail extends Component {
 								<PersonFeedRecord authorization={authorization} detailType={detailType} location={location} actions={actions} router={router} resumeId={resumeId} info={feedInfo} item={item}/>
 							</TabPane>
 							<TabPane tab="offer" key="3">
-								<PersonOffer authorization={authorization} actions={actions} resumeId={resumeId} detailType={detailType} info={offer} item={item}/>
+								<PersonOffer authorization={authorization} actions={actions} location={location} resumeId={resumeId} detailType={detailType} info={offer} item={item}/>
 							</TabPane>
 							<TabPane tab="备注" key="4">
 								<PersonRemarks actions={actions} resumeId={resumeId} info={remarks} item={item}/>

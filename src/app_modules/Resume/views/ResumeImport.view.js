@@ -30,12 +30,14 @@ export default class ResumeImportView extends FormPage {
   constructor(props) {
     super(props);
     this.state= {
-      disabled:false
+      disabled:false,
+      btnText:"点击上传候选人简历"
     }
   }
   fileUploadSuccess(){
     this.setState({
-      disabled:false
+      disabled:false,
+      btnText:"点击更换候选人简历"
     })
   }
   fileUploadResponse(res){
@@ -47,7 +49,8 @@ export default class ResumeImportView extends FormPage {
     /*①　用户可以上传doc、PDF、jpg、png、JPEG格式的简历；*/
     if (suffix == "jpg" || suffix == "png" || suffix == "jpeg" || suffix == "pdf" || suffix == "doc" || suffix == "docx") {
       this.setState({
-        disabled:true
+        disabled:true,
+        btnText:"上传中..."
       })
       return true
     } else {
@@ -80,13 +83,13 @@ export default class ResumeImportView extends FormPage {
 
   render() {
     let {children} = this.props
-    let {disabled} = this.state
+    let {disabled,btnText} = this.state
       return (
         <BaseForm ref={this.saveFormRef} className="resume-import-form">
           <Layout direction='rows' className="resume-import">
               <Pane className="fileUploadArea">
                 <FormItem className="fileUploadItem">
-                  <ImgUpload type={6} name="sourceFileId" btnText="点击上传候选人简历" disabled={disabled} beforeUpload={this.beforeUpload.bind(this)} onResponse={this.fileUploadResponse} onSuccess={this.fileUploadSuccess.bind(this)}></ImgUpload>
+                  <ImgUpload type={6} name="sourceFileId" btnText={btnText} disabled={disabled} beforeUpload={this.beforeUpload.bind(this)} onResponse={this.fileUploadResponse} onSuccess={this.fileUploadSuccess.bind(this)}></ImgUpload>
                 </FormItem>
             </Pane>
               <Fixed style={{width:500}}>

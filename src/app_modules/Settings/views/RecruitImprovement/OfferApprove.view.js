@@ -78,10 +78,10 @@ export default class OfferApprove extends PageView {
             删除
           </Button> */}
           <ButtonGroups handleClick={this.handleBtnGroupClick.bind(this, dataSource)}>
-            <Button type="primary" actionkey="offerApproveEditAction" style={{ marginRight: '10px' }}>
+            <Button actionkey="offerApproveEditAction" style={{ marginRight: '10px' }}>
               编辑
             </Button>
-            <Button type="primary" permission="company" confirm="删除后，已设置该审核流程的职位自动关闭offer审核功能，是否确定删除？" actionkey="offerApproveDeleteAction">删除</Button>
+            <Button permission="company" confirm="删除后，已设置该审核流程的职位自动关闭offer审核功能，是否确定删除？" actionkey="offerApproveDeleteAction">删除</Button>
           </ButtonGroups>
 
         </div>

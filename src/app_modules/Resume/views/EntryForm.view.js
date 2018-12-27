@@ -76,7 +76,7 @@ class EntryForm extends Component{
           <DatePicker label="入职日期" name="joinTime" defaultValue={moment()} rules={[{required: true, message: "入职日期不可为空"}]}/>
         </FormItem>
         <FormItem>
-          <DatePicker label="预计转正日期" name="conversionTime" defaultValue={moment().add(3,"months")} disabled={checked} rules={checked ? [] : custRules}/>
+          <DatePicker label="预计转正日期" name="conversionTime" allowClear={false} defaultValue={moment().add(3,"months")} disabled={checked} rules={checked ? [] : custRules}/>
         </FormItem>
         <FormItem>
           <Checkbox label="实习" name="internship" defaultChecked={checked} onChange={this.handleChange.bind(this)}/>

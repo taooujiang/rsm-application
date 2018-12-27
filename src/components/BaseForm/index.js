@@ -270,7 +270,7 @@ let customRules={
     */
    checkMobile: (rule, value, callback) =>{
      var rexp= /^(0?1[123456789]\d{9})$/
-     if(value == ""){
+     if(value == "" || value == undefined){
        callback()
      }
      if (!rexp.test(value)) {

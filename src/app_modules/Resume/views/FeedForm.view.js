@@ -38,6 +38,15 @@ class FeedForm extends Component {
 		which: '2',
 		interviewFlag: true
 	}
+	componentWillMount(){
+		let {feedItem,id} = this.props
+		if(id){
+			this.setState({
+				which:feedItem.noticeType,
+				time:feedItem.smsTimed
+			})
+		}
+	}
 
 	renderSelectOption(data, idx) {
 		return (<Select.Option value={data.keyValue} key={"select" + idx}>{data.keyName}</Select.Option>)
@@ -54,14 +63,14 @@ class FeedForm extends Component {
 	renderSmsOrEmail() {
 		const {updateFieldValue, item,id,feedItem} = this.props
 		let {which} = this.state
-		let flag = which
-		if(id){
-			flag = feedItem.noticeType
-		}
+		// let flag = which
+		// if(id){
+		// 	flag = feedItem.noticeType
+		// }
 
-		if (flag == "1") {
+		if (which == "1") {
 			return (<SmsTemplateLinkage updateFieldValue={updateFieldValue} receiver={item.mobilephone}/>)
-		} else if (flag == "2") {
+		} else if (which == "2") {
 			return (<EmailTemplateLinkage mailSubject="面试通知函" updateFieldValue={updateFieldValue} templateUse="1" mailTo={item.email}/>)
 		} else {
 			return null
@@ -79,11 +88,11 @@ class FeedForm extends Component {
 			}
 		]
 		let {which,time} = this.state
-		let flag = which
-		if(id){
-			flag = feedItem.noticeType
-		}
-		if(flag == "0"){
+		// let flag = which
+		// if(id){
+		// 	flag = feedItem.noticeType
+		// }
+		if(which == "0"){
 			return null
 		}else{
 			return this.state.time == '1' ?
@@ -91,7 +100,7 @@ class FeedForm extends Component {
 							<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
 						</FormItem>,
 					<FormItem>
-						<DateTimePicker name="smsTime" defaultDate={id ? moment(feedItem.smsTime) : moment()} defaultTime={id ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
+						<DateTimePicker name="smsTime" defaultDate={id&&feedItem.smsTime != "" ? moment(feedItem.smsTime) : moment()} defaultTime={id&&feedItem.smsTime != "" ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
 					</FormItem>]
 				: <FormItem>
 						<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>

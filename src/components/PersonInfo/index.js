@@ -678,7 +678,7 @@ status 0 1 2 3 4 */
 					}
 				}
 				handleEditReco() {
-					let {item, router} = this.props
+					let {actions,item, router} = this.props
 					actions.recoAction(router, item)
 				}
 
@@ -2715,6 +2715,13 @@ status 0 1 2 3 4 */
 					}
 				}
 				componentWillReceiveProps(nextProps) {
+					let {actions, resumeId} = nextProps
+					if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+						if (nextProps.location.state && nextProps.location.state.key == "reload") {
+								actions.getOfferAction({resumeId: resumeId})
+						}
+					}
+					/*编辑offer状态*/
 					if (JSON.stringify(nextProps.info) !== JSON.stringify(this.props.info)) {
 						this.setState({
 							edit: nextProps.info.offerId
@@ -2752,7 +2759,7 @@ status 0 1 2 3 4 */
 						detailType,
 						authorization
 					} = this.props
-					if (detailType == 3 || detailType == 4 || detailType == 10 || detailType == 1 || !authorization || status == 2) {
+					if (detailType == 3 || detailType == 4 || detailType == 10 || detailType == 1 || !authorization || status == 2 || status == 4) {
 						return info.offerId
 							? <PersonOfferShow info={info} reSend={false} handleEdit={this.changeEdit.bind(this)} offerEditFn={this.editOfferFn.bind(this)}/>
 							: <div className="list-no-data no-offer-record">暂无offer记录</div>

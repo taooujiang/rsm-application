@@ -251,7 +251,7 @@ export default class InterviewListView extends PageView {
 
 
     /*未反馈*/
-    if(isFeedback != 2){
+    if(isFeedback != 2 && statusStr != 8){
       return (
         <Button.Group style={{whiteSpace:"inherit"}}>
           <Button onClick={this.handleFeedBack.bind(this,resumeId,id)}>填写反馈</Button>

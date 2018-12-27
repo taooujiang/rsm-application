@@ -31,14 +31,7 @@ const TreeNode = Tree.TreeNode
 
 export default class RecommonderForm extends FormPage {
 	renderSelectOption(data, idx) {
-		return (< Select.Option value = {
-			data.id
-		}
-		key = {
-			idx
-		} > {
-			data.name
-		} < /Select.Option>)
+		return (<Select.Option value = {data.id}	key = {	idx	} > {	data.name	} </Select.Option>)
     }
 
 
@@ -68,50 +61,25 @@ export default class RecommonderForm extends FormPage {
       let {
         location: {
           state: {
-            ids,
-            libType
+            item
           }
         }
       } = this.props
-      return < BaseForm onSubmit = {
-          this.handleSubmit.bind(this)
-        }
-        ref = {
-          this.saveFormRef
-        } >
-        <
-        FormItem style = {
-          {
-            marginBottom: 0
-          }
-        } >
-        <
-        Input type = "hidden"
-        name = "resumeId"
-        defaultValue = {
-          ids
-        }
-        / > < /
-        FormItem > <
-        FormItem >
-        <
-        Select name = "referrerId"
-        label = "推荐人"
-        placeholder = "请选择"
-        fetch = {
-          `${APP_SERVER}/member / findMemebersWithOnJob `
-        }
-        renderItem = {
-          this.renderSelectOption
-        }
-        rules = {
-          [{
-            required: true,
-            message: "推荐人不可为空"
-          }]
-        }
-        /> < /FormItem >
-        <
-        /BaseForm>
+			console.log(item)
+      return <BaseForm onSubmit = {this.handleSubmit.bind(this)} ref = {this.saveFormRef} >
+        <FormItem>
+        	<Input type = "hidden" name = "resumeId" defaultValue = { item.id } / >
+				</FormItem>
+				<FormItem>
+	        <Select name = "referrerId" label = "推荐人"  placeholder = "请选择" fetch = {`${APP_SERVER}/member / findMemebersWithOnJob `} renderItem = {this.renderSelectOption}
+					        rules = {
+					          [{
+					            required: true,
+					            message: "推荐人不可为空"
+					          }]
+					        }
+	        />
+				</FormItem >
+        </BaseForm>
     }
   }

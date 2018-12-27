@@ -381,7 +381,7 @@ export function itemAction(value) {
   }
 }
 
-export function editRecommender() {
+export function editRecommender(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchEditRecom(value).then(json => {

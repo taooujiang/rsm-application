@@ -118,7 +118,7 @@ export default class ResumeDownload extends FormPage {
 					that.setState({pythonData: downloadConfrim, spinFlag: false})
 				} else {
 					message.info(downloadConfrim.msg, 5)
-					that.setState({spinFlag: false})
+					that.setState({spinFlag: false,pythonData:{}})
 				}
 			}
 		})
