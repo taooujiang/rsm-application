@@ -660,14 +660,15 @@ status 0 1 2 3 4 */
 					] : <Dropdown.Button overlay={menu} className="block next-block" onClick={this.entryNextStage.bind(this, status)}>进入下一阶段</Dropdown.Button>
 				}
 				renderRecommender() {
+
 					let {
 						status,
 						item: {
-							channel,
+							channelId,
 							referrerName
 						}
 					} = this.props
-					if (status == 0 && (channel == 18 || channel == 19)) {
+					if (status == 0 && (channelId == 18 || channelId == 19)) {
 						return <BaseInfoItem label="推荐人" info={<span> {
 								referrerName
 									? referrerName
@@ -3028,7 +3029,7 @@ status 0 1 2 3 4 */
 					return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
 				}
 				renderSendType() {
-					let {item: {
+					let {editFlag,item: {
 							isOpenOfferAppro
 						}} = this.props
 					let {time} = this.state

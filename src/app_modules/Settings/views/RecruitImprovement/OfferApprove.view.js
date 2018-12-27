@@ -43,6 +43,7 @@ export default class OfferApprove extends PageView {
       loading: tableSpin,
       dataSource: dataSource.stageList,
       rowkey: 'id',
+      scroll:false,
       columns: [{
         title: "审批阶段",
         align: "center",
@@ -85,7 +86,7 @@ export default class OfferApprove extends PageView {
 
         </div>
       </div>,
-      <DataTable className="offer-approvelist-item"  {...tableConf} pagination={false} />
+      <DataTable className="offer-approvelist-item"  {...tableConf} pagination={false}/>
     ]
   }
   renderTableList(items) {
