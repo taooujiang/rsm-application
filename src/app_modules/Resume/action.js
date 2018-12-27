@@ -197,8 +197,8 @@ export function getSameResumeAction(value) {
 export function saveContratAction(value,id){
   return (dispatch,getState) =>{
     console.log(value)
-    dispatch(saveItem({id:id,email:value.email,mobilephone:value.phone,downloadStatus:1}))
-    dispatch(saveContrat({email:value.email,mobilephone:value.phone}))
+    dispatch(saveItem({id:id,name:value.name,email:value.email,mobilephone:value.phone,downloadStatus:1}))
+    dispatch(saveContrat({name:value.name,email:value.email,mobilephone:value.phone}))
   }
 }
 
