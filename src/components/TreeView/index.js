@@ -75,6 +75,8 @@ export class TreeSelectPicker extends Component {
 			if(nextProps.defaultParent){
 				this.setState({
 					value:nextProps.treeData[0].id
+				},()=>{
+					nextProps.onChange(nextProps.treeData[0].id)
 				})
 			}
 		}
