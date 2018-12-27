@@ -120,7 +120,7 @@ if(process.env.NODE_ENV === 'development'){
     "pageSize":10,
     "roleType":1,
     "account":"18900000022",
-    "authType":2,
+    "authType":1,
     "isPrincipal":0
   }
 }else if(parent&&parent.resourceList&&parent.userAuth){
@@ -134,6 +134,7 @@ const initialState = {
   resourceList:resourceList,
   account:window.account,
   channels:new Map(),
+	downloadType:new Object(),
   auth:{
     // authID: 'sdfs342342xxvef3',
     // loginTime: '',
@@ -208,6 +209,16 @@ const reducer = handleActions({
 			}
 		}
 		window.localStorage.setItem("channelSync",JSON.stringify(localstorageData))
+	},
+	'downloadConfrim'(state,action){
+		const payload = action.payload
+		console.log("downloadConfrim",payload)
+		window.localStorage.setItem("downloadConfrim",JSON.stringify(payload))
+	},
+	'downloadResume'(state,action){
+		const payload = action.payload
+		console.log("downloadResume",payload)
+		window.localStorage.setItem("downloadResume",JSON.stringify(payload))
 	},
   'save Dicts'(state,action){
     const payload = action.payload

@@ -51,6 +51,7 @@ class EntryForm extends Component{
     } = this.props
     let {checked} = this.state
     let jobTitle = resumes.filter(it=>it.isCurrentResume == 1).pop().jobTitle
+    let custRules = [{required: true, message: "预计转正日期不可为空"}]
     // console.log(checked)
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
@@ -75,7 +76,7 @@ class EntryForm extends Component{
           <DatePicker label="入职日期" name="joinTime" defaultValue={moment()} rules={[{required: true, message: "入职日期不可为空"}]}/>
         </FormItem>
         <FormItem>
-          <DatePicker label="预计转正日期" name="conversionTime" defaultValue={moment().add(3,"months")} disabled={checked} rules={[{required: true, message: "预计转正日期不可为空"}]}/>
+          <DatePicker label="预计转正日期" name="conversionTime" defaultValue={moment().add(3,"months")} disabled={checked} rules={checked ? [] : custRules}/>
         </FormItem>
         <FormItem>
           <Checkbox label="实习" name="internship" defaultChecked={checked} onChange={this.handleChange.bind(this)}/>

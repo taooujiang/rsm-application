@@ -46,16 +46,14 @@ export default class Forward2OtherForm extends FormPage{
     });
     let {location:{state}} = this.props
     if(state.ids.length == 1){
-      let {jobId} = state.rows[0]
+      let {jobId} = state.rows
       new FetchAPI().fetch(`${APP_SERVER}/jobNew/findFzrList?jobId=${jobId}`,{
         method:'GET'
       }).then(res=>{
-        if(res.list.length){
           this.setState({
             defaultIn:res.list,
-            showDept:true
+            showDept:true ? true :Boolean(res.list.length)
           })
-        }
       })
 
     }

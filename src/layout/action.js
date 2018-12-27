@@ -9,6 +9,9 @@ export const saveChannel = createAction("saveChannel")
 export const saveChannelPoint = createAction("saveChannelPoint")
 export const channelSync = createAction("channelSync")
 
+export const downloadConfrim = createAction("downloadConfrim")
+export const downloadResume = createAction("downloadResume")
+
 export const initChannel = createAction("initChannel")
 
 emitter.on("isLogin",function(item){
@@ -22,6 +25,15 @@ emitter.on("job_channel_pointer",function(item){
 emitter.on("batch_job_sync",function(item){
   store.dispatch(channelSync(item))
 })
+
+emitter.on("download_confrim",function(item){
+  store.dispatch(downloadConfrim(item))
+})
+
+emitter.on("download_resume",function(item){
+  store.dispatch(downloadResume(item))
+})
+
 
 
 export function fetchInitConfig(){

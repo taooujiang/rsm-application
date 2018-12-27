@@ -71,7 +71,7 @@ export class TreeSelectPicker extends Component {
 		}
 	}
 	componentWillReceiveProps(nextProps){
-		if(JSON.stringify(this.props.treeData) !== JSON.stringify(nextProps.treeData)){
+		if(this.props.defaultParent !== nextProps.defaultParent){
 			if(nextProps.defaultParent){
 				this.setState({
 					value:nextProps.treeData[0].id

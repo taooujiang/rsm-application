@@ -469,10 +469,10 @@ status 0 1 2 3 4 */
 			/* 公用方法类 */
 			class OptionCommonFn extends Component {
 				send2Other() {
-					let {actions, router, item: {
+					let {actions, router,item, item: {
 							id
 						}} = this.props
-					actions.send2InterviewerAction(router, [id])
+					actions.send2InterviewerAction(router, [id],item)
 				}
 				send2OtherJob() {
 					let {actions, router, item, item: {
@@ -545,6 +545,7 @@ status 0 1 2 3 4 */
 					} = this.props
 					actions.offerApprovalAction({id: id, status: 1}).then(() => {
 						actions.itemAction({id: item.id, viewLibType: orginJson.viewLibType})
+						actions.getOfferAction({resumeId:item.id})
 					})
 				}
 				eliminate() {
@@ -2802,7 +2803,7 @@ status 0 1 2 3 4 */
 						}
 					} = this.props
 					if (reSend) {
-						if (status == 1) {
+						if (status == 1 || status == 2) {
 							return <Button onClick={this.props.handleEdit} style={{
 									float: "right",
 									marginTop:10
