@@ -121,7 +121,7 @@ export default class ResumeDownload extends FormPage {
 					that.setState({spinFlag: false})
 				}
 			}
-		}
+		})
 	}
 	//处理表格提交后动作
 	handleSubmit(values) {
@@ -161,7 +161,7 @@ export default class ResumeDownload extends FormPage {
 					}
 				}
 			}
-		}
+		})
 	}
 	render() {
 		let {actions, closeFn} = this.props
