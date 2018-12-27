@@ -55,7 +55,6 @@ class FeedForm extends Component {
 		const {updateFieldValue, item,id,feedItem} = this.props
 		let {which} = this.state
 		let flag = which
-		console.log(feedItem)
 		if(id){
 			flag = feedItem.noticeType
 		}
@@ -104,9 +103,6 @@ class FeedForm extends Component {
 	}
 	handleChangeTime(e) {
 		this.setState({time: e.target.value})
-	}
-	handleChange(val){
-		console.log(val)
 	}
 
 	render() {
@@ -192,7 +188,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试地址" name="companyName" defaultValue={id ? feedItem.companyName : null} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption} onChange={this.handleChange.bind(this)}></Select>
+						<Select label="面试地址" name="companyName" defaultValue={id ? feedItem.companyName : null} fetch={`${APP_SERVER}/company/listJson`} renderItem={this.renderAreaOption}></Select>
 					</FormItem>
 				</Col>
 			</Row>
