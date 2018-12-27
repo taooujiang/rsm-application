@@ -140,7 +140,6 @@ export default class InternalRecommend extends FormPage {
     return ([
       <div style={{ marginBottom: '20px' }}>
         <span style={{ color: '#333333', fontSize: "14px" }}>内推奖励设置 </span>
-        <span style={{ color: '#999999', fontSize: "12px" }}> 对单个职位的内推设置奖励</span>
       </div>
       ,
       <FormItem style={{ paddingLeft: '0' }}>
