@@ -33,6 +33,15 @@ export default class MemberInterpolForm extends FormPage {
     actions.interpolExchangeAction(values)
     actions.backShouldReloadRoute(router)
   }
+
+  inputFormatter(value) {
+    if (parseInt(value) > 999999999) return 999999999
+    return `${~~value}`
+  }
+  inputParser(value) {
+    if (parseInt(value) > 999999999) return 999999999
+    return ~~value
+  }
   render() {
     let { onSubmit, params, location, item, reduce: { spins: { formSpin }, sysFieldList }, actions } = this.props
     const { memberName, creditBalance, cashBalance } = item || {}
@@ -75,8 +84,8 @@ export default class MemberInterpolForm extends FormPage {
             label={typeMapper[type].label}
             name="num"
             min={0}
-            formatter={value => `${value ? ~~value : ''}`}
-            parser={value => ~~value}
+            formatter={this.inputFormatter}
+            parser={this.inputParser}
             // placeholder={"请输入" + 'optionLabel'}
             // defaultValue={'item.optionName'}
             rules={[{ required: true, message: `不可为空`, }, { validator: customRules.checkWithdrawalsMoney, moneyClear: typeMapper[type].balance, message: typeMapper[type].message }]}

@@ -96,12 +96,14 @@ export default class InternalRecommend extends FormPage {
     })
     // this[type].props.onChange(tempDataList)
   }
-  // onRewardRef = (ref) => {
-  //   this.rewardForm = ref
-  // }
-  // onLevelRewardRef = (ref) => {
-  //   this.levelRewardForm = ref
-  // }
+  inputFormatter(value) {
+    if (parseInt(value) > 999999999) return 999999999
+    return `${~~value}`
+  }
+  inputParser(value) {
+    if (parseInt(value) > 999999999) return 999999999
+    return ~~value
+  }
   renderRewardSettingTable() {
     const columns = [{
       title: '阶段',
@@ -115,7 +117,7 @@ export default class InternalRecommend extends FormPage {
       render: (text, record) => (
         <div>
           <span>达到 </span>
-          <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 80 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
+          <InputNumber min={0} formatter={this.inputFormatter} parser={this.inputParser} style={{ width: 80 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
           <span> 次</span>
         </div>
       ),
@@ -134,7 +136,7 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={this.inputFormatter} parser={this.inputParser} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
       ),
     }];
     return ([
@@ -172,7 +174,7 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={this.inputFormatter} parser={this.inputParser} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
       ),
     },];
     return ([
