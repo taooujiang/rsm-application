@@ -53,11 +53,9 @@ export default class LevelSettingForm extends FormPage {
     //见FormPage.view.js
     const { onSubmit, saveFormRef, item, } = this.props;
     console.log(item, 'itemitemitem');
-    let validRules = item.id ?
-      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", id: item.id , defaultValue:item.positionName}, { required: true, message: `职位级别不可为空`, whitespace: true },{ validator: customRules.required}]
-      :
-      [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName" }, { required: true, message: `职位级别不可为空`, whitespace: true },{ validator: customRules.required}]
-      console.log(validRules)
+    let validRules = [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", defaultValue: item.positionName }, { required: true, message: '职位级别不可为空 ', }]
+
+    console.log(validRules)
     return (
       <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
         {item.id ?
@@ -106,7 +104,7 @@ export class LevelSettingDeleteForm extends FormPage {
         let newItem = {
           keyValue: items[index].id,
           keyName: items[index].positionLeavel + "级",
-          deleteName:items[index].positionName
+          deleteName: items[index].positionName
         }
         exsistLevelArr.push(newItem)
       }

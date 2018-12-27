@@ -55,6 +55,8 @@ export default class MemberInterpolDetail extends Component {
           intPosition: dataList.length,
         })
       } else if (totalRecord == dataList.length) {
+        // //数据不足一页（30个），滚动到底部无任何操作
+        // if (totalRecord < 30) return
         message.warn('已加载全部记录')
       }
     }
@@ -83,14 +85,14 @@ export default class MemberInterpolDetail extends Component {
           dataList: dataList.concat(res.list),
           totalRecord,
           page: page
-        },()=>{
+        }, () => {
           this.setLoadEnd()
         })
       } else {
         this.setState({
           dataList: res.list,
           totalRecord
-        },()=>{
+        }, () => {
           this.setLoadEnd()
         })
       }
@@ -98,7 +100,7 @@ export default class MemberInterpolDetail extends Component {
       message.error(e.msg)
     })
   }
-  setLoadEnd(){
+  setLoadEnd() {
     this.setState({
       isListLoading: false,
       scrollLoading: false

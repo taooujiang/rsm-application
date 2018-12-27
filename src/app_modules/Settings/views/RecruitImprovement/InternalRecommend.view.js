@@ -52,7 +52,7 @@ export default class InternalRecommend extends FormPage {
       this.setLoading(false)
     })
   }
-  
+
   @SpinLoading(message)
   handleSubmit(values) {
     let { levelRewardList, rewardList, } = this.state
@@ -115,7 +115,7 @@ export default class InternalRecommend extends FormPage {
       render: (text, record) => (
         <div>
           <span>达到 </span>
-          <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 80 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
+          <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 80 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardUnit', record)} />
           <span> 次</span>
         </div>
       ),
@@ -134,14 +134,23 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 120 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'rewardForm', 'awardNum', record)} />
       ),
     }];
-    return (<FormItem>
-      <EditableTable
-        // onRef={this.onRewardRef}
-        columns={columns} data={this.state.rewardList} label="内推奖励设置" name="sysSetInterpolateAwardBeanList" />
-    </FormItem>)
+    return ([
+      <div style={{ marginBottom: '20px' }}>
+        <span style={{ color: '#333333', fontSize: "14px" }}>内推奖励设置 </span>
+        <span style={{ color: '#999999', fontSize: "12px" }}> 对单个职位的内推设置奖励</span>
+      </div>
+      ,
+      <FormItem style={{ paddingLeft: '0' }}>
+        <EditableTable
+          // onRef={this.onRewardRef}
+          columns={columns} data={this.state.rewardList} name="sysSetInterpolateAwardBeanList" />
+      </FormItem>,
+      <div style={{ marginBottom: '40px' }}>
+        <p>温馨提示：候选人完成面试扫码签到后，推荐人获得“ 进入面试阶段 ”奖励；offer成功发送后，推荐人可以获得“ 进入offer阶段 ”奖励</p>
+      </div>])
   }
 
   renderLevelRewardSettingTable() {
@@ -164,14 +173,20 @@ export default class InternalRecommend extends FormPage {
       dataIndex: 'awardNum',
       key: 'awardNum',
       render: (text, record) => (
-        <InputNumber min={0} formatter={value => `${~~value}`}  parser={value => ~~value}  style={{ width: 120 }} defaultValue={text||0} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
+        <InputNumber min={0} formatter={value => `${~~value}`} parser={value => ~~value} style={{ width: 120 }} defaultValue={text || 0} onChange={this.handleTableFormItemChange.bind(this, 'levelRewardForm', 'awardNum', record)} />
       ),
     },];
-    return (<FormItem>
-      <EditableTable
-        // onRef={this.onLevelRewardRef}
-        columns={columns} data={this.state.levelRewardList} label="特殊职位奖励设置" name="sysPositionLevelBeans" />
-    </FormItem>)
+    return ([
+      <div style={{ marginBottom: '20px' }}>
+        <span style={{ color: '#333333', fontSize: "14px" }}>特殊职位额外奖励设置</span>
+        <span style={{ color: '#999999', fontSize: "12px" }}> 内推候选人入职后，推荐人可以根据职位级别的不同获得额外奖励</span>
+      </div>
+      ,
+      <FormItem style={{ paddingLeft: '0' }}>
+        <EditableTable
+          // onRef={this.onLevelRewardRef}
+          columns={columns} data={this.state.levelRewardList} label="特殊职位奖励设置" name="sysPositionLevelBeans" />
+      </FormItem>])
   }
 
 
