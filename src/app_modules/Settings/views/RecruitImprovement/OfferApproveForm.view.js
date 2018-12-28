@@ -79,7 +79,7 @@ export default class OfferApproveForm extends FormPage {
             name="name"
             placeholder={"请输入"}
             defaultValue={item.name}
-            rules={[{ max: 10, message: "最多输入10个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空`, whitespace: true }, { validator: customRules.required }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysSetOfferApproval/nameIsExistsJson', name: "name", defaultValue: item.name||"" }, { required: true, message: `审批流程名称不可为空`,  },{validator:customRules.required} ]}
           />
         </FormItem>
 
