@@ -636,22 +636,20 @@ status 0 1 2 3 4 */
 
 				renderButtons() {
 					let {status,item:{offerStatus,isOpenOfferAppro}} = this.props
-					//console.log('是不是真的',isOpenOfferAppro,offerStatus,status)
+					// console.log('是不是真的',!(!isOpenOfferAppro || (isOpenOfferAppro && status == 3 && offerStatus != 1)),!isOpenOfferAppro,(isOpenOfferAppro && status == 3 && offerStatus != 1))
 					const menu = (<Menu className="ant-button-menu" onClick={this.entry2Stage.bind(this)}>
 						<Menu.Item key="1">
-							<Button disabled={status < 1
-									? false
-									: true} type="ghost">邀约</Button>
+							<Button disabled={status >= 1} type="ghost">邀约</Button>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Button type="ghost">面试</Button>
+							<Button type="ghost" disabled={status == 2}>面试</Button>
 						</Menu.Item>
 						<Menu.Item key="3">
-							<Button type="ghost">offer</Button>
+							<Button type="ghost" disabled={status == 3}>offer</Button>
 						</Menu.Item>
 						<Menu.Item key="4">
 							{/*待入职状态是否打开 * 1 审核未开启 则打开  * 2 审核开启并且当前为offer阶段并且offerstatus不为未发送***/}
-							<Button disabled={!(!isOpenOfferAppro || (isOpenOfferAppro && status == 3 && offerStatus != 1))} type="ghost">待入职</Button>
+							<Button disabled={!isOpenOfferAppro || (isOpenOfferAppro && status == 3 && offerStatus != 1) || status == 4} type="ghost">待入职</Button>
 						</Menu.Item>
 					</Menu>)
 
@@ -673,7 +671,7 @@ status 0 1 2 3 4 */
 						return <BaseInfoItem label="推荐人" info={<span> {
 								referrerName
 									? referrerName
-									: <Icon type="edit" onClick={this.handleEditReco.bind(this)}/>
+									: <Icon type="edit" style={{cursor:"pointer"}} onClick={this.handleEditReco.bind(this)}/>
 							} < /span>}/>
 					}
 				}
@@ -2969,8 +2967,8 @@ status 0 1 2 3 4 */
 					var object = {}
 					let exprctedEntryTime = moment(this.form.getFieldValue("expectedEntryTime")).format("YYYY-MM-DD HH:mm")
 					let salaryType = moneyOpt.filter(it=>it.value == this.form.getFieldValue("salaryType"))
-					let salary = this.form.getFieldValue("salary")
-					let entryAddress = this.form.getFieldValue("entryAddress")
+					let salary = this.form.getFieldValue("salary") || ""
+					let entryAddress = this.form.getFieldValue("entryAddress") || ""
 					let translate = [
 						// {'面试时间':interviewTime},
 						{
