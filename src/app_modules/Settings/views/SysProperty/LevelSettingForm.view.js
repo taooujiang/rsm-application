@@ -53,7 +53,7 @@ export default class LevelSettingForm extends FormPage {
     //见FormPage.view.js
     const { onSubmit, saveFormRef, item, } = this.props;
     console.log(item, 'itemitemitem');
-    let validRules = [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", defaultValue: item.positionName }, { required: true, message: '职位级别不可为空 ', }]
+    let validRules = [{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysPositionLevel/findNameIsExist', name: "positionName", defaultValue: item.positionName||"" }, { required: true, message: '职位级别不可为空 ', }]
 
     console.log(validRules)
     return (

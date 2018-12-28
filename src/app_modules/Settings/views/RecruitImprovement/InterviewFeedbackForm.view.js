@@ -68,7 +68,7 @@ export default class InterviewFeedbackForm extends FormPage {
             name="name"
             placeholder={"请输入模板名称"}
             defaultValue={item.name}
-            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name", id: item.id }, { required: true, message: `不可为空` }, { validator: customRules.required }]}
+            rules={[{ max: 15, message: "最多输入15个字！" }, { validator: customRules.remote, value: '/sysInterviewFeedbackTemplate/nameIsExistsJson', name: "name",defaultValue: item.name||""  }, { required: true, message: `不可为空` }, ]}
           />
         </FormItem>
         <FormItem>
