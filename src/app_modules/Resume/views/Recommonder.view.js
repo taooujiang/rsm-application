@@ -71,7 +71,7 @@ export default class RecommonderForm extends FormPage {
         	<Input type = "hidden" name = "resumeId" defaultValue = { item.id } / >
 				</FormItem>
 				<FormItem>
-	        <Select name = "referrerId" label = "推荐人"  placeholder = "请选择" fetch = {`${APP_SERVER}/member / findMemebersWithOnJob `} renderItem = {this.renderSelectOption}
+	        <Select name = "referrerId" label = "推荐人"  placeholder = "请选择" fetch = {`${APP_SERVER}/member/findMemebersWithOnJob `} renderItem = {this.renderSelectOption}
 					        rules = {
 					          [{
 					            required: true,

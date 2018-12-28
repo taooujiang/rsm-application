@@ -40,7 +40,6 @@ class FeedForm extends Component {
 	}
 	componentWillMount(){
 		let {feedItem,id} = this.props
-		console.log(feedItem.smsTimed)
 		if(id){
 			this.setState({
 				which:feedItem.noticeType,

@@ -545,7 +545,7 @@ class InterviewSatisfaction extends Component {
 			if (it != 'name' && it != 'inputTime') {
 				return <li key={idx} className="score-item">
 					<span>{titleMap[it]}</span>
-					<Rate className="score-rate" value={avgMap[it]} disabled="disabled"/>
+					<Rate className="score-rate" value={Math.round(avgMap[it])} disabled="disabled"/>
 				</li>
 			}
 		})
