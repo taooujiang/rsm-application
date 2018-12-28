@@ -154,7 +154,7 @@ export default class ClientAPI {
           console.log(object)
           emitter.emit(object.type,object);
       }else{
-        if(object.type == "download_resume" || object.type == "batch_job_sync"){
+        if(object.type == "download_resume" || object.type == "batch_job_sync" || object.type == "downloadConfrim" || object.type == "downloadResume"){
           emitter.emit(object.type,object);
         }else{
           message.error(object.msg)

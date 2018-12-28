@@ -113,6 +113,7 @@ export default class ResumeDownload extends FormPage {
 		timePolling(2,10,function(num,t){
 			let downloadConfrim = window.localStorage.downloadConfrim ? JSON.parse(window.localStorage.downloadConfrim) : false
 			if(downloadConfrim){
+				clearInterval(t)
 				if (downloadConfrim.ok) {
 					console.log(downloadConfrim,"emiter_console",that)
 					that.setState({pythonData: downloadConfrim, spinFlag: false})
@@ -152,6 +153,7 @@ export default class ResumeDownload extends FormPage {
 			let downloadResume = window.localStorage.downloadResume ? JSON.parse(window.localStorage.downloadResume) : false
 			if(downloadResume){
 				closeFn()
+				clearInterval(t)
 				if (downloadResume.ok) {
 					actions.saveContratAction(downloadResume,row.id)
 				} else {

@@ -40,6 +40,7 @@ class FeedForm extends Component {
 	}
 	componentWillMount(){
 		let {feedItem,id} = this.props
+		console.log(feedItem.smsTimed)
 		if(id){
 			this.setState({
 				which:feedItem.noticeType,
@@ -97,13 +98,13 @@ class FeedForm extends Component {
 		}else{
 			return this.state.time == '1' ?
 					[<FormItem>
-							<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
+							<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={ this.state.time}/>
 						</FormItem>,
 					<FormItem>
 						<DateTimePicker name="smsTime" defaultDate={id&&feedItem.smsTime != "" ? moment(feedItem.smsTime) : moment()} defaultTime={id&&feedItem.smsTime != "" ? moment(feedItem.smsTime) : moment().set({hour: moment().hour() + 1, minute: 0, second: 0})}/>
 					</FormItem>]
 				: <FormItem>
-						<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={id ? feedItem.smsTimed+"" : this.state.time}/>
+						<RadioGroup name="smsTimed" label="通知时间" options={sendOption} onChange={this.handleChangeTime.bind(this)} defaultValue={this.state.time}/>
 					</FormItem>
 		}
 	}
@@ -258,10 +259,16 @@ export default class FeedFormView extends FormPage {
 			}
 		} = this.props
 		var object = {}
+		let jobTitle
 		let interviewTime,interviewWay,companyName
 		// let {name, jobTitle} = interviewInfo
 		let {name} = item
-		let {jobTitle} = feedItem
+		if(feedItem){
+			jobTitle = feedItem.jobTitle
+		}else{
+			jobTitle = item.resumes.filter(it=>it.id == item.id).pop().jobTitle
+		}
+
 		if (this.form.getFieldValue("interviewTime")) {
 			interviewTime = this.form.getFieldValue("interviewTime").format("YYYY-MM-DD HH:mm")
 		}
