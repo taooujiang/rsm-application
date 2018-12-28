@@ -43,7 +43,7 @@ class FeedForm extends Component {
 		if(id){
 			this.setState({
 				which:feedItem.noticeType,
-				time:feedItem.smsTimed
+				time:feedItem.smsTimed ? feedItem.smsTimed : "0"
 			})
 		}
 	}
@@ -249,7 +249,8 @@ export default class FeedFormView extends FormPage {
 		let {
 			location: {
 				state: {
-					item
+					item,
+					feedItem
 				}
 			},
 			reduce: {
@@ -259,15 +260,16 @@ export default class FeedFormView extends FormPage {
 		var object = {}
 		let interviewTime,interviewWay,companyName
 		// let {name, jobTitle} = interviewInfo
-		let {name, jobTitle} = item
+		let {name} = item
+		let {jobTitle} = feedItem
 		if (this.form.getFieldValue("interviewTime")) {
 			interviewTime = this.form.getFieldValue("interviewTime").format("YYYY-MM-DD HH:mm")
 		}
 		if (this.form.getFieldValue("interviewWay")) {
-			interviewWay = DictUtils.getDictLabelByValue("interviewWay",this.form.getFieldValue("interviewWay"))
+			interviewWay = DictUtils.getDictLabelByValue("interviewWay",this.form.getFieldValue("interviewWay")) || ""
 		}
 		if (this.form.getFieldValue("companyName")) {
-			companyName = this.form.getFieldValue("companyName")
+			companyName = this.form.getFieldValue("companyName") || ""
 		}
 		let translate = [
 			{

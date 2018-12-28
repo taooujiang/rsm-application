@@ -9,7 +9,7 @@ import './style.less'
 // Array.prototype OfferApproveSelector
 
 function replaceWhitespace(str){
-  return str.replace(" ","")
+  return str.replace(/\s+/g,"")
 }
 const Option = Select.Option
 @WrapperComponent(ModalView)

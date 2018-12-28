@@ -72,6 +72,7 @@ actions[saveList]= (state,action)=>{
 actions[saveParams] = ( state , action)=>{
   let {shouldPageClear,total,showSizeChanger,pageSizeOptions,pageSize,current,...json} = action.payload
   let {timeType} = state.params
+  console.log("interview",action.payload)
   if(shouldPageClear){
     return {
       ...state,

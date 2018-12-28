@@ -36,7 +36,7 @@ export const saveItem = createAction("UPSERT_RESUME")
 
 export const saveSameList = createAction("SAVE_SAMELIST")
 
-export const saveParams = createAction("SAVE_PARAMS")
+export const saveParams = createAction("SAVE_PARAMS_RESUME")
 
 export const saveCount = createAction("SAVE_COUNT")
 export const saveChecks = createAction("SAVE_CHECKES")
