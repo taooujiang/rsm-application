@@ -357,14 +357,15 @@ export function createResumeRoute() {
       }
       return dispatch => dispatch(routerActions.push(path))
     },
-    entryInfoAction: function(router, id,item) {
+    entryInfoAction: function(router, id,item,newLocation) {
       let pathname = router.getCurrentLocation().pathname
       let path = {
         pathname: `${pathname}/entinfo`,
         state: {
           id: id,
           item:item,
-          pathname: pathname
+          pathname: pathname,
+          newLocation:newLocation
         }
       }
       return dispatch => dispatch(routerActions.push(path))

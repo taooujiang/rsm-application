@@ -90,12 +90,12 @@ export default class EntryFormView extends FormPage{
 
   //处理表格提交后动作
   handleSubmit(values){
-    let {actions,router,dispatch,location} = this.props
+    let {actions,router,dispatch,location:{state}} = this.props
     if(!values.internship){
       values.internship = false
     }
     actions.entryFormAction(values).then(()=>{
-      actions.backRouteReload(router,location)
+      dispatch(routerActions.push(state.newLocation))
     })
   }
   render() {
