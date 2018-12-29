@@ -207,7 +207,8 @@ export function saveUserAction(value) {
         dispatch(fetchSuccess('itemSpin', true))
         console.log(json, 'jsonjsonjson')
         dispatch(userSave(json))
-        dispatch(listUserAction())
+
+        dispatch(listUserAction(getState().settingsReducer.params))
 
       }).catch(ex => {
         return dispatch(fetchFailure('itemSpin', ex))
@@ -303,7 +304,7 @@ export function enableAccWithCodeAction(value) {
     dispatch(fetchRequest('itemSpin'))
     return new API().fetchEnableAccWithCode(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
-      dispatch(listUserAction())
+      dispatch(listUserAction(getState().settingsReducer.params))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -512,9 +513,9 @@ export function route2AddUserCodeAction(acc, data) {
 export function route2UserListAction() {
 let path = {
   pathname:"/settings/userRights",
-  state:{
-    key:"reload"
-  }
+  // state:{
+  //   key:"reload"
+  // }
 }
   return dispatch => {
     dispatch(routerActions.push(path))

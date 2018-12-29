@@ -28,13 +28,12 @@ export default class UserRightView extends PageView {
     let { actions, router } = this.props;
     actions.listUserAction({isEnable:1})
   }
-
-  componentWillReceiveProps(nextProps){
-      let {actions,reduce:{params}} = nextProps
-    	if (nextProps.location.state && nextProps.location.state.key == "reload") {
-          actions.listUserAction(params)
-      }
-  }
+  // componentWillReceiveProps(nextProps){
+  //     let {actions,reduce:{params}} = nextProps
+  //   	if (nextProps.location.state && nextProps.location.state.key == "reload") {
+  //         actions.listUserAction(params)
+  //     }
+  // }
 
   // handover(){
   //     let {actions} = this.props
