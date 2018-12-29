@@ -85,6 +85,8 @@ export default class ResumeDownload extends FormPage {
 		}
 		// let messageFlag = true
 		let JsToPython = new ClientAPI().JsToPython
+		/*先清除上一次的localstorage的数据*/
+		window.localStorage.setItem("downloadConfrim","")
 		JsToPython(params)
 		// emitter.on("download_confrim", function(value) {
 		// 	if (value.ok) {
@@ -146,6 +148,7 @@ export default class ResumeDownload extends FormPage {
 		let that = this
 		let messageFlag = true
 
+		window.localStorage.setItem("downloadResume","")
 		JsToPython(params)
 		this.setState({spinFlag: true})
 

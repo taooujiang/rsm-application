@@ -649,7 +649,7 @@ status 0 1 2 3 4 */
 						</Menu.Item>
 						<Menu.Item key="4">
 							{/*待入职状态是否打开 * 1 审核未开启 则打开  * 2 审核开启并且当前为offer阶段并且offerstatus不为未发送***/}
-							<Button disabled={!isOpenOfferAppro || (isOpenOfferAppro && status == 3 && offerStatus != 1) || status == 4} type="ghost">待入职</Button>
+							<Button disabled={!isOpenOfferAppro || !(isOpenOfferAppro && status == 3 && offerStatus != 1) || status == 4} type="ghost">待入职</Button>
 						</Menu.Item>
 					</Menu>)
 
