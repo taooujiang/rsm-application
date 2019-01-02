@@ -8,7 +8,7 @@ export function timePolling(interval,max,callback){
   let num = 0,
       frequency = max/interval
   var t = setInterval(()=>{
-    callback(num,t)
+    callback(num,t,frequency)
     num++
     if(num >= frequency){
       console.log(1111,num,frequency)

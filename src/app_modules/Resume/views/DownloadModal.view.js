@@ -114,7 +114,7 @@ export default class ResumeDownload extends FormPage {
 	}
 	componentDidMount(){
 		let that = this
-		timePolling(2,10,function(num,t){
+		timePolling(1,10,function(num,t,frequency){
 			let downloadConfrim = window.localStorage.downloadConfrim ? JSON.parse(window.localStorage.downloadConfrim) : false
 			if(downloadConfrim){
 				clearInterval(t)
@@ -125,6 +125,9 @@ export default class ResumeDownload extends FormPage {
 					message.info(downloadConfrim.msg, 5)
 					that.setState({spinFlag: false,pythonData:{}})
 				}
+			}
+			if(num >= frequency){
+				message.warning("连接超时，请检查网络后重试。")
 			}
 		})
 	}
@@ -154,7 +157,7 @@ export default class ResumeDownload extends FormPage {
 		JsToPython(params)
 		this.setState({spinFlag: true})
 
-		timePolling(2,10,function(num,t){
+		timePolling(1,10,function(num,t,frequency){
 			let downloadResume = window.localStorage.downloadResume ? JSON.parse(window.localStorage.downloadResume) : false
 			if(downloadResume){
 				closeFn()
@@ -167,6 +170,9 @@ export default class ResumeDownload extends FormPage {
 						messageFlag = false
 					}
 				}
+			}
+			if(num >= frequency){
+				message.warning("连接超时，请刷新简历后重试。")
 			}
 		})
 	}
