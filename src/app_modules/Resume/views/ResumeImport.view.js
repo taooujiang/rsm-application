@@ -37,7 +37,7 @@ export default class ResumeImportView extends FormPage {
   fileUploadSuccess(){
     this.setState({
       disabled:false,
-      btnText:"点击更换候选人简历"
+      btnText:"点击上传候选人简历"
     })
   }
   fileUploadResponse(res){
