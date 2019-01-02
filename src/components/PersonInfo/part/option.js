@@ -320,7 +320,8 @@ class OptionCommonFn extends Component {
       item: {
         id,
         expectedEntryTime,
-        status
+        status,
+        interviewLevel
       },
       item
     } = this.props
@@ -333,7 +334,7 @@ class OptionCommonFn extends Component {
         actions.entryInvite(data)
         break;
       case 2:
-        status > 2
+        status > 2 && interviewLevel 
           ? actions.offerbackEntryfeedAction(data)
           : actions.feedAction(router, item,{})
         break;
