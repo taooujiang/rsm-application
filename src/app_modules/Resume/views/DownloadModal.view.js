@@ -36,7 +36,10 @@ class DownloadForm extends Component {
 
 	renderSelectRadio(data) {
 		if (data.ok) {
-			console.log(data,"render")
+			//console.log(data,"render")
+			// data={
+			// 	payType:[{type:1111,typeName:"方式1",totalCoin:"免费下载"},{type:222,typeName:"方式2",totalCoin:"免费下载1"}]
+			// }
 			if (data.payType && data.payType.length > 0) {
 				return data.payType.map((it, idx) => {
 					return <Radio value={it.type}>
@@ -52,10 +55,9 @@ class DownloadForm extends Component {
 
 		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
 			<FormItem>
-				<RadioGroup name="payType" style={{
-						textAlign: "center",
-						display: "block"
-					}}>
+				<RadioGroup label="选择下载方式" name="payType" style={{
+						lineHeight:"39px"
+					}} rules={[{required:true,message:"下载方式必填"}]}>
 					{this.renderSelectRadio(data)}
 				</RadioGroup>
 			</FormItem>
