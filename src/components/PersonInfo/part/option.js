@@ -36,6 +36,11 @@ import DictUtils from 'app/utils/DictUtils'
 const Step = Steps.Step;
 const ButtonGroup = Button.Group
 
+const stageJson = {
+		1: "一级审批",
+		2: "二级审批",
+		3: "三级审批"
+	}
 /*导入小组件*/
 import  {
   BaseInfoItem,
@@ -334,7 +339,7 @@ class OptionCommonFn extends Component {
         actions.entryInvite(data)
         break;
       case 2:
-        status > 2 && interviewLevel 
+        status > 2 && interviewLevel
           ? actions.offerbackEntryfeedAction(data)
           : actions.feedAction(router, item,{})
         break;

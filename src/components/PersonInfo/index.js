@@ -70,11 +70,7 @@ const ButtonGroup = Button.Group
 const {TextArea} = Input
 const RadioGroup = Radio.Group
 const MonthPicker = DatePicker.MonthPicker
-const stageJson = {
-		1: "一级审批",
-		2: "二级审批",
-		3: "三级审批"
-	}
+
 
 			/**打印函数start*/
 			var CreatedOKLodop7766 = null,
