@@ -57,7 +57,7 @@ export default class ResumeSide extends Component{
         placeholder="选择部门"
         treeDefaultExpandAll
       />
-      <CalendarPicker label="offer审批发起时间" name="offertime"  minDate={moment().subtract(60,'days')}/>
+      <CalendarPicker label="offer审批发起时间" name="inputTime"  minDate={moment().subtract(60,'days')}/>
     </AdvancedSearchPanel>)
   }
 
