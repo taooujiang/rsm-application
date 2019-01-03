@@ -235,7 +235,7 @@ class PersonOfferShow extends Component {
     } = this.props
     return (<div className="offer-showinfo-box">
       <BaseInfoItem label="offer" info={DictUtils.getDictLabelByValue("offerstatus", status)}/>
-      <BaseInfoItem label="预计入职日期" info={translateTime(info.expectedEntryTime, "YYYY-MM-DD")}/>
+      <BaseInfoItem label="预计入职日期" info={translateTime(info.expectedEntryTime, "YYYY-MM-DD HH:mm:ss")}/>
       <BaseInfoItem label="入职薪资" info={this.renderSalary()}/>
       <BaseInfoItem label="offer邮件详情" info={this.renderArraw()}/> {
         this.state.open
