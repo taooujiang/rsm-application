@@ -112,7 +112,15 @@ export default class MemberInterpolDetail extends Component {
     if (newKey && newKey != oldKey) {
       // 兑换操作 在state生成key，在此接受 拉取新的兑换记录列表
       // todo,不需要random key，设置为true即可
-      this.fetchData()
+      this.setState({
+        scrollLoading: false,
+        isListLoading: false,
+        dataList: [],
+        totalRecord: 0,
+        page: 1
+      }, () => {
+        this.fetchData()
+      })
     }
   }
   _renderListItem(item) {
