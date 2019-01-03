@@ -287,7 +287,7 @@ export default class SystemFieldForm extends FormPage {
           <Input name="fieldId" type="hidden" defaultValue={item.fieldId} />
         </FormItem>
         <FormItem>
-          <Input label="字段名称" name="fieldName" rules={[{ required: true, message: '字段名称不可为空', }, { validator: customRules.required }, { max: 10, message: '字段名称不能超过10个字' }, { validator: customRules.remote, value: '/field/nameIsExistsJson', name: "fieldName", defaultValue: item.fieldName }]} defaultValue={item.fieldName} />
+          <Input label="字段名称" disabled={item.isRead} name="fieldName" rules={[{ required: true, message: '字段名称不可为空', }, { validator: customRules.required }, { max: 10, message: '字段名称不能超过10个字' }, { validator: customRules.remote, value: '/field/nameIsExistsJson', name: "fieldName", defaultValue: item.fieldName }]} defaultValue={item.fieldName} />
         </FormItem>
         <FormItem>
           <Input label="排序值" name="sort" rules={[{ required: true, message: '排序值不可为空' }, { validator: customRules.integer }]} defaultValue={item.sort} />

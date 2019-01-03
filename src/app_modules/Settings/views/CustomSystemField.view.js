@@ -122,7 +122,7 @@ export default class CustomSystemFieldView extends PageView {
           width: 100,
           render: (value, row, index) => {
             // console.log(value)
-            return (<Checkbox  defaultChecked={!!(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={!!(value)}   onChange={this.handlerIfChecked.bind(this,row,'isRequired')} ></Checkbox>)
           },
         }, {
           title: "启用",
@@ -130,7 +130,7 @@ export default class CustomSystemFieldView extends PageView {
           dataIndex: "enable",
           width: 100,
           render: (value, row, index) => {
-            return (<Checkbox  defaultChecked={!!(value)}  onChange={this.handlerIfChecked.bind(this,row,'enable')} disabled={row.isRead==1?true:false}></Checkbox>)
+            return (<Checkbox  defaultChecked={!!(value)}  onChange={this.handlerIfChecked.bind(this,row,'enable')} ></Checkbox>)
           },
         }, {
           title: "操作",
@@ -140,7 +140,7 @@ export default class CustomSystemFieldView extends PageView {
           render: (value, row, index) => {
             // console.log(data)
             return (
-              <Button icon="edit" actionkey="edit" disabled={row.isRead==1} onClick={this.handlerEditRoute.bind(this,value)}></Button>
+              <Button icon="edit" actionkey="edit"  onClick={this.handlerEditRoute.bind(this,value)}></Button>
             )
           }
         }
