@@ -58,6 +58,7 @@ export class MemberSide extends Component {
           placeholder="请输入移动电话"
         />
         <CalendarPicker name="joinTimeArr" label="入职日期" />
+        <CalendarPicker name="dimissionTime" label="离职日期" />
         <LinkagePullDown
           name="degreeArr"
           label="学历"
