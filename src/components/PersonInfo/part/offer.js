@@ -493,7 +493,7 @@ class PersonOfferEdit extends FormPage {
               validator: customRules.required
             }
           ]}/>*/}
-				<DateTimePicker name="expectedEntryTime" defaultDate={info.expectedEntryTime
+				<DateTimePicker label="预计入职时间" name="expectedEntryTime" defaultDate={info.expectedEntryTime
 						? moment(info.expectedEntryTime)
 						: null } defaultTime={info.expectedEntryTime
 								? moment(info.expectedEntryTime)
