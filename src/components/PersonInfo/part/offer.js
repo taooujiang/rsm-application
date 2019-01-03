@@ -418,7 +418,7 @@ class PersonOfferEdit extends FormPage {
     this.setState({time: e.target.value})
   }
   renderAreaOption(data, idx) {
-    return (<Select.Option value={data.area + data.address} key={idx}>{data.addressAll}</Select.Option>)
+    return (<Select.Option value={data.addressAll} key={idx}>{data.addressAll}</Select.Option>)
   }
   renderSelectOption(data, idx) {
     return (<Select.Option value={data.value} key={idx}>{data.label}</Select.Option>)
@@ -493,7 +493,7 @@ class PersonOfferEdit extends FormPage {
               validator: customRules.required
             }
           ]}/>*/}
-				<DateTimePicker name="expectedEntryTime" defaultDate={info.expectedEntryTime
+				<DateTimePicker label="预计入职时间" name="expectedEntryTime" defaultDate={info.expectedEntryTime
 						? moment(info.expectedEntryTime)
 						: null } defaultTime={info.expectedEntryTime
 								? moment(info.expectedEntryTime)
