@@ -483,7 +483,7 @@ class PersonOfferEdit extends FormPage {
         <Input type="hidden" name="isApproval" defaultValue={ editFlag ? 1 : isOpenOfferAppro}/>
       </FormItem>
       <FormItem>
-        <DatePicker label="预计入职日期" name="expectedEntryTime" defaultValue={info.expectedEntryTime
+        {/*<DatePicker label="预计入职日期" name="expectedEntryTime" defaultValue={info.expectedEntryTime
             ? moment(info.expectedEntryTime)
             : null} rules={[
             {
@@ -492,7 +492,16 @@ class PersonOfferEdit extends FormPage {
             }, {
               validator: customRules.required
             }
-          ]}/>
+          ]}/>*/}
+				<DateTimePicker name="expectedEntryTime" defaultDate={info.expectedEntryTime
+						? moment(info.expectedEntryTime)
+						: null } defaultTime={info.expectedEntryTime
+								? moment(info.expectedEntryTime)
+								: null} rules={[{
+							required: true,
+							message: "预计入职时间不可为空"
+						}
+					]}/>
       </FormItem>
       <InputGroup compact="compact" className="moneyGroup">
         <FormItem>
