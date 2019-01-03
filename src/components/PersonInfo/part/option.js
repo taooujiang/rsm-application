@@ -328,15 +328,19 @@ class OptionCommonFn extends Component {
         status,
         interviewLevel
       },
-      item
+      item,
+			orginJson:{
+				viewLibType
+			}
     } = this.props
     let data = {
       id: id
     }
+		// console.log(this.props)
 
     switch (parseInt(target)) {
       case 1:
-        actions.entryInvite(data)
+        actions.entryInvite(data,viewLibType)
         break;
       case 2:
         status > 2 && interviewLevel
@@ -345,8 +349,8 @@ class OptionCommonFn extends Component {
         break;
       case 3:
         status > 3
-          ? actions.backEntryOffer(data)
-          : actions.entryOffer(data)
+          ? actions.backEntryOffer(data,viewLibType)
+          : actions.entryOffer(data,viewLibType)
         break;
       case 4:
         expectedEntryTime

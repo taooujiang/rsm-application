@@ -652,7 +652,7 @@ export function joinCreditAction(value) {
   }
 }
 
-export function entryInvite(value) {
+export function entryInvite(value,viewLibType) {
   let data = {
     ...value,
     status: 1
@@ -665,7 +665,7 @@ export function entryInvite(value) {
       dispatch(getOptionAction({
         resumeId: value.id
       }))
-      dispatch(itemAction({id:value.id}))
+      dispatch(itemAction({id:value.id,viewLibType:viewLibType}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
@@ -685,14 +685,14 @@ export function entryOffer(value) {
       dispatch(getOptionAction({
         resumeId: value.id
       }))
-      dispatch(itemAction({id:value.id}))
+      dispatch(itemAction({id:value.id,viewLibType:viewLibType}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
   }
 }
 
-export function backEntryOffer(value) {
+export function backEntryOffer(value,viewLibType) {
   let data = {
     ...value,
     status: 3
@@ -702,7 +702,7 @@ export function backEntryOffer(value) {
     return new API().fetchBackEntryOffer(value).then(json => {
       dispatch(fetchSuccess('itemSpin', true))
       // dispatch(saveItem(data))
-      dispatch(itemAction({id:value.id}))
+      dispatch(itemAction({id:value.id,viewLibType:viewLibType}))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))
     })
