@@ -95,6 +95,7 @@ export default class EntryFormView extends FormPage{
       values.internship = false
     }
     actions.entryFormAction(values).then(()=>{
+      // console.log(state.newLocation)
       dispatch(routerActions.push(state.newLocation))
     })
   }

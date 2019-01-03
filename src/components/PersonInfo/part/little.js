@@ -29,6 +29,7 @@ import {
 	Switch,
 	Icon
 } from 'antd'
+import BaseForm, {FormItem, customRules} from 'app/components/BaseForm'
 import DictUtils from 'app/utils/DictUtils'
 import moment from 'moment'
 /* 小组件 */
