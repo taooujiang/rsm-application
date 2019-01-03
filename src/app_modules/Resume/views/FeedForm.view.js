@@ -56,7 +56,7 @@ class FeedForm extends Component {
 		return (<Select.Option value={data.jobId} key={"Job" + idx}>{data.jobTitle}</Select.Option>)
 	}
 	renderAreaOption(data, idx) {
-		return (<Select.Option value={data.addressAll} key={idx}>{data.addressAll}</Select.Option>)
+		return (<Select.Option value={data.area + data.address} key={idx}>{data.addressAll}</Select.Option>)
 	}
 	renderInterviewerOption(data, idx) {
 		return (<Select.Option value={data.account} key={"Interviewer" + idx}>{data.name}</Select.Option>)
