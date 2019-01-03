@@ -392,11 +392,13 @@ class OptionButtonsResume extends OptionCommonFn {
       }
     } = this.props
     if (status == 0 && (channelId == 18 || channelId == 19)) {
-      return <BaseInfoItem label="推荐人" info={<span> {
-          referrerName
-            ? referrerName
-            : <Icon type="edit" style={{cursor:"pointer"}} onClick={this.handleEditReco.bind(this)}/>
-        } < /span>}/>
+      return <BaseInfoItem label="推荐人" info={<span>
+					{referrerName}
+					{referrerName || status != 0 
+						? null
+						: <Icon type="edit" style={{cursor:"pointer"}} onClick={this.handleEditReco.bind(this)}/>
+					}
+         < /span>}/>
     }
   }
   handleEditReco() {

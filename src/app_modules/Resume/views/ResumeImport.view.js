@@ -61,13 +61,17 @@ export default class ResumeImportView extends FormPage {
   handleSubmit(){
     let {actions} = this.props
     let importform = this.form
+    let that = this
     importform.validateFieldsAndScroll({force:true},(err,values) => {
        if (err) {
          return;
        }
        // console.log(values)
        actions.importResumeAction(values).then(json=>{
-         importform.resetFields()
+         importform.resetFields();
+         that.setState({
+           btnText:"点击上传候选人简历"
+         })
        })
      });
   }
