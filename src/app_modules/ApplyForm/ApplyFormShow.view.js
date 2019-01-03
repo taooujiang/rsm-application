@@ -231,7 +231,7 @@ export default class ApplyFormView extends Component {
 								? info.interviewTime
 								: undefined).format("YYYY-MM-DD HH:mm")
 						}</span>
-					<Icon onClick={handlePrinter} type={'printer'} className="printerBtn"/>
+					<Icon onClick={handlePrinter} type='printer' className="printerBtn"/>
 				</div>
 			</div>
 			<div className="content">
