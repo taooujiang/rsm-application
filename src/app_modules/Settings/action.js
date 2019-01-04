@@ -558,7 +558,7 @@ export function enableAction(row) {
             account: value.account,
           }
         }
-        dispatch(listUserAction(getState().settingsReducer.params))
+        // dispatch(listUserAction(getState().settingsReducer.params))
         dispatch(routerActions.push(newLocation))
         return
       }
