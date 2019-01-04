@@ -260,7 +260,7 @@ export default class FeedFormView extends FormPage {
 		} = this.props
 		var object = {}
 		let jobTitle
-		let interviewTime,interviewWay,companyName
+		let interviewTime = "",interviewWay = "",companyName = ""
 		// let {name, jobTitle} = interviewInfo
 		let {name} = item
 		if(feedItem){
