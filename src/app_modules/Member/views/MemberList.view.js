@@ -189,7 +189,7 @@ export default class MemberListView extends PageView {
                   title="转正"
                   actionkey="add"
                   confirm={"是否确认" + record.name + "于今日转正"}
-                  disabled={record.status > 1 ? true : false}
+                  disabled={record.status > 1  && record.status < 4? true : false}
                 />
               </ButtonGroups>
             );
