@@ -24,7 +24,7 @@ function processMoment2DateStr(object){
         if(key=='customDatetime'){
           // other format
           //
-        }else if(key=='interviewTime' || key == 'followRemindTime' || key == 'smsTime' || key == 'sendTime'){
+        }else if(key=='interviewTime' || key == 'followRemindTime' || key == 'smsTime' || key == 'sendTime' || key == 'expectedEntryTime'){
             object[key]=object[key].format("YYYY-MM-DD HH:mm:ss")
         }else if(key=='startWorkingYear' || key == "birthYear"){
             object[key]=object[key].format("YYYY")
