@@ -672,7 +672,7 @@ export function entryInvite(value,viewLibType) {
   }
 }
 
-export function entryOffer(value) {
+export function entryOffer(value,viewLibType) {
   let data = {
     ...value,
     status: 3
