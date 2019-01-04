@@ -10,7 +10,7 @@
 
 
 import {newList,newItem,saveList,saveItem,removeItem,fetchRequest,fetchSuccess,fetchFailure,saveParams} from 'app-utils/reducerUtils'
-import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave,clearCurrentMember} from './action'
+import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave,clearCurrentMember,interpolListSave} from './action'
 import {handleActions} from 'redux-actions'
 // TODO: 调整本地数据结构
 let initialState = {
@@ -109,6 +109,17 @@ actions[CONSTANTS.SAVE_PARAMS]=(state, action)=>{
 	})
 }
 actions[memberListSave]= (state,action)=>{
+  let {list,item,page,pageSize,totalRecord}=action.payload
+  return {
+    ...state,
+    page:{
+      current:page,
+      pageSize,
+      total:totalRecord
+    }
+  }
+}
+actions[interpolListSave]= (state,action)=>{
   let {list,item,page,pageSize,totalRecord}=action.payload
   return {
     ...state,

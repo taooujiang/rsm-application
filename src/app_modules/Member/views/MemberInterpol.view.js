@@ -80,7 +80,10 @@ export default class MemberListView extends PageView {
     let { actions } = this.props;
     actions.interpolListAction();
   }
-
+  handleFilter(values) {
+    let { actions } = this.props;
+    actions.interpolListAction(values);
+  }
 
   renderSelectOption(data, idx) {
     return (

@@ -100,8 +100,8 @@ export default class PersonFeedRecord extends Component {
 		let lists = list
 			? list
 			: []
-		/* detailType为10时为员工  特殊开辟 */
-		return detailType == 2 || detailType == 3 || detailType == 4 || detailType == 10
+		/* detailType为5时为员工  特殊开辟 */
+		return detailType == 2 || detailType == 3 || detailType == 4 || detailType == 5
 			? (<div className="feedRecord-box">
 				<Permission expression={status <= 2 && detailType == 2 && !isLock && authorization}>
 					<ButtonGroup className="btn-box">

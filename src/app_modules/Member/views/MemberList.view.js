@@ -96,7 +96,7 @@ export class MemberSide extends Component {
           }
           renderItem={this.renderSelectOption}
         />
-        <InputStrGroup name="ages" label="年龄" defaultValue={[]} />
+      <InputStrGroup name="ages" label="年龄" defaultValue={["",""]} />
       </AdvancedSearchPanel>
     );
   }

@@ -103,7 +103,7 @@ export default class PersonOffer extends Component {
     if(this.props.resumeId !== nextProps.resumeId){
       actions.getOfferAction({resumeId: resumeId})
     }
-    if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+    if (nextProps.location && JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
       if (nextProps.location.state && nextProps.location.state.key == "reload") {
           actions.getOfferAction({resumeId: resumeId})
       }
