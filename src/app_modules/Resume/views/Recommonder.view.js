@@ -31,7 +31,8 @@ const TreeNode = Tree.TreeNode
 
 export default class RecommonderForm extends FormPage {
 	renderSelectOption(data, idx) {
-		return (<Select.Option value = {data.id}	key = {	idx	} > {	data.name	} </Select.Option>)
+		console.log(data)
+		return (<Select.Option value = {data.id}	key = {	idx	} > {	data.name} ({data.mobilephone}) </Select.Option>)
     }
 
 
@@ -71,7 +72,7 @@ export default class RecommonderForm extends FormPage {
         	<Input type = "hidden" name = "resumeId" defaultValue = { item.id } / >
 				</FormItem>
 				<FormItem>
-	        <Select name = "referrerId" label = "推荐人"  placeholder = "请选择" fetch = {`${APP_SERVER}/member/findMemebersWithOnJob `} renderItem = {this.renderSelectOption}
+	        <Select name = "referrerId" label = "推荐人" showSearch placeholder = "请选择" fetch = {`${APP_SERVER}/member/findMemebersWithOnJob `} renderItem = {this.renderSelectOption}
 					        rules = {
 					          [{
 					            required: true,
@@ -79,7 +80,8 @@ export default class RecommonderForm extends FormPage {
 					          }]
 					        }
 	        />
-				</FormItem >
+				</FormItem>
+				<span className="referrerman"><i>温馨提示：</i>推荐人添加成功后，无法修改</span>
         </BaseForm>
     }
   }

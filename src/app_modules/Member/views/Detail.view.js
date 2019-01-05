@@ -58,10 +58,10 @@ export default class MemberDetail extends Detail {
                     <MemberInfo dataSource={item} reduce={reduce} />
                   </TabPane>
                   <TabPane tab="简历资料" key="1">
-                    <PersonTabBaseInfo detailType={5} actions={actions} id={resumeId} info={baseInfo} />
+                    <PersonTabBaseInfo detailType={10} actions={actions} id={resumeId} info={baseInfo} />
                   </TabPane>
                   <TabPane tab="面试记录" key="2">
-                    <PersonFeedRecord actions={actions} detailType={10} resumeId={resumeId} info={feedInfo} item={item}/>
+                    <PersonFeedRecord actions={actions} detailType={5} resumeId={resumeId} info={feedInfo} item={item}/>
                   </TabPane>
                   <TabPane tab="offer记录" key="3">
                     <PersonOffer actions={actions}  resumeId={resumeId} detailType={10} info={offer} item={item}  />
