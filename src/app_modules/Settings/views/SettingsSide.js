@@ -50,14 +50,17 @@ export default class SettingsSide extends React.Component {
               </Link>
             </Menu.Item>
             , "company")}
-          <Menu.Item key="share">
-            <Link to={{
-              pathname: 'settings/share',
-              state: { breadcrumbName: "分享设置", keyPath: ['sub1', 'share'] }
-            }}>
-              <span>分享设置</span>
-            </Link>
-          </Menu.Item>
+          {this.renderAuthMenuItem(
+            <Menu.Item key="share">
+              <Link to={{
+                pathname: 'settings/share',
+                state: { breadcrumbName: "分享设置", keyPath: ['sub1', 'share'] }
+              }}>
+                <span>分享设置</span>
+              </Link>
+            </Menu.Item>
+            , "share")}
+
         </SubMenu>
         <SubMenu key="sub6" title={<span><Icon type="usergroup-add" /><span>组织角色管理</span></span>}>
           {this.renderAuthMenuItem(
@@ -118,14 +121,16 @@ export default class SettingsSide extends React.Component {
         </SubMenu>
 
         <SubMenu key="sub4" title={<span><Icon type="rocket" /><span>招聘提速</span></span>}>
-          <Menu.Item key="internalrecommend">
-            <Link to={{
-              pathname: 'settings/internalrecommend',
-              state: { breadcrumbName: "内推设置", keyPath: ['sub4', 'internalrecommend'] }
-            }}>
-              <span>内推设置</span>
-            </Link>
-          </Menu.Item>
+          {this.renderAuthMenuItem(
+            <Menu.Item key="internalrecommend">
+              <Link to={{
+                pathname: 'settings/internalrecommend',
+                state: { breadcrumbName: "内推设置", keyPath: ['sub4', 'internalrecommend'] }
+              }}>
+                <span>内推设置</span>
+              </Link>
+            </Menu.Item>, "interpolate")
+          }
           {this.renderAuthMenuItem(
             <Menu.Item key="remind">
               <Link to={{
@@ -157,30 +162,37 @@ export default class SettingsSide extends React.Component {
               </Link>
             </Menu.Item>, "register")
           }
-          <Menu.Item key="offer">
-            <Link to={{
-              pathname: 'settings/offer',
-              state: { breadcrumbName: "审批流程设置", keyPath: ['sub4', 'offer'] }
-            }}>
-              <span>Offer审批流程设置</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="interviewfeedback">
-            <Link to={{
-              pathname: 'settings/interviewfeedback',
-              state: { breadcrumbName: "面试反馈模板设置", keyPath: ['sub4', 'interviewfeedback'] }
-            }}>
-              <span>面试反馈模板设置</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="interviewjudge">
-            <Link to={{
-              pathname: 'settings/interviewjudge',
-              state: { breadcrumbName: "面试评分表设置", keyPath: ['sub4', 'interviewjudge'] }
-            }}>
-              <span>面试评分表设置</span>
-            </Link>
-          </Menu.Item>
+          {this.renderAuthMenuItem(
+            <Menu.Item key="offer">
+              <Link to={{
+                pathname: 'settings/offer',
+                state: { breadcrumbName: "审批流程设置", keyPath: ['sub4', 'offer'] }
+              }}>
+                <span>Offer审批流程设置</span>
+              </Link>
+            </Menu.Item>, "offerApprovel")
+          }
+          {this.renderAuthMenuItem(
+            <Menu.Item key="interviewfeedback">
+              <Link to={{
+                pathname: 'settings/interviewfeedback',
+                state: { breadcrumbName: "面试反馈模板设置", keyPath: ['sub4', 'interviewfeedback'] }
+              }}>
+                <span>面试反馈模板设置</span>
+              </Link>
+            </Menu.Item>, "interviewFeedback")
+          }
+          {this.renderAuthMenuItem(
+
+            <Menu.Item key="interviewjudge">
+              <Link to={{
+                pathname: 'settings/interviewjudge',
+                state: { breadcrumbName: "面试评分表设置", keyPath: ['sub4', 'interviewjudge'] }
+              }}>
+                <span>面试评分表设置</span>
+              </Link>
+            </Menu.Item>, "interviewScore")
+          }
 
           <Menu.Item key="other">
             <Link to={{
@@ -243,22 +255,26 @@ export default class SettingsSide extends React.Component {
               </Link>
             </Menu.Item>, "fields")
           }
-          <Menu.Item key="level">
-            <Link to={{
-              pathname: 'settings/level',
-              state: { breadcrumbName: "职位级别设置", keyPath: ['sub5', 'level'] }
-            }}>
-              <span>职位级别设置</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="actionlog">
-            <Link to={{
-              pathname: 'settings/actionlog',
-              state: { breadcrumbName: "操作日志", keyPath: ['sub5', 'actionlog'] }
-            }}>
-              <span>操作日志</span>
-            </Link>
-          </Menu.Item>
+          {this.renderAuthMenuItem(
+            <Menu.Item key="level">
+              <Link to={{
+                pathname: 'settings/level',
+                state: { breadcrumbName: "职位级别设置", keyPath: ['sub5', 'level'] }
+              }}>
+                <span>职位级别设置</span>
+              </Link>
+            </Menu.Item>, "positionLevel")
+          }
+          {this.renderAuthMenuItem(
+            <Menu.Item key="actionlog">
+              <Link to={{
+                pathname: 'settings/actionlog',
+                state: { breadcrumbName: "操作日志", keyPath: ['sub5', 'actionlog'] }
+              }}>
+                <span>操作日志</span>
+              </Link>
+            </Menu.Item>, "operationLog")
+          }
         </SubMenu>
       </Menu>
     );

@@ -154,40 +154,40 @@ export default class HeaderSide extends React.Component {
                   <span>职位管理</span>
                 </Link>
               </Menu.Item>),"job")*/
-          this.renderAuthMenuItem(
-            // <Menu.SubMenu key="1" title={<span>职位管理</span>}>
-            //   <Menu.Item key="1-1">
-            //     <Link
-            //       to={{
-            //         pathname: "job/list"
-            //         //   state: { breadcrumbName: "职位管理" }
-            //       }}
-            //     >
-            //       <span>职位管理列表</span>
-            //     </Link>
-            //   </Menu.Item>
-            //   {/*this.renderAuthMenuItem(<Menu.Item key="1-2">
-            //     <Link
-            //       to={{
-            //         pathname: "/job/jobrelease/1/1"
-            //         //   state: { breadcrumbName: "新增职位" }
-            //       }}
-            //     >
-            //       <span>新增职位</span>
-            //     </Link>
-            //   </Menu.Item>,"releaseJob")*/}
-            //   {this.renderAuthMenuItem(<Menu.Item key="1-3">
-            //     <Link
-            //       to={{
-            //         pathname: "job/search"
-            //         //   state: { breadcrumbName: "职位导入" }
-            //       }}
-            //     >
-            //       <span>职位导入</span>
-            //     </Link>
-            //   </Menu.Item>,"importJob")}
-            // </Menu.SubMenu>,
-            <Menu.Item key="1-1">
+            this.renderAuthMenuItem(
+              // <Menu.SubMenu key="1" title={<span>职位管理</span>}>
+              //   <Menu.Item key="1-1">
+              //     <Link
+              //       to={{
+              //         pathname: "job/list"
+              //         //   state: { breadcrumbName: "职位管理" }
+              //       }}
+              //     >
+              //       <span>职位管理列表</span>
+              //     </Link>
+              //   </Menu.Item>
+              //   {/*this.renderAuthMenuItem(<Menu.Item key="1-2">
+              //     <Link
+              //       to={{
+              //         pathname: "/job/jobrelease/1/1"
+              //         //   state: { breadcrumbName: "新增职位" }
+              //       }}
+              //     >
+              //       <span>新增职位</span>
+              //     </Link>
+              //   </Menu.Item>,"releaseJob")*/}
+              //   {this.renderAuthMenuItem(<Menu.Item key="1-3">
+              //     <Link
+              //       to={{
+              //         pathname: "job/search"
+              //         //   state: { breadcrumbName: "职位导入" }
+              //       }}
+              //     >
+              //       <span>职位导入</span>
+              //     </Link>
+              //   </Menu.Item>,"importJob")}
+              // </Menu.SubMenu>,
+              <Menu.Item key="1-1">
                 <Link
                   to={{
                     pathname: "job/list"
@@ -197,8 +197,8 @@ export default class HeaderSide extends React.Component {
                   <span>职位管理</span>
                 </Link>
               </Menu.Item>,
-            "job"
-          )}
+              "job"
+            )}
           {this.renderAuthMenuItem(
             <Menu.SubMenu key="3" title={<span>面试管理</span>}>
               <Menu.Item key="3-1">
@@ -249,16 +249,20 @@ export default class HeaderSide extends React.Component {
                   <span>员工管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5-2">
-                <Link
-                  to={{
-                    pathname: "member/interpol"
-                    // state: { breadcrumbName: "员工管理" }
-                  }}
-                >
-                  <span>员工内推</span>
-                </Link>
-              </Menu.Item>
+              {this.renderAuthMenuItem(
+                <Menu.Item key="5-2">
+                  <Link
+                    to={{
+                      pathname: "member/interpol"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>员工内推</span>
+                  </Link>
+                </Menu.Item>,
+                "memberInterpolae"
+              )}
+
             </Menu.SubMenu>,
             "member"
           )}
@@ -301,34 +305,34 @@ export default class HeaderSide extends React.Component {
             </Menu.Item>,
             "report"
           )
-          /*
-          this.renderAuthMenuItem((<Menu.SubMenu key="8"  title={<span>统计分析</span>}>
-            <Menu.Item key="8-1">
+            /*
+            this.renderAuthMenuItem((<Menu.SubMenu key="8"  title={<span>统计分析</span>}>
+              <Menu.Item key="8-1">
+                <Link to={{
+                    pathname: 'report',
+                    state: { breadcrumbName: "简历分析" }
+                  }}>
+                  <span>简历分析</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="8-2">
               <Link to={{
-                  pathname: 'report',
-                  state: { breadcrumbName: "简历分析" }
+                  pathname: 'report/commin',
+                  state: { breadcrumbName: "通信分析" }
                 }}>
-                <span>简历分析</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="8-2">
-            <Link to={{
-                pathname: 'report/commin',
-                state: { breadcrumbName: "通信分析" }
-              }}>
-                <span>通信分析</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="8-3">
-              <Link to={{
-                  pathname: 'report/hrreport',
-                  state: { breadcrumbName: "招聘分析" }
-                }}>
-                <span>招聘分析</span>
-              </Link>
-            </Menu.Item>
-          </Menu.SubMenu>),"report")
-          */
+                  <span>通信分析</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="8-3">
+                <Link to={{
+                    pathname: 'report/hrreport',
+                    state: { breadcrumbName: "招聘分析" }
+                  }}>
+                  <span>招聘分析</span>
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>),"report")
+            */
           }
           {this.renderAuthMenuItem(
             <Menu.Item key="9">
