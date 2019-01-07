@@ -64,6 +64,7 @@ export default class ResumeListView extends PageView {
 			actions.listRealAction(params)
 			actions.listReportAction(params)
 			actions.getCheckAction(params)
+			if(params.status){this.setState({columnNumber:params.status})}
 		}
 	}
 	componentWillReceiveProps(nextProps) {

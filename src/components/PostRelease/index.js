@@ -485,7 +485,7 @@ class ChannelAdJobRule extends Component {
 					item
 						? <Switch defaultChecked={isWebsite == 1} onChange={this.changeCheck.bind(this)}/>
 						: null
-				}<div>请到遇仁公证号中查看内推职位</div>
+				}<div>请到遇仁公众号中查看内推职位</div>
 			</span>
 }/>
 			<JobRules {...this.props}/>
