@@ -9,9 +9,15 @@ let hasPermission,permissionStyle
 if (process.env.NODE_ENV === 'development') {
   hasPermission=function(modulesName){
     // console.log(modulesName)
-    return getAuthList().filter((rl)=>{
-      return modulesName.indexOf(rl.note)>=0
-    }).length>0
+    // return getAuthList().filter((rl)=>{
+    //   return modulesName.indexOf(rl.note)>=0
+    // }).length>0
+
+    /**
+     * blame zhuwl
+     * 2019-01-07
+     */
+    return getAuthList().some(el=>el.note===modulesName)
   }
   permissionStyle = function(modulesName){
 
@@ -22,9 +28,16 @@ if (process.env.NODE_ENV === 'development') {
 }else{
   hasPermission=function(modulesName){
     // console.log(modulesName)
-    return getAuthList().filter((rl)=>{
-      return modulesName.indexOf(rl.note)>=0
-    }).length>0
+    // return getAuthList().filter((rl)=>{
+    //   //不可靠，modulesName='memberxxxxx',authList中有'member'权限 
+    //   return modulesName.indexOf(rl.note)>=0
+    // }).length>0
+
+    /**
+     * blame zhuwl
+     * 2019-01-07
+     */
+    return getAuthList().some(el=>el.note===modulesName)
   }
   permissionStyle = function(modulesName){
     return getAuthList().filter((rl)=>{
