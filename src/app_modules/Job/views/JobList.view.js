@@ -144,6 +144,7 @@ export default class NewJobListView extends PageView {
                       <Link onClick={this.openTab.bind(this,{
                         title: '职位详情',
                         key: 'job/jobrelease' ,
+                        refresh:true,
                         src:`/static/js/client/main.html#/job/jobrelease/${row.jobId}/5/1`
                       })}><JobTitleInTable item={row}/></Link>
                     )

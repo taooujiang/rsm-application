@@ -92,6 +92,7 @@ export default class ClientAPI {
         parent.addTab&&parent.addTab({
           title: '发布职位',
           key: 'job/jobrelease' ,
+          refresh:true,
           src:`/static/js/client/main.html#/job/jobrelease/1/1`
         })
       }else if(type == '6'){//导入职位

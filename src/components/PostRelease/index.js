@@ -175,6 +175,9 @@ class BaseInfoEdit extends FormPage {
 								{
 									required: true,
 									message: "职位名称不可为空"
+								},{
+									max:15,
+									message:"职位名称最长15个字符"
 								}, {
 									validator: customRules.required
 								}, {
@@ -763,6 +766,7 @@ export default class PostRelease extends Component {
 			}
 		} = this.props
 		let {max, step, jobId} = params
+		console.log(status)
 		let addFlag = max != 5/* true为新增 false为编辑或查看 */
 		return (<Row gutter={12} className="jobdetail-box">
 			<Col span={18}>
@@ -791,7 +795,8 @@ export default class PostRelease extends Component {
 					}
 				</Tabs>
 			</Col>
-			<Col span={6}>
+			{/*如果是发布职位并且在第一步 不显侧栏*/}
+			{addFlag&&step == 1 ? null : <Col span={6}>
 				<div className="jobdetail-silde">
 					<div className="optionBox">
 						<Button type="primary" htmlType="button" onClick={this.endingFire.bind(this)}>{
@@ -823,7 +828,7 @@ export default class PostRelease extends Component {
 					{this.renderSwitch()}
 					{this.renderApproSelect()}
 				</div>
-			</Col>
+			</Col>}
 		</Row>)
 	}
 }

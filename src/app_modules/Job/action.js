@@ -209,7 +209,7 @@ export function endingFireAction(router,rows,keys,callback,type){
   return (dispatch, getState) => {
       dispatch(fetchRequest('tableSpin'))
       let value = {
-        updateType:type,
+        updateType:type == 1? 3:1,
         jobIds:keys
       }
       return new API().fetchUpdateJob(value).then(json => {
@@ -217,10 +217,11 @@ export function endingFireAction(router,rows,keys,callback,type){
           // callback()
           //console.log(getState().jobReducer.params)
           // dispatch(backRouteReload(router))
+
           if(callback){
             dispatch(listAction(getState().jobReducer.params)).then(callback)
           }else{
-            type == 1 ? dispatch(saveItem({id:keys[0],status:3})) : dispatch(saveItem({id:keys[0],status:1}))
+            type == 1 ? dispatch(saveItem({jobId:keys[0],status:3})) : dispatch(saveItem({jobId:keys[0],status:1}))
           }
       }).catch(ex => {
           return dispatch(fetchFailure('tableSpin',ex))
