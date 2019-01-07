@@ -649,6 +649,25 @@ class OptionButtonsSame extends OptionCommonFn {
 }
 /* offer审核状态中间组件 */
 class OptionButtonOfferJudge extends Component {
+	renderRecommender() {
+
+    let {
+      status,
+      item: {
+        channelId,
+        referrerName
+      }
+    } = this.props
+    if (channelId == 18 || channelId == 19) {
+      return <BaseInfoItem label="推荐人" info={<span>
+					{referrerName}
+					{referrerName || status != 0
+						? null
+						: <Icon type="edit" style={{cursor:"pointer"}} onClick={this.handleEditReco.bind(this)}/>
+					}
+         < /span>}/>
+    }
+  }
   renderWhich() {
     let {
       item: {
@@ -659,11 +678,11 @@ class OptionButtonOfferJudge extends Component {
     } = this.props
     switch (status) {
       case 0:
-        return <OptionButtonsOffering {...this.props}/>
+        return <OptionButtonsOffering {...this.props} renderRecommender={this.renderRecommender}/>
       case 1:
-        return <OptionButtonsOffered {...this.props}/>
+        return <OptionButtonsOffered {...this.props} renderRecommender={this.renderRecommender}/>
       case 2:
-        return <OptionButtonsNoOffered {...this.props}/>
+        return <OptionButtonsNoOffered {...this.props} renderRecommender={this.renderRecommender}/>
     }
   }
   render() {
@@ -712,7 +731,7 @@ class OptionButtonsOffering extends OptionCommonFn {
         <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
-
+			{this.props.renderRecommender()}
       <BaseInfoItem label="标签" info={<Button onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
@@ -751,7 +770,7 @@ class OptionButtonsOffered extends OptionCommonFn {
         <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
-
+			{this.props.renderRecommender()}
       <BaseInfoItem label="标签" info={<Button onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
@@ -790,7 +809,7 @@ class OptionButtonsNoOffered extends OptionCommonFn {
         <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
-
+			{this.props.renderRecommender()}
       <BaseInfoItem label="标签" info={<Button onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
