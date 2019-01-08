@@ -88,7 +88,8 @@ export function clearUnreadNum(type){
 		2:"ygxgNum",
 		3:"dbsjNum",
 		4:"xtxxNum",
-		5:"gxrzNum"
+		5:"gxrzNum",
+		6:"wjldNum"
 	}
 	return (dispatch, getState) => {
 		dispatch(clearNumber(json[type]))

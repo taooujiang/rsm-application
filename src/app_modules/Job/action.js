@@ -209,7 +209,7 @@ export function endingFireAction(router,rows,keys,callback,type){
   return (dispatch, getState) => {
       dispatch(fetchRequest('tableSpin'))
       let value = {
-        updateType:type == 1? 3:1,
+        updateType:type,
         jobIds:keys
       }
       return new API().fetchUpdateJob(value).then(json => {
