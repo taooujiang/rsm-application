@@ -285,8 +285,39 @@
 /*基本信息部分*/
 .personBaseInfoPanel{
   margin-top: 20px;
-  .resume-origin{
-    top:-40px;
+  .ant-dropdown-menu-item{
+    .ant-btn-ghost{
+      border:0;
+    }
+  }
+  .resume-toolbar{
+    position:absolute;
+    top: 0;
+    left:20px;
+    right:35px;
+    background-color: #fff;
+    z-index: 10;
+
+    &.resume-origin{
+      text-align:center;
+      top:-40px;
+      left: 0;
+      right: 57px;
+      button{
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    .ant-btn-group{
+      background-color: #fff;
+      .ant-btn{
+        background-color: #e0e0e0;
+        border-width: 0;
+        font-size: 16px;
+        margin-left:10px !important;
+      }
+    }
   }
   .personinfo-detailHead{
     border: 1px solid #e6e6e6;
@@ -577,38 +608,7 @@
   }
 }
 
-.ant-dropdown-menu-item{
-  .ant-btn-ghost{
-    border:0;
-  }
-}
-.resume-toolbar{
-  position:absolute;
-  top: 0;
-  left:20px;
-  right:35px;
-  background-color: #fff;
-  z-index: 10;
 
-  &.resume-origin{
-    text-align:center;
-
-    button{
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-  .ant-btn-group{
-    background-color: #fff;
-    .ant-btn{
-      background-color: #e0e0e0;
-      border-width: 0;
-      font-size: 16px;
-      margin-left:10px !important;
-    }
-  }
-}
 img.resume-orign-img{
   width: 100%;
 }

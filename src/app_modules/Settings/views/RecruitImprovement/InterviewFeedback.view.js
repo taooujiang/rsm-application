@@ -27,6 +27,9 @@ export default class InterviewFeedback extends PageView {
   }
   renderCollpase() {
     const { items, actions, } = this.props
+    if(!items.length){
+      return <div className='table-no-data offerApproval-setting-nodata'>暂无数据</div>
+    }
     return items.map(e => {
       return (
         <CollapsePanel item={e} actions={actions} />

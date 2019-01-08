@@ -27,10 +27,11 @@ const dynamicRouter = (partialNextState, cb, importModule, reducerName) => {
   });
 };
 
-function authLogin(nextState, replaceState) {
+function authLogin(authName,nextState, replaceState) {
   var pathname = nextState.location.pathname;
   /*待分配管理不做权限判断*/
-  if ( pathname != "/resume/distributed" && !hasPermission(pathname)) {
+  // console.log(12312312,pathname)
+  if ( pathname != "/resume/distributed" && !hasPermission(authName)) {
     replaceState("/403");
   }
 }
@@ -47,14 +48,14 @@ function RootRoutes() {
         {
           //   path: 'demo',
           //   breadcrumbName: "demo",
-          //   // onEnter: authLogin,
+          //   // onEnter: authLogin.bind(this,''),
           //
           // 	getChildRoutes:(partialNextState,cb)=>dynamicRouter(partialNextState,cb,import("app_modules/Demo"),"demoReducer")
           // 	// getChildRoutes:dynamicDashboardRoutes
           // }, {
           path: "dashboard",
           breadcrumbName: "首页",
-          // onEnter: authLogin,
+          // onEnter: authLogin.bind(this,''),
           // childRoutes:RouteUtils.createRoutesFromReactChildren(dynamicDashboardRoutes)
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
@@ -68,7 +69,7 @@ function RootRoutes() {
         {
           path: "soundlist",
           breadcrumbName: "通话录音",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'soundlist'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -80,7 +81,7 @@ function RootRoutes() {
         {
           path: "log",
           breadcrumbName: "log",
-          // onEnter: authLogin,
+          // onEnter: authLogin.bind(this,''),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -92,7 +93,7 @@ function RootRoutes() {
         {
           path: "job",
           breadcrumbName: "岗位管理",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'job'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -104,7 +105,7 @@ function RootRoutes() {
         {
           path: "resume",
           breadcrumbName: "简历管理",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'resume'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -116,7 +117,7 @@ function RootRoutes() {
         {
           path: "elite",
           breadcrumbName: "人才库",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'elite'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -128,7 +129,7 @@ function RootRoutes() {
         {
           path: "report",
           breadcrumbName: "统计分析",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'report'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -140,7 +141,7 @@ function RootRoutes() {
         {
           path: "interview",
           breadcrumbName: "面试管理",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'interview'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -152,7 +153,7 @@ function RootRoutes() {
         {
           path: "member",
           breadcrumbName: "员工管理",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'member'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -164,7 +165,7 @@ function RootRoutes() {
         {
           path: "settings",
           breadcrumbName: "系统设置",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'settings'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -176,7 +177,7 @@ function RootRoutes() {
         {
           path: "credit",
           breadcrumbName: "诚信库",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'credit'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,
@@ -188,7 +189,7 @@ function RootRoutes() {
         {
           path: "wesite",
           breadcrumbName: "微站管理",
-          onEnter: authLogin,
+          onEnter: authLogin.bind(this,'wesite'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,

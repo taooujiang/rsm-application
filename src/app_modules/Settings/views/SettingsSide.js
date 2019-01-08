@@ -14,6 +14,10 @@ export default class SettingsSide extends React.Component {
   }
 
   renderAuthMenuItem(element, name) {
+    /*开发调试*/
+    // if(process.env.NODE_ENV === 'development'){
+    //   return (element)
+    // }
     if (hasPermission(name)) {
       return (element)
     } else {
