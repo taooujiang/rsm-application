@@ -59,7 +59,7 @@ function toStrings(str) {
 /**/
 class BaseInfoItem extends Component {
 	render() {
-		return (<div className="baseinfo-item">
+		return (<div className="baseinfo-item" style={this.props.style||{}}>
 			<label>{this.props.label}：</label>
 			<span>{this.props.info}</span>
 		</div>)
@@ -157,7 +157,7 @@ class BaseInfoEdit extends FormPage {
 				<Col span={24}>
 					{
 						item.jobCode
-							? <BaseInfoItem label="职位编号" info={item.jobCode}/>
+							? <BaseInfoItem label="职位编号" info={item.jobCode} style={{color:"#000",lineHeight:"40px"}}/>
 							: null
 					}
 					<FormItem>
@@ -168,7 +168,7 @@ class BaseInfoEdit extends FormPage {
 					</FormItem>
 				</Col>
 			</Row>
-			<Row>
+			<Row className="edit-firstRow">
 				<Col span={12}>
 					<FormItem>
 						<Input label="职位名称" name="jobTitle" defaultValue={item.jobTitle} rules={[
@@ -490,7 +490,7 @@ class ChannelAdJobRule extends Component {
 						: null
 				}<div>请到遇仁公众号中查看内推职位</div>
 			</span>
-}/>
+			}/>
 			<JobRules {...this.props}/>
 		</div>)
 	}

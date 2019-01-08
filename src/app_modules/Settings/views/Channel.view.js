@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NestedComponent from 'app/decorators/NestedComponent'
 import SettingTable from 'components/SystemSetting'
 import PageView from 'app/components/Page'
+import classnames from 'classnames'
 import DictUtils from 'app/utils/DictUtils'
 import DataTable from 'app/components/DataTable'
 import { Button, Card ,Switch,List, Tag, Avatar } from "antd"
@@ -21,12 +22,12 @@ export default class Adverse extends PageView {
 		return(
 			<div className="channel-description">
 				支持功能：
-				<Tag color={isPlug?"#e4f1f9":''}>支持插件</Tag>
-				<Tag color={isMailResumeImport?"#e4f1f9":''}>支持邮件简历导入</Tag>
-				<Tag color={isResumeRecommend?"#e4f1f9":''}>支持简历推荐</Tag>
-				<Tag color={isJobRefresh?"#e4f1f9":''}>支持职位刷新</Tag>
-				<Tag color={isResumeDownload?"#e4f1f9":''}>支持简历下载</Tag>
-				<Tag color={isJobImport?"#e4f1f9":''}>支持职位导入</Tag>
+				<Tag className={classnames(isPlug?"choose":"")}>支持插件</Tag>
+				<Tag className={classnames(isMailResumeImport?"choose":"")}>支持邮件简历导入</Tag>
+				<Tag className={classnames(isResumeRecommend?"choose":"")}>支持简历推荐</Tag>
+				<Tag className={classnames(isJobRefresh?"choose":"")}>支持职位刷新</Tag>
+				<Tag className={classnames(isResumeDownload?"choose":"")}>支持简历下载</Tag>
+				<Tag className={classnames(isJobImport?"choose":"")}>支持职位导入</Tag>
 			</div>
 		)
 	}
