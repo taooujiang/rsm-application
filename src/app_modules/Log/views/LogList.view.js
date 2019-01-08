@@ -150,7 +150,7 @@ export default class LogListView extends Component {
       if(resumeIsDelete == 1){
         return message.warning("简历已被删除")
       }else{
-        actions.resumeDetailRoute(resumeId,router);
+        actions.resumeDetailRoute(this.props.params.type,resumeId,router);
       }
       // parent.addTab && parent.addTab({
       //   title: '候选人管理',
@@ -166,7 +166,7 @@ export default class LogListView extends Component {
         return message.warning("简历已被删除")
       }
       if(item.bussinessId == 2){
-        actions.resumeDetailRoute(resumeId,router);
+        actions.resumeDetailRoute(this.props.params.type,resumeId,router);
       }
     }
   }

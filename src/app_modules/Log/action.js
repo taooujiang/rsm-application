@@ -78,8 +78,8 @@ export function logDetailAction(params) {
 		})
 	}
 }
-export function resumeDetailRoute(resumeId,router) {
-  return dispatch => dispatch(routerActions.push({pathname:`log/1/${resumeId}/detail`,state:{orgin:router.getCurrentLocation().pathname}}))
+export function resumeDetailRoute(type,resumeId,router) {
+  return dispatch => dispatch(routerActions.push({pathname:`log/${type}/${resumeId}/detail`,state:{orgin:router.getCurrentLocation().pathname}}))
 }
 
 export function clearUnreadNum(type){

@@ -112,7 +112,7 @@ function filterPath(path) {
     return filterPathSpec(path, 2)
   } else if (path.indexOf("/resume/search") >= 0) {
     return filterPathSpec(path, 2)
-  } else if (path.indexOf("/log/1") >= 0) {
+  } else if (path.indexOf("/log/") >= 0) {
     return filterPathSpec(path, 2)
   } else {
     return ""
