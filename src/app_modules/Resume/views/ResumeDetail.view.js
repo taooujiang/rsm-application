@@ -72,10 +72,10 @@ function translateOrgin(state) {
 
 class InfoItem extends Component {
 	render() {
-		let {icon, text} = this.props
+		let {icon, text,styles} = this.props
 		return text
 			? (<span className="info-item" {...this.props}>
-				<Icon type={icon}/> {text}
+				<Icon type={icon} style={styles}/> {text}
 			</span>)
 			: null
 	}
@@ -505,15 +505,16 @@ class PersonInfoPanelHead extends Component {
 				}
 			</Row>
 			<Row gutter={12} className="headInfoBottom">
-				<InfoItem icon="user" text={userInfoText}/> {
+				 {
 					downloadStatus
 						? [
-							<InfoItem icon="mobile" text={info.mobilephone} onClick={this.handleCallPhone.bind(this, info.mobilephone, info.id, info.name, detailType)}/>,
+							<InfoItem icon="icon-phone" styles={{color:"#3390ed",cursor:"pointer"}} text={info.mobilephone} onClick={this.handleCallPhone.bind(this, info.mobilephone, info.id, info.name, detailType)}/>,
 							<InfoItem icon="mail" text={info.email}/>,
-							<InfoItem icon="mobile" text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>
+							<InfoItem icon="icon-phone" styles={{color:"#3390ed",cursor:"pointer"}} text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>
 						]
 						: <Button onClick={this.handleGetContact.bind(this)}>获取联系方式</Button>
 				}
+				<InfoItem icon="user" text={userInfoText}/>
 				{this.state.showModal ?
 					<ResumeDownload actions={actions} row={info} router={router} channelResumeId={resumeChannelId} channel={channelId} closeFn={this.closeFn.bind(this)} propTitle="下载渠道简历"/>
 					: null

@@ -126,6 +126,7 @@ class FeedForm extends Component {
 				type,
 				createble
 			},
+			interviewers,
 			companyId,
 			id,
 			feedItem
@@ -179,7 +180,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch  defaultValue={id ? feedItem.interviewerIds : []} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
+						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch  defaultValue={id ? feedItem.interviewerIds : interviewers} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
 								{
 									required: true,
 									message: "面试官不可为空"
@@ -311,6 +312,7 @@ export default class FeedFormView extends FormPage {
 			},
 			reduce: {
 				interviewInfo: {
+					interviewers,
 					map
 				},
 				companyId
@@ -329,7 +331,8 @@ export default class FeedFormView extends FormPage {
 			companyId:companyId,
 			item:item,
 			id:id,
-			feedItem:feedItem
+			feedItem:feedItem,
+			interviewers:interviewers
 		}
 		return (<Spin tip="Loading..." spinning={false}>
 			<FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)} saveFormRef={this.saveFormRef} {...datas}>

@@ -144,3 +144,5 @@
 .anticon-icon-no_pass:before { content: "\e63a"; }
 
 .anticon-icon-pass:before { content: "\e605"; }
+
+.anticon-icon-phone:before { content: "\e675"; }

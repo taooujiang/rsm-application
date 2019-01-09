@@ -522,12 +522,12 @@ class PersonBaseInfoShowHead extends Component {
 			return <div className="contactInfo">
 				{
 					info.mobilephone
-						? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.mobilephone, id, info.name, detailType)}/>{info.mobilephone}</span>)
+						? (<span><Icon type="icon-phone" style={{color:"#3390ed",cursor:"pointer"}} onClick={this.handleCallPhone.bind(this, info.mobilephone, id, info.name, detailType)}/>{info.mobilephone}</span>)
 						: null
 				}
 				{
 					info.alternativePhone
-						? (<span><Icon type="phone" onClick={this.handleCallPhone.bind(this, info.alternativePhone, id, info.name, detailType)}/>{info.alternativePhone}</span>)
+						? (<span><Icon type="icon-phone" style={{color:"#3390ed",cursor:"pointer"}} onClick={this.handleCallPhone.bind(this, info.alternativePhone, id, info.name, detailType)}/>{info.alternativePhone}</span>)
 						: null
 				}
 				{
