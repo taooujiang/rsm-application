@@ -519,7 +519,7 @@ class PersonInfoPanelHead extends Component {
 					<ResumeDownload actions={actions} row={info} router={router} channelResumeId={resumeChannelId} channel={channelId} closeFn={this.closeFn.bind(this)} propTitle="下载渠道简历"/>
 					: null
 				}
-				<InfoItem icon="clock-circle" text={info.workYear}/>
+				<InfoItem icon="icon-clock" styles={{fontSize:"12px"}} text={info.workYear}/>
 				<InfoItem icon="book" text={translateDic("education", info.degree)}/>
 				<InfoItem icon="environment" text={info.currentAddress}/> {
 					detailType == 3 && filingReason == "淘汰"
