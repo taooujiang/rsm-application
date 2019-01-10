@@ -24,7 +24,7 @@ import moment from 'moment'
 import {FormPage} from 'app/components/Page'
 import  FetchAPI from 'app/utils/FetchAPI'
 import {TreeSelectPicker} from 'app/components/TreeView'
-import BaseForm,{FormItem} from 'app/components/BaseForm'
+import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 
 const Option = Select.Option
 const RadioGroup = Radio.Group;
@@ -119,7 +119,11 @@ export default class ChangeFeederForm extends FormPage{
                   />
                 </FormItem>
                 <FormItem>
-                  <Select name="interviewerIds" label="选择面试官" placeholder="请选择" defaultValue={interviewerIds} fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple"/>
+                  <Select name="interviewerIds" label="选择面试官" placeholder="请选择" defaultValue={interviewerIds} fetch={this.state.dept} renderItem={this.renderHrOption} mode="multiple" rules={[{
+  									validator: customRules.maxLength,
+  									value: 3,
+  									message: "面试官最多选择3个"
+  								}]}/>
                 </FormItem>
           </Row>
       </BaseForm>

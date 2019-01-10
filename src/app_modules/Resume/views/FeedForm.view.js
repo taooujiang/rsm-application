@@ -332,7 +332,7 @@ export default class FeedFormView extends FormPage {
 			item:item,
 			id:id,
 			feedItem:feedItem,
-			interviewers:interviewers
+			interviewers:interviewers?interviewers.map(it=>it.interviewerId) :[]
 		}
 		return (<Spin tip="Loading..." spinning={false}>
 			<FeedForm onSubmit={this.onSubmit} updateFieldValue={this.updateFieldValue.bind(this)} saveFormRef={this.saveFormRef} {...datas}>
