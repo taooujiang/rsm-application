@@ -503,7 +503,8 @@ export function savePersonBaseAction(value, id) {
       dispatch(saveResumeInfo(json))
       dispatch(saveItem({
         id: id,
-        ...json
+        ...json,
+        downloadStatus:1
       }))
     }).catch(ex => {
       return dispatch(fetchFailure('itemSpin', ex))

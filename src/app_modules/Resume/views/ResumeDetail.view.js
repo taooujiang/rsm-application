@@ -509,8 +509,8 @@ class PersonInfoPanelHead extends Component {
 					downloadStatus
 						? [
 							<InfoItem icon="icon-phone" styles={{color:"#3390ed",cursor:"pointer"}} text={info.mobilephone} onClick={this.handleCallPhone.bind(this, info.mobilephone, info.id, info.name, detailType)}/>,
+							<InfoItem icon="icon-phone" styles={{color:"#3390ed",cursor:"pointer"}} text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>,
 							<InfoItem icon="mail" text={info.email}/>,
-							<InfoItem icon="icon-phone" styles={{color:"#3390ed",cursor:"pointer"}} text={info.alternativePhone} onClick={this.handleCallPhone.bind(this, info.alternativePhone, info.id, info.name, detailType)}/>
 						]
 						: <Button onClick={this.handleGetContact.bind(this)}>获取联系方式</Button>
 				}
