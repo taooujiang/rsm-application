@@ -449,7 +449,7 @@ export function sendRemarkAction(value) {
 export function getOfferAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
-    return new API().fetchOffer(value).then(json => {
+    return new API().fetchOffer({...value,timestamp: new Date().getTime()}).then(json => {
       dispatch(fetchSuccess('formSpin'))
       dispatch(saveOffer(json))
     }).catch(ex => {

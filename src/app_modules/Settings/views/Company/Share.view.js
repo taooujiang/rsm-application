@@ -16,8 +16,9 @@ export default class Share extends FormPage {
     loading: true
   }
   renderToolbar() {
+    let {loading} = this.state
     return (
-      <Button type="primary" onClick={this.onSubmit.bind(this)} actionkey="add">保存</Button>
+      <Button type="primary" onClick={this.onSubmit.bind(this)} actionkey="add" disabled={loading}>保存</Button>
     )
   }
   componentDidMount() {
@@ -43,18 +44,21 @@ export default class Share extends FormPage {
     let { actions, router } = this.props;
     this.setState({
       loading: true
-    })
-    saveShareSetting(values).then(res => {
-      message.success('保存成功');
-      this.setState({
-        loading: false
+    },()=>{
+      saveShareSetting(values).then(res => {
+        message.success('保存成功');
+        this.setState({
+          loading: false,
+  	      id:res.id
+        })
+      }).catch(e => {
+        message.warning(e.msg)
+        this.setState({
+          loading: false
+        })
       })
-    }).catch(e => {
-      message.warning(e.msg)
-      this.setState({
-        loading: false
-      })
     })
+
   }
   beforeUpload(file) {
     let { name } = file
@@ -91,7 +95,6 @@ export default class Share extends FormPage {
     const { onSubmit, } = this.props
     const { title, remark, photoUrl, id } = this.state
     return (
-      <Spin spinning={this.state.loading}>
         <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
           <FormItem className="row-hidden">
             <Input name="id" type="hidden" defaultValue={id} />
@@ -113,19 +116,17 @@ export default class Share extends FormPage {
               imgWidth="300px"
               onResponse={this.responseType} onSuccess={this.onSuccess}></ImgUpload>
           </FormItem>
-
-
         </BaseForm>
-      </Spin>
-
     );
   }
   render() {
 
     return (
-      <Card title={<div><h3 className="card-title">分享设置</h3></div>} extra={this.renderToolbar()}	>
-        {this.renderForm()}
-      </Card>
+      <Spin spinning={this.state.loading}>
+        <Card title={<div><h3 className="card-title">分享设置</h3></div>} extra={this.renderToolbar()}	>
+          {this.renderForm()}
+        </Card>
+      </Spin>
     )
   }
 }

@@ -189,8 +189,10 @@ const reducer = handleActions({
     const payload = actions.payload
     payload.channels.map((it)=>{
 			let numId = Number(it.id)
-      var chn=state.channels.get(numId)
-			state.channels.set(numId,Object.assign({},chn,it))
+			if(numId != 18 && numId != 19){
+				var chn=state.channels.get(numId)
+				state.channels.set(numId,Object.assign({},chn,it))
+			}
     })
 		let channels = JSON.stringify([...state.channels.values()])
 		window.localStorage.setItem("channels",channels)
