@@ -517,7 +517,7 @@ class JobRules extends Component {
 					return (<List.Item key={idx}>
 						<Card title={`分配规则${number}`} extra={<ButtonGroups handleClick = {
 								this.handleClick.bind(this, item.id)
-							} > <Button actionkey="jump2ResetAction">重新分配</Button>
+							} ><Button actionkey="jump2ResetAction">重新分配</Button>
 							<Button actionkey="cancleLinkAction" confirm="确定取消关联后入库的此类简历，将不再进入此职位">取消关联</Button>
 						</ButtonGroups>}>
 							<div>简历邮箱：{item.originalEmail}</div>

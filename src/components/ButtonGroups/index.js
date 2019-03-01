@@ -44,7 +44,9 @@ export default class ButtonGroups extends Component {
 
   renderButtonOnly() {
     let { children, handleClick } = this.props;
-    let childrenArray = React.Children.toArray(children);
+    // console.log(children)
+    /*filter  处理bug  暂时没找到问题 开发环境正常 打包后出现了空字符作为子元素*/
+    let childrenArray = React.Children.toArray(children).filter(it=>it);
     let { appReducer } = this.context;
     // console.log(this.context.appReducer)
     return childrenArray
