@@ -191,7 +191,7 @@ class FeedForm extends Component {
 								}
 							]}></Select>
 					</FormItem>
-					// <span className="feed-disabled">当前候选人已安排完全部面试</span>
+					{/*<span className="feed-disabled">当前候选人已安排完全部面试</span>*/}
 				</Col>
 				<Col span={24}>
 					<FormItem>
