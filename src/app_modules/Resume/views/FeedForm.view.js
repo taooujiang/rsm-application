@@ -180,7 +180,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch  defaultValue={id ? feedItem.interviewerIds : interviewers} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
+						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch defaultValue={id ? feedItem.interviewerIds : interviewers} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
 								{
 									required: true,
 									message: "面试官不可为空"
@@ -191,6 +191,7 @@ class FeedForm extends Component {
 								}
 							]}></Select>
 					</FormItem>
+					// <span className="feed-disabled">当前候选人已安排完全部面试</span>
 				</Col>
 				<Col span={24}>
 					<FormItem>

@@ -311,7 +311,7 @@ export default class Dashboard extends Component {
 							<Badge count={wjldNum}>
 								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
-							<p>未接来电</p>
+							<p>通信相关</p>
 						</Link>
 					</div>
 				</Card>)
@@ -351,7 +351,7 @@ export default class Dashboard extends Component {
 							<Badge count={wjldNum}>
 								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
-							<p>未接来电</p>
+							<p>通信相关</p>
 					</div>
 				</Card>)}
         </Fixed>
