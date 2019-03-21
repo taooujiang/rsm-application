@@ -96,6 +96,7 @@ export default class ResumeSide extends Component{
       <Input name="name" label="姓名" placeholder="请输入姓名"/>
       <Input name="company" label="就职公司" placeholder="请输入就职公司"/>
       <Input name="currentAddress" label="现工作地" placeholder="请输入现工作地"/>
+      <Input name="remark" label="备注" placeholder="请输入备注内容"/>
       <Input name="expectedAddress" label="期望工作地" placeholder="请输入期望工作地"/>
       <Select name="remarkLabel" label="标签" placeholder="请选择"  fetch={`${APP_SERVER}/option/optionListJson?optionCode=labels_code`} renderItem={this.renderLabelOption} showSearch optionFilterProp="optionName" filterOption={function(inputValue, option){
         return option.props.children.indexOf(inputValue)>-1

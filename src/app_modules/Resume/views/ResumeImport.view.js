@@ -23,6 +23,7 @@ import PageView,{FormPage} from 'app/components/Page'
 import {Layout,Fixed,Pane} from 'app/components/Layout'
 
 const Option = Select.Option
+const { TextArea } = Input;
 
 
 export default class ResumeImportView extends FormPage {
@@ -134,6 +135,9 @@ export default class ResumeImportView extends FormPage {
                 </FormItem>
                 <FormItem>
                   <Select label="推荐人" name="referrer" placeholder = "请选择" showSearch fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
+                </FormItem>
+                <FormItem>
+                  <TextArea label="备注" name="remark" placeholder="请输入对该候选人的备注" rows={4}/>
                 </FormItem>
                 <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>
               </Fixed>

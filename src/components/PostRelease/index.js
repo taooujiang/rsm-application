@@ -46,6 +46,7 @@ import InputStrGroup from 'app/components/InputStrGroup'
 import DictUtils from 'app/utils/DictUtils'
 import {permissionStyle} from 'app/utils/ConfigUtils'
 import {interviewColor} from 'app/components/TableRow/Interview'
+import {EditableRichEditor} from 'app/components/RichEditor'
 import moment from 'moment'
 import styles from './index.less'
 
@@ -275,7 +276,7 @@ class BaseInfoEdit extends FormPage {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<TextArea label="职位描述" name="jobDescription" defaultValue={item.jobDescription} autosize={{
+						{/*<TextArea label="职位描述" name="jobDescription" defaultValue={item.jobDescription} autosize={{
 								minRows: 4
 							}} rules={[
 								{
@@ -286,7 +287,17 @@ class BaseInfoEdit extends FormPage {
 								}, {
 									validator: customRules.spacialStr
 								}
-							]}/>
+							]}/>*/}
+						<EditableRichEditor name="jobDescription" rows={4} defaultValue={item.jobDescription} extBar={false} type='html' rules={[
+							{
+								required: true,
+								message: "职位描述不可为空"
+							}, {
+								validator: customRules.required
+							}, {
+								validator: customRules.spacialStr
+							}
+						]}/>
 					</FormItem>
 				</Col>
 			</Row>

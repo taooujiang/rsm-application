@@ -1836,6 +1836,18 @@ export class PersonRemarks extends FormPage {
 			actions.getRemarkAction({resumeId: nextProps.resumeId})
 		}
 	}
+	renderCommonRemark(){
+		// console.log(DictUtils.getDictByType('commonWord'))
+		return DictUtils.getDictByType('commonWord').map(it=>{
+			return <Tag onClick={this.handleQuickAddRemark.bind(this,it.keyName)}>{it.keyName}</Tag>
+		})
+	}
+	handleQuickAddRemark(value){
+
+		this.form.setFieldsValue({
+			context:this.form.getFieldValue('context') + value
+		})
+	}
 	handleSubmit() {
 		let {actions} = this.props
 		let formDom = this.form
@@ -1887,6 +1899,9 @@ export class PersonRemarks extends FormPage {
 											}
 										]}/>
 								</FormItem>
+								<div className="common-tag-box">
+									{this.renderCommonRemark()}
+								</div>
 								<Button className="button_save" type="primary" onClick={this.handleSubmit.bind(this)}>保存</Button>
 							</div>
 						</BaseForm>
@@ -1897,7 +1912,7 @@ export class PersonRemarks extends FormPage {
 								item.inputName.substring(0, 1)
 							}
 							</Avatar>} title={item.inputName} description={<div > <div>{item.context}</div>
-							<div>{translateTime(item.inputTime, "YYYY-MM-DD HH:mm")}</div>
+						<div className="remark-time">{translateTime(item.inputTime, "YYYY-MM-DD HH:mm")}</div>
 						</div>}/>
 					</List.Item>)}/>
 			</div>

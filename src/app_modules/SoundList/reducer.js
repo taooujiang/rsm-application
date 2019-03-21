@@ -36,6 +36,7 @@ actions[saveMsgParams] = (state, action) => {
   return Object.assign({},state,{params:action.payload})
 }
 actions[saveParams] = (state, action) => {
+	// console.log("reducer123",action.payload)
   return Object.assign({},state,{params:action.payload})
 }
 const reducer = handleActions(actions, initialState)

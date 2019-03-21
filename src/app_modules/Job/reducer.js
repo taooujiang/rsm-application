@@ -121,10 +121,10 @@ const actions = {}
   *
   */
  actions[saveList]= (state,action)=>{
-  let {list,item,page,pageSize,totalRecord,isOpen}=action.payload
+  let {list,item,page,pageSize,totalRecord}=action.payload
   return {
     ...state,
-    listShow:isOpen?true:false,
+    listShow:item.isOpen?true:false,
     page:{
       current:page,
       pageSize:pageSize,

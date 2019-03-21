@@ -59,7 +59,7 @@ export class SoundSideView extends Component {
       val: value
     });
     console.log(value)
-    actions.listAction({range:value})
+    this.handleFilter({range:value})
   }
   renderSelectOption(data, idx) {
     return (
@@ -141,6 +141,10 @@ class SoundListView extends PageView {
       </Select.Option>
     );
   }
+
+  // handleFilter(value){
+  //   console.log(value)
+  // }
 
   handlerMenu(row, actionType) {
     let {

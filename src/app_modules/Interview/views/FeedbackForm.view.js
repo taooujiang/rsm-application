@@ -144,6 +144,9 @@ class FeedbackForm extends Component {
 	renderInterviewerOption(data, idx) {
 		return (<Select.Option value={data.interviewerId} key={idx}>{data.interviewer}</Select.Option>)
 	}
+	renderSelectOption(data, idx) {
+		return (<Select.Option value={data.keyName} key={"select" + idx}>{data.keyName}</Select.Option>)
+	}
 	handleChange(value) {
 		let {info} = this.props
 		this.setObjFn(info, value)
@@ -173,6 +176,12 @@ class FeedbackForm extends Component {
 		let arr = DictUtils.getDictByType("feedbackState")
 		return arr && arr.map((it, idx) => {
 			return {label: it.keyName, value: it.keyValue, disabled: false}
+		})
+	}
+	handleChangeComFeedback(item){
+		// console.log(item)
+		this.props.formRefs.setFieldsValue({
+			feedback:this.props.formRefs.getFieldValue('feedback') + item
 		})
 	}
 	changeTypeVal(dtoList) {
@@ -244,6 +253,9 @@ class FeedbackForm extends Component {
 							message: "反馈信息最多200个字符"
 						}
 					]} help="请及时提交面试反馈信息，且务必做到准确评价"/>
+			</FormItem>
+			<FormItem>
+				<Select name="aaa" fetch={DictUtils.getDictByType("commonFeedback")} renderItem={this.renderSelectOption} placeholder="常用反馈语" onChange={this.handleChangeComFeedback.bind(this)}/>
 			</FormItem>
 			<FormItem>
 				<RadioGroup label="为候选人打分" name="feedbackState" defaultValue={obj.feedbackStateStr} disabled={obj.isFeedback == 1} help="请为候选人打分，您的分数将与其他面试官的评分一起进行评估" options={this.renderRadioData()} rules={[{

@@ -67,7 +67,8 @@ export default class PersonFeedRecord extends Component {
 		actions.feedAction(router, item,{})
 	}
 	handleSendScoreSms(item){
-		let {actions,info:{isOpen}} = this.props
+		let {actions,info,info:{item:{isOpen}}} = this.props
+		console.log(info,123)
 
 		if(isOpen){
 			return Modal.confirm({
