@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactRouter, { Router, Route, IndexRoute } from 'react-router'
 import { ResumeDetailContainer } from '../Resume/container'
-import Container, { FormContainer, DetailContainer, ExportContainer, ImportContainer, ImportResultContainer, Interpol, InterpolDetail,InterpolForm } from './container'
+import Container, { FormContainer,MemberLeaveFormContainer, DetailContainer, ExportContainer, ImportContainer, ImportResultContainer, Interpol, InterpolDetail,InterpolForm } from './container'
 
 let Routes = (
   <Router>
@@ -10,6 +10,7 @@ let Routes = (
       <Route path="edit/:id" components={FormContainer} breadcrumbName="修改成员" />
       <Route path="detail/:id" components={DetailContainer} breadcrumbName="员工档案">
         <Route path="edit" components={FormContainer} breadcrumbName="修改成员" />
+        <Route path="leave" components={MemberLeaveFormContainer} breadcrumbName="员工离职" />
       </Route>
       {/* <Route path="detail/:id" components={DetailContainer} breadcrumbName="查看成员" /> */}
       <Route path="export" components={ExportContainer} breadcrumbName="导出Excel" />

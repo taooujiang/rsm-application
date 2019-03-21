@@ -34,6 +34,7 @@ import JoinTalentFormView from './views/JoinTalentAction.view'
 import CreditFilingReasonFormView from './views/CreditFilingReason.view'
 import DeleteFormView from './views/DeleteResume.view'
 import FollowFormView from './views/Follow.view'
+import SendMsgFormView from './views/SendMsg.view'
 import Forward2OtherFormView from './views/Forward2Other.view'
 import Recommend2OtherFormView from './views/Recommend2Other.view'
 import ResumeRemarkView from './views/ResumeRemark.view'
@@ -119,6 +120,7 @@ let Forward2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, nu
 let Recommend2OtherFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(Recommend2OtherFormView))
 let CreditFilingReasonFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(CreditFilingReasonFormView))
 let FollowFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(FollowFormView))
+let SendMsgFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(SendMsgFormView))
 let DeleteFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(DeleteFormView))
 
 let FolderContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(ResumeFolderListView)
@@ -161,7 +163,8 @@ export {
 	ApprovalContainer,
 	OfferNopassFormContainer,
 	ResumeImportContainer,
-	RecommonderFormContainer
+	RecommonderFormContainer,
+	SendMsgFormContainer
 }
 
 export default Container;

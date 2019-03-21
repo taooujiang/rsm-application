@@ -191,7 +191,8 @@ class FeedForm extends Component {
 								}
 							]}></Select>
 					</FormItem>
-					{/*<span className="feed-disabled">当前候选人已安排完全部面试</span>*/}
+					<span style={{display:"block",color:'red',margin:'0px 10px 12px 100px'}}>张三三李思思是外网搞点数，张三三李思思是外网搞点数，张三三李思思是外网搞点数未绑定公众号</span>
+					<span style={{display:"block",margin:"0 10px 12px 100px",color:"#bfbfbf"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
 				</Col>
 				<Col span={24}>
 					<FormItem>
@@ -208,7 +209,6 @@ class FeedForm extends Component {
 				<FormItem>
 					<RadioGroup name="noticeType" label="通知候选人" options={options} onChange={this.handleChange.bind(this)} defaultValue={id ? feedItem.noticeType+"" : this.state.which}/>
 				</FormItem>
-				<span style={{display:"block",margin:"-15px 0 12px 100px",color:"#bfbfbf"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
 				{this.renderSmsOrEmail()}
 				{this.renderTimeType()}
 			</Row>

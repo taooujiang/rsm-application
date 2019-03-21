@@ -118,6 +118,7 @@ let {
   talentAction,
   send2InterviewerAction,
   recommend2OtherAction,
+  sendMsgAction,
   addEliteAction,
   followAction,
   deleteAction,
@@ -139,6 +140,7 @@ export {
   talentAction,
   send2InterviewerAction,
   recommend2OtherAction,
+  sendMsgAction,
   addEliteAction,
   followAction,
   deleteAction,
@@ -394,6 +396,17 @@ export function editRecommender(value) {
   }
 }
 
+
+export function hanldeSendMsgAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('formSpin'))
+    return new API().fetchSendMsg(value).then(json => {
+      dispatch(fetchSuccess('formSpin',true))
+    }).catch(ex => {
+      return dispatch(fetchFailure('formSpin', ex))
+    })
+  }
+}
 
 export function getFeedDataAction(value) {
   return (dispatch, getState) => {

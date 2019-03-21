@@ -15,6 +15,7 @@ import SideLayout from 'app/decorators/SideLayout'
 import MemberListView,{MemberSide} from './views/MemberList.view'
 import MemberFormView from './views/MemberForm.view'
 import MemberDetailView from './views/Detail.view'
+import MemberLeaveView from './views/MemberLeave.view'
 import MemberExportView from './views/MemberExport.view'
 import MemberImportView from './views/MemberImport.view'
 import MemberImportResultView from './views/MemberImportResult.view'
@@ -41,6 +42,11 @@ let FormContainer = connect((state,props)=>({
   item:state.memberReducer.currentItem,
   reduce:state.memberReducer
 }), mapDispatchToProps, null, {pure: false})(MemberFormView)
+let MemberLeaveFormContainer = connect((state,props)=>({
+  // item:reducerItemSelector(state.ORMReducer,"Member",props.params.id),
+  // item:state.memberReducer.currentItem,
+  reduce:state.memberReducer
+}), mapDispatchToProps, null, {pure: false})(MemberLeaveView)
 let Container = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"Member"),
   reduce:state.memberReducer
@@ -74,5 +80,5 @@ let ExportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: 
 let ImportContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(MemberImportView)
 let ImportResultContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(MemberImportResultView)
 
-export {FormContainer,DetailContainer,ExportContainer,ImportContainer,ImportResultContainer,Interpol,InterpolDetail,InterpolForm}
+export {FormContainer,DetailContainer,MemberLeaveFormContainer,ExportContainer,ImportContainer,ImportResultContainer,Interpol,InterpolDetail,InterpolForm}
 export default Container;

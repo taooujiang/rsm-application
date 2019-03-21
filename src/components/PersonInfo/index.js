@@ -1976,15 +1976,15 @@ export class PersonCommunitcate extends Component {
 	}
 	render() {
 		let {info} = this.props
-		return (<Timeline>
-			{
-				info.map((it, idx) => {
-					return <Timeline.Item color="green">
-						<PersonCommunitcateItem item={it} name={name}/>
-					</Timeline.Item>
-				})
-			}
-		</Timeline>)
+		return <Timeline>
+				{
+					info.map((it, idx) => {
+						return <Timeline.Item color="green">
+							<PersonCommunitcateItem item={it} name={name}/>
+						</Timeline.Item>
+					})
+				}
+			</Timeline>
 	}
 }
 class PersonCommunitcateItem extends Component {
@@ -2005,28 +2005,40 @@ class PersonCommunitcateItem extends Component {
 		let showRecordPlayStr = JSON.stringify(showRecordPlay);
 		global.invokeMethod('ShowRecordPlay', showRecordPlayStr)
 	}
+	renderPlayRecord(item){
+		return item.type == 1 ? <span>{
+				item.showTimeLength == "00:00:00"
+				? <Icon type="play-circle" style={{
+					color: "#ccc",
+					marginRight: 10
+				}}/>
+				: <Icon type="play-circle" style={{
+					color: "#0e8df8",
+					marginRight: 10,
+					cursor: "pointer"
+				}} onClick={this.playRecord.bind(this, item)}/>
+		}{item.showTimeLength}</span> : null
+	}
+	renderMsgContent(item){
+		return item.type == 2 ? <Row gutter={10}>
+		<Col span={24}>{item.content}</Col>
+	</Row> : null
+	}
 	render() {
 		let {item} = this.props
 		return (<div className="comunitcattionItem">
 			<Row gutter={10}>
-				<Col span={18}>
-					<span>通话时间：{item.startTime}</span>
+				<Col span={12}>
+					<span>【{item.showCallState}】{item.startTime}</span>
 				</Col>
 				<Col span={6}>
-					<span>{
-							item.showTimeLength == "00:00:00"
-								? <Icon type="play-circle" style={{
-											color: "#ccc",
-											marginRight: 10
-										}}/>
-								: <Icon type="play-circle" style={{
-											color: "#0e8df8",
-											marginRight: 10,
-											cursor: "pointer"
-										}} onClick={this.playRecord.bind(this, item)}/>
-						}{item.showTimeLength}</span>
+					{this.renderPlayRecord(item)}
+				</Col>
+				<Col span={6}>
+					{item.inputName}
 				</Col>
 			</Row>
+			{this.renderMsgContent(item)}
 		</div>)
 	}
 }

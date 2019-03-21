@@ -156,6 +156,18 @@ export function createResumeRoute() {
       }
       return dispatch => dispatch(routerActions.push(path))
     },
+    sendMsgAction: function(router, item) {
+
+      let pathname = router.getCurrentLocation().pathname
+      let path = {
+        pathname: `${pathname}/sendmsg`,
+        state: {
+          item: item,
+          pathname: pathname
+        }
+      }
+      return dispatch => dispatch(routerActions.push(path))
+    },
     syncAction: function(router, selected) {
       let pathname = router.getCurrentLocation().pathname
       let path = {

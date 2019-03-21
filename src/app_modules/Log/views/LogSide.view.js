@@ -61,7 +61,7 @@ export default class LogView extends Component {
 					</Menu.Item>
 					<Menu.Item key="6">
 						<Link to={{ pathname: "log/6" }}>
-							<span>未接来电</span>
+							<span>通信相关</span>
 							<Badge count={wjldNum}>
 							</Badge>
 						</Link>

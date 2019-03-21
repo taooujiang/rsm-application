@@ -311,6 +311,15 @@ class OptionCommonFn extends Component {
     /*new*/
     actions.entryInfoAction(router,item.id,item,newLocation)
   }
+	sendMsgAction(){
+		let {actions,router,item} = this.props
+		// console.log(item)
+		if(!item.mobilephone){
+			message.warning("请先维护手机号再尝试！")
+      return false
+		}
+		actions.sendMsgAction(router,item)
+	}
   relateJob() {
     let {actions, router, item: {
         id
@@ -426,6 +435,7 @@ class OptionButtonsResume extends OptionCommonFn {
       <Button className="block" onClick={this.send2Other.bind(this)}>发送部门负责人</Button>
       <Button className="block" confirm="是否批量淘汰" onClick={this.eliminate.bind(this)}>淘汰</Button>
       <Button className="block" onClick={this.send2OtherJob.bind(this)}>推荐到其他职位</Button>
+      <Button className="block" onClick={this.sendMsgAction.bind(this)}>发送短信息</Button>
       <Button className="half-block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
       <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
       <Button className="half-block" onClick={this.addElite.bind(this, 1)}>放入人才库</Button>
@@ -457,6 +467,7 @@ class OptionButtonsElite extends OptionCommonFn {
     } = this.props
     return (<ButtonGroup>
       <Button className="block" onClick={this.relateJob.bind(this)}>关联职位</Button>
+			<Button className="block" onClick={this.sendMsgAction.bind(this)}>发送短信息</Button>
       <Button className="block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
       <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
       <Button className="half-block" style={permissionStyle("eliteToCred")} onClick={this.addCredit.bind(this)}>放入诚信库</Button>

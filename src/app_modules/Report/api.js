@@ -61,7 +61,7 @@ export default class API extends FetchAPI {
 	}
 	// 工作量统计
 	fetchWorkloadReport(params) {
-    return this.fetchPostList(`${APP_SERVER}/report/reportWorkload/listJson`, {body: params})
+    return this.fetchPost(`${APP_SERVER}/report/reportWorkload/listJson`, {body: params})
 	}
 	// 原因统计
 	fetchReasonReport(params) {

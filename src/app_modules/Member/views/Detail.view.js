@@ -111,7 +111,7 @@ class PersonInfoPanelHead extends Component {
         memberActions.deleteAction({ id: id, isDel: 1 }, page)
         break;
       case "dissmiss":
-        memberActions.dissmissMemberAction({ id: id })
+        memberActions.leaveMemberRoute(id)
         break;
 
       default:
@@ -128,7 +128,7 @@ class PersonInfoPanelHead extends Component {
           <ButtonGroups className="detail-header" handleClick={this.handleMenu.bind(this, info.id)}>
             {/* <Button icon="profile" actionkey="detailRouteAction"/> */}
             <Button icon="user-add" disabled={info.status == 2} actionkey="add" confirm={`确定员工 ${info.name} 转正？`} tooltext="转正" />
-            <Button icon="user-delete" actionkey="dissmiss" confirm={`确定员工 ${info.name} 离职？`} tooltext="离职" />
+            <Button icon="user-delete" actionkey="dissmiss"  tooltext="离职" />
             <Button icon="edit" permission="editMember" actionkey="edit" tooltext="编辑" />
             <Button icon="delete" permission="deleteMember" actionkey="delete" confirm={`确定删除员工 ${info.name} ？`} tooltext="删除" />
           </ButtonGroups>
@@ -182,7 +182,7 @@ class MemberInfo extends Component {
     const { reduce: { sysFieldList } } = this.props
 
     return sysFieldList.map((e) => (
-      <dl>
+      <dl className="member-field-item">
         <dt style={{ display: 'inline-block' }}>{e.fieldName}：</dt>
         <dd style={{ display: 'inline-block',marginBottom:'0' }}>{this.genValue(e)}</dd>
       </dl>

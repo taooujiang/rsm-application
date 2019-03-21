@@ -76,7 +76,7 @@ export default class LabelFormView extends FormPage{
   render() {
     let {params:{resumeId}, reduce:{spins:{formSpin}},location:{state:{item}}} = this.props;
     return (
-      <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
+      <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} className="tag-form">
         {this.renderLabels()}
       </BaseForm>
     )

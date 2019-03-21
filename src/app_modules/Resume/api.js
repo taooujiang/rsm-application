@@ -146,6 +146,11 @@ export default class API extends FetchAPI {
       body: params
     })
   }
+  fetchSendMsg(params) {
+    return this.fetchPost(`${APP_SERVER}/resumeLibrary/sendSmsMsg`, {
+      body: params
+    })
+  }
   fetchSingleTalent(params) {
     return this.fetchPost(`${APP_SERVER}/ResumeWaitAllot/inputTalentLibBySingle`, {
       body: params

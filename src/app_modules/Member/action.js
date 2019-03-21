@@ -64,6 +64,9 @@ export function detailRoute(id) {
 export function editMemberRoute(id) {
   return dispatch => dispatch(routerActions.push(`/member/list/detail/${id}/edit`))
 }
+export function leaveMemberRoute(id) {
+  return dispatch => dispatch(routerActions.push(`/member/list/detail/${id}/leave`))
+}
 // export function backInterpolDetailRoute(router) {
 //   let pathName = router.location.pathname
 //   // let newLocation = {
@@ -188,6 +191,7 @@ export function saveAction(value, page) {
     })
   }
 }
+
 export function dissmissMemberAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
