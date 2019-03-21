@@ -110,6 +110,8 @@ if(process.env.NODE_ENV === 'development'){
 		note:'labels',
 	},{
 		note:'fields',
+	},{
+		note:'messageList',
 	}
 ]
 	user = {

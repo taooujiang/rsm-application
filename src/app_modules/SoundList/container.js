@@ -12,6 +12,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 
 import SoundListView,{SoundSideView} from './views/SoundList.view'
+import MessageListView,{MessageSideView} from './views/MessageList.view'
 import SideLayout from 'app/decorators/SideLayout'
 import * as actions from './action'
 
@@ -28,6 +29,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
+let Container = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"Sound"),
+  reduce:state.soundListReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SoundSideView)(SoundListView))
 let SoundListContainer = connect((state,ownProps)=>{
 	return {
 		items:reducerListSelector(state.ORMReducer,"Sound"),
@@ -35,7 +41,14 @@ let SoundListContainer = connect((state,ownProps)=>{
     appReducer:state.appReducer
 	}
 }, mapDispatchToProps, null, {pure: false})(SideLayout(SoundSideView)(SoundListView))
+let MessageListContainer = connect((state,ownProps)=>{
+	return {
+		items:reducerListSelector(state.ORMReducer,"Sound"),
+    reduce:state.soundListReducer,
+    appReducer:state.appReducer
+	}
+}, mapDispatchToProps, null, {pure: false})(SideLayout(MessageSideView)(MessageListView))
 
-export {SoundListContainer}
+export {SoundListContainer,MessageListContainer}
 
-export default SoundListContainer;
+export default Container;

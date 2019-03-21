@@ -208,6 +208,12 @@ const panes = {
     key: "soundlist",
     src: "/static/js/client/main.html#/soundlist"
   },
+  messageList: {
+    title: "短信记录",
+    refresh: true,
+    key: "messageList",
+    src: "/static/js/client/main.html#/messageList"
+  },
   settings: {
     title: "系统设置",
     key: "settings",

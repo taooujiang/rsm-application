@@ -15,9 +15,10 @@ export default class SoundAPI extends FetchAPI {
     }
 
     fetchList(params){
-      return this.fetchPostList(`${APP_SERVER}/callrecord/newListPage`,{
-         body: params
-      })
+      return this.fetchPostList(`${APP_SERVER}/callrecord/newListPage`,{body: params})
+    }
+    fetchMessageList(params){
+      return this.fetchPostList(`${APP_SERVER}/smsRecordInfo/listPageJson`,{ body: params})
     }
     fetchDownloads(url,params){
         return this.fetchDownload(url, {body: params})

@@ -63,7 +63,9 @@ export default class FetchAPI {
 
   fetch(url, options) {
     options=Object.assign({},options,{body:JSON.stringify(processMoment2DateStr(options.body))})
+    console.log(Object.assign({},this.defaults, options),"===Object.assign({},this.defaults, options)")
     return fetch(url,Object.assign({},this.defaults, options)).then(res => {
+      console.log(res,"===res");
       if(res.status == 403){
           global.invokeMethod('RefreshMainPage')
       }
@@ -113,6 +115,7 @@ export default class FetchAPI {
     }, options))
   }
   fetchPostList(url, options) {
+    console.log(url, options,"===url, options")
     if(options.body=="" || options.body==undefined){
       options.body={}
     }

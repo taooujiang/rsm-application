@@ -2,13 +2,14 @@
 import store from '../store'
 
 function getAuthList(){
+  // console.log(store.getState().appReducer.resourceList,"===store.getState().appReducer.resourceList")
    return store.getState().appReducer.resourceList
 }
 let hasPermission,permissionStyle
 /*样式控制权限*/
 if (process.env.NODE_ENV === 'development') {
   hasPermission=function(modulesName){
-    // console.log(modulesName)
+    // console.log(modulesName,"modulesName",getAuthList())
     // return getAuthList().filter((rl)=>{
     //   return modulesName.indexOf(rl.note)>=0
     // }).length>0
