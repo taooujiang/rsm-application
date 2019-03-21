@@ -266,7 +266,36 @@ export default class HeaderSide extends React.Component {
             </Menu.SubMenu>,
             "member"
           )}
-          {this.renderAuthMenuItem(
+           {this.renderAuthMenuItem(
+            <Menu.SubMenu key="6" title={<span>通信记录</span>}>
+              <Menu.Item key="6-1">
+              <Link
+                to={{
+                  pathname: "soundlist/soundlist"
+                  // state: { breadcrumbName: "通话记录" }
+                }}
+              >
+                <span>通话记录</span>
+              </Link>
+              </Menu.Item>
+              {this.renderAuthMenuItem(
+                <Menu.Item key="6-2">
+                  <Link
+                    to={{
+                      pathname: "soundlist/messageList"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>短信记录</span>
+                  </Link>
+                </Menu.Item>,
+                "messageList"
+              )}
+
+            </Menu.SubMenu>,
+            "soundlist"
+          )}
+          {/* {this.renderAuthMenuItem(
             <Menu.Item key="6">
               <Link
                 to={{
@@ -278,7 +307,7 @@ export default class HeaderSide extends React.Component {
               </Link>
             </Menu.Item>,
             "soundlist"
-          )}
+          )} */}
           {this.renderAuthMenuItem(
             <Menu.Item key="7">
               <Link
