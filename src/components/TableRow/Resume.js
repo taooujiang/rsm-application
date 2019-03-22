@@ -21,15 +21,22 @@ export class PersonIconShow extends Component {
 		let iconArray = []
 		let {item} = this.props
 		if (item) {
+			// item.havaSame
+			// 	? iconArray.push(<SmartLink style={{
+			// 			color: '#323232'
+			// 		}} to={{
+			// 			pathname: `${item.id}/samedetail`
+			// 		}}><Icon type="icon-yisijianli" style={{
+			// 			color: "#e9578a",
+			// 			margin: '0 5px'
+			// 		}} title="存在疑似简历"/></SmartLink>)
+			// 	: null
 			item.havaSame
 				? iconArray.push(<SmartLink style={{
 						color: '#323232'
 					}} to={{
 						pathname: `${item.id}/samedetail`
-					}}><Icon type="icon-yisijianli" style={{
-						color: "#e9578a",
-						margin: '0 5px'
-					}} title="存在疑似简历"/></SmartLink>)
+					}}><img width="16" style={{verticalAlign: 'text-bottom'}} src={require('app/themes/like.png')} title="存在疑似简历"/></SmartLink>)
 				: null
 			item.isLock
 				? iconArray.push(<Icon type="icon-suoding" style={{
