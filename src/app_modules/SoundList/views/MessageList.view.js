@@ -19,6 +19,7 @@ import PageView from "app/components/Page";
 import ButtonGroupExt from "app/components/ButtonGroupExt";
 // import AdvancedSearchForm from 'app/components/AdvancedSearch'
 import AdvancedSearchPanel from "app/components/AdvancedSearchPanel";
+import Ellipsis from 'app/components/Ellipsis'
 import NestedComponent from "app/decorators/NestedComponent";
 import DataTable from "app/components/DataTable";
 import CalendarPicker from "app/components/CalendarPicker";
@@ -38,13 +39,6 @@ export class MessageSideView extends Component {
     actions.messagelistAction(values);
   }
   renderCallstateOption(data, idx) {
-    return (
-      <Select.Option value={data.keyValue} key={idx}>
-        {data.keyName}
-      </Select.Option>
-    );
-  }
-  renderSelectOption(data, idx) {
     return (
       <Select.Option value={data.keyValue} key={idx}>
         {data.keyName}
@@ -74,24 +68,16 @@ class MessageListView extends PageView {
   componentDidMount() {
     let { actions, router } = this.props;
     
-    console.log(this.props,'===this.props')
+    // console.log(this.props,'===this.props')
   }
   handleFilter(values) {
     let { actions } = this.props;
     actions.msgParamsAction(values);
     actions.messagelistAction(values);
   }
-  renderCallstateOption(data, idx) {
-    return (
-      <Select.Option value={data.keyValue} key={idx}>
-        {data.keyName}
-      </Select.Option>
-    );
-  }
   renderTableList() {
     let self = this;
     let { reduce, items } = this.props;
-    // console.log(items);
     let {
       spins: { tableSpin },
       key
@@ -135,8 +121,11 @@ class MessageListView extends PageView {
         }
       ]
     };
-    return <DataTable {...this.props} {...tableConf} page={page} />;
-  }
+    let propsData = {...this.props}.items.map(item=>
+      item.content = <Ellipsis tooltip={true} length={73}>{String(item.content)}</Ellipsis>
+     )
+    return <DataTable {...propsData} {...tableConf} page={page} />;
+  } 
   render() {
     let props = this.props;
     return <Card type="inner">{this.renderTableList()}</Card>;
