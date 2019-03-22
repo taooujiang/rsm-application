@@ -26,7 +26,9 @@ import BaseForm, {FormItem, customRules} from 'app/components/BaseForm'
 import AdvancedSearchForm from 'app/components/AdvancedSearch'
 import EmailTemplateLinkage, {SmsTemplateLinkage, SmsTemplateInterView} from 'app/components/sendTemplate'
 import DateTimePicker from 'app/components/DateTimePicker'
+import FetchAPI from 'app/utils/FetchAPI'
 import DictUtils from 'app/utils/DictUtils'
+import styles from './styles.less'
 const Option = Select.Option
 const {TextArea} = Input
 const RadioGroup = Radio.Group;
@@ -36,10 +38,12 @@ class FeedForm extends Component {
 	state = {
 		time: '0',
 		which: '2',
-		interviewFlag: true
+		interviewFlag: true,
+		interviewerList:[],
+		bingWechatTip:"",
 	}
 	componentWillMount(){
-		let {feedItem,id} = this.props
+		let {feedItem,id,interviewers} = this.props
 		if(id){
 			console.log(feedItem.smsTimed)
 			this.setState({
@@ -47,8 +51,25 @@ class FeedForm extends Component {
 				time:feedItem.smsTimed ? feedItem.smsTimed+"" : "0"
 			})
 		}
-	}
+		/*存储面试官list*/
 
+		new FetchAPI().fetch(`${APP_SERVER}/user/getInterviewerListJson`,{
+      method:'GET'
+    }).then(res=>{
+			console.log(this)
+			this.setState({
+				interviewerList:res.list
+			},()=>{this.filterTip(id? feedItem.interviewerIds : interviewers)})
+		})
+	}
+	filterTip(interviewers){
+		console.log(this.state.interviewerList,interviewers)
+		this.setState({
+			bingWechatTip: interviewers.length ? this.state.interviewerList.filter(it=>{
+				return interviewers.indexOf(it.account) > -1 && !it.bindWeChat
+			}).map(it=>it.name).join(',') + '未绑定公众号' : ""
+		})
+	}
 	renderSelectOption(data, idx) {
 		return (<Select.Option value={data.keyValue} key={"select" + idx}>{data.keyName}</Select.Option>)
 	}
@@ -108,6 +129,10 @@ class FeedForm extends Component {
 					</FormItem>
 		}
 	}
+	hanleInterviwerChange(val,option){
+		// console.log(val,option,this)
+		this.filterTip(val)
+	}
 	handleChange(e) {
 		this.setState({which: e.target.value})
 	}
@@ -144,8 +169,9 @@ class FeedForm extends Component {
 				value: '0'
 			}
 		];
+		let {bingWechatTip} = this.state
 		// console.log(feedItem)
-		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef}>
+		return (<BaseForm onSubmit={handleSubmit} ref={saveFormRef} className="feedForm-box">
 			<FormItem>
 				<Input type="hidden" name="resumeId" defaultValue={id ? feedItem.resumeId :resumeId}/>
 			</FormItem>
@@ -180,7 +206,7 @@ class FeedForm extends Component {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						<Select label="面试官" name="interviewerIds" mode="multiple" showSearch defaultValue={id ? feedItem.interviewerIds : interviewers} fetch={`${APP_SERVER}/user/getInterviewerListJson`} renderItem={this.renderInterviewerOption} rules={[
+						<Select label="面试官" name="interviewerIds" onChange={this.hanleInterviwerChange.bind(this)} mode="multiple" showSearch defaultValue={id ? feedItem.interviewerIds : interviewers} fetch={this.state.interviewerList} renderItem={this.renderInterviewerOption} rules={[
 								{
 									required: true,
 									message: "面试官不可为空"
@@ -191,8 +217,8 @@ class FeedForm extends Component {
 								}
 							]}></Select>
 					</FormItem>
-					<span style={{display:"block",color:'red',margin:'0px 10px 12px 100px'}}>张三三李思思是外网搞点数，张三三李思思是外网搞点数，张三三李思思是外网搞点数未绑定公众号</span>
-					<span style={{display:"block",margin:"0 10px 12px 100px",color:"#bfbfbf"}}>面试官可以通过遇仁公众号收到面试安排的相关信息</span>
+					<span className="bindWeChat-tips">{bingWechatTip}</span>
+					<span className="open-tip">面试官可以通过遇仁公众号收到面试安排的相关信息</span>
 				</Col>
 				<Col span={24}>
 					<FormItem>
