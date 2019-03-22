@@ -31,6 +31,7 @@ export default class LogListView extends Component {
     let newData = this.props.items.filter(item => {
       return checkedValues.indexOf(item.msgType) > -1;
     });
+    console.log(checkedValues,newData)
     if (checkedValues.length) {
       this.setState({
         data: newData
@@ -91,6 +92,12 @@ export default class LogListView extends Component {
           { label: "合同到期", value: 7 }
         ];
         break;
+        case "6":
+        options = [
+          { label: "未接来电", value: 16 },
+          { label: "未读短信", value: 17 }
+        ];
+        break;
       default:
         return null;
         break;
@@ -144,12 +151,13 @@ export default class LogListView extends Component {
   }
   handleClick(id, resumeId , resumeIsDelete,item) {
     let { actions, router } = this.props;
+    console.log(item,'==handleClick=item')
     if (this.props.params.type == 5) {
       actions.detailRoute(router, id);
     } else if (this.props.params.type == 1) {
       if(resumeIsDelete == 1){
         return message.warning("简历已被删除")
-      }else{
+      }else {
         actions.resumeDetailRoute(this.props.params.type,resumeId,router);
       }
       // parent.addTab && parent.addTab({
