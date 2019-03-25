@@ -7,7 +7,7 @@
 */
 // import {newList,newItem,saveList,saveItem,fetchRequest,fetchSuccess,fetchFailure,saveParams} from 'app-utils/reducerUtils'
 import {handleActions} from 'redux-actions'
-import {saveList,saveParams, saveMsgParams} from './action'
+import {saveList,saveParams} from './action'
 
 export const initialState = {
 	params:{
@@ -31,9 +31,6 @@ actions[saveList]= (state,action)=>{
       total:totalRecord
     }
   }
-}
-actions[saveMsgParams] = (state, action) => {
-  return Object.assign({},state,{params:action.payload})
 }
 actions[saveParams] = (state, action) => {
 	// console.log("reducer123",action.payload)

@@ -13,7 +13,6 @@ export {listRoute,backRoute}
 export const saveList = createAction("STORE_SOUND")
 export const saveParams = createAction("STORE_SOUND_PARAMS")
 export const saveMsgList = createAction("STORE_MSG")
-export const saveMsgParams = createAction("STORE_MSG_PARAMS")
 
 export function listAction(params){
   return (dispatch,getState) =>{
@@ -40,11 +39,6 @@ export function messagelistAction (params){
     })
   }
 }
-export function msgParamsAction(params){
-	return (dispatch,getState) =>{
-		const {current,pageSize,total,...json}=params;
-    dispatch(saveMsgParams(json))
-  }
-}
+
 
 
