@@ -43,8 +43,8 @@ export const memberItemSave = createAction("SAVE_MEMBERITEM")
 export const saveFeedData = createAction("SAVE_FEEDDATA")
 export const saveBaseInfo = createAction("SAVE_BASEINFO")
 
-let { backRoute, addRoute, editRoute, backShouldReloadRoute } = createActionRoute()
-export { backRoute, addRoute, editRoute, backShouldReloadRoute }
+let { backRoute, listRoute,addRoute, editRoute, backShouldReloadRoute } = createActionRoute()
+export { backRoute,listRoute, addRoute, editRoute, backShouldReloadRoute }
 
 export function exportRoute(id) {
   return dispatch => dispatch(routerActions.push(`/member/list/export`))

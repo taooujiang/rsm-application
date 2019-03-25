@@ -28,6 +28,7 @@ import ButtonGroupExt from 'components/ButtonGroupExt'
 import CalendarPicker from 'components/CalendarPicker'
 import TagSelect from 'components/TagSelect'
 import Permission from 'components/Permission'
+// import  FetchAPI from 'app/utils/FetchAPI'
 import DictUtils from 'app-utils/DictUtils'
 import styles from './sharewindow.less'
 const Option = Select.Option
@@ -36,16 +37,40 @@ export default class SharelView extends PageView {
 
     constructor(props) {
         super(props);
+        // this.state={
+        //   imgCode:""
+        // }
     }
     componentWillMount() {
         let {actions,router} = this.props;
         actions.getShareCodeAction()
+
+        // new FetchAPI().fetch(`${APP_SERVER}/registration/getTgflCode`,{
+        //   method:'GET'
+        // }).then(res=>{
+        //   console.log(res)
+        //   this.setState({
+        //     imgCode:res
+        //   })
+        // })
     }
     copyCode(){
 
         let {reduce:{promo}} = this.props
         let content = "推荐使用遇仁招聘管理系统来提高企业招聘效率，现在加入还有优惠。遇仁官网：http://www.yurenwang.net，邀请码："+promo
         new ClientAPI().onCopyToClipBoard(content)
+    }
+
+    handleOpenQrcode(){
+      let {imgCode} = this.state
+      console.log(imgCode)
+      return Modal.info({
+        title: "查看二维码",
+        maskClosable: true,
+        width:340,
+        centered: true,
+        content: (<img width="200" src='/registration/getTgflCode'/>)
+      })
     }
 
 
@@ -64,16 +89,17 @@ export default class SharelView extends PageView {
                 {children}
                 <Card className="shareCardBox">
                     <div className="sharewindow-headBg">
-                        <span className="your-promo">您的邀请码{promo}</span>
-
                     </div>
+                    <span className="your-promo">您的邀请码{promo}</span>
+                    <div className="sharwindow-banner"></div>
                     <div className="share-bottom">
                         <Row>
                             <div style={{lineHeight:"40px",textAlign:"center"}}>
                                 <span>复制链接发送给好友</span>
                                 <span class="shareContent">推荐使用遇仁招聘管理系统来提高企业招聘效率，现在加入还有优惠。遇仁官网：http://www.yurenwang.net，邀请码：{promo}</span>
                                 <Button type="primary" onClick={this.copyCode.bind(this)}>复制邀请链接</Button>
-                            </div>
+                                <Button icon="qrcode" onClick={this.handleOpenQrcode.bind(this)}></Button>
+                          </div>
                         </Row>
                     </div>
                     <h3>活动规则介绍</h3>
@@ -87,6 +113,7 @@ export default class SharelView extends PageView {
                         <li>遇仁可根据本次活动的实际情况对活动规则进行变动或调整，相关变动或调整将公布在活动页面上，并于公布时生效</li>
                         <li>本活动的最终解释权归遇仁所有</li>
                     </ol>
+                    <div className="sharewindow-footBg"></div>
                 </Card>
             </Card>
         )

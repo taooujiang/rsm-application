@@ -61,7 +61,7 @@ export default class AppLayout extends React.Component {
             <HeaderSide/>
 					</Fixed>)
 					:null}
-          <Pane style={{display:'flex'}}>
+          <Pane style={{display:'flex',height:0}}>
             <Notifycation />
             <ContentSide>
               {this.props.children}
