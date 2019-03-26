@@ -35,7 +35,7 @@ export class MessageSideView extends Component {
   }
   handleFilter(values) {
     let { actions } = this.props;
-    actions.msgParamsAction(values);
+    actions.saveParams(values);
     actions.messagelistAction(values);
   }
   renderCallstateOption(data, idx) {
@@ -72,7 +72,7 @@ class MessageListView extends PageView {
   }
   handleFilter(values) {
     let { actions } = this.props;
-    actions.msgParamsAction(values);
+    actions.saveParams(values);
     actions.messagelistAction(values);
   }
   renderTableList() {

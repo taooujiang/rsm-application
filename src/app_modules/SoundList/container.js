@@ -29,11 +29,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-let Container = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"Sound"),
-  reduce:state.soundListReducer,
-  appReducer:state.appReducer
-}), mapDispatchToProps, null, {pure: false})(SideLayout(SoundSideView)(SoundListView))
 let SoundListContainer = connect((state,ownProps)=>{
 	return {
 		items:reducerListSelector(state.ORMReducer,"Sound"),
@@ -51,4 +46,4 @@ let MessageListContainer = connect((state,ownProps)=>{
 
 export {SoundListContainer,MessageListContainer}
 
-export default Container;
+export default SoundListContainer;
