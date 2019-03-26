@@ -166,8 +166,8 @@ export default class ClientAPI {
     }
     invokeMethod(methodName,params){
       // console.dir(external)
-      if(external[methodName]){
-        external[methodName].call(this,params)
+      if(yu_ren[methodName]){
+        yu_ren[methodName].call(this,params)
         // console.log(methodName,params)
       }else{
         //external[methodName].call(params)
