@@ -29,7 +29,7 @@ const ButtonGroup = Button.Group;
 const TabPane = Tabs.TabPane;
 
 @NestedComponent()
-@WrapperComponent(ModalView, { width: 800, footer: null })
+@WrapperComponent(ModalView, { width: 800, footer: null ,isBackReload:true})
 export default class MemberDetail extends Detail {
   componentDidMount() {
     const { actions,memberActions, params:{id}, item: { resumeId } } = this.props

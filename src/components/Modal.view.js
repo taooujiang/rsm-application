@@ -6,9 +6,11 @@ import {withRouter} from  'react-router'
 class ModalView extends Component {
 
   handleBackRoute() {
-    console.log(this.props.footer,'footerfooterfooterfooter')
-    let {actions, history,router} = this.props
-    actions.backRoute(router,this.props.isRouteStackPop)
+    console.log(this.props,'footerfooterfooterfooter')
+    let {actions, history,router,isBackReload} = this.props
+    /*员工详情返回刷新*/
+    isBackReload ?actions.backShouldReloadRoute(router,2) : actions.backRoute(router,this.props.isRouteStackPop)
+    // actions.backRoute(router,this.props.isRouteStackPop)
   }
   handleSaveRoute(){
     let { formView } =this.refs

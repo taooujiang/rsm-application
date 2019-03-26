@@ -98,7 +98,8 @@ export default class JobListView extends PageView {
         super(props);
         this.state = {
           toggleFlag:true,
-          btnDis:false
+          btnDis:false,
+          isSelectAll:false
         }
     }
 
@@ -211,15 +212,23 @@ export default class JobListView extends PageView {
         )
     }
 
+    handleSelectAll(value){
+      let {target:{checked}} = value
+      this.setState({
+        isSelectAll:checked
+      })
+    }
+
     renderJobUninitList(arr) {
       let {reduce:{pub_list}} = this.props
+      // console.log(1,this.handleSelectAll)
       this.form.setFieldsValue({jobIdList:arr})
         return (
           <List
             className="job-list"
             itemLayout="horizontal"
             loading={false}
-            header={<div className="jobSearchList-header">未入库职位</div>}
+            header={<div className="jobSearchList-header jobSearchList-header-unjoin">未入库职位</div>}
             dataSource={pub_list}
             renderItem={(item,idx) => (
               <List.Item actions={item.isShow?[<a onClick={this.togglePub.bind(this,idx)}><Icon type="up" />收起</a>]:[<a onClick={this.togglePub.bind(this,idx)}><Icon type="down" />展开</a>]}
@@ -279,17 +288,18 @@ export default class JobListView extends PageView {
     }
     renderSearchList(){
       let {reduce:{loc_list , pub_list}} = this.props
-      let arr = pub_list ? pub_list.map(it=>it.channelId) : []
+      let {isSelectAll} = this.state
+      let arr = isSelectAll && pub_list ? pub_list.map(it=>it.channelId) : []
+      // console.log(isSelectAll,pub_list,arr)
       if(loc_list.length ||  pub_list.length){
         return (
-          <div>
+          <div className="jobIdList-box">
+            <Checkbox value="123" onChange={this.handleSelectAll.bind(this)} className="joblist-select-all"/>
             <FormItem>
               <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
                 {this.renderJobUninitList(arr)}
               </Checkbox.Group>
             </FormItem>
-
-            
             {this.renderJobList()}
           </div>
         )

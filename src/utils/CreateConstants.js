@@ -153,9 +153,9 @@ export function createActionRoute() {
     return dispatch => dispatch(routerActions.goBack())
   }
 
-  function backShouldReloadRoute(router) {
+  function backShouldReloadRoute(router,cutNumber) {
     let oldPathStack = router.location.pathname.split('/')
-    oldPathStack.pop()
+    cutNumber ? oldPathStack.splice(-cutNumber) : oldPathStack.splice(-1)
     let newPath = oldPathStack.join('/')
     let newLocation = {
       pathname: newPath,
@@ -163,6 +163,7 @@ export function createActionRoute() {
         key: Math.random(),
       }
     }
+    newLocation.state = Object.assign({},newLocation.state,{type:'reload'}) 
     let hash = router.createLocation(newLocation)
     return dispatch => dispatch(routerActions.push(hash))
   }

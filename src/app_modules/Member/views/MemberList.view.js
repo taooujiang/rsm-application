@@ -113,6 +113,16 @@ export default class MemberListView extends PageView {
     actions.listAction();
     actions.sysFieldListAction();
   }
+  componentWillReceiveProps(nextProps){
+    let {reduce:{params},location,actions} = this.props
+    // console.log(nextProps.location.state&&nextProps.location.state.key,params)
+    /*关闭简历详情刷新*/
+    if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+      if (nextProps.location.state && nextProps.location.state.type == "reload" ){
+        actions.listAction(Object.assign({}, nextProps.reduce.params, nextProps.reduce.page));
+      }
+    }
+  }
   renderSelectOption(data, idx) {
     return (
       <Select.Option value={data.keyValue} key={idx}>
