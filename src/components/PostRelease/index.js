@@ -369,7 +369,9 @@ class BaseInfoShow extends Component {
 						}</Tag>)}/>
 				</Col>
 				<Col span={24}>
-					<BaseInfoItem label="职位描述" info={item.jobDescription}/>
+					<BaseInfoItem label="职位描述" info={<pre dangerouslySetInnerHTML={{
+							__html: item.jobDescription
+					}}/>}/>
 				</Col>
 			</Row>
 		</div>)

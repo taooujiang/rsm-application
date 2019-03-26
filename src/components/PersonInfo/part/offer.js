@@ -261,7 +261,8 @@ PersonOfferShow.defaultProps = {
 /* 审核通过发送offer组件 */
 class PersonOfferSend extends FormPage {
   state = {
-    time: "1"
+    time: "1",
+		btnDisabled:false
   }
   static contextTypes = {
     actions: PropTypes.object,
@@ -273,6 +274,9 @@ class PersonOfferSend extends FormPage {
   }
   sendOffer() {
     let {actions,resumeId,viewLibType} = this.context
+		this.setState({
+			btnDisabled:true
+		})
     this.form.validateFieldsAndScroll((err, values) => {
       if (err) {
         return;
@@ -280,6 +284,9 @@ class PersonOfferSend extends FormPage {
       actions.offerSendAction(values).then(()=>{
         actions.itemAction({id:resumeId,viewLibType:viewLibType})
         actions.getOfferAction({resumeId:resumeId})
+				this.setState({
+					btnDisabled:false
+				})
       })
     });
   }
@@ -314,7 +321,7 @@ class PersonOfferSend extends FormPage {
       }
       <Button type="primary" onClick={this.sendOffer.bind(this)} style={{
           float: "right"
-        }}>发送offer</Button>
+        }} disabled={this.state.btnDisabled}>发送offer</Button>
     </BaseForm>
   }
 }

@@ -69,7 +69,6 @@ export default class ChangeFeederForm extends FormPage{
 
   handleSubmit(values){
     let {actions,router,location} = this.props;
-  //  console.log(values)
     actions.changeJobOption(values).then(()=>{
       // setTimeout(function(){
         actions.backRouteReload(router,location)

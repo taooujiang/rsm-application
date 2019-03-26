@@ -1845,7 +1845,7 @@ export class PersonRemarks extends FormPage {
 	handleQuickAddRemark(value){
 
 		this.form.setFieldsValue({
-			context:this.form.getFieldValue('context') + value
+			context:this.form.getFieldValue('context') ? this.form.getFieldValue('context') + value : value
 		})
 	}
 	handleSubmit() {

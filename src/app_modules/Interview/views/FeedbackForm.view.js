@@ -181,7 +181,7 @@ class FeedbackForm extends Component {
 	handleChangeComFeedback(item){
 		// console.log(item)
 		this.props.formRefs.setFieldsValue({
-			feedback:this.props.formRefs.getFieldValue('feedback') + item
+			feedback:this.props.formRefs.getFieldValue('feedback') ? this.props.formRefs.getFieldValue('feedback') + item : item
 		})
 	}
 	changeTypeVal(dtoList) {
