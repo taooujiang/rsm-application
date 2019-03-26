@@ -169,9 +169,12 @@ export default class ClientAPI {
       if(yu_ren[methodName]){
         yu_ren[methodName].call(this,params)
         // console.log(methodName,params)
-      }else{
+      }else if(external[methodName]){/**向前兼容*/
+        external[methodName].call(this,params)
         //external[methodName].call(params)
          // alert("请使用客户端打开")
+      }else{
+
       }
       // external.updateTitle(params)
     }
