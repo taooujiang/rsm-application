@@ -175,6 +175,8 @@ export default class LogListView extends Component {
       }
       if(item.bussinessId == 2){
         actions.resumeDetailRoute(this.props.params.type,resumeId,router);
+      }else if(item.bussinessId == 1){
+        return message.warning("请到员工管理中查看")
       }
     }
   }
