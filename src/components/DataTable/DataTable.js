@@ -52,7 +52,6 @@ class TableMenu extends FormPage {
       }
     };
     // onChange={this.onSelectChange.bind(this)}
-
     return (
       <BaseForm onSubmit={handleSubmit} ref={saveFormRef} layout="inline">
         <FormItem>
