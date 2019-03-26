@@ -43,4 +43,24 @@ export default class API extends FetchAPI {
             body: params
         })
     }
+    /*修改认证时获取验证码
+    *params
+    * {account:15358658996}
+
+    */
+    fetchEditGetCode(params){
+      return this.fetchPost(`${APP_SERVER}/accountOperate/getUpdateRealNameCode`, {
+          body: params
+      })
+    }
+    /*修改认证
+    *params
+    * {"mobile":"18871037157","acctName":"胡并","realNameCard":"130204200001016779","code":"4581"}
+
+    */
+    fetchEditAuth(params){
+      return this.fetchPost(`${APP_SERVER}/accountOperate/updateRealName`, {
+          body: params
+      })
+    }
 }

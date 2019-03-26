@@ -122,6 +122,18 @@ export function authentAction(value) {
     }
 }
 
+export function authentEditAction(value) {
+    return (dispatch, getState) => {
+        dispatch(fetchRequest('itemSpin'))
+        return new API().fetchEditAuth(value).then(json => {
+            dispatch(fetchSuccess('itemSpin',true))
+            dispatch(saveAuthent(value))
+        }).catch(ex => {
+            return dispatch(fetchFailure('itemSpin',ex))
+        })
+    }
+}
+
 export function changePassAction(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('itemSpin'))

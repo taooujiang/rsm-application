@@ -62,7 +62,17 @@ class PersonalHead extends Component{
                         </Col>
                         <Col span={18} className="personalInfo-head-details">
                             <Row>
-                                <span><span className="name"><Ellipsis tooltip={true} length={30}>{name + "("+roleName+")"}</Ellipsis></span>{isRealName?<span className="hasPromiseReal">已认证<Icon type="nav-icon-certify" style={{backgroundColor:"#fba64c",color:"#fff",borderRadius:"4px",marginLeft:"5px"}}/></span>:<Link to="/personal/list/bereal">实名认证</Link>}</span>
+                                <span>
+                                  <span className="name">
+                                    <Ellipsis tooltip={true} length={30}>{name + "("+roleName+")"}</Ellipsis>
+                                  </span>
+                                  {isRealName?
+                                    <span className="hasPromiseReal">
+                                      <Link to="/personal/list/editreal">修改认证</Link>
+                                      <Icon type="nav-icon-certify" style={{backgroundColor:"#fba64c",color:"#fff",borderRadius:"4px",marginLeft:"5px"}}/>
+                                  </span>:
+                                  <Link to="/personal/list/bereal">实名认证</Link>}
+                                </span>
                             </Row>
                             <Row>
                                 <span className="account">登录帐号：{account}</span>

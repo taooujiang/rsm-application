@@ -14,6 +14,7 @@ import PersonalView from './PersonalCenter.view'
 import RecordView from './PresentRecord.view'
 import WithdrawalsFormView from './withdrawals.view'
 import AuthentFormView from './Authentication.view'
+import AuthentEditFormView from './AuthenticationEdit.view'
 import PasswordFormView from './ChangePassword.view'
 import SharelView from './ShareWindow.view'
 
@@ -33,9 +34,10 @@ let Container = connect(mapStateToProps, mapDispatchToProps, null, {pure: false}
 let recordContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(RecordView)
 let withdrawContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WithdrawalsFormView)
 let authentContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(AuthentFormView)
+let authentEditContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(AuthentEditFormView)
 let passwordContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(PasswordFormView)
 let shareContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(SharelView)
 
 
-export {recordContainer,withdrawContainer,authentContainer,passwordContainer,shareContainer}
+export {recordContainer,withdrawContainer,authentContainer,passwordContainer,shareContainer,authentEditContainer}
 export default Container;
