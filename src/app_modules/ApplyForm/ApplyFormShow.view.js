@@ -235,7 +235,7 @@ export default class ApplyFormView extends Component {
 				</div>
 			</div>
 			<div className="content">
-				<h3>基本信息</h3>
+				<h3 className="part-title">基本信息</h3>
 				<Row>
 					<BaseItem span={12} label="姓名" info={info && info.name}/>
 					<BaseItem span={12} label="性别" info={translateDic("sex", info && info.sex)}/>
@@ -269,14 +269,14 @@ export default class ApplyFormView extends Component {
 					<BaseItem span={24} label="其他要求" info={info && info.otherRequirements}/>
 					<BaseItem span={24} label="个人发展计划" info={info && info.developmentPlan}/>
 				</Row>
-				<Table style={{
+				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={relationshipCol} dataSource={info && info.relationshipList} title={() => '主要家庭成员及社会关系'}/>
-				<Table style={{
+				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={worklistCol} dataSource={info && info.workList} title={() => '工作经历'}/>
 				<Row><BaseItem span={24} label="工作业绩说明" info={info && info.workExperienceDescribe}/></Row>
-				<Table style={{
+				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={studylistCol} dataSource={info && info.studyList} title={() => '主要学习经历'}/>
 				<Row><BaseItem span={24} label="学习情况介绍" info={info && info.learningIntroduction}/></Row>
