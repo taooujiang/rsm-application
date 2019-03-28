@@ -28,8 +28,8 @@ export default class MemberLeaveForm extends FormPage{
     actions.backRoute(router)
   }
   render() {
-    // console.log(this)
-    let {params:{id}} = this.props
+    // console.log(this.props)
+    let {params:{id},location:{state:{item}}} = this.props
     return (
       <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} >
         <FormItem>
@@ -38,6 +38,7 @@ export default class MemberLeaveForm extends FormPage{
         <FormItem>
           <DatePicker name="dimissionTime" label="离职时间" rules={[{required: true, message: "离职时间不可为空"},{validator:customRules.required}]}/>
         </FormItem>
+        <p className="member-leave-tips">确定员工{item.name}离职？</p>
       </BaseForm>
     )
   }

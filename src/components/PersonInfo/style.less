@@ -159,8 +159,8 @@
 /*备注信息部分*/
 .PersonRemarksBox{
   .remarks_text{
-    height: 180px;
     position: relative;
+    padding-bottom: 50px;
     .ant-form-item{
         margin-bottom: 0;
     }
@@ -176,6 +176,15 @@
   /*常用语*/
   .common-tag-box{
     margin: 10px 0;
+    .remark-quick-tag{
+      background-color: #e5f1fd;
+      color: #219bf0;
+      border-radius: 10px;
+      padding: 0 12px;
+      height: 24px;
+      line-height: 24px;
+      box-sizing: content-box;
+    }
   }
 
   .remarks_list{
@@ -656,4 +665,8 @@ img.resume-orign-img{
     height: 500px;
     overflow-y: auto;
   }
+}
+/*操作侧栏标签显示*/
+.tags-box .ant-tag{
+  margin: 5px;
 }

@@ -1839,7 +1839,7 @@ export class PersonRemarks extends FormPage {
 	renderCommonRemark(){
 		// console.log(DictUtils.getDictByType('commonWord'))
 		return DictUtils.getDictByType('commonWord').map(it=>{
-			return <Tag onClick={this.handleQuickAddRemark.bind(this,it.keyName)}>{it.keyName}</Tag>
+			return <Tag className="remark-quick-tag" onClick={this.handleQuickAddRemark.bind(this,it.keyName)}>{it.keyName}</Tag>
 		})
 	}
 	handleQuickAddRemark(value){

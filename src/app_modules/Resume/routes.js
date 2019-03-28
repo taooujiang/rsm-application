@@ -83,7 +83,7 @@ let RoutesResume = (<Router path=":resumeId">
 		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
 		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
 		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短信"/>
+		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短消息"/>
 		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
 		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
 		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
@@ -104,7 +104,7 @@ let RoutesResume = (<Router path=":resumeId">
 	<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
 	<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
 	<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-	<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短信"/>
+	<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短消息"/>
 	<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
 	<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
 	<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
@@ -127,7 +127,7 @@ let RoutesResume = (<Router path=":resumeId">
 		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
 		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
 		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短信"/>
+		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短消息"/>
 		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
 		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
 		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>
@@ -151,7 +151,7 @@ let RoutesResume = (<Router path=":resumeId">
 		<Route path="joinelite" components={JoinTalentFormContainer} breadcrumbName="转入公共人才库"/>
 		<Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
 		<Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
-		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短信"/>
+		<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短消息"/>
 		<Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
 		<Route path="nooffer" components={OfferNopassFormContainer} breadcrumbName="offer审批不通过"/>
 		<Route path="recoman" components={RecommonderFormContainer} breadcrumbName="推荐人"/>

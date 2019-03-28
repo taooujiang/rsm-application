@@ -97,9 +97,10 @@ export default class MemberDetail extends Detail {
 
 class PersonInfoPanelHead extends Component {
 
-  handleMenu(id, actionType) {
+  handleMenu(id,info, actionType) {
     let { memberActions, router, reduce: { page } } = this.props
     // actions[actionType].call(this,router,id)
+    // console.log(id,info,actionType)
     switch (actionType) {
       case "add":
         memberActions.deleteAction({ id: id, status: 2 }, page)
@@ -111,7 +112,7 @@ class PersonInfoPanelHead extends Component {
         memberActions.deleteAction({ id: id, isDel: 1 }, page)
         break;
       case "dissmiss":
-        memberActions.leaveMemberRoute(id)
+        memberActions.leaveMemberRoute(id,info)
         break;
 
       default:
@@ -125,7 +126,7 @@ class PersonInfoPanelHead extends Component {
           <span className="headInfoName">{info.name}</span>
           <span>{info.duty}</span>
           <Tag color="#108ee9">{DictUtils.getDictLabelByValue('memberstatus', info.status)}</Tag>
-          <ButtonGroups className="detail-header" handleClick={this.handleMenu.bind(this, info.id)}>
+          <ButtonGroups className="detail-header" handleClick={this.handleMenu.bind(this, info.id,info)}>
             {/* <Button icon="profile" actionkey="detailRouteAction"/> */}
             <Button icon="user-add" disabled={info.status == 2} actionkey="add" confirm={`确定员工 ${info.name} 转正？`} tooltext="转正" />
             <Button icon="user-delete" actionkey="dissmiss"  tooltext="离职" />

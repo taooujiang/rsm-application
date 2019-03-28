@@ -242,15 +242,15 @@ class FeedbackForm extends Component {
 			</FormItem>
 			<FeedbackType dataSource={obj.questionAnswerDtoList} readOnly={obj.isFeedback == 1} type={obj.type} whileChange={this.changeTypeVal.bind(this)}/>
 			<FormItem>
-				<TextArea label="综合评价" name="feedback" readOnly={obj.isFeedback == 1} defaultValue={obj.feedback} rules={[
+				<TextArea label="综合评价" name="feedback" placeholder="请填写综合评价" readOnly={obj.isFeedback == 1} defaultValue={obj.feedback} rules={[
 						{
 							required: true,
-							message: "反馈信息不可为空"
+							message: "综合评价不可为空"
 						}, {
 							validator: customRules.required
 						}, {
 							max: 200,
-							message: "反馈信息最多200个字符"
+							message: "综合评价最多200个字符"
 						}
 					]} help="请及时提交面试反馈信息，且务必做到准确评价"/>
 			</FormItem>

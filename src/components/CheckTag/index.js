@@ -4,7 +4,7 @@ const { CheckableTag } = Tag;
 
 export default class CheckTag extends React.Component {
   state = { checked:false }
-  
+
   constructor(props) {
       super(props)
       this.state.checked=props.checked
@@ -20,6 +20,6 @@ export default class CheckTag extends React.Component {
       onChange(checked,labelcode,labelname)
   }
   render() {
-    return <CheckableTag {...this.props} checked={this.state.checked} onChange={this.handleChange} />;
+    return <CheckableTag {...this.props} className="checkTag-item" checked={this.state.checked} onChange={this.handleChange} />;
   }
 }

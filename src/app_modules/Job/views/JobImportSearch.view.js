@@ -99,7 +99,8 @@ export default class JobListView extends PageView {
         this.state = {
           toggleFlag:true,
           btnDis:false,
-          isSelectAll:false
+          isSelectAll:false,
+          selected:[]
         }
     }
 
@@ -286,17 +287,36 @@ export default class JobListView extends PageView {
           />
         )
     }
+    hanldeChangeSelectJob(val){
+      // console.log(val)
+      let {reduce:{pub_list}} = this.props
+      let {isSelectAll} = this.state
+      if(JSON.stringify(val) === JSON.stringify(pub_list.map(it=>it.channelId))){
+        this.setState({
+          isSelectAll:true
+        })
+      }else{
+        isSelectAll ? this.setState({
+          isSelectAll:false,
+          selected:val
+        }) : null
+      }
+    }
     renderSearchList(){
       let {reduce:{loc_list , pub_list}} = this.props
-      let {isSelectAll} = this.state
-      let arr = isSelectAll && pub_list ? pub_list.map(it=>it.channelId) : []
+      let {isSelectAll,selected} = this.state
+      // let arr = pub_list ? pub_list.map(it=>it.channelId) : []
+      let arr = selected || []
+      if(isSelectAll){
+        arr = pub_list.map(it=>it.channelId)
+      }
       // console.log(isSelectAll,pub_list,arr)
       if(loc_list.length ||  pub_list.length){
         return (
           <div className="jobIdList-box">
-            <Checkbox value="123" onChange={this.handleSelectAll.bind(this)} className="joblist-select-all"/>
+            <Checkbox value="123" onChange={this.handleSelectAll.bind(this)} checked={isSelectAll} className="joblist-select-all"/>
             <FormItem>
-              <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}}>
+              <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}} onChange={this.hanldeChangeSelectJob.bind(this)}>
                 {this.renderJobUninitList(arr)}
               </Checkbox.Group>
             </FormItem>

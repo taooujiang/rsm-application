@@ -64,8 +64,14 @@ export function detailRoute(id) {
 export function editMemberRoute(id) {
   return dispatch => dispatch(routerActions.push(`/member/list/detail/${id}/edit`))
 }
-export function leaveMemberRoute(id) {
-  return dispatch => dispatch(routerActions.push(`/member/list/detail/${id}/leave`))
+export function leaveMemberRoute(id,item) {
+  let path = {
+    pathname:`/member/list/detail/${id}/leave`,
+    state:{
+      item:item
+    }
+  }
+  return dispatch => dispatch(routerActions.push(path))
 }
 // export function backInterpolDetailRoute(router) {
 //   let pathName = router.location.pathname

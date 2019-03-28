@@ -163,7 +163,7 @@ export function createActionRoute() {
         key: Math.random(),
       }
     }
-    newLocation.state = Object.assign({},newLocation.state,{type:'reload'}) 
+    newLocation.state = Object.assign({},newLocation.state,{type:'reload'})
     let hash = router.createLocation(newLocation)
     return dispatch => dispatch(routerActions.push(hash))
   }
