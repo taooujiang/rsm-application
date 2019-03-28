@@ -67,7 +67,7 @@ export class MessageSideView extends Component {
 class MessageListView extends PageView {
   componentDidMount() {
     let { actions, router } = this.props;
-    
+
     // console.log(this.props,'===this.props')
   }
   handleFilter(values) {
@@ -125,10 +125,14 @@ class MessageListView extends PageView {
       item.content = <Ellipsis tooltip={true} length={73}>{String(item.content)}</Ellipsis>
      )
     return <DataTable {...propsData} {...tableConf} page={page} />;
-  } 
+  }
   render() {
     let props = this.props;
-    return <Card type="inner">{this.renderTableList()}</Card>;
+    return <Card type="inner" title={
+      <div>
+        <h3 className="card-title">短信记录</h3>
+      </div>
+      }>{this.renderTableList()}</Card>;
   }
 }
 

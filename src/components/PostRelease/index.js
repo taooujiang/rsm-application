@@ -75,6 +75,11 @@ class BaseInfoEdit extends FormPage {
 	static state = {
 		isAddress: false
 	}
+
+	componentDidMount(){
+		/*重置职位描述， 组件默认回填空 导致一开始就触发验证*/
+		this.form.resetFields(['jobDescription'])
+	}
 	/*新增和编辑操作保存动作一致
   * 区别在action中体现
 
@@ -288,14 +293,12 @@ class BaseInfoEdit extends FormPage {
 									validator: customRules.spacialStr
 								}
 							]}/>*/}
-						<EditableRichEditor name="jobDescription" rows={4} defaultValue={item.jobDescription} extBar={false} type='html' rules={[
+						<EditableRichEditor label="职位描述" name="jobDescription" rows={4} defaultValue={item.jobDescription} extBar={false} type='html' rules={[
 							{
 								required: true,
 								message: "职位描述不可为空"
 							}, {
 								validator: customRules.required
-							}, {
-								validator: customRules.spacialStr
 							}
 						]}/>
 					</FormItem>
@@ -369,7 +372,7 @@ class BaseInfoShow extends Component {
 						}</Tag>)}/>
 				</Col>
 				<Col span={24}>
-					<BaseInfoItem label="职位描述" info={<pre dangerouslySetInnerHTML={{
+					<BaseInfoItem label="职位描述" info={<pre style={{wordBreak: 'break-all',whiteSpace: 'pre-wrap'}} dangerouslySetInnerHTML={{
 							__html: item.jobDescription
 					}}/>}/>
 				</Col>

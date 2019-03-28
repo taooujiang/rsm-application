@@ -20,6 +20,7 @@ import {
   TreeSelect
 } from 'antd'
 import moment from 'moment'
+import RichEditor, {EditableRichEditor} from 'components/RichEditor'
 import {FormPage} from 'app/components/Page'
 import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import CalendarPicker from 'app/components/CalendarPicker'
@@ -33,6 +34,10 @@ const RadioGroup = Radio.Group;
 const TreeNode = TreeSelect.TreeNode;
 
 export default class SendMsgForm extends FormPage{
+  componentDidMount(){
+    // console.log(this)
+    this.form.resetFields(['content'])
+  }
   handleSubmit(values){
     let {actions,router,location} = this.props;
     actions.hanldeSendMsgAction(values).then(()=>{
@@ -50,7 +55,7 @@ export default class SendMsgForm extends FormPage{
     } = this.props
     // console.log(item)
     return (
-      <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef}>
+      <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} className="sendMsg-form">
         <FormItem>
           <Input type="hidden" name="linkMan" defaultValue={item.name}/>
         </FormItem>
@@ -61,8 +66,9 @@ export default class SendMsgForm extends FormPage{
           <Input type="hidden" name="bussinessId" defaultValue={item.id}/>
         </FormItem>
         <FormItem>
-          <TextArea  name="content" label="短信内容"  placeholder="请输入发送短信内容" rows={4} rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>
-        </FormItem>
+          {/*<TextArea  name="content" label="短信内容"  placeholder="请输入发送短信内容" rows={4} rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>*/}
+          <EditableRichEditor name="content" label="短信内容"  placeholder="请输入发送短信内容" type="markdown" rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>
+      </FormItem>
       </BaseForm>
     )
   }

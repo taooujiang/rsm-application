@@ -267,10 +267,15 @@ class SoundListView extends PageView {
     };
     return <DataTable {...this.props} {...tableConf} page={page} />;
   }
-
   render() {
     let props = this.props;
-    return <Card type="inner">{this.renderTableList()}</Card>;
+    return <Card type="inner" title={
+      <div>
+        <h3 className="card-title">通话记录</h3>
+      </div>
+      }>
+          {this.renderTableList()}
+        </Card>;
   }
 }
 

@@ -385,7 +385,7 @@ export default class Dashboard extends Component {
 										<p>待发送offer</p>
 								</Col>
                 <Col span={4} onClick={this.handleRowClick.bind(this,{ title: '待入职',permissionKey:"resume", key: 'entry' , refresh:true , src:"/static/js/client/main.html#/resume/list/query/4/end"})}>
-										<Icon type="icon-offerWaiting" style={{fontSize:24,color:'#ff8154'}}/>
+										<Icon type="icon-waitingentry" style={{fontSize:24,color:'#ff8154'}}/>
 										<h1>{todayWaitEntryNum}</h1>
 										<p>今日待入职</p>
 								</Col>

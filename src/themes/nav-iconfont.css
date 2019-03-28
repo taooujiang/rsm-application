@@ -125,6 +125,8 @@
 
 .anticon-icon-offerWaiting:before { content: "\e631"; }
 
+.anticon-icon-waitingentry:before { content: "\e63c"; }
+
 .anticon-icon-newResume:before { content: "\e630"; }
 
 .anticon-icon-user:before { content: "\e633"; }
@@ -133,11 +135,13 @@
 
 .anticon-icon-sync:before { content: "\e756"; }
 
-.anticon-icon-misscall:before { content: "\e767"; }
+.anticon-icon-misscall:before { content: "\e63b";}
 
 .anticon-icon-schedule:before { content: "\e716"; }
 
 .anticon-icon-team:before { content: "\e634"; }
+
+.anticon-icon-communication:before { content: "\e63b"; }
 
 .anticon-icon-seal:before { content: "\e639"; }
 
