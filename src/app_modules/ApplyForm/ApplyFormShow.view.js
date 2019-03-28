@@ -76,74 +76,13 @@ function houseStatusFn(value) {
 }
 
 export default class ApplyFormView extends Component {
+	renderWorkList(){
+		return <div>
+			<span></span>
+		</div>
+	}
 	render() {
 		let {info, handlePrinter} = this.props
-		//     info = {
-		//   "orderKey" : "",
-		//   "keyType" : "",
-		//   "keyWord" : "",
-		//   "id" : "d79f8318e3164eba8c484d0792c75022",
-		//   "orgId" : "473dc72ab47449ee83848ac210b5c1e8",
-		//   "interviewId" : "bee2b35ce7434d7ab9fc452905f8fb29",
-		//   "resumeId" : "5e0ae57220a845e88412376aa720d2b8",
-		//   "jobId" : "4b2616d5fdbc4e3587dd6ceee9254e69",
-		//   "jobTitle" : "技术支持",
-		//   "interviewTime" : "2018-10-11 09:00:00",
-		//   "name" : "唐叶贝",
-		//   "sex" : 2,
-		//   "birthTime" : "1994-01-01 00:00:00",
-		//   "politicsStatus" : 3,
-		//   "national" : "",
-		//   "nativePlace" : "",
-		//   "idCard" : "",
-		//   "residenceAddress" : "",
-		//   "residenceDdressDetail" : "",
-		//   "residenceStatus" : "",
-		//   "currentAddress" : "杭州",
-		//   "currentAddressDetail" : "",
-		//   "houseStatus" : "",
-		//   "maritalStatus" : "",
-		//   "physicalCondition" : "",
-		//   "education" : "",
-		//   "degree" : "",
-		//   "lastMajor" : "",
-		//   "minorMajor" : "",
-		//   "lastSchool" : "",
-		//   "lastSchoolEnd" : "",
-		//   "skillCertificate" : "",
-		//   "englishLevel" : "",
-		//   "mobilephone" : "18814859623",
-		//   "email" : "",
-		//   "urgencyName" : "",
-		//   "urgencyPhone" : "",
-		//   "predictTime" : "",
-		//   "currentSalary" : "",
-		//   "expectedSalary" : "",
-		//   "hobby" : "",
-		//   "otherRequirements" : "",
-		//   "developmentPlan" : "",
-		//   "relationship" : "",
-		//   "workExperience" : "[{\"company\":\"乐购\",\"duringEnd\":1422720000000,\"duringStart\":1417363200000,\"duringTime\":[1417363200000,1422720000000],\"jobTitle\":\"收银员\",\"reasonsForLeaving\":\"\",\"referener\":\"\",\"referenerPhone\":\"\"}]",
-		//   "workExperienceDescribe" : "",
-		//   "learningExperience" : "",
-		//   "learningIntroduction" : "",
-		//   "inputAcc" : "",
-		//   "inputTime" : "2018-10-11 15:27:38",
-		//   "updateTime" : "",
-		//   "isDel" : 0,
-		//   "relationshipList" : [ ],
-		//   "studyList" : [ ],
-		//   "workList" : [ {
-		//     "duringTime" : [ 1417363200000, 1422720000000 ],
-		//     "duringStart" : 1417363200000,
-		//     "duringEnd" : 1422720000000,
-		//     "company" : "乐购",
-		//     "jobTitle" : "收银员",
-		//     "reasonsForLeaving" : "",
-		//     "referener" : "",
-		//     "referenerPhone" : ""
-		//   } ]
-		// }
 		let relationshipCol = [
 			{
 				title: '称谓',
@@ -272,14 +211,17 @@ export default class ApplyFormView extends Component {
 				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={relationshipCol} dataSource={info && info.relationshipList} title={() => '主要家庭成员及社会关系'}/>
-				<Table className="apply-show-table" style={{
+				<h3 className="part-title">工作经历</h3>
+				{this.renderWorkList()}
+				{/*<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={worklistCol} dataSource={info && info.workList} title={() => '工作经历'}/>
 				<Row><BaseItem span={24} label="工作业绩说明" info={info && info.workExperienceDescribe}/></Row>
 				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={studylistCol} dataSource={info && info.studyList} title={() => '主要学习经历'}/>
-				<Row><BaseItem span={24} label="学习情况介绍" info={info && info.learningIntroduction}/></Row>
+				<Row><BaseItem span={24} label="学习情况介绍" info={info && info.learningIntroduction}/></Row>*/}
+
 			</div>
 		</div>)
 	}

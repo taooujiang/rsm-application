@@ -63,7 +63,7 @@ export default class SendMsgForm extends FormPage{
           <Input type="hidden" name="phoneNumber" defaultValue={item.mobilephone}/>
         </FormItem>
         <FormItem>
-          <Input type="hidden" name="bussinessId" defaultValue={item.id}/>
+          <Input type="hidden" name="businessId" defaultValue={item.id}/>
         </FormItem>
         <FormItem>
           {/*<TextArea  name="content" label="短信内容"  placeholder="请输入发送短信内容" rows={4} rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>*/}
