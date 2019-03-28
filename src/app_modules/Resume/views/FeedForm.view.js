@@ -63,11 +63,18 @@ class FeedForm extends Component {
 		})
 	}
 	filterTip(interviewers){
-		console.log(this.state.interviewerList,interviewers)
+		console.log(this.state.interviewerList,interviewers,this.state.interviewerList.filter(it=>{
+			return interviewers.indexOf(it.account) > -1 && !it.bindWeChat
+		}))
+		/*判断 面试官是否选择并且是否有未绑定的帐号  若无 直接返回提示语为空*/
 		this.setState({
-			bingWechatTip: interviewers.length ? this.state.interviewerList.filter(it=>{
+			bingWechatTip: interviewers.length &&this.state.interviewerList.filter(it=>{
 				return interviewers.indexOf(it.account) > -1 && !it.bindWeChat
-			}).map(it=>it.name).join(',') + '未绑定公众号' : ""
+			}).length ?
+				this.state.interviewerList.filter(it=>{
+					return interviewers.indexOf(it.account) > -1 && !it.bindWeChat
+				}).map(it=>it.name).join(',') + '未绑定公众号'
+				: ""
 		})
 	}
 	renderSelectOption(data, idx) {
@@ -130,7 +137,7 @@ class FeedForm extends Component {
 		}
 	}
 	hanleInterviwerChange(val,option){
-		// console.log(val,option,this)
+		console.log(val,option,"select")
 		this.filterTip(val)
 	}
 	handleChange(e) {

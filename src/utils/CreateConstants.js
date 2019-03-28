@@ -52,7 +52,7 @@ export function createTypes(CONSTANTS) {
       console.log(e)
       message.error(error.response ? error.response.statusText : "服务器请求失败", 5)
     }
-    return { type: CONSTANTS.FETCH_FAILURE, payload: { label, spin: false, status: error.response ? error.response.statusText : 500 } }
+    return { type: CONSTANTS.FETCH_FAILURE, status:false,payload: { label, spin: false, status: error.response ? error.response.statusText : 500 } }
   }
 
   function fetchRequest(label, status) {
@@ -63,7 +63,7 @@ export function createTypes(CONSTANTS) {
     let msgContent = tips ? tips : "数据操作成功"
     let duration = 5
     showSuccess && message.success(msgContent, duration)
-    return { type: CONSTANTS.FETCH_SUCCESS, payload: { label, spin: false } }
+    return { type: CONSTANTS.FETCH_SUCCESS,status:true, payload: { label, spin: false } }
   }
   return {
     newItem,

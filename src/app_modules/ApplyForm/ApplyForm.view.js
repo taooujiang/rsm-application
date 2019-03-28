@@ -351,12 +351,12 @@ export default class ApplyFormView extends FormPage {
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:5,message:"紧急联系人姓名最多5个字符"},{required: true,message:"紧急联系人姓名不可为空"}]}/>
+								<Input label="紧急联系人姓名" name="urgencyName" defaultValue={applyerInfo&&applyerInfo.urgencyName} rules={[{max:5,message:"紧急联系人姓名最多5个字符"}]}/>
 							</FormItem>
 						</Col>
 						<Col span={12}>
 							<FormItem  >
-								<Input label="紧急联系人电话" name="urgencyPhone" defaultValue={applyerInfo&&applyerInfo.urgencyPhone} rules={[{required: true,message:"紧急联系人电话不可为空"}]} />
+								<Input label="紧急联系人电话" name="urgencyPhone" defaultValue={applyerInfo&&applyerInfo.urgencyPhone}  />
 							</FormItem>
 						</Col>
 						<Col span={12}>

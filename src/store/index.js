@@ -202,17 +202,17 @@ const panes = {
     key: "member/interpol",
     src: "/static/js/client/main.html#/member/interpol"
   },
-  soundlist: {
+  "/soundlist/soundlist": {
     title: "通话记录",
     refresh: true,
     key: "soundlist",
-    src: "/static/js/client/main.html#/soundlist"
+    src: "/static/js/client/main.html#/soundlist/soundlist"
   },
-  messageList: {
+  "/soundlist/messageList": {
     title: "短信记录",
     refresh: true,
     key: "messageList",
-    src: "/static/js/client/main.html#/messageList"
+    src: "/static/js/client/main.html#/soundlist/messageList"
   },
   settings: {
     title: "系统设置",

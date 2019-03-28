@@ -197,15 +197,15 @@ class MultiTab extends Component {
         key: "member/interpol",
         src: "/static/js/client/main.html#/member/interpol"
       },
-      '/soundlist': {
+      '/soundlist/soundlist': {
         title: "通话记录",
         key: "soundlist",
-        src: "/static/js/client/main.html#/soundlist"
+        src: "/static/js/client/main.html#/soundlist/soundlist"
       },
-      '/messageList': {
+      '/soundlist/messageList': {
         title: "通话记录",
         key: "messageList",
-        src: "/static/js/client/main.html#/messageList"
+        src: "/static/js/client/main.html#/soundlist/messageList"
       },
       '/settings': {
         title: "系统设置",

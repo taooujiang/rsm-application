@@ -91,6 +91,7 @@ class AuthEditForm extends Component{
           <Search label="验证码" name="code"
             placeholder="请输入验证码"
             enterButton={btnText}
+            rules={[{required:true,message:"验证码不可为空"},{validator:customRules.required}]}
            onSearch={this.getCode.bind(this)}
          />
         </FormItem>
@@ -110,8 +111,12 @@ class AuthentEditFormView extends FormPage{
   //处理表格提交后动作
   handleSubmit(values){
     let {actions,router} = this.props
-    actions.authentEditAction(values)
-    actions.backRoute(router)
+    actions.authentEditAction(values).then(res=>{
+      /*如果请求成功则返回*/
+      if(res.status){
+        actions.backRoute(router)
+      }
+    })
   }
   render() {
     let {params, reduce:{spins:{formSpin},item}} = this.props

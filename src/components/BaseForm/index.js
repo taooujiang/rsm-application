@@ -154,6 +154,7 @@ class FormItem extends Component{
     });
   }
   renderField(){
+    // console.log(this.props.children,this.state)
     let {children,name,label,containerTo} = this.props
     let {childData} = this.state;
     let field=children;
@@ -212,6 +213,7 @@ class FormItem extends Component{
       //     {childData.map((d,idx) =>field.props.renderItem && field.props.renderItem(d,idx))}
       //   </field.type>)
     }else{
+      // console.log(field)
       return React.createElement(field.type,Object.assign({},otherProps,containerToProp,treeDataProp))
     }
   }
