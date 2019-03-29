@@ -17,6 +17,7 @@ import {
 	Spin,
 	Radio,
 	Rate,
+	Tag,
 	Select
 } from 'antd'
 import {FormPage} from 'app/components/Page'
@@ -178,10 +179,10 @@ class FeedbackForm extends Component {
 			return {label: it.keyName, value: it.keyValue, disabled: false}
 		})
 	}
-	handleChangeComFeedback(item){
+	handleChangeComFeedback(val){
 		// console.log(item)
 		this.props.formRefs.setFieldsValue({
-			feedback:this.props.formRefs.getFieldValue('feedback') ? this.props.formRefs.getFieldValue('feedback') + item : item
+			feedback:this.props.formRefs.getFieldValue('feedback') ? this.props.formRefs.getFieldValue('feedback') + val : val
 		})
 	}
 	changeTypeVal(dtoList) {
@@ -199,6 +200,13 @@ class FeedbackForm extends Component {
 		if (formRefs) {
 			formRefs.setFieldsValue({"questionAnswerDtoList": questionList})
 		}
+	}
+	renderFeedBackTag(){
+		return <div className="feedback-tag-box">
+			{DictUtils.getDictByType('commonFeedback').map(it=>{
+				return <Tag className="feedback-quick-tag" onClick={this.handleChangeComFeedback.bind(this,it.keyName)}>{it.keyName}</Tag>
+			})}
+		</div>
 	}
 
 	render() {
@@ -242,7 +250,7 @@ class FeedbackForm extends Component {
 			</FormItem>
 			<FeedbackType dataSource={obj.questionAnswerDtoList} readOnly={obj.isFeedback == 1} type={obj.type} whileChange={this.changeTypeVal.bind(this)}/>
 			<FormItem>
-				<TextArea label="综合评价" name="feedback" placeholder="请填写综合评价" readOnly={obj.isFeedback == 1} defaultValue={obj.feedback} rules={[
+				<TextArea label="综合评价" name="feedback" rows={4} placeholder="请填写综合评价" readOnly={obj.isFeedback == 1} defaultValue={obj.feedback} rules={[
 						{
 							required: true,
 							message: "综合评价不可为空"
@@ -254,9 +262,7 @@ class FeedbackForm extends Component {
 						}
 					]} help="请及时提交面试反馈信息，且务必做到准确评价"/>
 			</FormItem>
-			<FormItem>
-				<Select name="aaa" fetch={DictUtils.getDictByType("commonFeedback")} renderItem={this.renderSelectOption} placeholder="常用反馈语" onChange={this.handleChangeComFeedback.bind(this)}/>
-			</FormItem>
+			{this.renderFeedBackTag()}
 			<FormItem>
 				<RadioGroup label="为候选人打分" name="feedbackState" defaultValue={obj.feedbackStateStr} disabled={obj.isFeedback == 1} help="请为候选人打分，您的分数将与其他面试官的评分一起进行评估" options={this.renderRadioData()} rules={[{
 							required: true,
