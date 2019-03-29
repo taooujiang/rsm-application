@@ -151,6 +151,15 @@ export function addScheduleRoute(dateStr) {
   return dispatch => dispatch(routerActions.push(path))
 }
 
+export function editScheduleRoute(router,id,dateStr) {
+	let pathname = router.getCurrentLocation().pathname.replace(/\/$/, "")
+  let path = {
+    pathname:`${pathname}/edit/${id}`,
+      state:{currentDate:dateStr}
+  }
+  return dispatch => dispatch(routerActions.push(path))
+}
+
 export function newItemAction(value){
   return (dispatch, getState) => {
     dispatch(createSchedule({}))

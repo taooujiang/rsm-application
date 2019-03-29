@@ -33,7 +33,7 @@ export  class EditableRichEditor extends React.Component {
     }
   }
   cbReceiver(value){
-    // console.log(value?1:21)
+    // console.log(value)
     let {extBar,type}=this.props
     // console.log(this.props)
 
@@ -49,10 +49,11 @@ export  class EditableRichEditor extends React.Component {
     }
   }
   onBlurChange(){
-    this.value ? this.props.onChange(this.value) : null
+    this.props.onChange(this.value)
   }
 
   addText(text){
+    // console.log(text)
     let {onChange}=this.props
     let editor=this.refs.editor
     let editorState=editor.state.editorState
