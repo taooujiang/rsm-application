@@ -88,17 +88,16 @@ export default class SharelView extends PageView {
             <Card type="inner">
                 {children}
                 <Card className="shareCardBox">
-                    <div className="sharewindow-headBg">
-                    </div>
+                    <img src={require('app/themes/share-banner-foot.jpg')} className="share-window-img"/>
                     <span className="your-promo">您的邀请码{promo}</span>
-                    <div className="sharwindow-banner"></div>
+                    <img src={require('app/themes/share-banner-head.png')} className="share-window-img"/>
                     <div className="share-bottom">
                         <Row>
                             <div style={{lineHeight:"40px",textAlign:"center"}}>
                                 <span>复制链接发送给好友</span>
                                 <span class="shareContent">推荐使用遇仁招聘管理系统来提高企业招聘效率，现在加入还有优惠。遇仁官网：http://www.yurenwang.net，邀请码：{promo}</span>
                                 <Button type="primary" onClick={this.copyCode.bind(this)}>复制邀请链接</Button>
-                                <Button icon="qrcode" onClick={this.handleOpenQrcode.bind(this)}></Button>
+                                <Button icon="qrcode" onClick={this.handleOpenQrcode.bind(this)} className="qrcode"></Button>
                           </div>
                         </Row>
                     </div>
@@ -113,7 +112,7 @@ export default class SharelView extends PageView {
                         <li>遇仁可根据本次活动的实际情况对活动规则进行变动或调整，相关变动或调整将公布在活动页面上，并于公布时生效</li>
                         <li>本活动的最终解释权归遇仁所有</li>
                     </ol>
-                    <div className="sharewindow-footBg"></div>
+                    <img src={require('app/themes/share-footer.png')} className="share-window-img"/>
                 </Card>
             </Card>
         )

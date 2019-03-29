@@ -1980,7 +1980,7 @@ export class PersonCommunitcate extends Component {
 		return <Timeline>
 				{
 					info.map((it, idx) => {
-						return <Timeline.Item color="green">
+						return <Timeline.Item color="#36c5a7">
 							<PersonCommunitcateItem item={it} name={name}/>
 						</Timeline.Item>
 					})
@@ -2022,7 +2022,7 @@ class PersonCommunitcateItem extends Component {
 	}
 	renderMsgContent(item){
 		return item.type == 2 ? <Row gutter={10}>
-		<Col span={24}>{item.content}</Col>
+		<Col span={24} className="communicate-content">{item.content}</Col>
 	</Row> : null
 	}
 	render() {
@@ -2030,7 +2030,7 @@ class PersonCommunitcateItem extends Component {
 		return (<div className="comunitcattionItem">
 			<Row gutter={10}>
 				<Col span={12}>
-					<span>【{item.showCallState}】{item.startTime}</span>
+					<span className="communicate-title">【{item.showCallState}】{item.startTime}</span>
 				</Col>
 				<Col span={6}>
 					{this.renderPlayRecord(item)}

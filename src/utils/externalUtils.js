@@ -165,14 +165,10 @@ export default class ClientAPI {
         console.log("emit",object.type,object)
     }
     invokeMethod(methodName,params){
-      // console.dir(external)
+      console.dir(external)
       if(external[methodName]){
         external[methodName].call(this,params)
         // console.log(methodName,params)
-      }else if(yu_ren[methodName]){/**向前兼容*/
-        yu_ren[methodName].call(this,params)
-        //external[methodName].call(params)
-         // alert("请使用客户端打开")
       }else{
 
       }
