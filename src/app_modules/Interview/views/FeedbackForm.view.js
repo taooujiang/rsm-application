@@ -202,6 +202,11 @@ class FeedbackForm extends Component {
 		}
 	}
 	renderFeedBackTag(){
+		let {obj} = this.state
+		/*如果当前为查看反馈 则不展示 */
+		if(obj.isFeedback == 1){
+			return null
+		}
 		return <div className="feedback-tag-box">
 			{DictUtils.getDictByType('commonFeedback').map(it=>{
 				return <Tag className="feedback-quick-tag" onClick={this.handleChangeComFeedback.bind(this,it.keyName)}>{it.keyName}</Tag>
