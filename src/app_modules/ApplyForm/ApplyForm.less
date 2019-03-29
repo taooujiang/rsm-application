@@ -33,6 +33,12 @@
 }
 
 .ApplyFormShowBox{
+	font-size: 12px;
+	ul,li{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
 	background-color: #fff;
 	width: 100%;
 	overflow: auto;
@@ -40,20 +46,22 @@
 	.content{
 		margin: 10px 20px;
 		.ant-col-12{
+			width:50%;
+			float: left;
 			&:nth-of-type(10n+1),&:nth-of-type(10n+2){
 				&:not(:nth-of-type(1)):not(:nth-of-type(2)){
 					margin-top: 20px;
 				}
 			}
-			.contentBase{
-				font-size: 12px;
-				line-height: 24px;
-				label{
-					color: #808080;
-				}
-				span{
-					color: #333333;
-				}
+		}
+		.contentBase{
+			font-size: 12px;
+			line-height: 24px;
+			label{
+				color: #808080;
+			}
+			span{
+				color: #333333;
 			}
 		}
 	}
@@ -93,11 +101,35 @@
 		}
 	}
 
+	.worklist-box,.studylist-box{
+		line-height: 24px;
+		margin: 10px;
+		>li{
+			display: flex;
+			>span{
+				&:first-of-type{
+					flex: 0 0 180px
+				}
+				flex: 1;
+			}
+		}
+	}
+	.tips-title{
+		line-height: 24px;
+		margin: 10px;
+	}
 
-	.part-title,.apply-show-table{
+	.part-title{
+		font-size: 16px;
+		font-weight: bold;
+		margin: 20px 0;
+	}
+
+	.apply-show-table{
 		.ant-table-title{
 			font-size: 16px;
 			font-weight: bold;
+			margin: 20px 0;
 		}
 		.ant-table-thead{
 			display: none;

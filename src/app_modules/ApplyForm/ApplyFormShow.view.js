@@ -16,13 +16,14 @@ import {
 	message
 } from 'antd'
 import DictUtils from 'app/utils/DictUtils'
+import classnames from 'classnames'
 import moment from 'moment'
 import style from './ApplyForm.less'
 
 class BaseItem extends Component {
 	render() {
 		return (<Col span={this.props.span}>
-			<div className="contentBase">
+			<div className={classnames("contentBase",this.props.othclassname)}>
 				<label>{this.props.label}：</label>
 				<span>{this.props.info}</span>
 			</div>
@@ -38,7 +39,7 @@ function translateDic(dicname, val) {
 
 function translateTime(time, format) {
 	if (time) {
-		if (time == "9999-01-01") {
+		if (moment(time).format("YYYY-MM-DD") == "9999-01-01") {
 			return "至今"
 		} else {
 			return format
@@ -76,10 +77,35 @@ function houseStatusFn(value) {
 }
 
 export default class ApplyFormView extends Component {
-	renderWorkList(){
-		return <div>
-			<span></span>
-		</div>
+	renderWorkList(worklist){
+		console.log(worklist)
+		return worklist ? worklist.map(it=>{
+			return <ul className="worklist-box">
+				<li>
+					<span>{it.duringTime.map(it=>translateTime(it)).join('-')}</span>
+					<span>{it.company}</span>
+					<span>{it.jobTitle}</span>
+				</li>
+				<li>
+					离职原因:{it.reasonsForLeaving || '无'}
+				</li>
+			</ul>
+		}) : null
+	}
+	renderStudyList(studylist){
+		console.log(studylist)
+		return	studylist ? studylist.map(it=>{
+			return <ul className="studylist-box">
+				<li>
+					<span>{it.studyTime.map(it=>translateTime(it)).join('-')}</span>
+					<span>{it.school}</span>
+					<span>{it.major}</span>
+				</li>
+				<li>
+					担任职务及获奖情况:{it.positionAwards || '无'}
+				</li>
+			</ul>
+		}) : null
 	}
 	render() {
 		let {info, handlePrinter} = this.props
@@ -212,16 +238,27 @@ export default class ApplyFormView extends Component {
 						height: 'auto'
 					}} pagination={false} columns={relationshipCol} dataSource={info && info.relationshipList} title={() => '主要家庭成员及社会关系'}/>
 				<h3 className="part-title">工作经历</h3>
-				{this.renderWorkList()}
-				{/*<Table className="apply-show-table" style={{
+				{this.renderWorkList(info.workList)}
+				{/*<Row><BaseItem span={24} othclassname="tips-title" label="工作业绩说明" info={info && info.workExperienceDescribe}/></Row>
+				<Row><BaseItem span={24} othclassname="tips-title" label="学习情况介绍" info={info && info.learningIntroduction}/></Row>*/}
+				<Row>
+					<h3 className="part-title">工作业绩说明</h3>
+					<span className="tips-title">{info && info.workExperienceDescribe}</span>
+				</Row>
+				<h3 className="part-title">学习经历</h3>
+				{this.renderStudyList(info.studyList)}
+				<Row>
+					<h3 className="part-title">学习情况介绍</h3>
+					<span className="tips-title">{info && info.learningIntroduction}</span>
+				</Row>
+
+			{/*<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={worklistCol} dataSource={info && info.workList} title={() => '工作经历'}/>
-				<Row><BaseItem span={24} label="工作业绩说明" info={info && info.workExperienceDescribe}/></Row>
 				<Table className="apply-show-table" style={{
 						height: 'auto'
 					}} pagination={false} columns={studylistCol} dataSource={info && info.studyList} title={() => '主要学习经历'}/>
-				<Row><BaseItem span={24} label="学习情况介绍" info={info && info.learningIntroduction}/></Row>*/}
-
+			*/}
 			</div>
 		</div>)
 	}
