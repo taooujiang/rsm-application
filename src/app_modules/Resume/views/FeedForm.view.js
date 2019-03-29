@@ -277,8 +277,9 @@ export default class FeedFormView extends FormPage {
 			}
 		} = this.props;
 		if (createble || id) {
-			actions.feedArrange(values)
-			actions.backRouteReload(router, location)
+			actions.feedArrange(values).then(res=>{
+				actions.backRouteReload(router, location)
+			})
 		}
 	}
 	updateFieldValue(fieldName, value) {
