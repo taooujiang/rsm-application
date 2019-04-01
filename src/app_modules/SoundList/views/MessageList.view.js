@@ -92,39 +92,47 @@ class MessageListView extends PageView {
         {
           title: "联系人",
           key: "linkMan",
-          width: 50,
+          width: 150,
           dataIndex: "linkMan"
         },
         {
           title: "联系电话",
           key: "phoneNumber",
-          width: 50,
+          width: 150,
           dataIndex: "phoneNumber"
         },
         {
           title: "信息类型",
           key: "msgType",
           dataIndex: "msgType",
-          width: 50
+          width: 150
         },
         {
           title: "信息时间",
           key: "msgTime",
           dataIndex: "msgTime",
-          width: 80
+          width: 150
         },
         {
           title: "信息内容",
           key: "content",
           dataIndex: "content",
-          width: 200
+          render:(val,row)=>{
+            return <Ellipsis tooltip={true} length={73}>{val}</Ellipsis>
+          }
+        },
+        {
+          title:"发送状态",
+          key:"msgStatus",
+          dataIndex:"msgStatus",
+          width:100,
+          render:(val,row)=>{
+            return val ? "发送成功" : <Ellipsis tooltip={true} length={10}>{row.reason || "发送失败"}</Ellipsis>
+          }
         }
       ]
     };
-    let propsData = {...this.props}.items.map(item=>
-      item.content = <Ellipsis tooltip={true} length={73}>{String(item.content)}</Ellipsis>
-     )
-    return <DataTable {...propsData} {...tableConf} page={page} />;
+    return <DataTable {...tableConf} page={page} />;
   }
   render() {
     let props = this.props;
