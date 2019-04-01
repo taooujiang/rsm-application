@@ -127,7 +127,7 @@ class MessageListView extends PageView {
           dataIndex:"msgStatus",
           width:100,
           render:(val,row)=>{
-            return val ? "发送成功" : <Ellipsis tooltip={true} length={10}>{row.reason || "发送失败"}</Ellipsis>
+            return val == 1 ? "发送成功" : <Ellipsis tooltip={true} length={10}>{row.reason || "发送失败"}</Ellipsis>
           }
         }
       ]
