@@ -131,11 +131,14 @@ export default class LogListView extends Component {
       });
     }
   }
+  handleClickSee(id){
+    global.invokeMethod('ShowPublicUrl',id)
+  }
   renderBusiness(id){
     // global.invokeMethod('ShowPublicUrl',keyUrl)
     return id ? <span>
     点击
-    <a href="###" onClick={global.invokeMethod('ShowPublicUrl',id)}>【查看】</a>
+    <a href="###" onClick={this.handleClickSee(id)}>【查看】</a>
     可访问对应关联问题。
   </span> : null
   }
