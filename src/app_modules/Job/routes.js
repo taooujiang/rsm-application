@@ -30,7 +30,7 @@ let Routes = (
         <Route path="changeCharger" components={ChangeChargerFormContainer} breadcrumbName="修改负责人"/>
         <Route path="changeFeeder" components={ChangeFeederFormContainer} breadcrumbName="修改面试官"/>
         <Route path="reset" components={JobResetContainer} breadcrumbName="重新分配"/>
-        <Route path="scroesheet" components={ScoreSheetFormContainer} breadcrumbName="面试评价表"/>
+        <Route path="scroesheet" components={ScoreSheetFormContainer} breadcrumbName="面试反馈表"/>
       </Route>
 
     <Route path="search" components={SearchJobContainer} />
