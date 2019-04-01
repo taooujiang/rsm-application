@@ -137,7 +137,7 @@ export default class ResumeImportView extends FormPage {
                   <Select label="推荐人" name="referrer" placeholder = "请选择" showSearch fetch = {`${APP_SERVER}/member/findMemebersWithOnJob`} renderItem = {this.renderRefferOption }/>
                 </FormItem>
                 <FormItem>
-                  <TextArea label="备注" name="remark" placeholder="请输入对该候选人的备注" rows={4} rules={[{max:50,message:"备注限制50个字"}]}/>
+                  <TextArea label="备注" name="remark" placeholder="请输入对该候选人的备注" rows={4} rules={[{max:50,message:"备注限制50个字"},{validator: customRules.spacialStr}]}/>
                 </FormItem>
                 <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>
               </Fixed>
