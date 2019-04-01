@@ -985,8 +985,13 @@ class PersonJobsItem extends ItemChangeCommon {
 			trade,
 			item.department,
 			item.reasonsForLeaving,
-			item.subordinates,
-			item.boss
+		]).join(" | ")
+	}
+	renderOtherInfo(){
+		let {item} = this.props
+		return filterArray([
+			item.subordinates ? "下属人数：" + item.subordinates : "",
+			item.boss ? "汇报对象：" + item.boss : ""
 		]).join(" | ")
 	}
 	renderShow() {
@@ -1008,6 +1013,7 @@ class PersonJobsItem extends ItemChangeCommon {
 			{this.renderJobsBaseInfo()}
 			<BaseInfoItem label="工作内容" info={item.jobContent}/>
 			<BaseInfoItem label="主要成就" info={item.achievements}/>
+			{this.renderOtherInfo()}
 		</div>)
 	}
 	renderEdit() {

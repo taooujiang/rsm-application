@@ -38,6 +38,8 @@ export const memberSave = createAction("UPSERT_MEMBER")
 export const currentMemberSave = createAction("UPSERT_CURRENTMEMBER")
 export const clearCurrentMember = createAction("CLEAR_CURRENTMEMBER")
 
+export const memberUpdate = createAction("UPDATE_MEMBER")
+
 export const memberItemSave = createAction("SAVE_MEMBERITEM")
 
 export const saveFeedData = createAction("SAVE_FEEDDATA")
@@ -203,7 +205,8 @@ export function dissmissMemberAction(value) {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchDissmissMember(value).then(json => {
       dispatch(fetchSuccess('formSpin', true, "操作成功！"))
-      dispatch(memberItemSave(json))
+      dispatch(memberUpdate(value))
+      dispatch(currentMemberSave(value))
       // dispatch(listAction())
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin', ex))

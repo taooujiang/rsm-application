@@ -161,7 +161,7 @@ actions[saveFeedData] = ( state,action ) =>{
 
 actions[currentMemberSave]=(state, action)=>{
 	return Object.assign({},state,{
-		currentItem:action.payload
+		currentItem:Object.assign({},state.currentItem,action.payload)
 	})
 }
 actions[clearCurrentMember]=(state, action)=>{

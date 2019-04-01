@@ -165,13 +165,28 @@ export default class ClientAPI {
         console.log("emit",object.type,object)
     }
     invokeMethod(methodName,params){
-      console.dir(external)
-      if(external[methodName]){
-        external[methodName].call(this,params)
-        // console.log(methodName,params)
-      }else{
+      try{
+        if(yu_ren[methodName]){
+          yu_ren[methodName].call(this,params)
+        }
+      }catch(err){
+        // console.log(err)
+        if(external[methodName]){
+          external[methodName].call(this,params)
+          // console.log(methodName,params)
+        }else{
 
+        }
       }
+      // if(external[methodName]){
+      //   external[methodName].call(this,params)
+      //   // console.log(methodName,params)
+      // }else if(yu_ren[methodName]){
+      //   yu_ren[methodName].call(this,params)
+      //   // console.log(methodName,params)
+      // }else{
+      //
+      // }
       // external.updateTitle(params)
     }
     showMsgCenterEx(strType){
