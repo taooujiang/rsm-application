@@ -468,6 +468,12 @@ class PersonInfoPanelHead extends Component {
 		// let {isLock, havaSame, isFollowRemind, downloadStatus,channel} = info
 		//console.log("isLock",isLock,"havaSame",havaSame,"isFollowRemind",isFollowRemind)
 		let userInfoText = ""
+		let commonStyle={
+			verticalAlign: 'text-bottom',
+			marginRight:5,
+			cursor:'pointer',
+			padding:0
+		}
 		if (translateDic("sex", info.sex) && info.age)
 			userInfoText = `${translateDic("sex", info.sex)} · ${info.age}`
 		if (translateDic("sex", info.sex) && !info.age)
@@ -482,27 +488,43 @@ class PersonInfoPanelHead extends Component {
 				<span className="headInfoName">{info.name}</span>
 				<span className="hasApply">已申请{info.resumes && info.resumes.length}个职位</span>
 				{this.renderSelectOption()}
-				{
-					havaSame
-						? <Icon type="icon-yisijianli" style={{
-									color: "#e9578a"
-								}}/>
-						: null
-				}
-				{
-					isLock
-						? <Icon type="icon-suoding" style={{
-									color: "#f9744e"
-								}}/>
-						: null
-				}
-				{
-					isFollowRemind
-						? <Icon type="icon-tubiao" style={{
-									color: "#2fc4a4"
-								}}/>
-						: null
-				}
+				{/*old
+					{
+						havaSame
+							? <Icon type="icon-yisijianli" style={{
+										color: "#e9578a"
+									}}/>
+							: null
+					}
+					{
+						isLock
+							? <Icon type="icon-suoding" style={{
+										color: "#f9744e"
+									}}/>
+							: null
+					}
+					{
+						isFollowRemind
+							? <Icon type="icon-tubiao" style={{
+										color: "#2fc4a4"
+									}}/>
+							: null
+					}*/}
+					{
+						havaSame
+							? <img width="16" style={commonStyle} src={require('app/themes/icon-like.png')} title="存在疑似简历"/>
+							: null
+					}
+					{
+						isLock
+							? <img width="16" style={commonStyle} src={require('app/themes/icon-lock.png')} title="已被锁定"/>
+							: null
+					}
+					{
+						isFollowRemind
+							? <img width="16" style={commonStyle} src={require('app/themes/icon-follow.png')} title="已设置跟进提醒"/>
+							: null
+					}
 			</Row>
 			<Row gutter={12} className="headInfoBottom">
 				 {

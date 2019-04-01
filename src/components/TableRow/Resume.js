@@ -20,6 +20,11 @@ export class PersonIconShow extends Component {
 	renderIcon() {
 		let iconArray = []
 		let {item} = this.props
+		let commonStyle={
+			verticalAlign: 'text-bottom',
+			marginRight:5,
+			cursor:'pointer'
+		}
 		if (item) {
 			// item.havaSame
 			// 	? iconArray.push(<SmartLink style={{
@@ -36,18 +41,24 @@ export class PersonIconShow extends Component {
 						color: '#323232'
 					}} to={{
 						pathname: `${item.id}/samedetail`
-					}}><img width="16" style={{verticalAlign: 'text-bottom'}} src={require('app/themes/like.png')} title="存在疑似简历"/></SmartLink>)
+					}}><img width="16" style={commonStyle} src={require('app/themes/icon-like.png')} title="存在疑似简历"/></SmartLink>)
 				: null
+			// item.isLock
+			// 	? iconArray.push(<Icon type="icon-suoding" style={{
+			// 			color: '#f9744e',
+			// 			margin: '0 5px'
+			// 		}} title="已被锁定"/>)
+			// 	: null
 			item.isLock
-				? iconArray.push(<Icon type="icon-suoding" style={{
-						color: '#f9744e',
-						margin: '0 5px'
-					}} title="已被锁定"/>)
+				? iconArray.push(<img width="16" style={commonStyle} src={require('app/themes/icon-lock.png')} title="已被锁定"/>)
 				: null
+			// item.isFollowRemind
+			// 	? iconArray.push(<Icon type="icon-tubiao" style={{
+			// 			color: "#2fc4a4"
+			// 		}} title="已设置跟进提醒"/>)
+			// 	: null
 			item.isFollowRemind
-				? iconArray.push(<Icon type="icon-tubiao" style={{
-						color: "#2fc4a4"
-					}} title="已设置跟进提醒"/>)
+				? iconArray.push(<img width="16" style={commonStyle} src={require('app/themes/icon-follow.png')} title="已设置跟进提醒"/>)
 				: null
 		}
 		return iconArray
