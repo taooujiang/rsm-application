@@ -442,7 +442,7 @@ class OptionButtonsResume extends OptionCommonFn {
       <Button className="half-block" style={permissionStyle("resumeToCred")} onClick={this.addCredit.bind(this)}>放入诚信库</Button>
 
       <BaseInfoItem label="招聘负责人" info={hrName}/> {this.renderRecommender()}
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -471,7 +471,7 @@ class OptionButtonsElite extends OptionCommonFn {
       <Button className="block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
       <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
       <Button className="half-block" style={permissionStyle("eliteToCred")} onClick={this.addCredit.bind(this)}>放入诚信库</Button>
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -496,7 +496,7 @@ class OptionButtonsEliteLock extends OptionCommonFn {
       <Button className="block" onClick={this.relateJob.bind(this)}>关联职位</Button>
       <Button className="block" onClick={this.handleFollow.bind(this)}>跟进提醒</Button>
       <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -579,7 +579,7 @@ class OptionButtonsLock extends OptionCommonFn {
       <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
       <Button className="half-block" onClick={this.send2OtherJob.bind(this)}>推荐到其他职位</Button>
 
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -618,7 +618,7 @@ class OptionButtonsAllocat extends OptionCommonFn {
       <Button className="half-block" onClick={this.addElite.bind(this, 1)}>放入人才库</Button>
       <Button className="half-block" onClick={this.handleRemark.bind(this)}>备注</Button>
 
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -645,7 +645,7 @@ class OptionButtonsSame extends OptionCommonFn {
       <Button className="block" onClick={this.handleRemark.bind(this)}>备注</Button>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
 
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -742,7 +742,7 @@ class OptionButtonsOffering extends OptionCommonFn {
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
 			{this.props.renderRecommender.apply(this)}
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -781,7 +781,7 @@ class OptionButtonsOffered extends OptionCommonFn {
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
 			{this.props.renderRecommender.apply(this)}
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
@@ -820,7 +820,7 @@ class OptionButtonsNoOffered extends OptionCommonFn {
       </ButtonGroup>
       <BaseInfoItem label="招聘负责人" info={hrName}/>
 			{this.props.renderRecommender.apply(this)}
-      <BaseInfoItem label="标签" info={<Button onClick = {
+      <BaseInfoItem label="标签" info={<Button className="tag-edit-btn" onClick = {
           this.addLabel.bind(this)
         } > <Icon type="plus"/></Button>}/>
       <div className="tags-box">
