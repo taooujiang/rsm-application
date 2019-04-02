@@ -314,7 +314,7 @@ export default class JobListView extends PageView {
       if(loc_list.length ||  pub_list.length){
         return (
           <div className="jobIdList-box">
-            {pub_list.length ? <Checkbox value="123" onChange={this.handleSelectAll.bind(this)} checked={isSelectAll} className="joblist-select-all"/> : null}
+            { pub_list.length ? <Checkbox value="123" onChange={this.handleSelectAll.bind(this)} checked={isSelectAll} className="joblist-select-all"/> : null }
             <FormItem>
               <Checkbox.Group defaultValue={arr} name="jobIdList" style={{width:"100%"}} onChange={this.hanldeChangeSelectJob.bind(this)}>
                 {this.renderJobUninitList(arr)}

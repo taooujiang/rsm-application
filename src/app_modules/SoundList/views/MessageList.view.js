@@ -10,6 +10,7 @@ import {
   Menu,
   Icon,
   Card,
+  Tag,
   Dropdown,
   DatePicker,
   TreeSelect
@@ -125,9 +126,9 @@ class MessageListView extends PageView {
           title:"发送状态",
           key:"msgStatus",
           dataIndex:"msgStatus",
-          width:100,
+          width:150,
           render:(val,row)=>{
-            return val == 1 ? "发送成功" : <Ellipsis tooltip={true} length={10}>{row.reason || "发送失败"}</Ellipsis>
+            return val == 1 ? <Tag color="#2ec3a4">发送成功</Tag> : <div style={{color:"#e9588b"}}><Tag color="#e9588b">发送失败</Tag><div><Ellipsis tooltip={true} length={10}>{row.reason }</Ellipsis></div></div>
           }
         }
       ]
