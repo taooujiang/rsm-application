@@ -131,19 +131,23 @@ export default class LogListView extends Component {
       });
     }
   }
-  handleClickSee(id){
+  handleClickSee(e,id){
+    e.stopPropagation()
     global.invokeMethod('ShowPublicUrl',id)
   }
   renderBusiness(id){
-    // global.invokeMethod('ShowPublicUrl',keyUrl)
+    let styles = {
+      cursor:"pointer",
+      color:"#32a0ee"
+    }
     return id ? <span>
     点击
-    <a href="###" onClick={this.handleClickSee(id)}>【查看】</a>
+    <span style={styles} onClick={e=>this.handleClickSee(e,id)}>【查看】</span>
     可访问对应关联问题。
   </span> : null
   }
   renderDescription(item) {
-    console.log(item)
+    // console.log(item)
     if(this.props.params.type == 6){
       return (
         <div>
