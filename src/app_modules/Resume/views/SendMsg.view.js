@@ -34,9 +34,18 @@ const RadioGroup = Radio.Group;
 const TreeNode = TreeSelect.TreeNode;
 
 export default class SendMsgForm extends FormPage{
+  state = {
+    tips:"共计0字，0条短信"
+  }
   componentDidMount(){
     // console.log(this)
-    this.form.resetFields(['content'])
+    // this.form.resetFields(['content'])
+  }
+  hanleChangeContent(e){
+    let val = e.target.value
+    this.setState({
+      tips:"共计"+(val && (val.trim().length+6) || 0)+"字，"+(val && (Math.ceil(val.trim().length/66)) || 0)+"条短信"
+    })
   }
   handleSubmit(values){
     let {actions,router,location} = this.props;
@@ -53,6 +62,7 @@ export default class SendMsgForm extends FormPage{
       saveFormRef,
       location:{state:{item}}
     } = this.props
+    let {tips} = this.state
     // console.log(item)
     return (
       <BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} className="sendMsg-form">
@@ -66,9 +76,10 @@ export default class SendMsgForm extends FormPage{
           <Input type="hidden" name="businessId" defaultValue={item.id}/>
         </FormItem>
         <FormItem>
-          {/*<TextArea  name="content" label="短信内容"  placeholder="请输入发送短信内容" rows={4} rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>*/}
-          <EditableRichEditor name="content" label="短信内容"  placeholder="请输入发送短信内容" type="markdown" rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>
-      </FormItem>
+          <TextArea  name="content" label="短信内容" onChange={this.hanleChangeContent.bind(this)}  placeholder="请输入发送短信内容" rows={4} rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>
+          {/*<EditableRichEditor name="content" label="短信内容"  placeholder="请输入发送短信内容" type="markdown" rules={[{required: true, message: "短信内容不可为空"},{validator:customRules.required}]}/>*/}
+        </FormItem>
+        <span className="sendMsg-tips">{tips}</span>
       </BaseForm>
     )
   }
