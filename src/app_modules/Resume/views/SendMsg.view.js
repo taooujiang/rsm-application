@@ -26,6 +26,7 @@ import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
 import CalendarPicker from 'app/components/CalendarPicker'
 import {TreeSelectPicker} from 'app/components/TreeView'
 import DateTimePicker from 'app/components/DateTimePicker'
+import messageCountFn from 'app/utils/messageCount'
 
 
 const Option = Select.Option
@@ -44,7 +45,7 @@ export default class SendMsgForm extends FormPage{
   hanleChangeContent(e){
     let val = e.target.value
     this.setState({
-      tips:"共计"+(val && (val.trim().length+6) || 0)+"字，"+(val && (Math.ceil(val.trim().length/66)) || 0)+"条短信"
+      tips:messageCountFn(val)
     })
   }
   handleSubmit(values){

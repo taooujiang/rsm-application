@@ -7,6 +7,7 @@ import {Button,Icon} from 'antd'
 // import draftToHtml from 'draftjs-to-html';
 // import htmlToDraft from 'html-to-draftjs';
 // import { Editor } from 'react-draft-wysiwyg'
+import messageCountFn from 'app/utils/messageCount'
 import LzEditor from 'react-lz-editor'
 import style from './style.less'
 
@@ -45,7 +46,8 @@ export  class EditableRichEditor extends React.Component {
     if(type=='markdown'){
 
       let charcountNode=ReactDom.findDOMNode(this).querySelectorAll(".charcount")[0]
-      charcountNode.innerHTML= "共计"+(value && (value.trim().length+6) || 0)+"字，"+(value && (Math.ceil(value.trim().length/66)) || 0)+"条短信"
+      // charcountNode.innerHTML= "共计"+(value && (value.trim().length+6) || 0)+"字，"+(value && (Math.ceil(value.trim().length/66)) || 0)+"条短信"
+      charcountNode.innerHTML= messageCountFn(value)
     }
   }
   onBlurChange(){
@@ -72,7 +74,7 @@ export  class EditableRichEditor extends React.Component {
       <div className={"EditableRichEditor editorHidden-"+type} onBlur={this.onBlurChange.bind(this)}>
        {
          type=='markdown'?(<div className="charcount">
-           共计{value && (value.trim().length+6) || 0}字，{value && (Math.ceil(value.trim().length/66)) || 0}条短信
+           {messageCountFn(value)}
        </div>):""}
 
         <LzEditor active={true} lang={"zh_CN"} image={false} video={false} audio={false} color={false} autoSave={false}  importContent={value} cbReceiver={this.cbReceiver.bind(this)}  convertFormat={type} fullScreen={false} ref="editor" image={false}
