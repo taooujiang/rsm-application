@@ -1980,6 +1980,12 @@ export class PersonCommunitcate extends Component {
 		if (nextProps.resumeId != resumeId) {
 			actions.getCommiuncateAction({resumeId: nextProps.resumeId})
 		}
+		/*刷新页面*/
+		if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+			if (nextProps.location.state && nextProps.location.state.key == "reload") {
+				actions.getCommiuncateAction({resumeId: nextProps.resumeId,time: timestamp()})
+			}
+		}
 	}
 	render() {
 		let {info} = this.props

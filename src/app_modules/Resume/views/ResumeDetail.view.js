@@ -362,7 +362,7 @@ class ResumeDetail extends Component {
 								<PersonOptionRecord actions={actions} location={location} resumeId={resumeId} info={options}/>
 							</TabPane>
 							<TabPane tab="沟通记录" key="7">
-								<PersonCommunitcate actions={actions} name={name} resumeId={resumeId} info={commitcate}/>
+								<PersonCommunitcate actions={actions} name={name} location={location} resumeId={resumeId} info={commitcate}/>
 							</TabPane>
 						</Tabs>
 					</Pane>
