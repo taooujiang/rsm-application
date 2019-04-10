@@ -22,6 +22,7 @@ import {
   Recommend2OtherFormContainer,
   FollowFormContainer,
   DeleteFormContainer,
+	SendMsgFormContainer,
   CreditFilingReasonFormContainer,
   JoinTalentFormContainer
 } from '../Resume/container'
@@ -31,7 +32,6 @@ import {DelayContainer,FeedBackFormContainer} from '../Interview/container'
 let eliteRoute = (
   <Router path=":resumeId">
     <Route path=":resumeId/detail" components={ResumeDetailContainer}>
-
 			<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
       <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
       <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
@@ -47,6 +47,7 @@ let eliteRoute = (
       <Route path="addcredit" components={CreditFilingReasonFormContainer} breadcrumbName="加入诚信库"/>
       <Route path="follow" components={FollowFormContainer} breadcrumbName="跟进提醒"/>
       <Route path="delete" components={DeleteFormContainer} breadcrumbName="删除候选人"/>
+			<Route path="sendmsg" components={SendMsgFormContainer} breadcrumbName="发送短消息"/>
       <Route path="distr/:type" components={DistributedFormContainer} breadcrumbName="分配职位"/>
       <Route path="talent/:type" components={TalentFormContainer} breadcrumbName="放入人才库"/>
     </Route>
