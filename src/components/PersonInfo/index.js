@@ -1938,6 +1938,7 @@ export class PersonOptionRecord extends Component {
 		actions.getOptionAction({resumeId: resumeId})
 	}
 	componentWillReceiveProps(nextProps) {
+		console.log(this.props)
 		let {actions, resumeId} = this.props;
 		if (JSON.stringify(nextProps.resumeId) !== JSON.stringify(this.props.resumeId)) {
 			actions.getOptionAction({resumeId: nextProps.resumeId})
@@ -2059,6 +2060,9 @@ class PersonCommunitcateItem extends Component {
 			{this.renderMsgContent(item)}
 		</div>)
 	}
+}
+PersonCommunitcate.defaultProps = {
+	location: {}
 }
 
 /* 附加信息 */
