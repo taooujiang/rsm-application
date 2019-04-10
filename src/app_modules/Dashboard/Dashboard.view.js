@@ -290,6 +290,14 @@ export default class Dashboard extends Component {
 						<p>待办事件</p>
 						</Link>
 					</div>
+          <div>
+            <Link to={{ pathname: "log/6" }}>
+              <Badge count={wjldNum}>
+                <Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
+              </Badge>
+              <p>通信相关</p>
+            </Link>
+          </div>
 					<div>
 						<Link to={{ pathname: "log/4" }}>
 							<Badge count={xtxxNum}>
@@ -304,14 +312,6 @@ export default class Dashboard extends Component {
 								<Icon type="icon-sync" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>更新日志</p>
-						</Link>
-					</div>
-          <div>
-						<Link to={{ pathname: "log/6" }}>
-							<Badge count={wjldNum}>
-								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
-							</Badge>
-							<p>通信相关</p>
 						</Link>
 					</div>
 				</Card>)
@@ -335,6 +335,12 @@ export default class Dashboard extends Component {
 							</Badge>
 						<p>待办事件</p>
 					</div>
+          <div onClick={this.handleLogClick.bind(this,'6')}>
+							<Badge count={wjldNum}>
+								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
+							</Badge>
+							<p>通信相关</p>
+					</div>
 					<div onClick={this.handleLogClick.bind(this,'4')}>
 							<Badge count={xtxxNum}>
 								<Icon type="icon-notification" style={{ fontSize: 24, color:"#62b5f9" }}/>
@@ -346,12 +352,6 @@ export default class Dashboard extends Component {
 								<Icon type="icon-sync" style={{ fontSize: 24, color:"#62b5f9" }}/>
 							</Badge>
 							<p>更新日志</p>
-					</div>
-          <div onClick={this.handleLogClick.bind(this,'6')}>
-							<Badge count={wjldNum}>
-								<Icon type="icon-misscall" style={{ fontSize: 24, color:"#62b5f9" }}/>
-							</Badge>
-							<p>通信相关</p>
 					</div>
 				</Card>)}
         </Fixed>

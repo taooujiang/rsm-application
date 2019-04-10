@@ -327,7 +327,10 @@ export class PersonTabBaseInfo extends Component {
 
 		//设置页码
 		LODOP.ADD_PRINT_HTM('1030', '600', '150', '22', "<font style='font-size:12px;float:right;'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>");
-		LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
+		// LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
+		LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+		// LODOP.SET_PRINT_STYLEA(0,"Horient",1);
+		// LODOP.SET_PRINT_STYLEA(0,"Vorient",1);
 		LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Full-Width");
 		if (isOrgin) {
 			//打印链接和图片
