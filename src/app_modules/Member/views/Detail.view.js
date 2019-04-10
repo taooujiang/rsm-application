@@ -181,7 +181,7 @@ class MemberInfo extends Component {
   }
   render() {
     const { reduce: { sysFieldList } } = this.props
-
+    console.log(sysFieldList)
     return sysFieldList.map((e) => (
       <dl className="member-field-item">
         <dt style={{ display: 'inline-block' }}>{e.fieldName}：</dt>
