@@ -1,0 +1,154 @@
+Arguments: 
+  D:\node\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+
+PATH: 
+  D:\java\jdk1.7.0_79\bin;D:\java\jdk1.7.0_79\jre\bin;C:\Program Files\TortoiseSVN\bin;D:\node\;D:\软件下载\Microsoft VS Code\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;D:\软件下载\Microsoft VS Code\bin;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;D:\软件下载\idea\IntelliJ IDEA 2018.3.1\bin;C:\Users\Admin\AppData\Roaming\npm;C:\Users\Admin\AppData\Local\GitHubDesktop\bin;C:\Users\Admin\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  10.13.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/antd: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130024:19)
+      at Object.onceWrapper (events.js:273:13)
+      at ClientRequest.emit (events.js:182:13)
+      at TLSSocket.emitRequestTimeout (_http_client.js:661:40)
+      at Object.onceWrapper (events.js:273:13)
+      at TLSSocket.emit (events.js:182:13)
+      at TLSSocket.Socket._onTimeout (net.js:449:8)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
+
+npm manifest: 
+  {
+    "name": "rsm-application",
+    "version": "0.0.1",
+    "description": "rsm",
+    "main": "src/app.js",
+    "scripts": {
+      "electron": "set ELECTRON_ENABLE_LOGGING=true && electron src/client.js --debug &",
+      "dev": "webpack-dev-server  --config webpack.config.dev.js --devtool eval --progress --colors --watch --inline ",
+      "dll": "webpack --config webpack.config.dll.js",
+      "unit": "node_modules/.bin/jest",
+      "coverage": "node_modules/.bin/jest --coverage",
+      "build": "webpack --config webpack.config.js --devtool source-map",
+      "start": "SET BABEL_ENV=production && webpack --config webpack.config.js --profile --devtool source-map",
+      "build-proxy": "webpack --config webpack.config.proxy.js ",
+      "releases": "npm run start && node_modules/.bin/electron-packager client rsm-application  --electronVersion=1.7.5   --out=releases  --overwrite ",
+      "package": "node_modules/.bin/electron-packager client rsm-application  --electronVersion=1.7.5 --platform=win32   --out=releases  --overwrite --asar=true"
+    },
+    "config": {
+      "serverAddress": ""
+    },
+    "build": {
+      "app-bundle-id": "your.id",
+      "app-category-type": "your.app.category.type",
+      "iconUrl": "(windows only) A URL to an ICO file to use as the application icon, see details below"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+ssh://git@github.com/jaxchow/rms-application.git"
+    },
+    "keywords": [
+      "web",
+      "client"
+    ],
+    "author": "jaxchow@gmail.com",
+    "license": "MIT",
+    "bugs": {},
+    "devDependencies": {
+      "@antv/data-set": "0.8.6",
+      "babel": "^6.5.2",
+      "babel-core": "^6.4.5",
+      "babel-jest": "^22.2.2",
+      "babel-loader": "^6.2.2",
+      "babel-plugin-import": "^1.4.0",
+      "babel-plugin-module-resolver": "^3.0.0",
+      "babel-plugin-react-css-modules": "^3.3.0",
+      "babel-plugin-transform-decorators-legacy": "^1.3.4",
+      "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+      "babel-preset-es2015": "^6.0.12",
+      "babel-preset-react": "^6.0.15",
+      "babel-preset-react-hmre": "^1.1.1",
+      "babel-preset-stage-0": "^6.3.13",
+      "babel-preset-stage-2": "^6.24.1",
+      "babel-register": "^6.5.2",
+      "chai": "^4.1.2",
+      "copy-webpack-plugin": "^4.0.1",
+      "css-loader": "^0.28.7",
+      "devtron": "^1.4.0",
+      "electron-devtools-installer": "^2.2.3",
+      "electron-packager": "^8.7.2",
+      "enzyme": "3",
+      "enzyme-adapter-react-16": "^1.1.1",
+      "enzyme-to-json": "^3.3.1",
+      "extract-text-webpack-plugin": "^3.0.2",
+      "fetch-mock": "^6.5.2",
+      "file-loader": "^0.8.5",
+      "html-webpack-plugin": "^3.2.0",
+      "jest": "^22.4.3",
+      "jest-fetch-mock": "^1.4.1",
+      "jsdom": "^8.0.4",
+      "json-loader": "^0.5.7",
+      "less": "^2.7.2",
+      "less-loader": "^4.0.5",
+      "mock-fetch-api": "^1.0.7",
+      "mockjs": "^1.0.1-beta3",
+      "react-hot-loader": "3",
+      "react-load-script": "0.0.6",
+      "react-test-renderer": "^16.2.0",
+      "react-transform-catch-errors": "^1.0.2",
+      "redbox-react": "^1.5.0",
+      "redux-devtools": "^3.1.1",
+      "redux-devtools-dock-monitor": "^1.1.0",
+      "redux-devtools-extension": "^2.13.2",
+      "redux-devtools-log-monitor": "^1.3.0",
+      "redux-mock-store": "^1.5.1",
+      "style-loader": "^0.19.1",
+      "url-loader": "^0.6.2",
+      "webpack": "^3.10.0",
+      "webpack-dev-server": "2",
+      "webpack-html-plugin": "^0.1.1"
+    },
+    "dependencies": {
+      "antd": "3.0.2",
+      "bizcharts": "3.2.2",
+      "electron": "^1.8.4",
+      "eventemitter3": "^3.0.1",
+      "group-array": "^0.3.3",
+      "handlebars-loader": "^1.7.0",
+      "html-webpack-template": "^6.2.0",
+      "immutable": "^3.7.6",
+      "isomorphic-fetch": "^2.2.1",
+      "lodash-decorators": "^4.5.0",
+      "numeral": "^2.0.6",
+      "qs": "^6.5.1",
+      "react": "16.0.0",
+      "react-dom": "16.0.0",
+      "react-fittext": "^1.0.0",
+      "react-lz-editor": "^0.11.9",
+      "react-redux": "^5.0.5",
+      "react-router": "^3.0.0",
+      "react-router-redux": "^4.0.0",
+      "redux": "^3.3.1",
+      "redux-actions": "^2.3.2",
+      "redux-logger": "^3.0.6",
+      "redux-notify": "^0.2.0",
+      "redux-orm": "^0.12.1",
+      "redux-persist": "^5.9.1",
+      "redux-thunk": "^2.0.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

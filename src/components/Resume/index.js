@@ -194,12 +194,12 @@ class PersonalInfo extends Component {
 					<Row gutter={6} className="person-item">
 						<Col span={24}>
 							<span>
-								<span className="personal-name">{name}</span>
+								<span className="personal-name">{name }</span>
 								<span className="personal-jobWanted">
 									{
 										pathType == 2
 											? ""
-											: <Ellipsis tooltip={true} length={30}>{resumeOrgBean && resumeOrgBean["jobTitle"]}</Ellipsis>
+											: <Ellipsis tooltip={true} length={30}>{resumeOrgBean && resumeOrgBean["jobTitle"]} </Ellipsis>
 									}
 
 									{
@@ -212,7 +212,7 @@ class PersonalInfo extends Component {
 									(pathType == 3 || pathType == 4) && resumeOrgBean && resumeOrgBean["statusStr"]
 										? <Tag color="#07b58e" style={{
 													marginLeft: "10px"
-												}}>{DictUtils.getDictLabelByValue("candidatestatus", resumeOrgBean && resumeOrgBean["statusStr"])}</Tag>
+												}}>{DictUtils.getDictLabelByValue("candidatestatus", resumeOrgBean && resumeOrgBean["statusStr"] )}</Tag>
 										: ""
 								}
 							</span>

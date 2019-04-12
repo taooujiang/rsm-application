@@ -6,6 +6,7 @@ import {
 	SearchContainer,
   LabelFormContainer,
   ResumeDetailContainer,
+  ResumeDetailSameContainer,
   OfferFormContainer,
   EntryTimeContainer,
   RelatedFormContainer,
@@ -30,8 +31,8 @@ import {creditFormContainer} from '../Credit/container'
 import {DelayContainer,FeedBackFormContainer} from '../Interview/container'
 let eliteRoute = (
   <Router path=":resumeId">
-    <Route path=":resumeId/detail" components={ResumeDetailContainer}>
-
+      <Route path=":resumeId/samedetail" components={ResumeDetailSameContainer}/>
+      <Route path=":resumeId/detail" components={ResumeDetailContainer} >
 			<Route path="add" components={creditFormContainer} breadcrumbName="诚信记录" />
       <Route path="entry" components={EntryTimeContainer} breadcrumbName="入职"/>
       <Route path="connect" components={Relate2JobFormContainer} breadcrumbName="关联职位"/>
