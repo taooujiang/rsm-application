@@ -109,7 +109,7 @@ export default class ScoreSheetForm extends FormPage{
             <Select name="type" label="面试类型" defaultValue={item&&item.type+""} placeholder="请选择" fetch={DictUtils.getDictByType("interviewstage")} renderItem={this.renderSelectOption} onChange={this.handleChangeType.bind(this)} rules={[{required:true,message:"面试类型不可为空"}]}/>
           </FormItem>
           <FormItem>
-            <Select name="feedbackTemplateId" label="面试反馈模版" defaultValue={item&&item.feedbackTemplateId} placeholder="请选择" fetch={templeteArr} renderItem={this.renderTemOption} onChange={this.hanldeChangeTemp.bind(this)} rules={[{required:true,message:"面试反馈不可为空"}]}/>
+            <Select name="feedbackTemplateId" label="面试反馈模版" defaultValue={item&&item.feedbackTemplateId} placeholder="请选择" fetch={templeteArr} renderItem={this.renderTemOption} onChange={this.hanldeChangeTemp.bind(this)}/>
           </FormItem>
       </BaseForm>
     )

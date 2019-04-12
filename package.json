@@ -10,7 +10,7 @@
     "unit": "node_modules/.bin/jest",
     "coverage": "node_modules/.bin/jest --coverage",
     "build": "webpack --config webpack.config.js --devtool source-map",
-    "start": "SET BABEL_ENV=production && webpack --config webpack.config.js --profile --devtool source-map",
+    "start": "SET BABEL_ENV=production && webpack --config webpack.config.js --profile",
     "build-proxy": "webpack --config webpack.config.proxy.js ",
     "releases": "npm run start && node_modules/.bin/electron-packager client rsm-application  --electronVersion=1.7.5   --out=releases  --overwrite ",
     "package": "node_modules/.bin/electron-packager client rsm-application  --electronVersion=1.7.5 --platform=win32   --out=releases  --overwrite --asar=true"

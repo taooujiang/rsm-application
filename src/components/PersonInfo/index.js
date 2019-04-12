@@ -327,11 +327,16 @@ export class PersonTabBaseInfo extends Component {
 
 		//设置页码
 		LODOP.ADD_PRINT_HTM('1030', '600', '150', '22', "<font style='font-size:12px;float:right;'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>");
-		LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
-		LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Auto-Width");
+		// LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
+		LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+		// LODOP.SET_PRINT_STYLEA(0,"Horient",1);
+		// LODOP.SET_PRINT_STYLEA(0,"Vorient",1);
+		LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Full-Width");
 		if (isOrgin) {
 			//打印链接和图片
 			//console.log(sourceUrl)
+			// LODOP.ADD_PRINT_IMAGE(50, 50, 650, 980, "URL:"+sourceUrl)
+			// LODOP.SET_PRINT_STYLEA(0,"Stretch",1);
 			LODOP.ADD_PRINT_URL(50, 50, 650, 980, sourceUrl)
 		} else {
 			let stylesText = '<style>.resume-origin{top:-40px}.personinfo-detailHead{padding:10px;position:relative}.personinfo-detailHead .part-editBtn{position:absolute;right:10px;top:5px;border:none;color:#58b1f0}.personinfo-detailHead .person-headicon{width:80px;height:auto;border-radius:50%;margin:0 20px}.personinfo-detailHead .personinfo-headInfo{display:inline-block;vertical-align:bottom}.personinfo-detailHead .personinfo-headInfo .contactInfo span{margin-right:20px}.personinfo-detailHead .personinfo-headInfo .contactInfo span i{margin-right:10px;font-size:14px;color:#333}.salary-info{border-bottom:none;padding:20px;margin-top:10px;position:relative}.salary-info>h3{color:#32a0eb}.salary-info>h3>span{color:rgba(0,0,0,.65);margin-left:20px;font-size:12px}.salary-info .part-editBtn{position:absolute;right:10px;top:5px;border:none;color:#58b1f0}.salary-info .baseinfo-item{display:inline-block;width:24%}.otherInfo{padding:10px;line-height:24px}.otherInfo>div{padding:10px 60px 10px 10px;position:relative}.otherInfo>div .part-editBtn{position:absolute;right:0;top:0;border:none;color:#58b1f0}.otherInfo>div>h3{color:#32a0eb}.otherInfo>div>h3 .add-title{font-size:12px;border:none;color:#32a0eb;position:absolute;right:0}.otherInfo>div>div{position:relative}.otherInfo>div>div>h4{font-weight:700}.otherInfo>div>div>h4>.item-edit-btn{position:absolute;right:-60px;font-////size:12px;border:none;color:#32a0eb}.otherInfo>div>div>h4>span{margin-right:30px}.otherInfo>div>form{overflow:hidden;margin-top:10px}.otherInfo>div>form .ant-btn-group{float:right}.otherInfo>div>form .ant-btn-group>button.ant-btn-primary{margin-left:20px}body { color:#333; }button {display: none;} h3 {color:#32a0eb}  h3 > span {color:#333;margin-left:20px;font-size:12px;} img { width: 80px;height: auto;border-radius: 50%;margin: 0 20px;}</style>'
@@ -1933,6 +1938,7 @@ export class PersonOptionRecord extends Component {
 		actions.getOptionAction({resumeId: resumeId})
 	}
 	componentWillReceiveProps(nextProps) {
+		console.log(this.props)
 		let {actions, resumeId} = this.props;
 		if (JSON.stringify(nextProps.resumeId) !== JSON.stringify(this.props.resumeId)) {
 			actions.getOptionAction({resumeId: nextProps.resumeId})
@@ -1979,6 +1985,12 @@ export class PersonCommunitcate extends Component {
 		let {actions, resumeId} = this.props
 		if (nextProps.resumeId != resumeId) {
 			actions.getCommiuncateAction({resumeId: nextProps.resumeId})
+		}
+		/*刷新页面*/
+		if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+			if (nextProps.location.state && nextProps.location.state.key == "reload") {
+				actions.getCommiuncateAction({resumeId: nextProps.resumeId,time: timestamp()})
+			}
 		}
 	}
 	render() {
@@ -2049,6 +2061,9 @@ class PersonCommunitcateItem extends Component {
 		</div>)
 	}
 }
+PersonCommunitcate.defaultProps = {
+	location: {}
+}
 
 /* 附加信息 */
 export class ExtraInformation extends Component {
@@ -2084,7 +2099,8 @@ export class ExtraInformation extends Component {
 
 		//设置页码
 		LODOP.ADD_PRINT_HTM('1030', '600', '150', '22', "<font style='font-size:12px;float:right;'><span tdata='pageNO'>第##页</span>/<span tdata='pageCount'>共##页</span></font>");
-		LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
+		// LODOP.SET_PRINT_STYLEA(0, "Stretch", 2)
+		LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
 		LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT","Auto-Width");
 
 		let stylesText = '<style>body{font-size:12px;background-color:#fff;width:100%;overflow:auto;padding:0 20px}body li,body ul{margin:0;padding:0;list-style:none}body .content{margin:10px 20px}body .content .ant-col-12{width:50%;float:left}body .content .ant-col-12:nth-of-type(10n+1):not(:nth-of-type(1)):not(:nth-of-type(2)),body .content .ant-col-12:nth-of-type(10n+2):not(:nth-of-type(1)):not(:nth-of-type(2)){margin-top:20px}body .content .contentBase{font-size:12px;line-height:24px}body .content .contentBase label{color:grey}body .content .contentBase span{color:#333}body .title{text-align:center;font-size:20px}body .form-subtitle{background-color:#f7f7f7;height:50px;line-height:50px;font-size:15px;padding:0 20px}body .form-subtitle .interview-info{margin:0 auto;position:relative}body .form-subtitle .interview-info .interview-date{position:absolute;right:30px}body .form-subtitle .interview-info .printerBtn{position:absolute;right:0;font-size:16px;top:50%;margin-top:-8px;cursor:pointer}body .studylist-box,body .tips-title,body .worklist-box{line-height:24px;margin:10px}body .ant-table-wrapper{display:block;flex:none}body .ant-table-wrapper .ant-table-placeholder{display:none}body .studylist-box>li,body .worklist-box>li{display:flex}body .studylist-box>li>span,body .worklist-box>li>span{flex:1}body .studylist-box>li>span:first-of-type,body .worklist-box>li>span:first-of-type{flex:0 0 180px}body .apply-show-table .ant-table-title,body .part-title{font-size:16px;font-weight:700;margin:20px 0}body .apply-show-table .ant-table-thead{display:none}</style>'

@@ -205,8 +205,8 @@ export function dissmissMemberAction(value) {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchDissmissMember(value).then(json => {
       dispatch(fetchSuccess('formSpin', true, "操作成功！"))
-      dispatch(memberUpdate(value))
-      dispatch(currentMemberSave(value))
+      dispatch(memberUpdate(Object.assign({},value,{status:3})))
+      dispatch(currentMemberSave(Object.assign({},value,{status:3})))
       // dispatch(listAction())
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin', ex))
@@ -224,6 +224,7 @@ export function deleteAction(value, page) {
         dispatch(fetchSuccess('tableSpin', true, "删除成功！"))
         dispatch(routerActions.goBack())
       }
+      dispatch(currentMemberSave(value))
       //console.log(json.list)
       // dispatch(removeItem(json))
       dispatch(listAction(page))

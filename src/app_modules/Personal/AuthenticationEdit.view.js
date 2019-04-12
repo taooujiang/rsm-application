@@ -43,7 +43,11 @@ class AuthEditForm extends Component{
     }
     new API().fetchEditGetCode(params).then((json) => {
       json.status ? message.success("操作成功") : null
-      this.count()
+      this.setState({
+        timer:60
+      },()=>{
+        this.count()
+      })
     })
   }
   count(){
@@ -112,8 +116,8 @@ class AuthentEditFormView extends FormPage{
   handleSubmit(values){
     let {actions,router} = this.props
     actions.authentEditAction(values).then(res=>{
-      /*如果请求成功则返回*/
-      if(res.status){
+      /*如果请求成功  无返回值 res为undefined */
+      if(!res){
         actions.backRoute(router)
       }
     })
@@ -121,7 +125,7 @@ class AuthentEditFormView extends FormPage{
   render() {
     let {params, reduce:{spins:{formSpin},item}} = this.props
 
-    console.log(item,'render')
+    // console.log(item,'render')
     return (
       <Spin tip="Loading..." spinning={false}>
         <AuthEditForm handleSubmit={this.handleSubmit} params={params}  saveFormRef={this.saveFormRef} accountInfo={item}>
