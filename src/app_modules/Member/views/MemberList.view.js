@@ -222,6 +222,7 @@ export default class MemberListView extends PageView {
       ]
     };
     let dynamicColumns = [];
+    // 提交
     sysFieldList.map(it => {
       return dynamicColumns.push({
         title: it.fieldName,
