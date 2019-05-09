@@ -250,6 +250,7 @@ export function fetchRemindAction(params) {
     dispatch(fetchRequest('remind'))
     return new API().fetchRemind().then(json => {
       dispatch(fetchSuccess('remind'))
+      console.log(json,'---jspn')
       dispatch(remindSave(Object.assign({ id: 'account' }, json)))
     }).catch(ex => {
       return dispatch(fetchFailure('remind', ex))

@@ -119,7 +119,7 @@ class RemindFormView extends FormPage {
   }
   handleSubmit(values) {
     let { actions } = this.props;
-    // console.log(333,values)
+    console.log(333,values)
     actions.saveRemindAction(values);
   }
   handlerCheckDayOrMonth(e) {
@@ -310,6 +310,7 @@ class RemindFormView extends FormPage {
       </SwitchCard>
     );
   }
+  
   renderType5() {
     let { item } = this.props;
     return (
@@ -347,6 +348,45 @@ class RemindFormView extends FormPage {
       </SwitchCard>
     );
   }
+  renderType6() {
+    let { item } = this.props;
+    console.log(item,"=== this.props")
+    return (
+      <SwitchCard
+        className="remind-inner-card"
+        title="员工退休提醒"
+        bordered={false}
+        name="msg_1034"
+        defaultValue={this.initDefaultValue(item["msg_1034"])}
+      >
+        <Row>
+          <span>根据员工的退休时间，</span>
+          <FormItem containerTo={false}>
+            <Select
+              name="msg_1035"
+              style={{ width: "120px" }}
+              defaultValue={item["msg_1035"]}
+              fetch={msgDay}
+              renderItem={this.renderSelectOption}
+              notFoundContent="提前1天"
+            />
+          </FormItem>
+          <span>告知HR员工退休时间。</span>
+        </Row>
+        <Row>
+          <FormItem>
+            <Checkbox
+              name="msg_1036"
+              defaultValue={this.initDefaultValue(item["msg_1036"])}
+              valuePropName="checked"
+            />
+          </FormItem>
+          <span>是否开通短信提醒（10雨点/条）</span>
+        </Row>
+      </SwitchCard>
+    );
+  }
+  
   // renderType6(){
   //   let {item} = this.props
   //   return(<SwitchCard className="remind-inner-card" title="预约面试提醒" bordered={false} name="msg_1016" defaultValue={this.initDefaultValue(item['msg_1016'])}>
@@ -629,6 +669,7 @@ class RemindFormView extends FormPage {
             {this.renderType1(item)}
             {this.renderType5(item)}
             {this.renderType4(item)}
+            {this.renderType6(item)}
           </Collapse>
         </BaseForm>
       </Card>

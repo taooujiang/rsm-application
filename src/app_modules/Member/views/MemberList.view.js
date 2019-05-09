@@ -16,6 +16,7 @@ import {
 } from "antd";
 import NestedComponent from "app/decorators/NestedComponent";
 import moment from "moment";
+import {TreeSelectPicker} from 'app/components/TreeView'
 import { Layout, Fixed, Pane } from "app/components/Layout";
 import PageView from "app/components/Page";
 import AdvancedSearchForm from "app/components/AdvancedSearch";
@@ -57,8 +58,20 @@ export class MemberSide extends Component {
           label="移动电话"
           placeholder="请输入移动电话"
         />
+           <TreeSelectPicker
+              label='部门'
+              name='department'
+              fetch={`${APP_SERVER}/organizationGroup/getDepartmentTree`}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              placeholder="选择部门"
+              showSearch={true}
+              treeDefaultExpandAll
+              // defaultValue={item && item[it.fieldCode]}
+							// rules={it.isRequired==1?[{required: true, message: `${it.fieldName}不可为空`,}]:null}
+            />
         <CalendarPicker name="joinTimeArr" label="入职日期" />
         <CalendarPicker name="dimissionTimeArr" label="离职日期" />
+        <CalendarPicker name="retireTimeArr" label="退休日期" />
         <LinkagePullDown
           name="degreeArr"
           label="学历"
@@ -97,6 +110,7 @@ export class MemberSide extends Component {
           renderItem={this.renderSelectOption}
         />
       <InputStrGroup name="ages" label="年龄" defaultValue={["",""]} />
+   
       </AdvancedSearchPanel>
     );
   }

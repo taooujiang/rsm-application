@@ -87,6 +87,7 @@ class MemberForm extends Component{
               // renderItem={this.renderTreeData.bind(this)}
               // renderItem={this.renderTreeData.bind(this)}
               placeholder="选择部门"
+              showSearch={true}
 							treeDefaultExpandAll
 							defaultValue={item && item[it.fieldCode]}
 							rules={it.isRequired==1?[{required: true, message: `${it.fieldName}不可为空`,}]:null}

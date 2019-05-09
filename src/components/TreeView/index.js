@@ -93,11 +93,16 @@ export class TreeSelectPicker extends Component {
 	}
 
 	render() {
-		const {onChange,treeData,children,value,allowClear,...otherProps} = this.props
+		const {onChange,treeData,children,value,allowClear,showSearch,treeNodeFilterProp,...otherProps} = this.props
+		let setProps ={
+			showSearch:showSearch ? true : false,
+			treeNodeFilterProp:treeNodeFilterProp ?  treeNodeFilterProp : 'title'
+		}
+		// showSearch treeNodeFilterProp='title' 
 		if(allowClear==true){
-			return (<TreeSelect	{...otherProps} defaultValue={this.state.value}  treeData={treeData} allowClear={allowClear} onChange={onChange}	onSelect={this.onChange.bind(this)} />)
+			return (<TreeSelect {...setProps} {...otherProps} defaultValue={this.state.value}  treeData={treeData} allowClear={allowClear} onChange={onChange}	onSelect={this.onChange.bind(this)} />)
 		}else{
-			return (<TreeSelect	{...otherProps} value={this.state.value} treeData={treeData}	onSelect={this.onChange.bind(this)} />)
+			return (<TreeSelect {...setProps}	 {...otherProps} value={this.state.value} treeData={treeData}	onSelect={this.onChange.bind(this)} />)
 		}
 		// return React.createElement(TreeSelect,Object.assign({},otherProps))
 	}
