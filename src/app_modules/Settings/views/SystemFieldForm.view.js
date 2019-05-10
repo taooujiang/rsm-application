@@ -78,9 +78,10 @@ class EditableCell extends React.Component {
 
             </div>
             :
-            <div className="editable-cell-text-wrapper">
+            <div  className="editable-cell-text-wrapper">
               {value || ' '}
               <Icon
+              style={{display:this.props.isShow ? 'none' : 'inline-block' }} 
                 type="edit"
                 className="editable-cell-icon"
                 onClick={this.edit}
@@ -168,6 +169,7 @@ class EditableFeild extends Component {
       dataIndex: 'optionName',
       render: (value, record) => (
         <EditableCell
+        isShow={isShow}
           value={value}
           onChange={this.onCellChange(value, 'optionName')}
         />
@@ -188,7 +190,7 @@ class EditableFeild extends Component {
         return (
           <div className="editable-row-operations">
             {
-              <span>
+              <span style={{display:isShow ? 'none' : 'inline-block' }}>
                 <Popconfirm title="删除此项将导致原数据丢失" onConfirm={() => this.cancel(record.optionName)}>
                   <Icon type='delete' />
                 </Popconfirm>
@@ -203,13 +205,13 @@ const {isShow}=this.props
 console.log(isShow,"===isShow")
     return (
       <div className="EditableFeild">
-      <div style={{display:this.props.isShow ? 'block' : 'none'}} className='EditableFeildMask'></div>
+      {/* <div style={{display:this.props.isShow ? 'block' : 'none'}} className='EditableFeildMask'></div> */}
         <Row>
           <Col span={12}>
             选项信息：
           </Col>
           <Col span={12} style={{ textAlign: 'right' }}>
-            <Button onClick={this.handlerAddRow.bind(this)}><Icon type='plus' />添加选项</Button>
+            <Button disabled={isShow} onClick={this.handlerAddRow.bind(this)}><Icon type='plus' />添加选项</Button>
           </Col>
         </Row>
         <Table bordered dataSource={this.state.initialValue} scroll={{ y: 140 }} rowKey='optionName' showHeader={false} columns={columns} pagination={false} />
@@ -316,7 +318,7 @@ export default class SystemFieldForm extends FormPage {
         </div>
         {(editable || item.dataType == 3 || item.dataType == 4) && (
           <FormItem className="no-padding-left">
-            <EditableFeild isShow={item.isDefine == 1 ? false : true} label="" name="options" defaultValue={item.options == "" ? [] : item.options} />
+            <EditableFeild isShow={item.isRead} label="" name="options" defaultValue={item.options == "" ? [] : item.options} />
           </FormItem>
         )}
 

@@ -89,7 +89,8 @@ export default class LogListView extends Component {
           { label: "员工转正", value: 4 },
           { label: "员工生日", value: 5 },
           { label: "员工周年", value: 6 },
-          { label: "合同到期", value: 7 }
+          { label: "合同到期", value: 7 },
+          { label: "员工退休", value: 18 },
         ];
         break;
         case "6":
