@@ -198,9 +198,12 @@ class EditableFeild extends Component {
         );
       },
     }];
-
+console.log(this.props,"===this.props")
+const {isShow}=this.props
+console.log(isShow,"===isShow")
     return (
       <div className="EditableFeild">
+      <div style={{display:this.props.isShow ? 'block' : 'none'}} className='EditableFeildMask'></div>
         <Row>
           <Col span={12}>
             选项信息：
@@ -213,8 +216,11 @@ class EditableFeild extends Component {
       </div>
     );
   }
+  disabled
 }
-
+EditableFeild.defaultProps = {    
+  isShow: false
+};
 @WrapperComponent(ModalView)
 export default class SystemFieldForm extends FormPage {
   state = {
@@ -310,7 +316,7 @@ export default class SystemFieldForm extends FormPage {
         </div>
         {(editable || item.dataType == 3 || item.dataType == 4) && (
           <FormItem className="no-padding-left">
-            <EditableFeild label="" name="options" defaultValue={item.options == "" ? [] : item.options} />
+            <EditableFeild isShow={item.isDefine == 1 ? false : true} label="" name="options" defaultValue={item.options == "" ? [] : item.options} />
           </FormItem>
         )}
 

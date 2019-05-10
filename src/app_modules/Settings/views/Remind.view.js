@@ -360,7 +360,7 @@ class RemindFormView extends FormPage {
         defaultValue={this.initDefaultValue(item["msg_1034"])}
       >
         <Row>
-          <span>根据员工的退休时间，</span>
+          <span>根据员工的退休日期，</span>
           <FormItem containerTo={false}>
             <Select
               name="msg_1035"
@@ -371,7 +371,7 @@ class RemindFormView extends FormPage {
               notFoundContent="提前1天"
             />
           </FormItem>
-          <span>告知HR员工退休时间。</span>
+          <span>告知HR员工退休日期。</span>
         </Row>
         <Row>
           <FormItem>
