@@ -83,6 +83,10 @@ if(process.env.NODE_ENV === 'development'){
 	},{
 		note:'company',
 	},{
+		note:'share',
+	},{
+		note:'companyCard',
+	},{
 		note:'dept',
 	},{
 		note:'role',

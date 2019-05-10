@@ -7,8 +7,9 @@ export default class companyCard extends Component {
     }
 
     render() {
+       console.log(this.props,'=====this.props')
         return (
-            <div> 测试</div>
+            <div>测试</div>
         );
     }
 }
