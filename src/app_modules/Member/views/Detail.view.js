@@ -128,7 +128,7 @@ class PersonInfoPanelHead extends Component {
           <Tag color="#108ee9">{DictUtils.getDictLabelByValue('memberstatus', info.status)}</Tag>
           <ButtonGroups className="detail-header" handleClick={this.handleMenu.bind(this, info.id,info)}>
             {/* <Button icon="profile" actionkey="detailRouteAction"/> */}
-            <Button icon="user-add" disabled={info.status == 2} actionkey="add" confirm={`确定员工 ${info.name} 转正？`} tooltext="转正" />
+            <Button icon="user-add" disabled={info.status > 1  && info.status < 4? true : false} actionkey="add" confirm={`确定员工 ${info.name} 转正？`} tooltext="转正" />
             <Button icon="user-delete" disabled={info.status == 3} actionkey="dissmiss"  tooltext="离职" />
             <Button icon="edit" permission="editMember" actionkey="edit" tooltext="编辑" />
             <Button icon="delete" permission="deleteMember" actionkey="delete" confirm={`确定删除员工 ${info.name} ？`} tooltext="删除" />
