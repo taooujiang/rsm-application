@@ -482,31 +482,49 @@ class JobResponsibility extends Component {
 }
 /* 简历发布  接收规则组件 */
 class ChannelAdJobRule extends Component {
-	changeCheck(checked) {
+	changeCheck(sign,checked) {
+		// e.persist();
+		console.log(sign,checked,"==sign,checked")
 		let {item: {
 				jobId
 			}, actions} = this.props
 		actions.changePushAction({
 			jobId: jobId,
-			isWebsite: checked
+			[sign]: checked
 				? 1
 				: 0
 		})
+	}
+	recommendSwitch(value){
+   this.changeCheck('isWebsite',value)
+	}
+	// 暂时这个还有调接口
+	schoolSwitch(value){
+		// this.changeCheck('school',value)
 	}
 	render() {
 		let {item,item: {
 				isWebsite
 			}} = this.props
-		console.log(isWebsite == 1)
+		console.log(isWebsite == 1,this.props,'===baseFromSwitchs---this.props')
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
-			<BaseInfoItem label="发布到内推官网" info={<span > {
-					item
-						? <Switch defaultChecked={isWebsite == 1} onChange={this.changeCheck.bind(this)}/>
-						: null
-				}<div>请到遇仁公众号中查看内推职位</div>
-			</span>
-			}/>
+			<div className='baseFromSwitchs'>
+					<BaseInfoItem label="发布到内推官网" info={<span > {
+							item
+								? <Switch defaultChecked={isWebsite == 1} className='isWebsite' onChange={this.recommendSwitch.bind(this)}/>
+								: null
+						}<div>请到遇仁公众号中查看内推职位</div>
+					</span>
+					}/>
+					<BaseInfoItem label="发布到企业校招" info={<span > {
+							item
+								? <Switch defaultChecked={isWebsite == 1} className='changeSwitch' onChange={this.schoolSwitch.bind(this)}/>
+								: null
+						}<div>请到遇仁招聘企业版小程序中查看校招职位</div>
+					</span>
+					}/>
+			</div>
 			<JobRules {...this.props}/>
 		</div>)
 	}

@@ -36,6 +36,7 @@ import RoleView from './views/Role.view'
 import RoleFormView from './views/RoleForm.view'
 import RoleDetailView from './views/RoleDetail.view'
 
+import CompanyCardView from './views/CompanyCard.view'
 import CompanyView from './views/Company.view'
 import CompanyFormView from './views/CompanyForm.view'
 
@@ -88,6 +89,7 @@ let RemindContainer = connect((state)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(RemindFormView))
+
 let CustomSystemFieldContainer= connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"CustomSystemField"),
   reduce: state.settingsReducer,
@@ -205,6 +207,13 @@ let RoleDetailContainer = connect((state,props)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, { pure: false })(RoleDetailView)
+
+let CompanyCardContainer = connect((state)=>({
+  item:reducerListSelector(state.ORMReducer,"CompanyCard"),
+  reduce: state.settingsReducer,
+  appReducer:state.appReducer
+}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(CompanyCardView))
+
 let CompanyContainer = connect((state,props)=>({
   items:reducerListSelector(state.ORMReducer,"Company"),
   reduce: state.settingsReducer,
@@ -368,6 +377,7 @@ let ShareContainer = connect((state)=>({
 export {
     Container,
     RemindContainer,
+    CompanyCardContainer,
     CustomSystemFieldContainer,
     SystemFieldFormContainer,
     ResumeLinkedContainer,

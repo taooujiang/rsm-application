@@ -64,7 +64,16 @@ export default class SettingsSide extends React.Component {
               </Link>
             </Menu.Item>
             , "share")}
-
+          {this.renderAuthMenuItem(
+                    <Menu.Item key="companyCard">
+                      <Link to={{
+                        pathname: 'settings/companyCard',
+                        state: { breadcrumbName: "企业名片设置", keyPath: ['sub1', 'companyCard'] }
+                      }}>
+                        <span>企业名片设置</span>
+                      </Link>
+                    </Menu.Item>
+            , "companyCard")}
         </SubMenu>
         <SubMenu key="sub6" title={<span><Icon type="usergroup-add" /><span>组织角色管理</span></span>}>
           {this.renderAuthMenuItem(

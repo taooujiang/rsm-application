@@ -21,6 +21,7 @@ import Container, {
   RoleFormContainer,
   RoleDetailContainer,
   CompanyContainer,
+  CompanyCardContainer,
   CompanyFormContainer,
   ArchiveContainer,
   ArchiveFormContainer,
@@ -52,7 +53,8 @@ let Routes = (
   <Router>
     <IndexRoute component={CompanyContainer} />
     <IndexRedirect to="company" />
-
+    
+    <Route path="companyCard" components={CompanyCardContainer} breadcrumbName="企业名片设置" />
     <Route path="remind" components={RemindContainer} breadcrumbName="提醒设置" />
     <Route path="field" components={CustomSystemFieldContainer} breadcrumbName="系统字段">
       <Route path="add" components={SystemFieldFormContainer} breadcrumbName="添加系统字段" />
