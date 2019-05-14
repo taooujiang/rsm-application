@@ -11,6 +11,7 @@ import orm from './index'
 
 export function reducerItemSelector(reducer,modelName,key){
 	return createSelector(orm,session=>{
+		
 	  return session[modelName].idExists(key) ? session[modelName].withId(key) :session[modelName].create({})
 	})(reducer)
 }
@@ -23,7 +24,7 @@ export function reducerItemSelector(reducer,modelName,key){
 
 export function reducerListSelector(reducer,modelName){
 	return createSelector(orm,session=>{
-		console.log(orm,session,modelName,"====orm,session,modelName")
+		// console.log(orm,session,modelName,"====orm,session,modelName")
 		 return session[modelName].all().filter(model => !(JSON.stringify(model) =="{}" || model.id=="") ).toModelArray()
 		 // return session[modelName].all().toModelArray()
 	})(reducer)

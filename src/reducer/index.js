@@ -116,6 +116,10 @@ if(process.env.NODE_ENV === 'development'){
 		note:'fields',
 	},{
 		note:'messageList',
+	},{
+		note:'schoolRecruit',
+	},{
+		note:'invitedRecord',
 	}
 ]
 	user = {

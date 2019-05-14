@@ -124,11 +124,10 @@ export class ModalDetailView extends Component {
 
       //let pathname = router.getCurrentLocation().pathname
 
-      //console.log(pathname)
+      console.log(router,"===router")
       actions.listRoute(router)
       //默认应该使用backListRoute(router)
-
-      //actions.backRoute(router)
+      // actions.backRoute(router)
 
     }
     render() {
@@ -142,6 +141,44 @@ export class ModalDetailView extends Component {
     }
 }
 
+export class ModalDetailSmallView extends Component {
+  state={
+    visable:true
+  }
+  componentDidUpdate (prevProps) {
+    let {actions,router} = this.props;
+    let oldParams = prevProps.params
+    let newParams = this.props.params
+    if (JSON.stringify(newParams) !== JSON.stringify(oldParams)){
+      this.setState({
+          visable:true
+      })
+    }
+  }
+  handleCancel(){
+    let {actions, history,router} = this.props
+    this.setState({
+        visable:false
+    })
+
+    //let pathname = router.getCurrentLocation().pathname
+
+    console.log(router,"===router")
+    // actions.listRoute(router)
+    //默认应该使用backListRoute(router)
+    actions.backRoute(router)
+
+  }
+  render() {
+      var {route, children,router,...otherProps} = this.props
+      let {visable} = this.state
+      return (
+          <Modal wrapClassName="ant-modal-iframe resumeDetail-window" maskClosable={false} destroyOnClose={false} onCancel={this.handleCancel.bind(this)}  visible={visable}   footer={null} width={'800px'} style={{flex:"0 1 800px"}} bodyStyle={{overflowY:"auto",overflowX:"hidden"}}>
+            {React.cloneElement(children,{...otherProps,ref:"formView"})}
+          </Modal>
+      )
+  }
+}
 export class ModalStepsView extends Component {
   handleBackRoute() {
     let {actions, history,router} = this.props

@@ -100,7 +100,7 @@ class PersonInfoPanelHead extends Component {
   handleMenu(id,info, actionType) {
     let { memberActions, router, reduce: { page } } = this.props
     // actions[actionType].call(this,router,id)
-    // console.log(id,info,actionType)
+    console.log(id,info,actionType,'id,info, actionType')
     switch (actionType) {
       case "add":
         memberActions.deleteAction({ id: id, status: 2 }, page)

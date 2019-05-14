@@ -11,6 +11,7 @@ export default(NestedComponent) => (InnerComponent) => {
   return class extends Component {
     render() {
       let {children,...otherProps}=this.props
+      // console.log(children,...otherProps,this.props,"====children,...otherProps}=this.props")
       if(children){
         return [
             <InnerComponent {...otherProps} />,

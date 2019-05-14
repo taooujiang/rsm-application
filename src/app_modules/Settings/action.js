@@ -112,7 +112,9 @@ function changeProp(id, propName, value) {
 function saveIsReal(json) {
   return { type: CONSTANTS.SAVE_REAL, payload: json }
 }
-
+export function SettingCardShareRouteAction(router) {
+  return dispatch => dispatch(routerActions.push(`/settings/companyCard/${router}`))
+}
 function boolToInt(obj, name) {
   if (obj[name] && obj[name] == true) {
     obj[name] = '1'

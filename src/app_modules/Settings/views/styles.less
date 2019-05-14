@@ -10,6 +10,30 @@
 .EditableFeild .ant-table-wrapper{
   height:200px;
 }
+.tags .ant-tag{
+  // line-height: 1;
+  height: 24px;
+}
+/* tile uploaded pictures */
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}
+.iconClose{
+  position: absolute;
+    right: -6px;
+    top: -24px;
+    font-size: 16px;
+
+}   
+
 .channel-description{
   .ant-tag{
     color:#accadf;
@@ -35,6 +59,15 @@
 .ant-table-thead {
     background-color: #f2f2f2;
     font-size: 12px;
+}
+
+.ant-card{
+      .ant-card-head{
+        min-height:auto !important;
+    }
+    .ant-card-body{
+       overflow: auto;
+    }
 }
 
 .ant-table-tbody {

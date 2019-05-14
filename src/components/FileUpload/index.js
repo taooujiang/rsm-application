@@ -65,15 +65,31 @@ export class ImgUpload extends FileUpload{
     }
 
     render(){
-        let { type ,beforeUpload,btnText,accept,tipText,imgWidth ,disabled} = this.props
+        const fileList = [
+            {
+              uid: '-1',
+              name: 'xxx.png',
+              status: 'done',
+              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+              thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            },
+            {
+              uid: '-2',
+              name: 'yyy.png',
+              status: 'done',
+              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+              thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            },
+          ];
+        let { type ,beforeUpload,btnText,accept,tipText,imgWidth ,disabled,iconImg} = this.props
         let {imgUrl} = this.state
         const uploadButton = (
-            <Button><Icon type="link"/>{btnText}</Button>
+            <Button><Icon type={iconImg}/>{btnText}</Button>
         )
         return(
           <Upload name="file"
-            accept={accept}
-            showUploadList={false} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+            accept={accept}  className= 'upload-list-inline'
+            listType="picture" fileList= {fileList} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
             {imgUrl ? <img src={imgUrl} width={imgWidth} alt="" /> : uploadButton}
             {tipText ? <p>{tipText}</p> : null}
           </Upload>
@@ -95,6 +111,7 @@ FileUpload.defaultProps = {
     accept:"",
     beforeUpload:()=>{}
 }
+
 ImgUpload.propTypes = {
     onSuccess: PropTypes.func,
     onResponse: PropTypes.func,
@@ -105,6 +122,12 @@ ImgUpload.defaultProps = {
     onResponse:function(){},
     type:2,
     btnText:"上传头像",
+    iconImg:'link',
     beforeUpload:()=>{},
-    disabled:false
+    disabled:false,
+    // listType:"picture-card",
+    // listType:"picture",
+    // listType:"text",
+    // showUploadList:true, 
+   
 }
