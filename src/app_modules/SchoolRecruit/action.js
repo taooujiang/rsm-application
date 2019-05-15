@@ -77,7 +77,7 @@ export function listCountAction(value){
     })
   }
 }
-// 简历详情
+// 简历详情数据
 export function itemAction(value) {
   return (dispatch, getState) => {
       dispatch(fetchRequest('tableSpin'))
@@ -89,40 +89,40 @@ export function itemAction(value) {
       })
   }
 }
-export function loadTodos(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('todoSpin'))
-        return new API().fetchTodo(value).then(json => {
-            dispatch(fetchSuccess('todoSpin'))
-            dispatch(saveDates(json.data))
-        }).catch(ex => {
-            return dispatch(fetchFailure('todoSpin',ex))
-        })
-    }
-}
+// export function loadTodos(value) {
+//     return (dispatch, getState) => {
+//         dispatch(fetchRequest('todoSpin'))
+//         return new API().fetchTodo(value).then(json => {
+//             dispatch(fetchSuccess('todoSpin'))
+//             dispatch(saveDates(json.data))
+//         }).catch(ex => {
+//             return dispatch(fetchFailure('todoSpin',ex))
+//         })
+//     }
+// }
 
-export function loadCounts(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('todoSpin'))
-        return new API().fetchCount(value).then(json => {
-            dispatch(fetchSuccess('todoSpin'))
-            dispatch(saveCounts(json))
-        }).catch(ex => {
-            return dispatch(fetchFailure('todoSpin',ex))
-        })
-    }
-}
-export function loadDates(value){
-  return (dispatch, getState) => {
-      dispatch(fetchRequest('todoSpin'))
-      return new API().fetchDate(value).then(json => {
-          dispatch(fetchSuccess('todoSpin'))
-          dispatch(saveList(json))
-      }).catch(ex => {
-          return dispatch(fetchFailure('todoSpin',ex))
-      })
-  }
-}
+// export function loadCounts(value) {
+//     return (dispatch, getState) => {
+//         dispatch(fetchRequest('todoSpin'))
+//         return new API().fetchCount(value).then(json => {
+//             dispatch(fetchSuccess('todoSpin'))
+//             dispatch(saveCounts(json))
+//         }).catch(ex => {
+//             return dispatch(fetchFailure('todoSpin',ex))
+//         })
+//     }
+// }
+// export function loadDates(value){
+//   return (dispatch, getState) => {
+//       dispatch(fetchRequest('todoSpin'))
+//       return new API().fetchDate(value).then(json => {
+//           dispatch(fetchSuccess('todoSpin'))
+//           dispatch(saveList(json))
+//       }).catch(ex => {
+//           return dispatch(fetchFailure('todoSpin',ex))
+//       })
+//   }
+// }
 
 
 

@@ -16,6 +16,7 @@ import SideLayout from 'app/decorators/SideLayout'
 import SchoolRecruitListView from './views/SchoolRecruitList.view'
 import RecordView from './views/Record.view'
 import  DeatilView from './views/Deatil.view'
+import  SendView from './views/Send.view'
 // import InterviewFormView from './views/InterviewForm.view'
 // import DelayFormView from './views/InterviewDelay.view'
 // import IntverviewSlide from './views/InterviewSlide.view'
@@ -42,10 +43,16 @@ let RecordContainer = connect((state)=>({
     items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
     reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(RecordView)
+
 let DetailContainer = connect((state)=>({
   items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
   reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalDetailSmallView)(DeatilView))
+
+let SendContainer = connect((state)=>({
+  items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
+  reduce:state.schoolRecruitReducer
+}), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(SendView))
 
 // //let CalendarContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(CalendarView)
 // let InterviewFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(InterviewFormView)
@@ -56,6 +63,6 @@ let DetailContainer = connect((state)=>({
 // let FeedBackFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(FeedBackFormView))
 
 
-export {RecordContainer,DetailContainer}
+export { RecordContainer, DetailContainer, SendContainer}
 
 export default Container;
