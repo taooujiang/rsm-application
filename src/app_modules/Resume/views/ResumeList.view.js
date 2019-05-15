@@ -190,7 +190,10 @@ export default class ResumeListView extends PageView {
 				dataIndex: "name",
 				width: 360,
 				sorter: true,
-				render: (name, row) => <PersonInfoShow item={row} pathname={pathname}/>
+				render: (name, row) =>{
+					console.log(row,"==row")
+					return <PersonInfoShow item={row} pathname={pathname}/>
+				} 
 			}, {
 				title: "招聘负责人",
 				key: "ownerName",
@@ -377,7 +380,7 @@ export default class ResumeListView extends PageView {
 			onChange: this.onSelectChange.bind(this),
 			selectedRowKeys: this.state.selectedRowKeys
 		};
-
+console.log(items,"===items")
 		let tableConf = {
 			loading: tableSpin,
 			rowKey: "id",

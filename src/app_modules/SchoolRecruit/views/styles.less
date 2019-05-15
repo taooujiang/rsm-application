@@ -35,10 +35,37 @@
   }
 }
 
+.searchItem{
+  display: flex;
+  justify-content:space-around;
+}
+
+.ant-row{
+  text-align: left;
+
+}
+.schoolRecruitForm{
+  .advanced-search-panel{
+    .advanced-search-form{
+      .ant-form-item{
+        margin-bottom: 10px !important;
+        }
+    }
+    .advanced-search-toolbar{
+      position: absolute;
+      right: 0;
+      bottom: 10px;
+      top: auto;
+    }
+  }
+}
 
 
-
-
+.advanced-search-toolbar{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 .question-box{
   position: relative;
   padding-left: 100px;
@@ -84,3 +111,28 @@
     margin: 5px;
   }
 }
+
+
+
+// <BaseForm onSubmit={this.handleFilter} ref={this.saveFormRef}>
+     
+// <FormItem label="公司产品" {...fromFullItemLayoutArr[0]}>
+//       <div name='searchItem' className='searchItem' >
+//        <Select name="job" label="期望职位" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderRoleOption} style={{ width: '350px' }} />
+//         <Input name="name" label="毕业院校" style={{ width: '350px' }}  />
+//           <div className='searchItem'>
+//             <Select name="school" label="最低学历" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderRoleOption} style={{ width: '120px' }} />
+//             <Select name="schoolw" label="" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderRoleOption} style={{ width: '120px' }} />
+//          </div>
+//        </div>
+// </FormItem>
+
+// <FormItem {...fromFullItemLayoutArr[0]} >
+//  <div name='skill' className='searchItem'>
+//         <Input name="skill" label="就读专业" />
+//         <Select name="sex" label="性别" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderRoleOption} style={{ width: '120px' }} />
+//         <Select name="schooll" label="院校类别" placeholder="请选择" defaultValue={1} fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderEnableOption} style={{ width: '120px' }} />
+      
+//     </div>
+// </FormItem>     
+// </BaseForm> 

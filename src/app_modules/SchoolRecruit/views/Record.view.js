@@ -19,19 +19,13 @@ import PageView from 'app/components/Page'
 import {Layout,Fixed,Pane} from 'app/components/Layout'
 import AdvancedSearchForm from 'app/components/AdvancedSearch'
 import DataTable from 'app/components/DataTable'
-import ButtonGroupExt from 'app/components/ButtonGroupExt'
-import CalendarPicker from 'app/components/CalendarPicker'
-import Permission from 'app/components/Permission'
-import InterviewType from 'app/components/TableRow/Interview'
 import NestedComponent from 'app/decorators/NestedComponent'
 import DictUtils from 'app/utils/DictUtils'
 import moment from 'moment'
-import PersonInfoShow from 'app/components/TableRow/Resume'
-
+import SchoolInfo from 'app/components/TableRow/SchoolInfo'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const Option = Select.Option
-const {RangePicker} = DatePicker;
 
 @NestedComponent()
 export default class RecordListView extends PageView {
@@ -42,12 +36,9 @@ export default class RecordListView extends PageView {
   componentDidMount() {
     let {actions,router,children} = this.props;
     let params = {status:1}
-    //console.log("componentDidMount")
-    // 
-    actions.listAction(params)
-     actions.listRealAction(params)
-    //筛选的tab菜单
-     actions.listCountAction(params)
+    actions.listAction(params)//参数
+    actions.listRealAction(params)//tab数据
+    actions.listCountAction(params)//筛选的头部菜单
   }
   componentWillReceiveProps(nextProps){
     let {actions} = this.props
@@ -62,44 +53,6 @@ export default class RecordListView extends PageView {
         actions.listCountAction(nextProps.reduce.params)
       }
     }
-  }
-  handlerMenu(resumeId,id,name,item,actionType){
-    let { actions,router } = this.props
-    actions[actionType.key].call(this,router,resumeId,id,name,item)
-  }
-  handleCallPhone(number,resumeId,name,type){
-      if(!number){
-          message.info("号码为空！")
-          return false
-      }
-      /*type  == define1
-       * define1  1 员工
-       * define1  2 简历
-       * define1  3 人才
-       *
-       * */
-      let  callOutJson ={
-          phone:number,
-          busId:resumeId,
-          candName:name,
-          inputAcc:"",
-          define1:type+"",
-          define3:"",
-          IsContact:"0"
-      };
-      let  callOutJsonStr = JSON.stringify({callOutJson});
-      // console.log(callOutJsonStr)
-      global.invokeMethod('OnCallJson',callOutJsonStr)
-  }
-  renderToolbar() {
-    return null
-  }
-  handleFilter(values){
-    // console.log(values)
-    // let {target:{value}} = e
-    let {actions} = this.props
-    // console.log(values)
-    actions.listAction(values)
   }
   changes(values){
     let {actions} = this.props
@@ -146,21 +99,13 @@ export default class RecordListView extends PageView {
         key: "ownerName",
         width: 350,
         dataIndex: "ownerName",
-        render: (ownerName, row) => <PersonInfoShow item={row} pathname={pathname}/>
+        render: (ownerName, row) =><SchoolInfo item={row} pathname={pathname}/>
       }, {
         title: "邀请时间",
-        key: "interviewTime",
+        key: "deliveryTime",
         width: 200,
-        dataIndex: "interviewTime",
-        // render:(val,row)=>{
-        //   let {mobilephone,resumeId,name} = row
-        //   return (
-        //     <div>
-        //       <SmartLink to={{pathname:`${resumeId}/detail`,state:{orgin:that.props.pathname}}}><span style={{marginRight:10}}>{val}</span></SmartLink>
-        //       {mobilephone ? <span onClick={that.handleCallPhone.bind(that,mobilephone,resumeId,name,2)} style={{cursor:"pointer"}}><Icon type="phone"/><span>{mobilephone}</span></span> : null}
-        //     </div>
-        //   )
-        // }
+        dataIndex: "deliveryTime",
+        render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
         title: "邀请投递职位",
         key: "dept",
@@ -171,9 +116,10 @@ export default class RecordListView extends PageView {
           key: "status",
           dataIndex: "status",
           width: 150,
-          // render:(val,row)=>{
-          //     return this.renderRowOption(row)
-          // }
+          render:(val,row)=>{
+            let style =   row.channel == '1' ?  {color:'#D67794'} :  (row.channel == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
+            return   <span style={{...style,fontSize:'15px'}}>{row.name}</span>
+          }
       }
     ]
     // 已查看
@@ -183,37 +129,23 @@ export default class RecordListView extends PageView {
         key: "ownerName",
         width: 450,
         dataIndex: "ownerName",
-        render: (ownerName, row) => <PersonInfoShow item={row} pathname={pathname}/>
+        render: (ownerName, row) => <SchoolInfo item={row} pathname={pathname}/>
       }, {
         title: "邀请时间",
         key: "interviewTime",
-        // width: 200,
         dataIndex: "interviewTime",
-        // render:(val,row)=>{
-        //   let {mobilephone,resumeId,name} = row
-        //   return (
-        //     <div>
-        //       <SmartLink to={{pathname:`${resumeId}/detail`,state:{orgin:that.props.pathname}}}><span style={{marginRight:10}}>{val}</span></SmartLink>
-        //       {mobilephone ? <span onClick={that.handleCallPhone.bind(that,mobilephone,resumeId,name,2)} style={{cursor:"pointer"}}><Icon type="phone"/><span>{mobilephone}</span></span> : null}
-        //     </div>
-        //   )
-        // }
+        render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
         title: "投递时间",
         key: "deliveryTime",
         dataIndex: "deliveryTime",
-        // width: 150,
+        render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
           title: "投递职位",
           key: "dept",
           dataIndex: "dept",
-          // width: 150,
-          // render:(val,row)=>{
-          //     return this.renderRowOption(row)
-          // }
       }
     ]
-    
     const tableConfColumnsList={
           0:sendTabColumns,
           1:sendTabColumns,
@@ -234,66 +166,8 @@ export default class RecordListView extends PageView {
       width: '100%'
     }} {...tableConf}  page={page}/>)
   }
-
-  handleFeedBack(resumeId,id){
-    let {actions,router} = this.props
-    actions.feedbackAction(router,id,resumeId)
-  }
-
-  handleChangeFeed(item){
-    let {actions,router} = this.props
-    // console.log(111111,item,item)
-    /*分两个item传入  第一个面试中要用item的email 和mobilephone 第二个为面试信息*/
-    actions.feedAction(router,item,item,item.resumeId)
-  }
-
-  handleUrge(id){
-    let {actions,reduce:{params,page}} = this.props
-    actions.urgeFeedbackAction({id:id}).then(()=>{
-      actions.listAction({...params,...page})
-    })
-  }
-
-  /*
-  Integer statusStr候选人状态：1--待面试  2--未反馈 3--已反馈4--未通过 5--已通过 6--已取消
-  Integer isFeedback是否填写面试反馈 0未填写 1 已开始填写 2以完成
-  Integer isUrge是否催促 0未催促  1 已催促
-  */
-  renderRowOption(row){
-    let {statusStr,isFeedback,isUrge,resumeId,lastInterviewPlanId,id,type,interviewTime} = row
-    /*已取消*/
-    if(statusStr == 6){
-      return null
-    }
-    /*待面试*/
-    if(statusStr == 1){
-      return (
-        <Button.Group style={{whiteSpace:"inherit"}}>
-          <Button onClick={this.handleChangeFeed.bind(this,row)}>修改面试</Button>
-          <Button onClick={this.handleFeedBack.bind(this,resumeId,id)}>填写反馈</Button>
-        </Button.Group>
-      )
-    }
-    /*已经反馈*/
-    if(isFeedback == 2){
-      return <Button onClick={this.handleFeedBack.bind(this,resumeId,id)}>查看反馈</Button>
-    }
-
-
-    /*未反馈*/
-    if(isFeedback != 2 && statusStr != 8){
-      return (
-        <Button.Group style={{whiteSpace:"inherit"}}>
-          <Button onClick={this.handleFeedBack.bind(this,resumeId,id)}>填写反馈</Button>
-          {isUrge ? null : <Button onClick={this.handleUrge.bind(this,id)}>催促反馈</Button> }
-        </Button.Group>
-      )
-    }
-  }
-
   render() {
     let {children} = this.props
-    //模版没有好的解决方案，暂时这样处理
       return (
           <Card type="inner" title={this.renderTypeFilter()}>
                 {this.renderTableList()}

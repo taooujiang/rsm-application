@@ -39,6 +39,7 @@ export {feedbackAction,delayAction,feedAction}
 
 export {getFeedStageAction}
 
+// 保存参数
 export function listAction(value) {
   return (dispatch, getState) => {
     // dispatch(fetchRequest('tableSpin'))
@@ -57,7 +58,6 @@ export function listRealAction(value){
     dispatch(fetchRequest('tableSpin'))
     return new API().fetchList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
-      console.log(json,"==json",value,"=value")
       dispatch(saveList(json))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin',ex))
@@ -65,7 +65,7 @@ export function listRealAction(value){
   }
 }
 
-//获取tab上面筛选
+//获取tab上面筛选菜单
 export function listCountAction(value){
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -77,7 +77,18 @@ export function listCountAction(value){
     })
   }
 }
-
+// 简历详情
+export function itemAction(value) {
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('tableSpin'))
+      return new ResumeAPI().fetchItem(value).then(json => {
+          dispatch(fetchSuccess('tableSpin'))
+          dispatch(saveItem(json))
+      }).catch(ex => {
+          return dispatch(fetchFailure('tableSpin',ex))
+      })
+  }
+}
 export function loadTodos(value) {
     return (dispatch, getState) => {
         dispatch(fetchRequest('todoSpin'))
@@ -113,71 +124,7 @@ export function loadDates(value){
   }
 }
 
-export function itemAction(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('tableSpin'))
-        return new ResumeAPI().fetchItem(value).then(json => {
-            dispatch(fetchSuccess('tableSpin'))
-            dispatch(saveItem(json))
-        }).catch(ex => {
-            return dispatch(fetchFailure('tableSpin',ex))
-        })
-    }
-}
 
-// export function getFeedStageAction(value) {
-//     return (dispatch, getState) => {
-//         dispatch(fetchRequest('formSpin'))
-//         return new API().fetchFeedData(value).then(json => {
-//             dispatch(fetchSuccess('formSpin'))
-//             dispatch(saveFeedStage(json))
-//         }).catch(ex => {
-//             return dispatch(fetchFailure('formSpin',ex))
-//         })
-//     }
-// }
 
-export function getFeedBackAction(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('formSpin'))
-        return new API().fetchFeedBack(value).then(json => {
-            dispatch(fetchSuccess('formSpin'))
-            dispatch(saveFeedBack(json.list))
-        }).catch(ex => {
-            return dispatch(fetchFailure('formSpin',ex))
-        })
-    }
-}
 
-export function feedBackSaveAction(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('formSpin'))
-        return new API().fetchFeedBackSave(value).then(json => {
-            dispatch(fetchSuccess('formSpin',true))
-        }).catch(ex => {
-            return dispatch(fetchFailure('formSpin',ex))
-        })
-    }
-}
 
-export function delaySaveAction(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('formSpin'))
-        return new API().fetchDelay(value).then(json => {
-            dispatch(fetchSuccess('formSpin',true))
-        }).catch(ex => {
-            return dispatch(fetchFailure('formSpin',ex))
-        })
-    }
-}
-
-export function urgeFeedbackAction(value) {
-    return (dispatch, getState) => {
-        dispatch(fetchRequest('formSpin'))
-        return new API().fetchUrge(value).then(json => {
-            dispatch(fetchSuccess('formSpin',true,"已向面试官发送催促消息"))
-        }).catch(ex => {
-            return dispatch(fetchFailure('formSpin',ex))
-        })
-    }
-}

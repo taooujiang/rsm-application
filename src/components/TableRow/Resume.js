@@ -86,6 +86,7 @@ export default class Intro extends Component {
 	}
 	render() {
 		let {item} = this.props
+		console.log(item,"==item")
 		let titleInfo = filterNull([item.sexStr, item.ageStr, item.education, item.workYear]).join(" · ")
 		let companyInfo = filterNull([
 			item.company, item.lastJobTitle, item.lastJobStart + " - " + translateToNow(item.lastJobEnd)

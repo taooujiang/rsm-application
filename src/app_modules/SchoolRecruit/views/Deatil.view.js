@@ -52,26 +52,7 @@ function translateOrgin(state) {
 	} else {
 		return {}
 	}
-	/* 暂时只做对候选人的切换 */
-	// if(state && state.orgin){
-	//   let {orgin} = state
-	//   if(orgin == "/resume/list"){
-	//     return {viewLibType:1}
-	//   }else if(orgin == "/elite/3"){
-	//     return {viewLibType:3}
-	//   }else if(orgin == "/elite/4"){
-	//     return {viewLibType:4}
-	//   }else if(orgin.indexOf("distrib")){
-	//     return {viewLibType:2}
-	//   }else{
-	//     return {}
-	//   }
-	// }else{
-	//   return {}
-	// }
 }
-
-
 
 function toStrings(val) {
 	return val + ""
