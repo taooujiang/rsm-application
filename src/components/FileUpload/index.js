@@ -65,22 +65,6 @@ export class ImgUpload extends FileUpload{
     }
 
     render(){
-        const fileList = [
-            {
-              uid: '-1',
-              name: 'xxx.png',
-              status: 'done',
-              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-              thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-              uid: '-2',
-              name: 'yyy.png',
-              status: 'done',
-              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-              thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-          ];
         let { type ,beforeUpload,btnText,accept,tipText,imgWidth ,disabled,iconImg} = this.props
         let {imgUrl} = this.state
         const uploadButton = (
@@ -88,15 +72,62 @@ export class ImgUpload extends FileUpload{
         )
         return(
           <Upload name="file"
-            accept={accept}  className= 'upload-list-inline'
-            listType="picture" fileList= {fileList} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+            accept={accept}  className= 'upload-list-inline' listType='text'
+             beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
             {imgUrl ? <img src={imgUrl} width={imgWidth} alt="" /> : uploadButton}
             {tipText ? <p>{tipText}</p> : null}
           </Upload>
         )
     }
 }
+export class ImgUploadList extends FileUpload{
+  constructor(props){
+      super(props)
+      this.state = {
+          loading:false,
+          imgUrlArr:this.props.imgUrl
+      }
+      this.props.onChange(this.props.imgUrl)
+  }
+  componentWillReceiveProps = (nextProps) => {
+    if(nextProps.imgUrl!=this.props.imgUrl){
+      this.setState({imgUrl:nextProps.imgUrl})
+      this.props.onChange(nextProps.imgUrl)
+    }
+  }
 
+  render(){
+      const fileList = [
+          {
+            uid: '-1',
+            name: 'xxx.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+          },
+          {
+            uid: '-2',
+            name: 'yyy.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+          },
+        ];
+      let { type ,beforeUpload,btnText,accept,tipText,imgWidth ,disabled,iconImg} = this.props
+      let {imgUrl} = this.state
+      const uploadButton = (
+          <Button><Icon type={iconImg}/>{btnText}</Button>
+      )
+      return(
+        <Upload name="file"
+          accept={accept}  className= 'upload-list-inline'
+          listType="picture" fileList= {fileList} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)}>
+          {imgUrl ? <img src={imgUrl} width={imgWidth} alt="" /> : uploadButton}
+          {tipText ? <p>{tipText}</p> : null}
+        </Upload>
+      )
+  }
+}
 
 FileUpload.propTypes = {
     onSuccess: PropTypes.func,
@@ -125,9 +156,18 @@ ImgUpload.defaultProps = {
     iconImg:'link',
     beforeUpload:()=>{},
     disabled:false,
-    // listType:"picture-card",
-    // listType:"picture",
-    // listType:"text",
-    // showUploadList:true, 
-   
+}
+ImgUploadList.propTypes = {
+  onSuccess: PropTypes.func,
+  onResponse: PropTypes.func,
+  type:PropTypes.integer,
+}
+ImgUploadList.defaultProps = {
+  onSuccess: function(){},
+  onResponse:function(){},
+  type:2,
+  btnText:"上传头像",
+  iconImg:'link',
+  beforeUpload:()=>{},
+  disabled:false,
 }

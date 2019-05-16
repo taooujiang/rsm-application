@@ -19,7 +19,7 @@ export default class CardShare extends FormPage {
             id: '',
             loading: true,
             imgUrl:'',
-            btnState:' ',
+            btnState:'edit',
             labelNames:['标签1','标签2','标签3'],
             imgUrlArr:['ceshu']
         };
@@ -165,33 +165,52 @@ export default class CardShare extends FormPage {
         const { onSubmit} = this.props
         const { title,name, remark, photoUrl, id,shortName,labelNames,imgUrlArr,imgUrl} = this.state
         return (
-            <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>
+            <BaseForm  onSubmit={onSubmit} ref={this.saveFormRef}>
+                {
+                    this.state.btnState == 'edit' ? 
+                      null
+                    : <div className='maskModel'></div>
+                }
                 <FormItem className="row-hidden">
-                    <Input name="id" type="hidden" defaultValue={id} />
+                    <Input name="id" type="hidden" defaultValue={id}     />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]}>
                     <Input label="公司名称" name="name" defaultValue={name}
-                        rules={[{ max: 20, message: "最多输入20个字！" }]} />
+                        rules={[{ max: 15, message: "最多输入15个字！" },
+                           {required: true, message: '请输入公司名称!'}]} />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]}  >
                     <Input label="公司简称" name="shortName" defaultValue={shortName}
-                        rules={[{ max: 20, message: "最多输入20个字！" }]} />
+                        rules={[{ max: 6, message: "最多输入6个字！" },
+                        {required: true, message: '请输入公司名称!'}]} />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]}>
-                    <Select name="industry" label="公司性质" placeholder="请选择"  fetch={DictUtils.getDictByType("industry")} renderItem={this.renderSelectOption} />
+                    <Select name="industry" label="公司性质" placeholder="请选择"  
+                    fetch={DictUtils.getDictByType("industry")} 
+                    renderItem={this.renderSelectOption}
+                    rules={[{required: true, message: '请选择公司性质!'}]} />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]}  >
-                    <Select name="industry" label="行业" placeholder="请选择"  fetch={DictUtils.getDictByType("industry")} renderItem={this.renderSelectOption} />
+                    <Select name="industry" label="行业" placeholder="请选择"  
+                    fetch={DictUtils.getDictByType("industry")} 
+                    renderItem={this.renderSelectOption}
+                    rules={[{required: true, message: '请选择行业!'}]}  />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]} >
-                    <Select name="scale" label="公司规模" placeholder="请选择"  fetch={DictUtils.getDictByType("scale")} renderItem={this.renderSelectOption} />
+                    <Select name="scale" label="公司规模" placeholder="请选择"  
+                    fetch={DictUtils.getDictByType("scale")} 
+                    renderItem={this.renderSelectOption} 
+                    rules={[{required: true, message: '请选择公司规模!'}]}/>
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[1]}  >
                     <Input label="公司网址" name="shortName" defaultValue={shortName}
-                            rules={[{ max: 20, message: "最多输入20个字！" }]} />
+                            rules={[]} />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[0]}  style={{marginBottom:'0'}}  >
-                    <Select name="industry" label="公司地址" placeholder="选择地址"  fetch={DictUtils.getDictByType("industry")} renderItem={this.renderSelectOption} />
+                    <Select name="industry" label="公司地址" placeholder="选择地址"  
+                    fetch={DictUtils.getDictByType("industry")} 
+                    renderItem={this.renderSelectOption}
+                    rules={[{required: true, message: '请选择公司维护的地址!'}]} />
                 </FormItem>
                 <FormItem {...fromFullItemLayoutArr[0]}>
                 <TextArea label="" name="remark" rows={4} defaultValue={remark} placeholder='请输入详细地址'
@@ -205,7 +224,7 @@ export default class CardShare extends FormPage {
                                 imgUrl={imgUrl}
                                 btnText="点击上传"
                                 iconImg='plus'
-                                accept="image/png,image/jpg,image/JPEG"
+                                accept="image/png,image/jpg,image/JPEG,image/bmp"
                                 tipText=" 请上传jpg，png，jpeg格式图片，建议尺寸为240*240，不超过500KB"
                                 imgWidth="60px"
                                 onChange={this.onChange}  onResponse={this.responseType} onSuccess={this.onSuccess}></ImgUpload>
@@ -303,8 +322,9 @@ export default class CardShare extends FormPage {
     render() {
         return (
         <Spin spinning={this.state.loading}>
-            <Card className="remind-form-view" title={<div><h3 className="card-title">企业名片设置</h3></div>} extra={this.renderToolbar()}	>
+            <Card className="school-form-view" title={<div><h3 className="card-title">企业名片设置</h3> <span className='card-subtitle'>用于校招小程序，让候选人更加了解公司信息</span></div>} extra={this.renderToolbar()}	>
                 {this.renderForm()}
+
             </Card>
         </Spin>
         );
