@@ -23,6 +23,7 @@ import NestedComponent from 'app/decorators/NestedComponent'
 import DictUtils from 'app/utils/DictUtils'
 import moment from 'moment'
 import SchoolInfo from 'app/components/TableRow/SchoolInfo'
+import LinkagePullDown from 'app/components/LinkagePullDown'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const Option = Select.Option
@@ -54,9 +55,7 @@ export default class RecordListView extends PageView {
 
   handleFilter(values){
     // console.log(values)
-    // let {target:{value}} = e
     let {actions} = this.props
-    // console.log(values)
     actions.listRealAction(values)
   }
 
@@ -76,14 +75,15 @@ export default class RecordListView extends PageView {
       }
     ]
     return (
-        <AdvancedSearchForm  autoSubmitForm={false}   filterSubmitHandler={this.handleFilter.bind(this)} >
-            <Select name="job" label="期望职位" placeholder="请选择" fetch={`${APP_SERVER}/authRole/getRoleInfo`} renderItem={this.renderSelectOption} style={{ width: '320px' }} />
-            <Input name="name" label="毕业院校" style={{ width: '320px' }}  />
-            <Select name="education1" label="最低学历" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} style={{ width: '120px' }} />
-            <Select name="education2" label="" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderRoleOption} style={{ width: '120px' }} />
-            <Input name="skill" label="就读专业" style={{ width: '320px' }}  />
-            <Select name="sex" label="性别&#x3000;&#x3000;" placeholder="请选择" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} style={{ width: '320px' }} />
-            <Select name="schooll" label="院校类别" placeholder="请选择" defaultValue={1} fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderSelectOption} style={{ width: '268px' }} />
+        <AdvancedSearchForm isCircle={false} autoSubmitForm={false} showConfig={false}  filterSubmitHandler={this.handleFilter.bind(this)} >
+            <Input name="expectedJobTitle" label="期望职位" placeholder="请选择" style={{ width: '300px' }} />
+            <Input name="school" label="就读院校" style={{ width: '300px' }}  />
+            <LinkagePullDown name="degrees" label="最低学历"  style={{ width: '300px' }} options={DictUtils.getDictByType("education")} />
+            {/* <Select name="degreeLow" label="最低学历" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} style={{ width: '120px' }} />
+            <Select name="degreeHeight" label="" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} style={{ width: '120px' }} /> */}
+            <Input name="marjor" label="就读专业" style={{ width: '300px' }}  />
+            <Select name="gender" label="性别&#x3000;&#x3000;" placeholder="不限" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} style={{ width: '300px' }} />
+            {/* <Select name="school" label="院校类别" placeholder="请选择" defaultValue={1} fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderSelectOption} style={{ width: '268px' }} /> */}
         </AdvancedSearchForm>
     )
   }
@@ -112,23 +112,29 @@ export default class RecordListView extends PageView {
           render: (ownerName, row) => <SchoolInfo item={row} pathname={pathname}/>
         }, {
           title: "更新时间",
-          key: "deliveryTime",
+          key: "updateTime",
           width: 200,
-          dataIndex: "deliveryTime",
+          dataIndex: "updateTime",
           render:(val,row)=>moment(val).format("YYYY-MM-DD")
         },{
           title: "最近应聘职位",
-          key: "dept",
-          dataIndex: "dept",
+          key: "expectedJobTitle",
+          dataIndex: "expectedJobTitle",
           width: 150,
         },{
             title: "投递情况",
-            key: "status",
-            dataIndex: "status",
+            key: "inviteStatus",
+            dataIndex: "inviteStatus",
             width: 150,
             render:(val,row)=>{
-              let style =   row.channel == '1' ?  {color:'#D67794'} :  (row.channel == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
-              return   <span style={{...style,fontSize:'15px'}}>{row.name}</span>
+              let arr=[
+                {status:0,statusText:'未投递',style:{color:'#D67794',fontSize:'15px'}},
+                {status:1,statusText:'已发送',style:{color:'#6BD0BE',fontSize:'15px'}},
+                {status:2,statusText:'已查看',style:{color:'#DA947E',fontSize:'15px'}},
+                {status:3,statusText:'已投递',style:{color:'#DA947E',fontSize:'15px'}}
+              ]
+              let style =   row.inviteStatus == '1' ?  {color:'#D67794'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
+              return   <span style={arr[row.inviteStatus].style}>{arr[row.inviteStatus].statusText}</span>
             }
         }
       ]
@@ -140,7 +146,7 @@ export default class RecordListView extends PageView {
   render() {
     let {children} = this.props
       return (
-          <Card type="inner"  className='schoolRecruitForm'   extra={this.renderTypeFilter()} >
+          <Card type="inner"  className='schoolRecruitForm' extra={this.renderTypeFilter()} >
                 {this.renderTableList()}
           </Card>
       )

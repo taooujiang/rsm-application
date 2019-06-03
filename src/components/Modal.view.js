@@ -101,7 +101,38 @@ export class ResumeCalendarModal extends Component{
     }
 }
 
+export class ModalQRcodeView extends Component {
+  state={
+    visable:true
+  }
+  componentDidUpdate (prevProps) {
+    let {actions,router} = this.props;
+    let oldParams = prevProps.params
+    let newParams = this.props.params
+    if (JSON.stringify(newParams) !== JSON.stringify(oldParams)){
+      this.setState({
+          visable:true
+      })
+    }
+  }
+  handleCancel(){
+    let {actions, history,router} = this.props
+    this.setState({
+        visable:false
+    })
+    actions.backRoute(router)
 
+  }
+  render() {
+      var {route, children,router,...otherProps} = this.props
+      let {visable} = this.state
+      return (
+          <Modal wrapClassName="ant-modal-iframe resumeDetail-window" maskClosable={false} destroyOnClose={false}  onCancel={this.handleCancel.bind(this)}  visible={visable}   footer={null}    style={{flex:"0 0 400px",height: '400px',top:'120px'}} bodyStyle={{overflowY:"auto",overflowX:"hidden"}}>
+            {React.cloneElement(children,{...otherProps,ref:"formView"})}
+          </Modal>
+      )
+  }
+}
 export class ModalDetailView extends Component {
     state={
       visable:true

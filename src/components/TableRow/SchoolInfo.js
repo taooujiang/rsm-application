@@ -11,9 +11,9 @@ function filterNull(arr) {
 }
 
 function translateToNow(timeStr) {
-	return timeStr == "9999-01-01"
+	return timeStr == "9999-01-01" || timeStr == ''
 		? "至今"
-		: timeStr
+		: moment(timeStr).format("YYYY-MM-DD") 
 }
 /* lastJobEnd:"2018-07-01 00:00:00"
 lastJobStart:"2017-07-01 00:00:00"
@@ -31,13 +31,15 @@ export default class Intro extends Component {
 	}
 	render() {
         let {item} = this.props
-        let itAge =(item.age != "" && item.age != undefined)  ?  item.age + '岁'  : null
-		let titleInfo = filterNull([DictUtils.getDictLabelByValue('sex',item.sex),itAge,item.education, DictUtils.getDictLabelByValue('education',1), item.ownerName]).join(" · ")
-		let companyInfo = filterNull([
-			item.company, item.lastJobTitle, item.lastJobStart + " - " + translateToNow(item.lastJobEnd)
-		]).join(" · ")
+		// let itAge =(item.age != "" && item.age != undefined)  ?  item.age + '岁'  : null
+		// itAge,item.education,
+		// , item.ownerName
+		let titleInfo = filterNull([DictUtils.getDictLabelByValue('sex',item.gender), DictUtils.getDictLabelByValue('education',item.degree)]).join(" · ")
+		// let companyInfo = filterNull([
+		// 	item.company, item.lastJobTitle, item.lastJobStart + " - " + translateToNow(item.lastJobEnd)
+		// ]).join(" · ")
 		let eduInfo = filterNull([
-			item.lastSchool, item.lastMajor, item.lastSchoolStart + " - " + translateToNow(item.lastSchoolEnd)
+			item.school, item.marjor, moment( item.schoolStartDate).format("YYYY-MM-DD") + " - " + translateToNow(item.schoolEndDate)
 		]).join(" · ")
 
 		return (<div className="resumeRowInfo">
@@ -48,7 +50,7 @@ export default class Intro extends Component {
 					<SmartLink style={{
 							color: '#323232'
 						}} to={{
-							pathname: `${item.id}/detail`,
+							pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
 							state: {
 								orgin: this.props.pathname
 							}
@@ -57,14 +59,14 @@ export default class Intro extends Component {
 				<Tooltip title={titleInfo}>{titleInfo}</Tooltip>
 			</div>
 			{
-				this.isCollegeOrWorkExpShow(item.lastSchool, item.lastMajor, item.lastSchoolStart + " - " + item.lastSchoolEnd)
+				this.isCollegeOrWorkExpShow(item.school, item.marjor, item.schoolStartDate + " - " + item.schoolEndDate)
 					? <div style={{
 								color: '#808080'
 							}} className="edu-info">
 							<SmartLink style={{
 									color: '#323232'
 								}} to={{
-									pathname: `${item.id}/detail`,
+									pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
 									state: {
 										orgin: this.props.pathname
 									}

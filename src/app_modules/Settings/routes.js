@@ -47,8 +47,6 @@ import Container, {
   InternalRecommendContainer,
   ActionLogContainer,
   ShareContainer,
-  LabelFormContainer,
-  ProductsFormContainer,
   CardProviewContainer
 } from './container'
 
@@ -56,10 +54,8 @@ let Routes = (
   <Router>
     <IndexRoute component={CompanyContainer} />
     <IndexRedirect to="company" />
-    
+
     <Route path="companyCard" components={CompanyCardContainer} breadcrumbName="企业名片设置">
-       <Route path="add" components={LabelFormContainer} breadcrumbName="公司福利" />
-       <Route path="products" components={ProductsFormContainer} breadcrumbName="公司产品" />
        <Route path="preview" components={CardProviewContainer} breadcrumbName="名片预览" />
     </Route>
     <Route path="remind" components={RemindContainer} breadcrumbName="提醒设置" />

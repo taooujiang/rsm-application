@@ -1,71 +1,76 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React, {Component, PropTypes} from 'react'
 import {
-    Timeline ,
-	Row,
-	Avatar,
-	Col,
-	Button,
-	Input,
-	Table,
-	Dropdown,
-	Menu,
-	Select,
-	Modal,
-	Tabs,
-	Icon
+  Row,
+  Col,
+  Modal,
+  Button,
+  Radio,
+  Input,
+  Form,
+  DatePicker,
+  Layout,
+  Spin,
+  Select,
+  TreeSelect
 } from 'antd'
-import {Link} from 'react-router'
+
+
+import moment from 'moment'
+import RichEditor, {EditableRichEditor} from 'components/RichEditor'
+import {FormPage} from 'app/components/Page'
+import BaseForm,{FormItem,customRules} from 'app/components/BaseForm'
+import CalendarPicker from 'app/components/CalendarPicker'
+import {TreeSelectPicker} from 'app/components/TreeView'
+import DateTimePicker from 'app/components/DateTimePicker'
+import messageCountFn from 'app/utils/messageCount'
+
+
+const Option = Select.Option
+const {TextArea} = Input
+const RadioGroup = Radio.Group;
+const TreeNode = TreeSelect.TreeNode;
+
 import {routerActions, push, replace} from 'react-router-redux'
 import WrapperComponent from "app/decorators/WrapperComponent"
-import BaseForm,{FormItem} from 'app/components/BaseForm'
 import NestedComponent from 'app/decorators/NestedComponent'
-import PersonInfo, {
-	PersonTabBaseInfo,
-	PersonOffer,
-	PersonOption,
-	PersonRemarks,
-	PersonCommunitcate,
-	PersonOptionRecord,
-	PersonFeedRecord,
-	ExtraInformation
-} from 'app/components/PersonInfo'
 import DictUtils from 'app-utils/DictUtils'
 import classnames from 'classnames'
-import {permissionStyle} from "app/utils/ConfigUtils";
-import SmartLink from 'app/components/SmartLink'
 // import ResumeDownload from './DownloadModal.view'
-import Layout, {Fixed, Pane} from 'app/components/Layout'
+// import API from './api'
 
-const ButtonGroup = Button.Group;
-const TabPane = Tabs.TabPane;
-
-
-
-@NestedComponent()
-export default class PersonInfoDetail extends Component {
+export default class SendDetail extends FormPage{
 	constructor(props) {
-		super(props);
-		this.state = {
-			name:''
-		}
+			super(props); 	
 	}
-
+	renderJobOption(data,idx){
+		return (<Select.Option value={data.jobId} key={idx}>{data.jobTitle}</Select.Option>)
+	}
+	handleSubmit(values){
+		let {actions,reduce:{detailList:{id}}}=this.props
+		console.log(values,'handleSubmit')
+		actions.invateForDeliveryAction({...values}).then(()=>{
+			actions.backRoute()
+		})
+	
+	}
 	render() {
-       let {name,id}=this.props
-		return (<BaseForm
-            onSubmit={this.handleSubmit} 
-            ref={this.saveFormRef} 
-            className="products-form">
+			const {handleSubmit,saveFormRef,params:{id},reduce:{detailList}} = this.props
+			console.log(id,"==detailList")
+	   return (
+		<BaseForm onSubmit={this.handleSubmit} ref={this.saveFormRef} className="sendMsg-form">
                    <FormItem className="row-hidden">
-                        <Input name="id" type="hidden" defaultValue={id} />
+                        <Input name="graduateId" type="hidden" defaultValue={id } />
                    </FormItem>
-                   <FormItem>
-                        <Select name="industry" label="校招职位名称" placeholder="请选择"  fetch={DictUtils.getDictByType("industry")} renderItem={this.renderSelectOption} />
+                   <FormItem >
+						<Select  name="jobId" label='校招职位名称' placeholder="请选择" 
+						   fetch={`${APP_SERVER}/jobNew/getJobSchoolList`} 
+						   renderItem={this.renderJobOption}
+							defaultValue=''
+							rules={[{required: true, message: '请选择校招职位!'}]}  
+							 /> 
                    </FormItem>
-                   
-           </BaseForm>
+		</BaseForm>
         )
-}
-}
+  }
+ }
 

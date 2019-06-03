@@ -126,7 +126,6 @@ export default class ResumeListView extends PageView {
 		/* 清空复选框 */
 		this.form.form.setFieldsValue({notes: ""})
 		// console.log(this.form.form.setFieldsValue)
-
 		this.setState({columnNumber: value})
 	}
 	formRef(form) {

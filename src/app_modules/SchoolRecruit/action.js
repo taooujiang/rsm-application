@@ -9,6 +9,9 @@ import {createAction} from 'redux-actions'
 
 export const saveList = createAction("STORE_LIST")
 export const saveParams = createAction("SAVE_PARAMS")
+export const saveItem = createAction("SAVE_ITEM")
+export const invateForDelivery = createAction("SEND_INVATE")
+
 
 export const saveListCount = createAction("SAVE_LISTCOUNT")
 export const saveCounts = createAction("SAVE_CARCOUNT")
@@ -19,7 +22,7 @@ export const saveFeedStage = createAction("SAVE_FEEDSTAGE")
 export const saveFeedBack = createAction("SAVE_FEEDBACK")
 
 
-const CONSTANTS = createConstants('schoolRecruit', [
+const CONSTANTS = createConstants('searchTalents', [
   'fetch_request',
   'fetch_success',
   'fetch_failure',
@@ -39,6 +42,51 @@ export {feedbackAction,delayAction,feedAction}
 
 export {getFeedStageAction}
 
+// ----校招人才
+// 保存参数
+// tab查出的数据
+export function listRealAction(value){
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchList(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(saveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin',ex))
+    })
+  }
+}
+
+
+// 简历详情数据
+export function itemAction(value) {
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('tableSpin'))
+      return new API().fetchItem(value).then(json => {
+          dispatch(fetchSuccess('tableSpin'))
+          dispatch(saveItem(json))
+      }).catch(ex => {
+          return dispatch(fetchFailure('tableSpin',ex))
+      })
+  }
+}
+// 邀请投递
+export function invateForDeliveryAction(value) {
+  return (dispatch, getState) => {
+      dispatch(fetchRequest('formSpin'))
+      console.log(value,"==value")
+      return new API().fetchInvateForDelivery(value).then(json => {
+        dispatch(fetchSuccess('formSpin',true))
+          dispatch(invateForDelivery(json))
+      }).catch(ex => {
+          return dispatch(fetchFailure('formSpin',ex))
+      })
+  }
+}
+
+// 校招人才----
+
+// ---邀请记录
 // 保存参数
 export function listAction(value) {
   return (dispatch, getState) => {
@@ -53,10 +101,10 @@ export function listAction(value) {
   }
 }
 // tab查出的数据
-export function listRealAction(value){
+export function inviteListRealAction(value){
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
-    return new API().fetchList(value).then(json => {
+    return new API().fetchInviteList(value).then(json => {
       dispatch(fetchSuccess('tableSpin'))
       dispatch(saveList(json))
     }).catch(ex => {
@@ -77,53 +125,9 @@ export function listCountAction(value){
     })
   }
 }
-// 简历详情数据
-export function itemAction(value) {
-  return (dispatch, getState) => {
-      dispatch(fetchRequest('tableSpin'))
-      return new ResumeAPI().fetchItem(value).then(json => {
-          dispatch(fetchSuccess('tableSpin'))
-          dispatch(saveItem(json))
-      }).catch(ex => {
-          return dispatch(fetchFailure('tableSpin',ex))
-      })
-  }
-}
-// export function loadTodos(value) {
-//     return (dispatch, getState) => {
-//         dispatch(fetchRequest('todoSpin'))
-//         return new API().fetchTodo(value).then(json => {
-//             dispatch(fetchSuccess('todoSpin'))
-//             dispatch(saveDates(json.data))
-//         }).catch(ex => {
-//             return dispatch(fetchFailure('todoSpin',ex))
-//         })
-//     }
-// }
 
-// export function loadCounts(value) {
-//     return (dispatch, getState) => {
-//         dispatch(fetchRequest('todoSpin'))
-//         return new API().fetchCount(value).then(json => {
-//             dispatch(fetchSuccess('todoSpin'))
-//             dispatch(saveCounts(json))
-//         }).catch(ex => {
-//             return dispatch(fetchFailure('todoSpin',ex))
-//         })
-//     }
-// }
-// export function loadDates(value){
-//   return (dispatch, getState) => {
-//       dispatch(fetchRequest('todoSpin'))
-//       return new API().fetchDate(value).then(json => {
-//           dispatch(fetchSuccess('todoSpin'))
-//           dispatch(saveList(json))
-//       }).catch(ex => {
-//           return dispatch(fetchFailure('todoSpin',ex))
-//       })
-//   }
-// }
 
+// 邀请记录---
 
 
 

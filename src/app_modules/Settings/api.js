@@ -11,6 +11,24 @@ export default class API extends FetchAPI {
     super(props);
   }
 
+  // companyCard 
+  fetchCompanyCardList(params){
+    return this.fetchPost(`${APP_SERVER}/srCompany/infoJson`,{
+      body:{params}                               
+    })
+  }
+  fetchCompanyCardListSave(params){
+    return this.fetchPost(`${APP_SERVER}/srCompany/saveJson`,{
+      body:params                              
+    })
+  }
+  fetchCompanyCardQrcode(params){
+    return this.fetchGet(`${APP_SERVER}/srCompany/getCompanyQrCode`, {
+      body: params
+    })
+  }
+
+
   fetchList(params) {
     return this.fetchPostList(`${APP_SERVER}/field/listJson`, {
       body: params

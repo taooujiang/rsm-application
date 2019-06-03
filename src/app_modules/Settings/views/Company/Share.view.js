@@ -93,6 +93,7 @@ export default class Share extends FormPage {
     };
 
     const { onSubmit, } = this.props
+
     const { title, remark, photoUrl, id } = this.state
     return (
         <BaseForm onSubmit={onSubmit} ref={this.saveFormRef}>

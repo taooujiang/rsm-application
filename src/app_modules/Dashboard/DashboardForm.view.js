@@ -106,7 +106,8 @@ export default class DashboardForm extends PureComponent{
 			params,
       item
     } = this.props
-		let {startValue,endValue} = this.state
+    let {startValue,endValue} = this.state
+    console.log(item.id,"==item")
     return (
       <BaseForm ref={this.saveFormRef}>
         <FormItem>

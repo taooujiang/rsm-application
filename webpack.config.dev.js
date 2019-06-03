@@ -39,225 +39,240 @@ var webpackConfig = {
     proxy : {
     //   "*":{
     //     changeOrigin: true,
-    //     target: "http://192.168.1.75:9000",
+    //     target: "http://192.168.1.75:8082",
     //  },
      "/code":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000",
+        target: "http://192.168.1.75:8082",
      },
      "/userResource":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000",
+        target: "http://192.168.1.75:8082",
      },
      "/interview":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000",
+        target: "http://192.168.1.75:8082",
      },
      "/schedule":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000",
+        target: "http://192.168.1.75:8082",
       },
       "/messageSend":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/login":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/logout":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/static":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/accountOperate":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/job":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/callrecord":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/resume":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/search":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/option":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/user":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/company":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/authRole":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/organizationGroup":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/reciveMailbox":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/template":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/field":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sincerityLibrary":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/channel":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/option":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
 			"/member":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/sysSupportChannel":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/talentNew":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/dictionary":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/jobNew":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/resumeStoreRules":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/report":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/option":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/interviewPlan":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/ResumeWaitAllot":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/resumeLibrary":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/logResumeOperateRecord":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/offer":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/fileUpload":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/interviewFeedback":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/registration":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/entry":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/reportCallRecord":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/reportRemark":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
 			},
 			"/talentInfo":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sysSetOfferApproval":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sysSetShare":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sysPositionLevel":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sysSetInterpolateAward":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/logUserOperate":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/sysInterviewFeedbackTemplate":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/memberInterpolate":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/email":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/memberAwardRecord":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
       "/smsRecordInfo":{
         changeOrigin: true,
-        target: "http://192.168.1.75:9000"
+        target: "http://192.168.1.75:8082"
       },
+      "/srCompany":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+      "/graduates":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+      "/inviteInfo":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+    
+
       
+     
     }
   },
   plugins: [

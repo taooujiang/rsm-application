@@ -27,6 +27,20 @@ export const companySave = createAction("UPSERT_COMPANY")
 export const companyRemove = createAction("REMOVE_COMPANY")
 // company END
 
+// companyCard
+export const companyCardList = createAction("STORE_COMPANYCARD")
+export const companyCardListSave = createAction("STORE_COMPANYCARDSAVE")
+export const  companyCardRemoveTag = createAction("STORE_CARDREMOVETAG")
+export const companyCardAddTag = createAction("STORE_CARDADDTAG")
+export const companyCardImgList = createAction("STORE_CARDIMGLIST")
+export const companyCardImgListRemove = createAction("STORE_CARDIMGLISTREMOVE")
+export const addProdect = createAction("STORE_CARDADDPRODECT")
+export const removeProdect = createAction("STORE_CARDREMOVEPRODECT")
+
+// export const companyCardRemoveTag = createAction("STORE_COMPANY")
+// companyCard
+
+
 // option
 export const optionSaveList = createAction("STORE_SYSTEMOPTION")
 export const optionSave = createAction("UPSERT_SYSTEMOPTION")
@@ -103,7 +117,6 @@ let {
 
 let { backRoute, addRoute, editRoute } = createActionRoute()
 export { backRoute, addRoute, editRoute }
-
 
 function changeProp(id, propName, value) {
   return { type: CONSTANTS.CHANGE_PROP, payload: { id, propName, value } }
@@ -624,6 +637,117 @@ export function saveCompanyAction(value) {
     })
   }
 }
+
+// companyCard
+export function companyCardListAction(value) {
+  return (dispatch, getState) => {
+    return new API().fetchCompanyCardList(value).then(json => {
+      const initData = {"id":"","addressId":"","company":"","abbreviation":"","nature":"","trade":"","scale":"","website":"",   "address":"","companyLogo":"","welfares":[],"productList":[],"introduce":"","imageList":[]};
+      dispatch(companyCardList({list:[{...initData, ...json}]}));
+    }).catch(ex => {
+    })
+  }
+}
+export function companyCardListSaveAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('formSpin'))
+    return new API().fetchCompanyCardListSave(value).then(json => {
+      dispatch(fetchSuccess('formSpin'),true)
+      dispatch(companyCardList({list:[{...json}]}))
+      message.warning(`保存成功`);
+    }).catch(ex => {
+      dispatch(companyCardListAction());
+      message.warning(`保存失败`);
+      return dispatch(fetchFailure('formSpin', ex))
+    })
+  }
+}
+export function companyCardRemoveTagAction(index) {
+  return (dispatch, getState) => {
+    getState().settingsReducer.list[0].welfares.splice(index,1)
+    console.log(getState().settingsReducer.list[0].welfares,"=getState().settingsReducer.list[0].welfares")
+      dispatch(companyCardRemoveTag({welfares:getState().settingsReducer.list[0].welfares}))
+  }
+}
+export function companyCardAddTagAction(item) {
+  return (dispatch, getState) => {
+      dispatch(companyCardAddTag({welfares:getState().settingsReducer.list[0].welfares.push(item)}))
+  }
+}
+
+export function companyCardImgListAction(sign,info,infoList,resetFile){
+  return (dispatch, getState) => {
+    console.log(sign,info,infoList,resetFile,"====sign,info,infoList,resetFile")
+    let preData = getState().settingsReducer.list[0][sign] ? [...getState().settingsReducer.list[0][sign]] : []
+    // console.log(preData.filter(item=>resetFile.uid != item.uid),"====preData.filter(item=>resetFile.uid != item.uid)")
+   let resetIndex= preData.findIndex((value, index, arr) => {
+      return resetFile.uid == value.uid
+    }) + 1
+    let newIndex=preData.length + 1
+    console.log(resetFile,preData,preData.length + 1,"====preData")
+    let newData = resetFile &&  resetFile.url ? 
+      [...preData.filter(item=>resetFile.uid != item.uid),{uid:infoList.uid,
+        id:info.id,
+        name:infoList.name,
+        url:info.fileUrl,
+        thumbUrl:info.fileUrl,
+        imageUrl:info.fileUrl,
+        imageSort:resetIndex}]
+     : [
+      ...preData,
+      {uid:infoList.uid,
+      id:info.id,
+      name:infoList.name,
+      url:info.fileUrl,
+      thumbUrl:info.fileUrl,
+      imageUrl:info.fileUrl,
+      imageSort:newIndex}
+     ]
+     console.log(newData,"==newData")
+        dispatch(
+          companyCardImgList(
+            {[sign]:newData.sort((a,b)=>{
+              return a.imageSort - b.imageSort
+            })}
+          )
+        )
+    }
+}
+export function companyCardImgListRemoveAction(sign,fileList){
+  return (dispatch, getState) => {
+        const arr = getState().settingsReducer.list[0][sign].filter(item=>item.uid !=  fileList.uid).map((item,index)=>{
+          item.imageSort=index + 1
+          return item
+        })
+        dispatch(companyCardImgListRemove({[sign]:arr}))
+    }
+}
+export function addProdectAction(value){
+  return (dispatch, getState) => {
+        dispatch(addProdect(value))
+    }
+}
+export function removeProdectAction(value){
+  return (dispatch, getState) => {
+    console.log(value,getState(),"==value")
+    if(value.productName == ''){
+      dispatch(removeProdect( getState().settingsReducer.list[0].productList.splice(value.index,1)))
+    }else{
+       getState().settingsReducer.list[0].productList.map(item=>{
+        if(value.productName == item.productName){
+              item.isDeal=1
+          return item
+        }
+      })
+      dispatch(removeProdect( getState().settingsReducer.list[0].productList))
+      // getState().settingsReducer.list[0].productList.splice(value.index,1)
+    }
+   
+    console.log( getState().settingsReducer.list[0].productList,"=action----removeProdectAction")
+        
+    }
+}
+
 
 export function deleteCompanyAction(value, id) {
   return (dispatch, getState) => {

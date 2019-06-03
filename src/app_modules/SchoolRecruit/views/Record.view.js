@@ -35,16 +35,16 @@ export default class RecordListView extends PageView {
   }
   componentDidMount() {
     let {actions,router,children} = this.props;
-    let params = {status:1}
+    let params = {inviteStatus:1}
     actions.listAction(params)//参数
-    actions.listRealAction(params)//tab数据
+    actions.inviteListRealAction(params)//tab数据
     actions.listCountAction(params)//筛选的头部菜单
   }
   componentWillReceiveProps(nextProps){
     let {actions} = this.props
     if(this.props.reduce.params !== nextProps.reduce.params){
       let {actions,router,children} = this.props;
-      actions.listRealAction(nextProps.reduce.params)
+      actions.inviteListRealAction(nextProps.reduce.params)
       actions.listCountAction(nextProps.reduce.params)
     }
     if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
@@ -66,29 +66,24 @@ export default class RecordListView extends PageView {
       showTotal:undefined,
       total:undefined
     }
-    actions.listAction({status:value,...reset})
-  }
-  renderOptions(it){
-    return (
-      <RadioButton value={it.timeType}>
-        <span>{it.describe}</span>
-        <span className="count">{it.amount}</span>
-      </RadioButton>
-    )
+    actions.listAction({inviteStatus:value,...reset})
   }
   renderTypeFilter(){
     let {reduce:{listCount}} = this.props
-    return (
-      <AdvancedSearchForm classNames="radioGroupResetFormItem" autoSubmitForm={false} isSearchBtnHide={true} >
-        <RadioGroup className="interviewRadio radioGroupReset" onChange={this.changes.bind(this)} name="status" fetch={listCount} renderItem={this.renderOptions.bind(this)} />
-      </AdvancedSearchForm>
-    )
+    return (<AdvancedSearchForm  classNames="radioGroupResetFormItem" autoSubmitForm={false} isSearchBtnHide={true} >
+      {/*  name="" onChange={this.handleRadioChange.bind(this)} defaultValue={params && params.status || 0} */}
+        <RadioGroup className="interviewRadio radioGroupReset" onChange={this.changes.bind(this)} name="inviteStatus" defaultValue={listCount || 1}>
+          <RadioButton value="1">已发送<span className="count">{listCount.yfs}</span></RadioButton>
+          <RadioButton value="2">已查看<span className="count">{listCount.yck}</span></RadioButton>
+          <RadioButton value="3">已投递<span className="count">{listCount.ytd}</span></RadioButton>
+          </RadioGroup>
+      </AdvancedSearchForm>)
   }
 
   renderTableList() {
     let that=this;
     let {reduce,items} = this.props
-    let {spins:{tableSpin},key,page,params:{status},list} = reduce
+    let {spins:{tableSpin},key,page,params:{inviteStatus},list} = reduce
     let pathname = this.props.location.pathname
     // let list = [...reduce.list.values()]
     console.log(this.props,"===this.props")
@@ -96,29 +91,35 @@ export default class RecordListView extends PageView {
     const sendTabColumns=[
       {
         title: "基本信息",
-        key: "ownerName",
+        key: "name",
         width: 350,
-        dataIndex: "ownerName",
-        render: (ownerName, row) =><SchoolInfo item={row} pathname={pathname}/>
+        dataIndex: "name",
+        render: (name, row) =><SchoolInfo item={row} pathname={pathname}/>
       }, {
         title: "邀请时间",
-        key: "deliveryTime",
+        key: "inputTime",
         width: 200,
-        dataIndex: "deliveryTime",
+        dataIndex: "inputTime",
         render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
         title: "邀请投递职位",
-        key: "dept",
-        dataIndex: "dept",
+        key: "jobName",
+        dataIndex: "jobName",
         width: 150,
       },{
           title: "邀请状态",
-          key: "status",
-          dataIndex: "status",
+          key: "inviteStatus",
+          dataIndex: "inviteStatus",
           width: 150,
           render:(val,row)=>{
-            let style =   row.channel == '1' ?  {color:'#D67794'} :  (row.channel == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
-            return   <span style={{...style,fontSize:'15px'}}>{row.name}</span>
+            let arr=[
+              {status:0,statusText:'未投递',style:{color:'#D67794',fontSize:'15px'}},
+              {status:1,statusText:'已发送',style:{color:'#6BD0BE',fontSize:'15px'}},
+              {status:2,statusText:'已查看',style:{color:'#DA947E',fontSize:'15px'}},
+              {status:3,statusText:'已投递',style:{color:'#DA947E',fontSize:'15px'}}
+            ]
+            let style =   row.inviteStatus == '1' ?  {color:'#D67794'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
+            return   <span style={arr[row.inviteStatus].style}>{arr[row.inviteStatus].statusText}</span>
           }
       }
     ]
@@ -126,24 +127,24 @@ export default class RecordListView extends PageView {
     const searchTabColumns=[
       {
         title: "基本信息",
-        key: "ownerName",
+        key: "name",
         width: 450,
-        dataIndex: "ownerName",
-        render: (ownerName, row) => <SchoolInfo item={row} pathname={pathname}/>
+        dataIndex: "name",
+        render: (name, row) => <SchoolInfo item={row} pathname={pathname}/>
       }, {
         title: "邀请时间",
-        key: "interviewTime",
-        dataIndex: "interviewTime",
+        key: "inputTime",
+        dataIndex: "inputTime",
         render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
         title: "投递时间",
-        key: "deliveryTime",
-        dataIndex: "deliveryTime",
+        key: "inviteTime",
+        dataIndex: "inviteTime",
         render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
           title: "投递职位",
-          key: "dept",
-          dataIndex: "dept",
+          key: "jobName",
+          dataIndex: "jobName",
       }
     ]
     const tableConfColumnsList={
@@ -160,7 +161,7 @@ export default class RecordListView extends PageView {
       onChange:this.onChange.bind(this),
       rowKey: key,
       dataSource:[...list],
-      columns: tableConfColumnsList[status]
+      columns: tableConfColumnsList[inviteStatus]
     }
     return (<DataTable style={{
       width: '100%'

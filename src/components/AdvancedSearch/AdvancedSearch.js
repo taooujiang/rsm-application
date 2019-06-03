@@ -293,7 +293,7 @@ export default class AdvancedSearchForm extends React.Component {
       }
     };
     let {placeHolder,items,displayItem,show} = this.state
-    let {showConfig,children,isSearchBtnHide,className,autoSubmitForm} = this.props
+    let {showConfig,children,isSearchBtnHide,className,autoSubmitForm,isCircle} = this.props
     return (
       <div className={classNames("advanced-search-panel",className)}>
           {this.renderConfig()}
@@ -303,7 +303,7 @@ export default class AdvancedSearchForm extends React.Component {
               <Permission expression={showConfig} >
                 <Button shape="circle" icon="setting" onClick={this.renderAdvancedConfigModal.bind(this)}/>
               </Permission>
-              <Permission expression={React.Children.count(children)>3} >
+              <Permission expression={isCircle && React.Children.count(children)>3} >
                 <Button shape="circle" icon={this.state.expand==false?'down':'up'} onClick={this.toggleExpand.bind(this)}/>
               </Permission>
 							{isSearchBtnHide?null:<Button htmlType="submit" onClick={this.handleSearch.bind(this)} type="primary">查询</Button>}
@@ -337,7 +337,8 @@ AdvancedSearchForm.defaultProps = {
   module:"",
   filterSubmitHandler: function() {},
 	showExpand:3,
-	layout:''
+  layout:'',
+  isCircle:true
 }
 
 //export default AdvancedSearchForm = Form.create()(AdvancedSearchForm)

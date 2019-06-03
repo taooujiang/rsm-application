@@ -162,6 +162,7 @@ export default class CustomSystemFieldView extends PageView {
   }
   renderToolbar() {
     let {actions} = this.props;
+    console.log(this.props,"===this.props")
     return (
       <div className='button-group'>
         <Button.Group>

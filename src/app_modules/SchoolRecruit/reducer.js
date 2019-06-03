@@ -7,7 +7,7 @@
 */
 
 
-import {saveParams,saveListCount,saveCounts,saveDates,saveFeedStage,saveFeedBack,saveList} from './action'
+import {invateForDelivery,saveItem,saveParams,saveListCount,saveCounts,saveDates,saveFeedStage,saveFeedBack,saveList} from './action'
 import CONSTANTS from './action'
 
 import {handleActions} from 'redux-actions'
@@ -87,6 +87,12 @@ actions[saveParams] = ( state , action)=>{
   }
 }
 
+actions[saveItem] = ( state , action )=>{
+  return {
+    ...state,
+    detailList:action.payload
+  }
+}
 actions[saveListCount] = ( state , action )=>{
   return {
     ...state,
@@ -94,6 +100,17 @@ actions[saveListCount] = ( state , action )=>{
   }
 }
 
+
+actions[invateForDelivery] = ( state , action )=>{
+  return {
+    ...state,
+    detailList:{
+      ...state.detailList,
+      inviteStatus:action.payload.status ? 3 : 0
+    }
+    
+  }
+}
 // actions[saveCounts] = ( state , action )=>{
 //   return {
 //     ...state,

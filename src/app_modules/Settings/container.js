@@ -37,8 +37,6 @@ import RoleFormView from './views/RoleForm.view'
 import RoleDetailView from './views/RoleDetail.view'
 
 import CompanyCardView from './views/Company/CompanyCard.view'
-import LabelFormView from './views/Company/Label.view'
-import ProductsFormView from './views/Company/Products.view'
 import CardProviewView  from  './views/Company/Proview.view'
 import CompanyView from './views/Company.view'
 import CompanyFormView from './views/CompanyForm.view'
@@ -73,7 +71,7 @@ import {LevelSettingDeleteForm} from './views/SysProperty/LevelSettingForm.view'
 import ActionLogView from './views/SysProperty/ActionLog.view'
 
 import ShareView from './views/Company/Share.view'
-import ModalView, {ModalWidthView, ModalDetailView} from 'app/components/Modal.view'
+import ModalView, {ModalWidthView, ModalDetailView,ModalQRcodeView} from 'app/components/Modal.view'
 import WrapperComponent from 'app/decorators/WrapperComponent'
 import * as actions from './action'
 
@@ -211,16 +209,15 @@ let RoleDetailContainer = connect((state,props)=>({
   reduce: state.settingsReducer,
   appReducer:state.appReducer
 }), mapDispatchToProps, null, { pure: false })(RoleDetailView)
-
-let CompanyCardContainer = connect((state)=>({
-  item:reducerListSelector(state.ORMReducer,"CompanyCard"),
-  reduce: state.settingsReducer,
-  appReducer:state.appReducer
-}), mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(CompanyCardView))
-
-let LabelFormContainer = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(LabelFormView))
-let  ProductsFormContainer  = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(ProductsFormView))
-let  CardProviewContainer  = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(CardProviewView))
+// 走redux-orm
+// let CompanyCardContainer = connect(// (state)=>({
+  // item:reducerListSelector(state.ORMReducer,"CompanyCard"),
+  // reduce: state.settingsReducer,
+  // appReducer:state.appReducer
+// }),mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(CompanyCardView))
+//  不走redux-orm
+let CompanyCardContainer = connect(mapStateToProps,mapDispatchToProps, null, {pure: false})(SideLayout(SettingsSide)(CompanyCardView))
+let  CardProviewContainer  = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalQRcodeView)(CardProviewView))
 let CompanyContainer = connect((state,props)=>({
   items:reducerListSelector(state.ORMReducer,"Company"),
   reduce: state.settingsReducer,
@@ -429,8 +426,6 @@ export {
     InternalRecommendContainer,
     ActionLogContainer,
     ShareContainer,
-    LabelFormContainer,
-    ProductsFormContainer,
     CardProviewContainer
 }
 

@@ -1,18 +1,74 @@
 .maskModel{
   position: absolute;
   top: 0;
-  width: calc(100% + 60px);
-  height: calc(100% + 5px);
+  width: calc(100% + 40px);
+  height: calc(100% + 10px);
   background: rgba(0, 0, 0, 0.25);
   opacity: 0.2;
   cursor: not-allowed;
   z-index: 99;
-  top:-18px;
+  top:-20px;
   left: -30px;
 }
+.recodeJpg{
+ width: 80%;
+ height: 80%;
+ margin:10% auto;
+}
 .school-form-view{
+    .ant-card-body{
+      padding: 18px 30px 50px 30px;
+  }
+  .anticon-eye-o:before{
+    content: '\e6B6'
+  }
+
   .ant-form.ant-form-horizontal{
-    position: relative;
+    // position: relative;
+  }
+  /* tile uploaded pictures */
+// .upload-list-inline .ant-upload-list-item {
+//   float: left;
+//   width: 200px;
+//   margin-right: 8px;
+// }
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}
+.iconClose{
+  position: absolute;
+    right: -6px;
+    top: -24px;
+    font-size: 16px;
+
+}   
+  .upload-list-inline .ant-upload-list-item{
+    // width: 130px;
+    // height: 130px;
+    // padding:10px;
+    // img{
+    //   position: absolute;
+    //   width: 100px;
+    //   height: 100px;
+    //   top:8px;
+    //   left:5px;
+    // }
+    .anticon-cross{
+      top:4px;
+      right:4px;
+    }
   }
 }
 .EditableFeildMask{
@@ -31,25 +87,7 @@
   // line-height: 1;
   height: 24px;
 }
-/* tile uploaded pictures */
-.upload-list-inline .ant-upload-list-item {
-  float: left;
-  width: 200px;
-  margin-right: 8px;
-}
-.upload-list-inline .ant-upload-animate-enter {
-  animation-name: uploadAnimateInlineIn;
-}
-.upload-list-inline .ant-upload-animate-leave {
-  animation-name: uploadAnimateInlineOut;
-}
-.iconClose{
-  position: absolute;
-    right: -6px;
-    top: -24px;
-    font-size: 16px;
 
-}   
 // 之前的setting的样式
 .channel-description{
   .ant-tag{
@@ -84,6 +122,7 @@
     }
     .ant-card-body{
        overflow: auto;
+       min-height: 100%;
     }
 }
 

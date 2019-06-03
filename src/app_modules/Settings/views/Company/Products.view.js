@@ -6,6 +6,8 @@
 
 import React, {Component, PropTypes} from 'react'
 import {
+  message,
+  Icon,
   Row,
   Col,
   Modal,
@@ -22,94 +24,283 @@ import {FormPage} from 'app/components/Page'
 import FetchAPI from 'app/utils/FetchAPI'
 import CheckTag from 'app/components/CheckTag'
 import BaseForm,{FormItem} from 'app/components/BaseForm'
-import { ImgUpload } from 'app/components/FileUpload'
+import { ImgUpload,ImgUploadList } from 'app/components/FileUpload'
 
 const Option = Select.Option
 const {TextArea} = Input
 
 export default class LabelFormView extends FormPage{
-  state = {
-    name:'',
-    description:'',
-    photoUrl:''
+  constructor(props) {
+    super(props);
+    this.state={
+      initialValue:props.productList || [],
+      data: [],
+      curentfile:{}
+    }
   }
-
-  componentWillMount(){
-    // let {location:{state:{labels}}} = this.props
-    // let labels=['ceshi']
-    // new FetchAPI().fetch(`${APP_SERVER}/option/optionListJson?optionCode=labels_code`,{
-    //   method:'GET'
-    // }).then((json) => {
-        this.setState({
-            name:'测试产品名称',
-            description:'测试产品描述',
-            photoUrl:''
-        });
-    // });
-
+  componentWillReceiveProps(nextProps) {
+    const {value,onChange} =this.props
+    console.log(nextProps.value,"==product=componentWillReceiveProps")
+    if(JSON.stringify(nextProps.value) != JSON.stringify(this.props.value)){
+      this.setState({
+        initialValue: nextProps.value
+      },function(){
+        this.props.productsOnReturn(nextProps.value)
+      });
+      
+    }
   }
-//   提交数据同时同步到reducer
-  handleSubmit(values){
-    // let {current} = this.state
-    // let {params:{resumeId},actions,router,location} = this.props
-    // let json = {
-    //   id:resumeId,
-    //   remarkLabel:current.join(",")
+      //在上传之前实现上传验证
+      beforeUpload(num,size,preImgList,sign,file,fileList){
+        return new Promise((resolve, reject) => {
+            let type = file.type.split("/").pop().toLocaleLowerCase()
+            // console.log(num,sign,this.state[sign],file,fileList,"===beforeUpload-befor")
+            let preNum = preImgList ?  preImgList.length  : 0
+            this.state[sign] = this.state[sign] ? this.state[sign] : 1
+             console.log((1  + preNum) > num,JSON.stringify(this.state.curentfile) == "{}",preNum,preImgList,(this.state[sign]  + preNum),"==preNum=beforeUpload-befor")
+            size = size ? size : 99999999
+            if (file.size / 1024 > size) {
+                message.warning(`图片限制大小为${size}KB`)
+              return reject(false) 
+            }else if((1  + preNum) > num && JSON.stringify(this.state.curentfile) == "{}"){
+              message.warning('最多上传' + num + '张图片哦！')
+              return reject(false) 
+          } else if (type != "jpg" && type != "png" && type != "jpeg" && type != 'bmp') {
+              message.warning("请上传JPG、PNG、JPEG格式图片")
+              return reject(false)   
+          }else{
+              if(this.state[sign]){
+                  this.setState({
+                      [sign]:this.state[sign] + 1
+                  })
+              }else{
+                  let obj={}
+                  obj[sign]=2
+                  this.setState(obj)
+              }
+             
+              // console.log(num,sign,this.state[sign],file,fileList,"===beforeUpload-after")
+             return resolve(true);
+          }   
+         
+      }) 
+  }
+  // 上传的返回值
+  responseType(res) {return res.fileUrl}
+  //上传成功之后改变state的值   
+  onSuccess(sign,info,infoList) {
+    const {value,onChange} =this.props
+
+    //  if(this.state.curentfile){
+    //    console.log(this.state.curentfile,"===this.state.curentfile")
+    //   this.state.initialValue[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
+    //     id:info.id,
+    //     name:infoList.name,
+    //     url:info.fileUrl,
+    //     thumbUrl:info.fileUrl}]
+    //     onChange(this.state.initialValue)  
+       
     // }
-    // actions.setLabelAction(json).then((json)=>{
-    //   actions.backRouteReload(router,location)
-    // })
+    this.state.initialValue[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
+      id:info.id,
+      name:infoList.name,
+      url:info.fileUrl,
+      thumbUrl:info.fileUrl}]
+      onChange(this.state.initialValue) 
+      this.props.productsOnReturn(this.state.initialValue)
+    // if(this.state.curentfile){
+    //   value[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
+    //     id:info.id,
+    //     name:infoList.name,
+    //     url:info.fileUrl,
+    //     thumbUrl:info.fileUrl}]
+    //     onChange(value)  
+    // }
+
+    this.setState({
+      curentfile:{}
+    })  
+    // console.log(this.state.curentfile,"==after=this.state.curentfile")
   }
- //在上传之前实现上传验证
- beforeUpload(){
-    let { name } = file
-    let suffix = name.split(".").pop().toLocaleLowerCase()
-    if (file.size / 1024 > 200) {
-      message.warning("图片限制大小为200KB")
-      return false
+  handlePreview(sign,file){
+    // console.log(this.refs,sign,file,"==handlePreview=file")
+    this.setState({
+      curentfile:file
+    })
+    this.refs[sign].handlePreview(file)
+  }
+  onRemove(sign,fileList){
+         
+           this.setState({
+              [sign]:this.state[sign] - 1
+          })
+          const {value,onChange} =this.props
+           
+          this.state.initialValue[sign.split('productLogo')[1]].productLogo=[]
+
+          value[sign.split('productLogo')[1]].productLogo=[]
+
+          onChange(this.state.initialValue) 
+          this.props.productsOnReturn(this.state.initialValue)
+          // console.log( value,this.state.initialValue,"==onRemoveonRemove=before")
+  }
+  onImgChange(sign,fileList){
+    // console.log(sign,fileList,"=product=onChange=fileList")
+  }
+  addProducts(){  
+      const {value,onChange} =this.props
+      let data= {
+       "productName":"","productDesc":"","productLogo":"",isNew:1
+      }
+      // this.setState({
+      //   initialValue:[...this.state.initialValue,data]
+      // })
+      this.state.initialValue.push(data)
+      onChange(value)
+      this.props.productsOnReturn(this.state.initialValue)
+ 
+      // // if(value.findIndex(item=>item.isNew) === -1){
+        // onChange([...value,data])
+      // // } 
     }
-    if (suffix == "jpg" || suffix == "png" || suffix == "jpeg") {
-      return true
-    } else {
-      message.warning("请上传JPG、PNG、JPEG格式图片")
-      return false
+  closeFun(item,index,event){
+  //   const {value,onChange} =this.props
+  //    if(item.productName == ''){
+  //       value.splice(index,1)
+  //    }else{
+  //      value[index].isDel=1
+  //    }
+  // console.log(value,'==closeFun')
+  //   onChange(value)
+
+    const {value,onChange} =this.props
+    if(item.productName == ''){
+        this.state.initialValue.splice(index,1)
+    }else{
+      this.state.initialValue[index].isDel=1
     }
-}
+    // console.log(this.state.initialValue,'==closeFun')
+    this.setState({
+      initialValue:this.state.initialValue
+    },function(){
+      onChange(this.state.initialValue)
+      this.props.productsOnReturn(this.state.initialValue)
+    })
+
+    
+  }
+
+  productInputChange(event,index,sign,t,g,h) {
+
+    // console.log(event,index,sign,'==productInputChange')
+    // if(index == 'productLogo'){
+    //   // 是图片时候的处理
+    //   const {value,onChange} =this.props
+    //   value[event][sign]=sign 
+    //   onChange(value)
+    // }else{
+    //   const {value,onChange} =this.props
+    //   value[index][sign]=event.target.value
+    //   onChange(value)
+    // }
+
+
+    // console.log(event,index,sign,t,g,h,this.state.curentfile,'==productInputChange,event,index,sign,t,g,h')
+    // if(index == 'productLogo'){
+    //   // 是图片时候的处理
+    //   const {value,onChange} =this.props
+    //   this.state.initialValue[event][sign]=sign
+    //   onChange(this.state.initialValue)
+    // }else{
+      const {value,onChange} =this.props
+      this.state.initialValue[index][sign]=event.target.value
+      onChange(this.state.initialValue)
+      // this.props.productsOnReturn(this.state.initialValue)
+    // }
+  
+  }
+  // renderProduct(){}
   render() {
-    // let {params:{resumeId}, reduce:{spins:{formSpin}},location:{state:{item}}} = this.props;
-    const style ={
-        labelCol: {
-            span: 6
-        },
-        wrapperCol: {
-            span: 24
-        }
-    }
-    const {name,photoUrl,description} =this.state
-    return (<BaseForm
-         onSubmit={this.handleSubmit} 
-         ref={this.saveFormRef} 
-         className="products-form">
-                <FormItem className="row-hidden">
-                            <Input name="id" type="hidden" defaultValue={id} />
-                </FormItem>
-                <FormItem {...style}>
-                    <Input label="产品名称" name="name" defaultValue={name}
-                        rules={[{ max: 20, message: "最多输入20个字！" }]} />
-                </FormItem>
-                <FormItem {...style}>
-                    <Input label="产品描述" name="description" defaultValue={description}
-                        rules={[{ max: 20, message: "最多输入20个字！" }]} />
-                </FormItem>
-                <FormItem {...style} >
-                    <ImgUpload label="产品logo" name="photoUrl" type={2} beforeUpload={this.beforeUpload}
-                        imgUrl={photoUrl}
-                        btnText="上传图标"
-                        accept="image/png,image/jpg,image/JPEG"
-                        tipText=" 上传文件建议尺寸为300*300，大小不超过200KB"
-                        imgWidth="300px"
-                        onResponse={this.responseType} onSuccess={this.onSuccess}></ImgUpload>
-                </FormItem>
-        </BaseForm>)
+    const {productList,onChange} =this.props
+    const stateValue =this.state.initialValue
+
+    // const  value = [...this.props.value]
+    console.log(stateValue,"==44=this.state.initialValue")
+    const fromFullItemLayoutArr=[
+      {
+          labelCol: {
+              span: 6
+          },
+          wrapperCol: {
+              span: 24
+          }
+      },
+      {
+          labelCol: {
+              span:6
+          },
+          wrapperCol: {
+              span: 24
+          },
+          style:{
+              display:'inline-block',
+              width:'50%'
+          }
+      }
+  ]
+    return (
+    <div  key='p' className="products-form">
+                    <Button  style={{marginBottom:'10px'}}  onClick = {this.addProducts.bind(this)}   name='products'className="tag-edit-btn"><Icon type="plus"/>添加 </Button>
+                    { stateValue  ?  stateValue.map((itemM,index)=>{
+                        return (itemM.isDel == 0 || itemM.isNew) &&  <FormItem key={`FormItem${index}`} name={`productItem${index}`} {...fromFullItemLayoutArr[0]}  style={{
+                          background: '#FAFAFA',
+                          padding: '20px 0 0 20px',
+                          border:'solid 1px #EAEAEA'
+                      }}>
+                             <div   key={`divItem${index}`}   name='imgs' className='productItem' >
+                                <Icon  type="close-circle" className='iconClose' onClick={this.closeFun.bind(this,itemM,index)} />
+                                 <FormItem {...fromFullItemLayoutArr[0]} >
+                                 <Input label="产品名称" name={`productName${index}`} defaultValue={itemM.productName}
+                                     onChange={event=>{this.productInputChange(event,index,'productName')}}
+                                    rules={[
+                                         {required: true, message: '请输入产品名称!',},
+                                         { max:8, message: "最多输入8个字！" }]} />
+                                 </FormItem>
+                                 <FormItem  {...fromFullItemLayoutArr[0]} >
+                                 <Input label="产品描述" name={`productDesc${index}`} defaultValue={itemM.productDesc}
+                                     onChange={event=>{this.productInputChange(event,index,'productDesc')}}
+                                     rules={[{required: true, message: '请输入产品描述!'},{ max: 25, message: "最多输入25个字！" }]} />
+                                 </FormItem>
+                                 <FormItem {...fromFullItemLayoutArr[0]} >
+                                     <div label="产品logo"  name={`productLogo${index}`}  id={`productLogo${index}`} defaultValue={itemM.productLogo　|| []}  rules={[
+                                         {required: true, message: '请上传产品logo!'}]}>
+                                          <Input type='hidden'  name={`productLogo${index}`}  defaultValue={itemM.productLogo || []} />
+                                     {/*  onChange={this.productInputChange.bind(this,index,'productLogo')} */}
+                                     {/* onChange={this.productInputChange.bind(this,index,'productLogo')} */}
+                                     {/* onChange={this.onImgChange} */}
+                                     <ImgUploadList  key={`productLogo${index}`} ref={`productLogo${index}`} type={2} defaultValue={itemM.productLogo|| []}
+                                             handlePreview={this.handlePreview.bind(this,`productLogo${index}`)}
+                                             onChange={this.onImgChange}
+                                             beforeUpload={this.beforeUpload.bind(this,1,200,itemM.productLogo,`productLogo${index}`)}
+                                             fileList={itemM.productLogo　|| []}
+                                             btnText="点击上传"
+                                             iconImg='plus'
+                                             name={`productLogo${index}`}
+                                             accept="image/png,image/jpg,image/JPEG,image/bmp"
+                                             tipText=" 请上传jpg，png，jpeg，bmp格式图片，不超过200KB"
+                                             imgWidth="60px"
+                                             imgNum={1}
+                                             onRemove={this.onRemove.bind(this,`productLogo${index}`)}   onResponse={this.responseType} onSuccess={this.onSuccess.bind(this,`productLogo${index}`)}></ImgUploadList>
+                                     </div>
+                                    
+                                 </FormItem>
+                         </div>
+                     </FormItem>
+                     })
+                     : null
+        
+               }
+        </div>
+        )
   }
 }

@@ -259,7 +259,29 @@ class ItemChangeCommon extends Component {
 		return this.renderWhich()
 	}
 }
-			/* tabs组件开始 */
+function fake_click(obj) {
+	var ev = document.createEvent("MouseEvents");
+	ev.initMouseEvent(
+		"click", true, false, window, 0, 0, 0, 0, 0
+		, false, false, false, false, 0, null
+	);
+	obj.dispatchEvent(ev);
+}
+
+function export_raw(name, data) {
+	var urlObject = window.URL || window.webkitURL || window;
+	var export_blob = new Blob([data]);
+	var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+	save_link.href = urlObject.createObjectURL(export_blob);
+	save_link.download = name;
+	fake_click(save_link);
+}
+function changeFrameHeight(){
+	  var ifm= document.getElementById("iframepage") || {}; 
+	  ifm.height=document.documentElement.clientHeight;
+	
+}
+/* tabs组件开始 */
 export class PersonTabBaseInfo extends Component {
 	constructor(props) {
 		super(props)
@@ -276,6 +298,9 @@ export class PersonTabBaseInfo extends Component {
 		}
 		/* showtype 1 标准  2 原始 3 编辑 */
 	}
+	// componentWillUnmount() {
+	// 	window.addEventListener('resize', changeFrameHeight())
+	// }
 	componentDidMount() {
 		let {actions, id} = this.props
 		//id = "04e7fc53e9b6469ab527168d0346f51b"
@@ -310,6 +335,38 @@ export class PersonTabBaseInfo extends Component {
 				? 2
 				: 1
 		})
+	}
+	// 标准简历下载
+	handleDownload2(){
+		let {
+			info: {
+				resumeInfo: {
+					sourceUrl,
+					name
+				}
+			}
+		} = this.props
+		let stylesText = '<style>.resume-origin{top:-40px}.personinfo-detailHead{padding:10px;position:relative}.personinfo-detailHead .part-editBtn{position:absolute;right:10px;top:5px;border:none;color:#58b1f0}.personinfo-detailHead .person-headicon{width:80px;height:auto;border-radius:50%;margin:0 20px}.personinfo-detailHead .personinfo-headInfo{display:inline-block;vertical-align:bottom}.personinfo-detailHead .personinfo-headInfo .contactInfo span{margin-right:20px}.personinfo-detailHead .personinfo-headInfo .contactInfo span i{margin-right:10px;font-size:14px;color:#333}.salary-info{border-bottom:none;padding:20px;margin-top:10px;position:relative}.salary-info>h3{color:#32a0eb}.salary-info>h3>span{color:rgba(0,0,0,.65);margin-left:20px;font-size:12px}.salary-info .part-editBtn{position:absolute;right:10px;top:5px;border:none;color:#58b1f0}.salary-info .baseinfo-item{display:inline-block;width:24%}.otherInfo{padding:10px;line-height:24px}.otherInfo>div{padding:10px 60px 10px 10px;position:relative}.otherInfo>div .part-editBtn{position:absolute;right:0;top:0;border:none;color:#58b1f0}.otherInfo>div>h3{color:#32a0eb}.otherInfo>div>h3 .add-title{font-size:12px;border:none;color:#32a0eb;position:absolute;right:0}.otherInfo>div>div{position:relative}.otherInfo>div>div>h4{font-weight:700}.otherInfo>div>div>h4>.item-edit-btn{position:absolute;right:-60px;font-////size:12px;border:none;color:#32a0eb}.otherInfo>div>div>h4>span{margin-right:30px}.otherInfo>div>form{overflow:hidden;margin-top:10px}.otherInfo>div>form .ant-btn-group{float:right}.otherInfo>div>form .ant-btn-group>button.ant-btn-primary{margin-left:20px}body { color:#333; }button {display: none;} h3 {color:#32a0eb}  h3 > span {color:#333;margin-left:20px;font-size:12px;} img { width: 80px;height: auto;border-radius: 50%;margin: 0 20px;}</style>'
+		var test = '<!DOCTYPE html><html>' 
+			+ stylesText
+			+ '<body> <div style="width:750px;margin:20px auto;border:solid 1px #e6e6e6">' + document.getElementById('personInfoPrintBox').innerHTML + ' </div></body></html>'
+	    let htmlName = name + '的标准简历.html'
+	    export_raw(htmlName, test);
+	}
+	// 原始简历下载
+	handleDownload(){
+		let {
+			info: {
+				resumeInfo: {
+					sourceUrl,
+					name
+				}
+			}
+		} = this.props
+		var test = '<!DOCTYPE html><html><body style="width:750px;margin:20px auto;"><iframe id="iframepage"  name="iframepage" width="800"  height="900"    scrolling="auto"  hspace="-100" vspace="-150" src="' + sourceUrl + '" ></iframe></body></html>'
+	    let htmlName = name + '的原始简历.html'
+	    export_raw(htmlName, test);
+
 	}
 	handlePrinter(isOrgin) {
 		// let {info , actions ,id ,detailType} = this.props
@@ -374,15 +431,18 @@ export class PersonTabBaseInfo extends Component {
 					<ButtonGroup style={{
 							float: 'right'
 						}}>
+						<Button type="default"  icon="download" onClick={this.handleDownload2.bind(this)}></Button>
+					
 						<Button type="default" htmlType="button" icon="printer" onClick={this.handlePrinter.bind(this, false)}></Button>
 					</ButtonGroup>
 				</div>
 			: <div className="resume-toolbar resume-origin">
-				<Button type="default" htmlType="button" onClick={this.renderOrigin.bind(this)}>标准简历
+				<Button type="default" style={{position: 'absolute',top: 0,left: 0}}  htmlType="button" onClick={this.renderOrigin.bind(this)}>标准简历
 					<Icon type="right"/></Button>
 				<ButtonGroup style={{
 						float: 'right'
 					}}>
+					<Button type="default"  icon="download" onClick={this.handleDownload.bind(this)}></Button>
 					<Button type="default" htmlType="button" icon="printer" onClick={this.handlePrinter.bind(this, true)}></Button>
 				</ButtonGroup>
 			</div>
@@ -421,7 +481,7 @@ export class PersonTabBaseInfo extends Component {
 			trainEdit
 		} = this.state
 		if (showType == 1) {
-			return (<div className="personBaseInfoPanel" id="personInfoPrintBox">
+			return (<div className="personBaseInfoPanel" id="personInfoPrintBox" >
 				{this.renderToolbar()}
 				{/* 基本信息判断是否编辑状态 */}
 				{
@@ -1855,7 +1915,6 @@ export class PersonRemarks extends FormPage {
 		})
 	}
 	handleQuickAddRemark(value){
-
 		this.form.setFieldsValue({
 			context:this.form.getFieldValue('context') ? this.form.getFieldValue('context') + value : value
 		})

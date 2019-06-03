@@ -4,7 +4,7 @@
  * @Last modified time: 2018-01-17T17:32:29+08:00
  */
 import {FormPage} from 'app/components/Page'
-import FetchAPI from 'app/utils/FetchAPI'
+import Api from '../../api'
 import BaseForm from 'app/components/BaseForm'
 import React, {Component, PropTypes} from 'react'
 export default class ProviewView extends FormPage{
@@ -13,37 +13,16 @@ export default class ProviewView extends FormPage{
   }
 // 获取二维码图片
   componentWillMount(){
-    //  获取传过来的参数
-    // let {location:{state:{labels}}} = this.props
-    // new FetchAPI().fetch(`${APP_SERVER}/option/optionListJson?optionCode=labels_code`,{
-    //   method:'GET'
-    // }).then((json) => {
-    //     this.setState({
-    //       imgUrl:json.imgUrl
-    //     });
-    // });
-
-  }
-
-//   点击确定时候的回调
-  handleSubmit(){
-    // let {current} = this.state
-    // let {params:{resumeId},actions,router,location} = this.props
-    // let json = {
-    //   id:resumeId,
-    //   remarkLabel:current.join(",")
-    // }
-    // actions.setLabelAction(json).then((json)=>{
-    //   actions.backRouteReload(router,location)
+    // new Api().fetchCompanyCardQrcode({
+    //   page:''
+    // }).then(res=>{
+    //   // this.setState({
+    //   //   imgUrl:res.imgUrl
+    //   // });
+    // }).catch(error=>{
     // })
   }
-
   render() {
-    // let {params:{resumeId}, reduce:{spins:{formSpin}},location:{state:{item}}} = this.props;
-    return (<img src={imgUrl} className='recodeJpg' />) 
-    //  <BaseForm footer={null}  onSubmit={this.handleSubmit} ref={this.saveFormRef} className="tag-form">
-         
-      // </BaseForm>
-  
+    return (<img src={this.state.imgUrl} className='recodeJpg' />) 
   }
 }

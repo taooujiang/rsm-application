@@ -267,7 +267,7 @@ export default class HeaderSide extends React.Component {
             "member"
           )}
            {this.renderAuthMenuItem(
-            <Menu.SubMenu key="11" title={<span>校招管理</span>}>
+            <Menu.SubMenu key="11" title={<span>校招人才</span>}>
               <Menu.Item key="11-1">
               <Link
                 to={{
@@ -275,7 +275,7 @@ export default class HeaderSide extends React.Component {
                   // state: { breadcrumbName: "通话记录" }
                 }}
               >
-                <span>校招人才</span>
+                <span>搜索人才</span>
               </Link>
               </Menu.Item>
               {this.renderAuthMenuItem(
@@ -293,7 +293,7 @@ export default class HeaderSide extends React.Component {
               )}
 
             </Menu.SubMenu>,
-            "schoolRecruit"
+            "searchTalents"
           )}
            {this.renderAuthMenuItem(
             <Menu.SubMenu key="6" title={<span>通信记录</span>}>

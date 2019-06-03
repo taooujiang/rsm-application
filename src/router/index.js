@@ -164,8 +164,8 @@ function RootRoutes() {
         },
         {
           path: "schoolRecruit",
-          breadcrumbName: "校招管理",
-          onEnter: authLogin.bind(this,'schoolRecruit'),
+          breadcrumbName: "校招人才",
+          onEnter: authLogin.bind(this,'searchTalents'),
           getChildRoutes: (partialNextState, cb) =>
             dynamicRouter(
               partialNextState,

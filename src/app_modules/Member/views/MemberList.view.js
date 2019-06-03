@@ -49,9 +49,12 @@ export class MemberSide extends Component {
       </Select.Option>
     );
   }
+  setResetForm(resetFuc) {
+    this.resetForm = resetFuc;
+  }
   render() {
     return (
-      <AdvancedSearchPanel filterSubmitHandler={this.handleFilter.bind(this)}>
+      <AdvancedSearchPanel  module="5" setResetForm = {this.setResetForm.bind(this)}  showConfig={true}  filterSubmitHandler={this.handleFilter.bind(this)}>
         <Input name="name" label="姓名" placeholder="请输入姓名" />
         <Input
           name="mobilephone"
@@ -70,8 +73,11 @@ export class MemberSide extends Component {
 							// rules={it.isRequired==1?[{required: true, message: `${it.fieldName}不可为空`,}]:null}
             />
         <CalendarPicker name="joinTimeArr" label="入职日期" />
+        <CalendarPicker name="conversionTimeArr" label="转正日期" />
+        <CalendarPicker name="contractExpireTimeArr" label="合同到期日期" />
         <CalendarPicker name="dimissionTimeArr" label="离职日期" />
         <CalendarPicker name="retireTimeArr" label="退休日期" />
+
         <LinkagePullDown
           name="degreeArr"
           label="学历"
@@ -256,6 +262,7 @@ export default class MemberListView extends PageView {
     });
     tableConf.columns = dynamicColumns.concat(tableConf.columns);
     let width = tableConf.columns.reduce((a,b)=>a+b.width,0)
+    console.log(tableConf.columns,"==tableConf.columns")
     return (
       <DataTable
         {...tableConf}

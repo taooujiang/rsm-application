@@ -500,13 +500,13 @@ class ChannelAdJobRule extends Component {
 	}
 	// 暂时这个还有调接口
 	schoolSwitch(value){
-		// this.changeCheck('school',value)
+		this.changeCheck('isSchoolRecruit',value)
 	}
 	render() {
 		let {item,item: {
-				isWebsite
+				isWebsite,isSchoolRecruit
 			}} = this.props
-		console.log(isWebsite == 1,this.props,'===baseFromSwitchs---this.props')
+		// console.log(	isWebsite,isSchoolRecruit)
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<div className='baseFromSwitchs'>
@@ -519,7 +519,7 @@ class ChannelAdJobRule extends Component {
 					}/>
 					<BaseInfoItem label="发布到企业校招" info={<span > {
 							item
-								? <Switch defaultChecked={isWebsite == 1} className='changeSwitch' onChange={this.schoolSwitch.bind(this)}/>
+								? <Switch defaultChecked={isSchoolRecruit == 1} className='isSchoolRecruit' onChange={this.schoolSwitch.bind(this)}/>
 								: null
 						}<div>请到遇仁招聘企业版小程序中查看校招职位</div>
 					</span>
@@ -789,7 +789,9 @@ export default class PostRelease extends Component {
 				status,
 				jobFeedbackList,
 				isOffer,
-				isInterviewScale
+				isInterviewScale,
+				isSchoolRecruit,
+isWebsite
 			},
 			actions,
 			router,
@@ -800,7 +802,7 @@ export default class PostRelease extends Component {
 			}
 		} = this.props
 		let {max, step, jobId} = params
-		console.log(status)
+		console.log(status,this.props,"==renderApproSelect=this.props")
 		let addFlag = max != 5/* true为新增 false为编辑或查看 */
 		return (<Row gutter={12} className="jobdetail-box">
 			<Col span={18}>
@@ -818,7 +820,7 @@ export default class PostRelease extends Component {
 						}
 					</TabPane>
 					<TabPane tab={<span> < Icon type = "setting" /> 渠道设置</span>} key="3" disabled={max < 3} className="thirdStep-panel">
-						<ChannelAdJobRule {...this.props} rules={rules}/>
+						<ChannelAdJobRule {...this.props}  rules={rules}/>
 					</TabPane>
 					{
 						isInterviewScale && !addFlag

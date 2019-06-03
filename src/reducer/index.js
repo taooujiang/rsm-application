@@ -117,7 +117,7 @@ if(process.env.NODE_ENV === 'development'){
 	},{
 		note:'messageList',
 	},{
-		note:'schoolRecruit',
+		note:'searchTalents',
 	},{
 		note:'invitedRecord',
 	}
