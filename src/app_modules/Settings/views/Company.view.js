@@ -37,6 +37,7 @@ export default class CompanyView extends PageView {
 	_renderTableList() {
 		let { actions, reduce, items,router } = this.props
 		let { spins: { tableSpin } } = reduce
+		console.log(this.props,items,"==_renderTableList=items this.props")
 		const tableConf = {
 			loading: tableSpin,
 			dataSource: items,
