@@ -133,7 +133,7 @@ export class ImgUploadList extends FileUpload{
       
     }
   render(){
-      let { type,imgNum,beforeUpload,handlePreview,btnText,accept,tipText,imgWidth ,disabled,iconImg,onRemove,onSuccess,listType,locale,name} = this.props
+      let { type,imgNum,beforeUpload,handlePreview,btnText,accept,tipText,imgWidth ,disabled,iconImg,onRemove,onSuccess,onProgress,listType,locale,name} = this.props
       let {fileList} = this.state
       console.log(fileList,('123'))
       

@@ -18,7 +18,7 @@ export default class CardShare extends FormPage {
         this.state = { 
             beforeUpload:true,
             btnState:props.reduce.list  && props.reduce.list[0].status ?  '' : 'edit',
-            curentfile:{},
+            currentfile:{},
             formData:{},
             initData:props.reduce.list ? props.reduce.list[0] :{}
         }
@@ -73,7 +73,7 @@ export default class CardShare extends FormPage {
                     message.warning(`图片限制最大为${size}KB`)
                 }
                 return reject(false) 
-            }else if((1  + preNum) > num && JSON.stringify(this.state.curentfile) == "{}"){
+            }else if((1  + preNum) > num && JSON.stringify(this.state.currentfile) == "{}"){
                 message.warning('最多上传' + num + '张图片哦！')
                 return reject(false) 
             }else{
@@ -98,16 +98,17 @@ export default class CardShare extends FormPage {
     responseType(res) {return res.fileUrl}
     //上传成功之后改变state的值   
     onSuccess(sign,info,infoList) {
+        console.log("onSuccess",info)
         const {actions} =this.props
-        // actions.companyCardImgListAction(sign,info,infoList,{...this.state.curentfile})
+        // actions.companyCardImgListAction(sign,info,infoList,{...this.state.currentfile})
         let preData = this.state.initData[sign] ? [...this.state.initData[sign]]  : []
         console.log(preData,"==onSuccess==preDatam")
         let resetIndex= preData.findIndex((value, index, arr) => {
-            return this.state.curentfile.uid == value.uid
+            return this.state.currentfile.uid == value.uid
         }) + 1
         let newIndex=preData.length + 1
-        let newData = this.state.curentfile &&  this.state.curentfile.url ? 
-          [...preData.filter(item=>this.state.curentfile.uid != item.uid),{uid:infoList.uid,
+        let newData = this.state.currentfile &&  this.state.currentfile.url ? 
+          [...preData.filter(item=>this.state.currentfile.uid != item.uid),{uid:infoList.uid,
             id:info.id,
             name:infoList.name,
             url:info.fileUrl,
@@ -134,14 +135,17 @@ export default class CardShare extends FormPage {
             }  
         },function(){
             this.setState({
-                curentfile:{},
+                currentfile:{},
                 beforeUpload:true
             })
         })
     }
+    onProgress(e,file) {
+        console.log(e,file,"onProgress")
+    }
     handlePreview(sign,file){
         this.setState({
-          curentfile:file
+          currentfile:file
         })
         this.refs[sign].handlePreview(file)
     }
@@ -474,7 +478,8 @@ export default class CardShare extends FormPage {
                                     tipText="请上传jpg，png，jpeg，bmp格式图片，上传文件建议尺寸为800*500，大小不超过2MB"
                                     imgWidth="60px"
                                     imgNum={5}
-                                    onRemove={this.onRemove.bind(this,'imageListSign')}  onChange={this.onChange.bind(this)}  onResponse={this.responseType} onSuccess={this.onSuccess.bind(this,'imageList')}></ImgUploadList>
+                                    onRemove={this.onRemove.bind(this,'imageListSign')}  onChange={this.onChange.bind(this)}  onResponse={this.responseType} onSuccess={this.onSuccess.bind(this,'imageList')}
+                                    onProgress={this.onProgress.bind(this)}></ImgUploadList>
                     </div>
                 </FormItem>
       
