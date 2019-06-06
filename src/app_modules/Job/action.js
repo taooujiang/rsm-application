@@ -75,16 +75,24 @@ export function itemAction(value) {
 
 export function changePushAction(value) {
     return (dispatch, getState) => {
+    
+      const {jobId,...otherValue} = value
         dispatch(fetchRequest('itemSpin'))
         return new API().fetchUpsertItem(value).then(json => {
+          
+          let sign =Object.keys(otherValue)[0]
+          console.log(getState(),value, Object.keys(otherValue)[0],sign,'getState()')
             dispatch(fetchSuccess('itemSpin',true))
             let info = {
               jobId:json.jobId,
-              isWebsite:json.isWebsite
+             [sign]:json[sign]
             }
             dispatch(saveItem(info))
         }).catch(ex => {
+            dispatch(itemAction({jobId:jobId}))
             return dispatch(fetchFailure('itemSpin',ex))
+        
+           
         })
     }
 }

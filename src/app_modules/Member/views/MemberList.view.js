@@ -16,6 +16,7 @@ import {
 } from "antd";
 import NestedComponent from "app/decorators/NestedComponent";
 import moment from "moment";
+import Ellipsis from 'app/components/Ellipsis'
 import {TreeSelectPicker} from 'app/components/TreeView'
 import { Layout, Fixed, Pane } from "app/components/Layout";
 import PageView from "app/components/Page";
@@ -55,7 +56,7 @@ export class MemberSide extends Component {
   render() {
     return (
       <AdvancedSearchPanel  module="5" setResetForm = {this.setResetForm.bind(this)}  showConfig={true}  filterSubmitHandler={this.handleFilter.bind(this)}>
-        <Input name="name" label="姓名" placeholder="请输入姓名" />
+        <Input name="name" label="员工姓名" placeholder="请输入姓名" />
         <Input
           name="mobilephone"
           label="移动电话"
@@ -245,7 +246,9 @@ export default class MemberListView extends PageView {
             return this.fieldsOption(it.options, val);
           } else if (it.fieldCode == "department") {
             return row.deptName;
-          } else {
+          }else if(it.fieldCode == "familyAddress"){
+            return <Ellipsis tooltip={true} length={11}>{val}</Ellipsis>
+          }else {
             if (it.fieldCode == "name") {
               return (
                 <SmartLink to={`detail/${row.id}`}>
@@ -273,16 +276,17 @@ export default class MemberListView extends PageView {
   }
 
   handlerMenu(id, actionType) {
-    let { actions, router } = this.props;
+    let { actions, router,reduce:{page,params} } = this.props;
+    console.log( this.props,"= actionTypethis.props")
     switch (actionType) {
       case "add":
-        actions.deleteAction({ id: id, status: 2 });
+        actions.deleteAction({ id: id, status: 2 ,...params});
         break;
       case "edit":
         actions.editRoute(router, id);
         break;
       case "delete":
-        actions.deleteAction({ id: id, isDel: 1 });
+        actions.deleteAction({ id: id, isDel: 1  ,...params});
         break;
       default:
     }

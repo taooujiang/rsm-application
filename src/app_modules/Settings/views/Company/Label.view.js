@@ -6,22 +6,42 @@ const InputGroup = Input.Group;
     state = {
       inputVisible: false,
       inputValue: '',
+      initialArr:[]
     };
   
     constructor(props) {
       super(props);
-      this.state.tags=props.tags
+      this.state.value=props.value
     }
   
-  
+    componentWillReceiveProps(nextProps) {
+      const {value,onChange} =this.props
+      const {inputValue } = this.state;
+      this.setState({
+        inputVisible:0 < nextProps.value.length < 8 || JSON.stringify(inputValue) == '' ? false : true
+      });
+      console.log( nextProps.value.length,JSON.stringify(inputValue) == '',nextProps.value,"==label=componentWillReceiveProps")
+      if(JSON.stringify(nextProps.value) != JSON.stringify(this.props.value)){
+        this.setState({
+          initialArr: nextProps.value,
+          inputVisible:0 < nextProps.value.length < 8 || JSON.stringify(inputValue) == '' ? false : true
+        });
+        console.log( nextProps.value.length,JSON.stringify(inputValue) == '',nextProps.value,"==label=componentWillReceiveProps")
+        
+      }
+    }
     handleClose = (removedTag) => {
   
-      let {actions,optionCode} = this.props
+      let {actions,optionCode,value,onChange} = this.props
       let params = {
         optionId:removedTag,
         optionCode:optionCode
       }
-      actions.companyCardRemoveTagAction(removedTag)
+      // actions.companyCardRemoveTagAction(removedTag)
+      this.state.initialArr.splice(removedTag,1)
+      // value.push(inputValue)
+      onChange(this.state.initialArr) 
+      console.log(this.state.initialArr,value,"=handleClose===inputValue")
     }
   
     showInput = () => {
@@ -36,12 +56,15 @@ const InputGroup = Input.Group;
     }
     handleInputConfirm = () => {
       const inputValue = this.state.inputValue;
-      let {optionCode,actions} = this.props
+      let {optionCode,actions,onChange,value} = this.props
       if(inputValue && this.trim(inputValue)!=="" && inputValue.indexOf("$")!=-1){
         message.error("标签不能含有特殊字符$")
         return false
       }else if(inputValue.length>6){
         message.error("标签字符不能超过6个！")
+        return false
+      }else if(!inputValue || (inputValue && this.trim(inputValue) == "")){
+        message.error("标签字符不能为空！")
         return false
       }
       if (inputValue && this.trim(inputValue)!=="") {
@@ -53,7 +76,11 @@ const InputGroup = Input.Group;
             inputValue:"",
             inputVisible:false
           })
-          actions.companyCardAddTagAction(inputValue)
+         
+          // actions.companyCardAddTagAction(inputValue)
+          this.state.initialArr.push(inputValue)
+          onChange(this.state.initialArr) 
+          console.log(this.state.initialArr,value,inputValue,"====inputValue")
       }
     }
   
@@ -61,13 +88,15 @@ const InputGroup = Input.Group;
   
     render() {
       const { inputVisible, inputValue } = this.state;
-      let {tags} = this.props
+      let {value} = this.props
       let inputSaveBtn = (
         <a onClick={this.handleInputConfirm}>保存</a>
       )
+
+      console.log( inputVisible, inputValue,value,'---tags')
       return (
         <div>
-          {tags.map((tag, index) => {
+          {value.map((tag, index) => {
             const tagElem = (
               <Tag  color='blue' closable  className='talent-tag' key={tag} closable={true} afterClose={ this.handleClose.bind(this,index)}>
                 {tag} 
@@ -91,7 +120,7 @@ const InputGroup = Input.Group;
           )}
           {/* 限制数量 */}
                   {!inputVisible
-                  && tags.length < 8 
+                  && value.length < 8 
                    && (
             <Tag
               className='talent-tag'

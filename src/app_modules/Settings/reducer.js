@@ -247,7 +247,10 @@ actions[companyCardList] = (state, action) => {
 actions[companyCardRemoveTag] = (state, action) => {
   return {
     ...state,
-    welfares: [...action.payload]
+    list: [{
+      ...state.list[0],
+      ...action.payload
+    }]
   }
 }
 actions[companyCardImgList] = (state, action) => {
@@ -287,9 +290,14 @@ actions[removeProdect] = (state, action) => {
 }
 
 actions[companyCardAddTag] = (state, action) => {
+  console.log(state,action.payload,"--companyCardAddTag--action.payload")
   return {
     ...state,
-    welfares: [...action.payload]
+    list: [{
+      ...state.list[0],
+      ...action.payload
+    }]
+    
   }
 }
 

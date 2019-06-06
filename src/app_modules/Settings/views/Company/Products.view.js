@@ -23,7 +23,7 @@ import {
 import {FormPage} from 'app/components/Page'
 import FetchAPI from 'app/utils/FetchAPI'
 import CheckTag from 'app/components/CheckTag'
-import BaseForm,{FormItem} from 'app/components/BaseForm'
+import BaseForm, { FormItem, customRules }  from 'app/components/BaseForm'
 import { ImgUpload,ImgUploadList } from 'app/components/FileUpload'
 
 const Option = Select.Option
@@ -59,15 +59,15 @@ export default class LabelFormView extends FormPage{
             this.state[sign] = this.state[sign] ? this.state[sign] : 1
              console.log((1  + preNum) > num,JSON.stringify(this.state.curentfile) == "{}",preNum,preImgList,(this.state[sign]  + preNum),"==preNum=beforeUpload-befor")
             size = size ? size : 99999999
-            if (file.size / 1024 > size) {
+         if (type != "jpg" && type != "png" && type != "jpeg" && type != 'bmp') {
+              message.warning("请上传JPG、PNG、JPEG、BMP格式图片")
+              return reject(false)   
+          }   else if (file.size / 1024 > size) {
                 message.warning(`图片限制大小为${size}KB`)
               return reject(false) 
             }else if((1  + preNum) > num && JSON.stringify(this.state.curentfile) == "{}"){
               message.warning('最多上传' + num + '张图片哦！')
               return reject(false) 
-          } else if (type != "jpg" && type != "png" && type != "jpeg" && type != 'bmp') {
-              message.warning("请上传JPG、PNG、JPEG格式图片")
-              return reject(false)   
           }else{
               if(this.state[sign]){
                   this.setState({
@@ -90,17 +90,6 @@ export default class LabelFormView extends FormPage{
   //上传成功之后改变state的值   
   onSuccess(sign,info,infoList) {
     const {value,onChange} =this.props
-
-    //  if(this.state.curentfile){
-    //    console.log(this.state.curentfile,"===this.state.curentfile")
-    //   this.state.initialValue[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
-    //     id:info.id,
-    //     name:infoList.name,
-    //     url:info.fileUrl,
-    //     thumbUrl:info.fileUrl}]
-    //     onChange(this.state.initialValue)  
-       
-    // }
     this.state.initialValue[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
       id:info.id,
       name:infoList.name,
@@ -108,19 +97,9 @@ export default class LabelFormView extends FormPage{
       thumbUrl:info.fileUrl}]
       onChange(this.state.initialValue) 
       this.props.productsOnReturn(this.state.initialValue)
-    // if(this.state.curentfile){
-    //   value[sign.split('productLogo')[1]].productLogo=[{uid:infoList.uid,
-    //     id:info.id,
-    //     name:infoList.name,
-    //     url:info.fileUrl,
-    //     thumbUrl:info.fileUrl}]
-    //     onChange(value)  
-    // }
-
-    this.setState({
-      curentfile:{}
-    })  
-    // console.log(this.state.curentfile,"==after=this.state.curentfile")
+      this.setState({
+        curentfile:{}
+      })  
   }
   handlePreview(sign,file){
     // console.log(this.refs,sign,file,"==handlePreview=file")
@@ -142,7 +121,7 @@ export default class LabelFormView extends FormPage{
 
           onChange(this.state.initialValue) 
           this.props.productsOnReturn(this.state.initialValue)
-          // console.log( value,this.state.initialValue,"==onRemoveonRemove=before")
+          console.log( value,this.state.initialValue,"==onRemoveonRemove=before")
   }
   onImgChange(sign,fileList){
     // console.log(sign,fileList,"=product=onChange=fileList")
@@ -152,59 +131,27 @@ export default class LabelFormView extends FormPage{
       let data= {
        "productName":"","productDesc":"","productLogo":"",isNew:1
       }
-      // this.setState({
-      //   initialValue:[...this.state.initialValue,data]
-      // })
       this.state.initialValue.push(data)
       onChange(value)
       this.props.productsOnReturn(this.state.initialValue)
- 
-      // // if(value.findIndex(item=>item.isNew) === -1){
-        // onChange([...value,data])
-      // // } 
     }
   closeFun(item,index,event){
-  //   const {value,onChange} =this.props
-  //    if(item.productName == ''){
-  //       value.splice(index,1)
-  //    }else{
-  //      value[index].isDel=1
-  //    }
-  // console.log(value,'==closeFun')
-  //   onChange(value)
-
+    console.log(item,index,event,"==closeFun==item,index,event")
     const {value,onChange} =this.props
-    if(item.productName == ''){
+    if(item.isNew != undefined ){
         this.state.initialValue.splice(index,1)
     }else{
       this.state.initialValue[index].isDel=1
     }
-    // console.log(this.state.initialValue,'==closeFun')
     this.setState({
       initialValue:this.state.initialValue
     },function(){
       onChange(this.state.initialValue)
       this.props.productsOnReturn(this.state.initialValue)
     })
-
-    
   }
 
   productInputChange(event,index,sign,t,g,h) {
-
-    // console.log(event,index,sign,'==productInputChange')
-    // if(index == 'productLogo'){
-    //   // 是图片时候的处理
-    //   const {value,onChange} =this.props
-    //   value[event][sign]=sign 
-    //   onChange(value)
-    // }else{
-    //   const {value,onChange} =this.props
-    //   value[index][sign]=event.target.value
-    //   onChange(value)
-    // }
-
-
     // console.log(event,index,sign,t,g,h,this.state.curentfile,'==productInputChange,event,index,sign,t,g,h')
     // if(index == 'productLogo'){
     //   // 是图片时候的处理
@@ -215,17 +162,16 @@ export default class LabelFormView extends FormPage{
       const {value,onChange} =this.props
       this.state.initialValue[index][sign]=event.target.value
       onChange(this.state.initialValue)
-      // this.props.productsOnReturn(this.state.initialValue)
+      this.props.productsOnReturn(this.state.initialValue)
     // }
   
   }
   // renderProduct(){}
   render() {
-    const {productList,onChange} =this.props
+    const {productList,onChange,value,} =this.props
     const stateValue =this.state.initialValue
-
     // const  value = [...this.props.value]
-    console.log(stateValue,"==44=this.state.initialValue")
+    console.log(value,stateValue,"==44=this.state.initialValue")
     const fromFullItemLayoutArr=[
       {
           labelCol: {
@@ -254,28 +200,30 @@ export default class LabelFormView extends FormPage{
                     { stateValue  ?  stateValue.map((itemM,index)=>{
                         return (itemM.isDel == 0 || itemM.isNew) &&  <FormItem key={`FormItem${index}`} name={`productItem${index}`} {...fromFullItemLayoutArr[0]}  style={{
                           background: '#FAFAFA',
-                          padding: '20px 0 0 20px',
+                          padding: '30px 0 0 20px',
                           border:'solid 1px #EAEAEA'
                       }}>
                              <div   key={`divItem${index}`}   name='imgs' className='productItem' >
-                                <Icon  type="close-circle" className='iconClose' onClick={this.closeFun.bind(this,itemM,index)} />
+                                <Icon  type="icon-quxiao-" className='iconClose' onClick={this.closeFun.bind(this,itemM,index)} />
                                  <FormItem {...fromFullItemLayoutArr[0]} >
                                  <Input label="产品名称" name={`productName${index}`} defaultValue={itemM.productName}
                                      onChange={event=>{this.productInputChange(event,index,'productName')}}
                                     rules={[
                                          {required: true, message: '请输入产品名称!',},
-                                         { max:8, message: "最多输入8个字！" }]} />
+                                         { max:8, message: "最多输入8个字！" },
+                                         {validator: customRules.spacialStr},
+                                         {validator: customRules.required}]} />
                                  </FormItem>
                                  <FormItem  {...fromFullItemLayoutArr[0]} >
                                  <Input label="产品描述" name={`productDesc${index}`} defaultValue={itemM.productDesc}
                                      onChange={event=>{this.productInputChange(event,index,'productDesc')}}
-                                     rules={[{required: true, message: '请输入产品描述!'},{ max: 25, message: "最多输入25个字！" }]} />
+                                     rules={[{required: true, message: '请输入产品描述!'},{ max: 25, message: "最多输入25个字！" },
+                                     {validator: customRules.spacialStr},
+                                     {validator: customRules.required}]} />
                                  </FormItem>
                                  <FormItem {...fromFullItemLayoutArr[0]} >
                                      <div label="产品logo"  name={`productLogo${index}`}  id={`productLogo${index}`} defaultValue={itemM.productLogo　|| []}  rules={[
                                          {required: true, message: '请上传产品logo!'}]}>
-                                          <Input type='hidden'  name={`productLogo${index}`}  defaultValue={itemM.productLogo || []} />
-                                     {/*  onChange={this.productInputChange.bind(this,index,'productLogo')} */}
                                      {/* onChange={this.productInputChange.bind(this,index,'productLogo')} */}
                                      {/* onChange={this.onImgChange} */}
                                      <ImgUploadList  key={`productLogo${index}`} ref={`productLogo${index}`} type={2} defaultValue={itemM.productLogo|| []}
@@ -286,8 +234,8 @@ export default class LabelFormView extends FormPage{
                                              btnText="点击上传"
                                              iconImg='plus'
                                              name={`productLogo${index}`}
-                                             accept="image/png,image/jpg,image/JPEG,image/bmp"
-                                             tipText=" 请上传jpg，png，jpeg，bmp格式图片，不超过200KB"
+                                             accept=".png,.jpg,.jpeg,.bmp"
+                                             tipText=" 请上传jpg，png，jpeg，bmp格式图片，上传文件建议尺寸为120*120，大小不超过200KB"
                                              imgWidth="60px"
                                              imgNum={1}
                                              onRemove={this.onRemove.bind(this,`productLogo${index}`)}   onResponse={this.responseType} onSuccess={this.onSuccess.bind(this,`productLogo${index}`)}></ImgUploadList>

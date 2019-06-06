@@ -46,9 +46,9 @@ export default class SendDetail extends FormPage{
 		return (<Select.Option value={data.jobId} key={idx}>{data.jobTitle}</Select.Option>)
 	}
 	handleSubmit(values){
-		let {actions,reduce:{detailList:{id}}}=this.props
+		let {actions,reduce:{detailList:{id},params,page}}=this.props
 		console.log(values,'handleSubmit')
-		actions.invateForDeliveryAction({...values}).then(()=>{
+		actions.invateForDeliveryAction({...values},{...params}).then(()=>{
 			actions.backRoute()
 		})
 	

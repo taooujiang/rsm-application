@@ -101,21 +101,20 @@ export default class PersonInfoDetail extends Component {
        }, reduce,  location: {
 				state
 			}} = this.props;
-		if (JSON.stringify(nextProps.router.params) !== JSON.stringify(this.props.router.params)) {
-			actions.itemAction({
-				id: nextProps.router.params.id,
-				...viewLib
-			})
-		}
-		if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
-			if (nextProps.location.state && nextProps.location.state.key == "reload") {
-				setTimeout(() => {
-					actions.itemAction({
-						id: id,
-					})
-				}, 1000)
-			}
-		}
+		// if (JSON.stringify(nextProps.router.params) !== JSON.stringify(this.props.router.params)) {
+		// 	actions.itemAction({
+		// 		id: nextProps.router.params.id
+		// 	})
+		// }
+		// if (JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)) {
+		// 	if (nextProps.location.state && nextProps.location.state.key == "reload") {
+		// 		setTimeout(() => {
+		// 			actions.itemAction({
+		// 				id: id,
+		// 			})
+		// 		}, 1000)
+		// 	}
+		// }
 	}
 
     render() {
@@ -128,7 +127,7 @@ export default class PersonInfoDetail extends Component {
                    <div>
                     <div className='detail_header'>
                         <div className='headerItem'>
-                            <h1>{detailList.name } </h1>
+                            <h1>{detailList.name}&nbsp;<Icon style={{verticalAlign: 'baseline',color:'#F27F7D'}} type={DictUtils.getDictLabelByValue('sex',detailList.gender) == '女' ? 'icon-nvsheng' :'icon-nansheng'} />   </h1>
                             {/* inviteStatus:0 (未投递) 1(已发送) 2(已查看) 3(已投递) */}
                             {detailList.deliveryStatus != 0  ?
                               <Button type="primary" disabled={true}> 已投递</Button>
@@ -145,12 +144,12 @@ export default class PersonInfoDetail extends Component {
                                 
                              }
                         </div>
-                        <div className='Item'>{detailList.school}</div>
+                        <div className='Item'>{todoStringArr([detailList.school,DictUtils.getDictLabelByValue('education',detailList.degree)]).join(' | ') }</div>
                         <div className='headerItem'>
                             <div>
-                                <p><Icon type="phone" />{detailList.mobilephone}</p>
-                                {detailList.wechat && <p><Icon type="wechat" />{detailList.wechat}</p>}
-                                {detailList.email && <p><Icon type="mail" />{detailList.email}</p>}
+                                <p><Icon type="icon-dianhua" />&#x3000;{detailList.mobilephone}</p>
+                                {detailList.wechat && <p><Icon type="icon-weixin"/>&#x3000;{detailList.wechat}</p>}
+                                {detailList.email && <p><Icon type="mail" />&#x3000;{detailList.email}</p>}
                             </div>
                             <img className='logoImg' src={detailList.headUrl}  />
                         </div>   
@@ -158,7 +157,7 @@ export default class PersonInfoDetail extends Component {
                     {
                         detailList.expectedJobTitle ?
                         <div className='detail_item'>
-                            <h2>求职意向</h2>
+                            <h3>求职意向</h3>
                             <p>{detailList.expectedJobTitle}
                                 {/* //    {detailList.toPropose.map(item=> {return <span>{item}</span>})} */}
                             </p>
@@ -167,7 +166,7 @@ export default class PersonInfoDetail extends Component {
                     }
                     
                     <div className='detail_item'>
-                        <h2>期望薪资</h2>
+                        <h3>期望薪资</h3>
                         <p>
                             { todoStringArr([detailList.expectedSalaryLower,detailList.expectedSalaryUpper]).length
                                ? todoStringArr([detailList.expectedSalaryLower,detailList.expectedSalaryUpper]).join(' - ') + '元'
@@ -178,16 +177,17 @@ export default class PersonInfoDetail extends Component {
                     {
                         detailList.educations && detailList.educations.length ?
                         <div className='detail_item'>
-                            <h2>教育经理</h2>
-                            <Timeline pending={true} pendingDot={<span>6</span>}>
+                            <h3>教育经历</h3>
+                            <Timeline pending={false} pendingDot={<span>6</span>}>
                             {
                                 detailList.educations.map(item=>{
                                     return <Timeline.Item>
                                     <div>
-                                        {item.duringEnd && <h3>{item.duringEnd  + '毕业'}</h3>}  
-                                        {item.school && <p>{item.school}</p> }
+                                    {todoStringArr([item.duringStart,translateToNow(item.duringEnd)]) && <h4 className='tipTitle' >{todoStringArr([item.duringStart,translateToNow(item.duringEnd)]).join(' ~ ')}</h4>}
+                                        {/* {item.duringEnd && <h4 style={ {margin: '14px 10px 12px 0'}}>{item.duringEnd  + '毕业'}</h4>}   */}
+                                        {item.school && <h4>{item.school}</h4> }
                                         { todoStringArr([DictUtils.getDictLabelByValue('education',item.degree),item.major]) ?
-                                           <p> {todoStringArr([DictUtils.getDictLabelByValue('education',item.degree),item.major]).join(' | ') }</p>  
+                                           <p className='lastTextStyle'> {todoStringArr([DictUtils.getDictLabelByValue('education',item.degree),item.major]).join(' | ') }</p>  
                                            : null
                                         }
                                         
@@ -202,13 +202,13 @@ export default class PersonInfoDetail extends Component {
                     {
                       detailList.internshipJobs && detailList.internshipJobs.length ?
                         <div className='detail_item'>
-                            <h2>实习经历</h2>
+                            <h3>实习经历</h3>
                             <Timeline pending={true}>{
                                 detailList.internshipJobs.map(item=>{
                                         return  <Timeline.Item>
-                                        {todoStringArr([item.duringStart,translateToNow(item.duringEnd)]) && <h3>{todoStringArr([item.duringStart,translateToNow(item.duringEnd)]).join(' - ')}</h3>}
-                                        {todoStringArr([ item.company,item.jobTitle]) && <h3> {todoStringArr([ item.company,item.jobTitle]).join(' | ')} </h3>}
-                                        {item.jobContent && <p>职责:  {item.jobContent} </p> }
+                                        {todoStringArr([item.duringStart,translateToNow(item.duringEnd)]) && <h4 className='tipTitle' >{todoStringArr([item.duringStart,translateToNow(item.duringEnd)]).join(' ~ ')}</h4>}
+                                        {todoStringArr([ item.company,item.jobTitle]) && <h4> {todoStringArr([ item.company,item.jobTitle]).join(' | ')} </h4>}
+                                        {item.jobContent && <p className='lastTextStyle'>职责:  {item.jobContent} </p> }
                                 </Timeline.Item>})
                             }</Timeline>
                         </div>
@@ -218,13 +218,13 @@ export default class PersonInfoDetail extends Component {
                     {
                         detailList.honours && detailList.honours.length ?
                         <div className='detail_item'>
-                            <h2>我的荣誉</h2>
+                            <h3>我的荣誉</h3>
                             { detailList.honours.map(item=>{
                                 return   <div className='item_skill'>
-                                {item.title && <h3>{item.title}</h3>}
+                                {item.title && <h4>{item.title}</h4>}
                                 {
                                   item.score ||  item.getDate ?
-                                    <p>
+                                    <p className='lastTextStyle'>
                                         {item.score && <span>成绩 {item.score} </span>}
                                         {item.getDate &&  <span>{item.getDate}</span>} 
                                     </p> 
@@ -240,8 +240,8 @@ export default class PersonInfoDetail extends Component {
                 {
                    detailList.selfEvaluation ?
                    <div  className='detail_item'>
-                        <h2>自我评价</h2>
-                        <p>{detailList.selfEvaluation}</p>
+                        <h3>自我评价</h3>
+                        <p className='lastTextStyle'>{detailList.selfEvaluation}</p>
                     </div>
                     : null
                 }

@@ -186,8 +186,9 @@ class MemberFormView extends FormPage{
   }
   //处理表格提交后动作
   handleSubmit(values){
-		let {actions,router,reduce:{page}} = this.props
-    actions.saveAction(values,page)
+    let {actions,router,reduce:{page,params}} = this.props
+    console.log(this.props,"==this.props")
+    actions.saveAction(values,params)
     actions.backRoute(router)
   }
   render() {

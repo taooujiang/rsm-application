@@ -27,6 +27,7 @@ var webpackConfig = {
     Member:'./src/app_modules/Member/app',
     SoundList:'./src/app_modules/SoundList/app',
     Settings:'./src/app_modules/Settings/app',
+    SchoolRecruit:'./src/app_modules/SchoolRecruit/app',
     Member:'./src/app_modules/Member/app',
     Report:'./src/app_modules/Report/app',
     AppWrapper:'./src/app_modules/AppWrapper/app',
@@ -187,7 +188,17 @@ var webpackConfig = {
         cache:false,
         showErrors:true,
         chunks: ['Settings','vendors']
-		}),
+    }),
+    new HtmlPlugin({
+      // template: path.join(__dirname, 'default_index.html'),
+      filename: 'SchoolRecruit.html',
+      hash: false,
+      title: 'SchoolRecruit',
+      hash:true,
+      cache:false,
+      showErrors:true,
+      chunks: ['SchoolRecruit','vendors']
+  }),
 		new HtmlPlugin({
 			// template: path.join(__dirname, 'default_index.html'),
 			filename: 'AppWrapper.html',

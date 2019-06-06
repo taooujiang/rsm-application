@@ -47,12 +47,12 @@ export default class RecordListView extends PageView {
       actions.inviteListRealAction(nextProps.reduce.params)
       actions.listCountAction(nextProps.reduce.params)
     }
-    if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
-      if(nextProps.location.state && nextProps.location.state.key=="reload"){
-        actions.listAction(nextProps.reduce.params)
-        actions.listCountAction(nextProps.reduce.params)
-      }
-    }
+    // if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
+    //   if(nextProps.location.state && nextProps.location.state.key=="reload"){
+    //     actions.listAction(nextProps.reduce.params)
+    //     actions.listCountAction(nextProps.reduce.params)
+    //   }
+    // }
   }
   changes(values){
     let {actions} = this.props
@@ -87,14 +87,14 @@ export default class RecordListView extends PageView {
     let pathname = this.props.location.pathname
     // let list = [...reduce.list.values()]
     console.log(this.props,"===this.props")
-    // 已发送
+    // 已发送 // 已查看
     const sendTabColumns=[
       {
         title: "基本信息",
         key: "name",
-        width: 350,
+        width: 450,
         dataIndex: "name",
-        render: (name, row) =><SchoolInfo item={row} pathname={pathname}/>
+        render: (name, row) =><SchoolInfo item={row}  pathname={pathname} />   
       }, {
         title: "邀请时间",
         key: "inputTime",
@@ -113,44 +113,50 @@ export default class RecordListView extends PageView {
           width: 150,
           render:(val,row)=>{
             let arr=[
-              {status:0,statusText:'未投递',style:{color:'#D67794',fontSize:'15px'}},
-              {status:1,statusText:'已发送',style:{color:'#6BD0BE',fontSize:'15px'}},
-              {status:2,statusText:'已查看',style:{color:'#DA947E',fontSize:'15px'}},
-              {status:3,statusText:'已投递',style:{color:'#DA947E',fontSize:'15px'}}
+              {status:0,statusText:'未投递',style:{color:'#ef6392'}},
+              {status:1,statusText:'已发送',style:{color:'#13c6aa'}},
+              {status:2,statusText:'已查看',style:{color:'#2299ee'}},
+              {status:3,statusText:'已投递',style:{color:'#fa744e'}}
             ]
-            let style =   row.inviteStatus == '1' ?  {color:'#D67794'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
+            let style =   row.inviteStatus == '1' ?  {color:'#ef6392'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
             return   <span style={arr[row.inviteStatus].style}>{arr[row.inviteStatus].statusText}</span>
           }
       }
     ]
-    // 已查看
+    // 已投递
     const searchTabColumns=[
       {
         title: "基本信息",
         key: "name",
         width: 450,
         dataIndex: "name",
-        render: (name, row) => <SchoolInfo item={row} pathname={pathname}/>
+        render: (name, row) =>{
+          let warnSign =row.inviteStatus == 3 ? true : false
+          return <SchoolInfo item={row}  pathname={pathname} isWarning={true}  warnText='请到候选人管理中查看！' />   
+        } 
       }, {
         title: "邀请时间",
         key: "inputTime",
+        width: 200,
         dataIndex: "inputTime",
         render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
         title: "投递时间",
         key: "inviteTime",
         dataIndex: "inviteTime",
+        width: 150,
         render:(val,row)=>moment(val).format("YYYY-MM-DD")
       },{
           title: "投递职位",
           key: "jobName",
+          width: 150,
           dataIndex: "jobName",
       }
     ]
     const tableConfColumnsList={
           0:sendTabColumns,
           1:sendTabColumns,
-          2:searchTabColumns,
+          2:sendTabColumns,
           3:searchTabColumns,
     }
     let tableConf = {

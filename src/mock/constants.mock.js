@@ -1905,7 +1905,52 @@ var userResource={
     "quickDefault" : 0,
     "inputTime" : 1516772709000,
     "domain" : "http://localhost:8080"
-  } ],
+  } , {
+    "note" : "member",
+    "resourceId" : "c8ceb8e7e34c464e90c7c3c0163e0b00",
+    "pid" : "",
+    "resourceName" : "员工管理",
+    "resourceType" : "1",
+    "resourceUrl" : "",
+    "enabled" : 1.0,
+    "sort" : 4.0,
+    "isLeaf" : 1.0,
+    "levels" : 1.0,
+    "icon" : "",
+    "quickDefault" : 0,
+    "inputTime" : 1516772709000,
+    "domain" : "http://localhost:8080"
+  }, {
+    "note" : "credit",
+    "resourceId" : "e1e8e4beab104cf4a85996786c76f230",
+    "pid" : "",
+    "resourceName" : "诚信库",
+    "resourceType" : "1",
+    "resourceUrl" : "",
+    "enabled" : 1.0,
+    "sort" : 6.0,
+    "isLeaf" : 1.0,
+    "levels" : 1.0,
+    "icon" : "",
+    "quickDefault" : 0,
+    "inputTime" : 1516772709000,
+    "domain" : "http://localhost:8080"
+  }, {
+    "note" : "elite",
+    "resourceId" : "f7997d00fb4b43b08276fbab73ddd2bb",
+    "pid" : "",
+    "resourceName" : "人才库",
+    "resourceType" : "1",
+    "resourceUrl" : "",
+    "enabled" : 1.0,
+    "sort" : 5.0,
+    "isLeaf" : 1.0,
+    "levels" : 1.0,
+    "icon" : "",
+    "quickDefault" : 0,
+    "inputTime" : 1516772709000,
+    "domain" : "http://localhost:8080"
+  }],
   "account" : "test1"
 }
 

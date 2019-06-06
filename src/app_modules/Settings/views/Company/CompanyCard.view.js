@@ -16,6 +16,7 @@ export default class CardShare extends FormPage {
     constructor(props, ...rest) {
         super(props, ...rest); 
         this.state = { 
+            beforeUpload:true,
             btnState:props.reduce.list  && props.reduce.list[0].status ?  '' : 'edit',
             curentfile:{},
             formData:{},
@@ -28,13 +29,27 @@ export default class CardShare extends FormPage {
         actions.companyCardListAction() 
     }
     componentWillReceiveProps(nextProps) {
+        console.log(this.props,nextProps,"===nextProps")
         if(JSON.stringify(nextProps.reduce.list) != JSON.stringify(this.props.reduce.list) ){
+            
             this.setState({
-                initData:nextProps.reduce.list[0]
+                initData:nextProps.reduce.list[0],
+                btnState:nextProps.reduce.list  && nextProps.reduce.list[0].status ?  '' : 'edit'
             })
             this.form.setFieldsValue({
-               welfares:nextProps.reduce.list[0].welfares
+               welfares:nextProps.reduce.list[0].welfares,
+               productList:nextProps.reduce.list[0].productList
             })
+            // if(nextProps.reduce.list[0].productList && nextProps.reduce.list[0].productList.length > 0){
+            //     console.log(nextProps.reduce.list[0].productList,"===nextProps.reduce.list[0].productList")
+            //     nextProps.reduce.list[0].productList.map((item,index)=>{
+                   
+            //         this.form.setFieldsValue({
+            //            [`productLogo${index}`]:item.productLogo[0] ? item.productLogo.url : ''
+            //          })
+            //          console.log( this.form,`productLogo${index}`,item.productLogo,"===`productLogo${index}`,item.productLogo")
+            //     })
+            // }
         }
 
       }
@@ -43,23 +58,24 @@ export default class CardShare extends FormPage {
         console.log(this.state.initData,this.form,"--responseType-")
         return new Promise((resolve, reject) => {
             let signText = sign.split('S')[0]
-            // this.form.setFieldsValue({
-            //     [signText]:this.state.initData[signText]
-            //  })
              console.log(this.state.initData,this.form,"--responseType-444")
             let type = file.type.split("/").pop().toLocaleLowerCase()
             let preNum = preImgList ?  preImgList.length  : 0
             this.state[sign] = this.state[sign] ? this.state[sign] : 1
             size = size ? size : 99999999
-            if (file.size / 1024 > size) {
-                message.warning(`图片限制大小为${size}KB`)
+             if (type != "jpg" && type != "png" && type != "jpeg" && type != 'bmp') {
+                message.warning("请上传JPG、PNG、JPEG、BMP格式图片")
+                return reject(false)   
+            }else if (file.size / 1024 > size) {
+                if(size == 2048){
+                    message.warning(`图片限制最大为2MB`)
+                }else{
+                    message.warning(`图片限制最大为${size}KB`)
+                }
                 return reject(false) 
             }else if((1  + preNum) > num && JSON.stringify(this.state.curentfile) == "{}"){
                 message.warning('最多上传' + num + '张图片哦！')
                 return reject(false) 
-            } else if (type != "jpg" && type != "png" && type != "jpeg" && type != 'bmp') {
-                message.warning("请上传JPG、PNG、JPEG格式图片")
-                return reject(false)   
             }else{
                 if(this.state[sign]){
                     this.setState({
@@ -70,6 +86,9 @@ export default class CardShare extends FormPage {
                     obj[sign]=2
                     this.setState(obj)
                 }
+                this.setState({
+                    beforeUpload:false
+                })
                return resolve(true);
             }   
 
@@ -77,10 +96,6 @@ export default class CardShare extends FormPage {
     }
     // 上传的返回值
     responseType(res) {return res.fileUrl}
-    // responseType(res) {
-    //     console.log(res,"--responseType-")
-    //     return res
-    // }
     //上传成功之后改变state的值   
     onSuccess(sign,info,infoList) {
         const {actions} =this.props
@@ -119,10 +134,10 @@ export default class CardShare extends FormPage {
             }  
         },function(){
             this.setState({
-                curentfile:{}
+                curentfile:{},
+                beforeUpload:true
             })
         })
-    //    document.querySelector('#companeyLogo .ant-upload-select-picture-card').style.display='none';
     }
     handlePreview(sign,file){
         this.setState({
@@ -166,7 +181,7 @@ export default class CardShare extends FormPage {
         return (<Select.Option value={data.keyValue} key={idx}>{data.keyName}</Select.Option>)
     }
     renderCompanyOption(data,idx){
-        return (<Select.Option value={data.id} key={idx}>{data.company}</Select.Option>)
+        return (<Select.Option value={data.id} key={idx}>{data.addressAll}</Select.Option>)
     }
     saveFormRef = (form) => {
         this.form = form;
@@ -185,35 +200,78 @@ export default class CardShare extends FormPage {
     // 提交修改数据
     handleSubmit(values,sign){
         console.log(values,this.state.initData,this.props,'----handleSubmit')
-        this.setState({
-            btnState: sign,
-            formData:JSON.parse(JSON.stringify(values))
-        },function(){
-            const {router,actions,location} =this.props
-            const {introduce, company,trade,abbreviation,scale,website,id,nature,addressId,address,
-                productList,imageList,companyLogo,welfares} =this.state.formData
-                const prcs = [...productList].map((item,index)=>{
-                    if(item.productLogo && item.productLogo[0]){
-                        item.productLogo=item.productLogo[0].url
-                    }else{
-                        item.productLogo=''
-                    }
-                    return item
+        var rexp=/((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/
+        if(values.website.trim().length > 0){
+            if(!rexp.test(values.website)){
+                 message.warning('请输入正确的网址！')
+            }else if(!this.state.beforeUpload){
+                message.warning('图片正在上传中！')
+            } else{
+                this.setState({
+                    btnState: sign,
+                    formData:JSON.parse(JSON.stringify(values))
+                },function(){
+                    console.log(this.state.formData,'----this.state.formData')
+                    const {router,actions,location} =this.props
+                    const {introduce, company,trade,abbreviation,scale,website,id,nature,addressId,address,
+                        productList,imageList,companyLogo,welfares} =this.state.formData
+                        const prcs = [...productList].map((item,index)=>{
+                            item['isSort']=index + 1
+                            if(item.productLogo && item.productLogo[0]){
+                                item.productLogo=item.productLogo[0].url
+                              
+                            }else{
+                                item.productLogo=''
+                            }
+                            return item
+                        })
+        
+                        actions.companyCardListSaveAction({
+                            welfares,
+                            companyLogo:(companyLogo && companyLogo.length>0) ? [...companyLogo][0].url : '',
+                            imageList:imageList ? [...imageList].map(item=>{
+                            return  {imageUrl:item.imageUrl,
+                                    imageSort:item.imageSort}
+                                
+                            }) : [],
+                            productList:prcs || [],
+                            introduce,company,trade,abbreviation,scale,website,id,nature,addressId,address
+                        })
                 })
-
-                actions.companyCardListSaveAction({
-                    welfares,
-                    companyLogo:(companyLogo && companyLogo.length>0) ? [...companyLogo][0].url : '',
-                    imageList:imageList ? [...imageList].map(item=>{
-                    return  {imageUrl:item.imageUrl,
-                            imageSort:item.imageSort}
-                        
-                    }) : [],
-                    productList:prcs || [],
-                    introduce,company,trade,abbreviation,scale,website,id,nature,addressId,address
-                })
-        })
-
+            }
+        }else{
+            this.setState({
+                btnState: sign,
+                formData:JSON.parse(JSON.stringify(values))
+            },function(){
+                console.log(this.state.formData,'----this.state.formData')
+                const {router,actions,location} =this.props
+                const {introduce, company,trade,abbreviation,scale,website,id,nature,addressId,address,
+                    productList,imageList,companyLogo,welfares} =this.state.formData
+                    const prcs = [...productList].map((item,index)=>{
+                        if(item.productLogo && item.productLogo[0]){
+                            item.productLogo=item.productLogo[0].url
+                        }else{
+                            item.productLogo=''
+                        }
+                        return item
+                    })
+    
+                    actions.companyCardListSaveAction({
+                        welfares,
+                        companyLogo:(companyLogo && companyLogo.length>0) ? [...companyLogo][0].url : '',
+                        imageList:imageList ? [...imageList].map(item=>{
+                        return  {imageUrl:item.imageUrl,
+                                imageSort:item.imageSort}
+                            
+                        }) : [],
+                        productList:prcs || [],
+                        introduce,company,trade,abbreviation,scale,website,id,nature,addressId,address
+                    })
+            })
+    
+        }
+       
     }
     // 渲染card的头部内容
     renderToolbar(){
@@ -281,6 +339,7 @@ export default class CardShare extends FormPage {
             website,
             welfares
         } = this.state.initData
+        console.log(this.state.initData,"==this.state.initData=")
         //TODO：临时解决暂时不能多层数据结构偶尔不出来图片的情况
         let productListArray=[]
         if(productList){
@@ -317,14 +376,17 @@ export default class CardShare extends FormPage {
                 <FormItem  key='company' {...fromFullItemLayoutArr[1]}>
                     <Input  label="公司名称" name="company" defaultValue={company || ''}
                         rules={[{ max: 15, message: "最多输入15个字！" },
-                           {required: true, message: '请输入公司名称!'}]} />
+                           {required: true, message: '请输入公司名称!'},
+                           {validator: customRules.spacialStr},
+                           {validator: customRules.required}]} />
                 </FormItem>
                 <FormItem key='abbreviation'  {...fromFullItemLayoutArr[1]}  >
                     <Input label="公司简称" name="abbreviation" defaultValue={abbreviation || ''}
                         rules={[{ max: 6, message: "最多输入6个字！" },
-                        {required: true, message: '请输入公司名称!'}]} />
+                        {required: true, message: '请输入公司简称!'},
+                        {validator: customRules.spacialStr},
+                        {validator: customRules.required}]} />
                 </FormItem>
-                
                 <FormItem key='nature' {...fromFullItemLayoutArr[1]}>
                     <Select name="nature" label="公司性质" placeholder="请选择" 
                     fetch={DictUtils.getDictByType("companyproperty")} 
@@ -348,18 +410,18 @@ export default class CardShare extends FormPage {
                 </FormItem>
                 <FormItem key='website' {...fromFullItemLayoutArr[1]}  >
                     <Input label="公司网址" name="website" defaultValue={website   || ''}
-                            rules={[]} />
+                            rules={[{validator: customRules.urlRule}]} />
                 </FormItem>
-                <FormItem  key='addressId'  id='body' {...fromFullItemLayoutArr[0]}  style={{marginBottom:'0'}}  >
+                <FormItem  key='addressId'  id='body' {...fromFullItemLayoutArr[0]}   >
                     <Select  name="addressId" label="公司地址" placeholder="选择地址"
                      fetch={`${APP_SERVER}/company/listSelectJson`} renderItem={this.renderCompanyOption}
                      defaultValue={addressId || ''}  
                      dropdownStyle={{top:'0',position:'absolute'}}
                     rules={[{required: true, message: '请选择公司维护的地址!'}]} />
                 </FormItem>
-                <FormItem key='address'  {...fromFullItemLayoutArr[0]}>
+                {/* <FormItem key='address'  {...fromFullItemLayoutArr[0]}>
                     <TextArea  label="" name="address" rows={4} defaultValue={address || ''} />
-                </FormItem>
+                </FormItem> */}
                 <FormItem label="公司LOGO"  key='companyLogo'   {...fromFullItemLayoutArr[0]} >
                     <div  name='companyLogo' key='companyLogo'  label="公司logo"
                                rules={[{required: true, message: '请上传公司LOGO !'}]} 
@@ -370,8 +432,8 @@ export default class CardShare extends FormPage {
                                 fileList={companyLogo || []}
                                 btnText="点击上传"
                                 iconImg='plus'
-                                accept="image/png,image/jpg,image/JPEG,image/bmp"
-                                tipText="请上传jpg，png，jpeg，bmp格式图片，不超过500KB"
+                                accept=".png,.jpg,.jpeg,.bmp"
+                                tipText="请上传jpg，png，jpeg，bmp格式图片，上传文件建议尺寸为300*300，大小不超过500KB"
                                 imgWidth="60px"
                                 imgNum={1}
                                 handlePreview={this.handlePreview.bind(this,'companyLogo')}
@@ -389,7 +451,7 @@ export default class CardShare extends FormPage {
                 </FormItem>
                 <FormItem key='introduce' {...fromFullItemLayoutArr[0]}>
                     <TextArea key='introduce' label="公司介绍" name="introduce" rows={4} defaultValue={introduce || ''}
-                        rules={[{ max: 30, message: "最多输入30个字！" },{required: true, message: '请填写公司介绍!'}]} />
+                        rules={[{required: true, message: '请填写公司介绍!'},{validator: customRules.required}, ]} />
                 </FormItem>
                 
                 <FormItem label="公司产品" key='productList'  {...fromFullItemLayoutArr[0]}>
@@ -404,14 +466,14 @@ export default class CardShare extends FormPage {
                      <div    defaultValue={imageList || [] } name='imageList' label="公司图集" id="imageList"  key='imageList'  className="imageList" >
                      <ImgUploadList   ref='imageList'  key='imageList' label="公司图集" name="imageList" type={2} 
                                     handlePreview={this.handlePreview.bind(this,'imageList')}
-                                    beforeUpload={this.beforeUpload.bind(this,8,9999999999,imageList,'imageListSign')}
+                                    beforeUpload={this.beforeUpload.bind(this,8,2048,imageList,'imageListSign')}
                                     fileList={imageList}
                                     btnText="点击上传"
                                     iconImg='plus'
-                                    accept="image/png,image/jpg,image/JPEG,image/bmp"
-                                    tipText="请上传jpg，png，jpeg，bmp格式图片"
+                                    accept=".png,.jpg,.jpeg,.bmp"
+                                    tipText="请上传jpg，png，jpeg，bmp格式图片，上传文件建议尺寸为800*500，大小不超过2MB"
                                     imgWidth="60px"
-                                    imgNum={8}
+                                    imgNum={5}
                                     onRemove={this.onRemove.bind(this,'imageListSign')}  onChange={this.onChange.bind(this)}  onResponse={this.responseType} onSuccess={this.onSuccess.bind(this,'imageList')}></ImgUploadList>
                     </div>
                 </FormItem>
@@ -423,9 +485,11 @@ export default class CardShare extends FormPage {
         // console.log(this.props,"=render=school-form-view")
         const {reduce:{spins:{formSpin}}} = this.props;
         return (
-            <Card className="school-form-view" title={<div><h3 className="card-title">企业名片设置</h3> <span className='card-subtitle'>用于校招小程序，让候选人更加了解公司信息</span></div>} extra={this.renderToolbar()}	>
-                <Spin tip="Loading..." spinning={!!formSpin}>{this.renderForm()}</Spin>
-            </Card>
+            <Spin tip="Loading..." spinning={!!formSpin}>
+                <Card className="school-form-view" title={<div><h3 className="card-title">企业名片设置</h3> <span className='card-subtitle'>用于校招小程序，让候选人更加了解公司信息</span></div>} extra={this.renderToolbar()}	>
+                {this.renderForm()}
+                </Card>
+            </Spin>
         );
     }
 }

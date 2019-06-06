@@ -4,7 +4,7 @@ import {routerActions, push, replace} from 'react-router-redux'
 import createConstants,{dispatchHandler,createTypes,createActionRoute} from 'app-utils/CreateConstants'
 import {createResumeRoute} from 'app-components/Resume/utils'
 import {getFeedStageAction} from '../Resume/action'
-
+import { message } from 'antd'
 import {createAction} from 'redux-actions'
 
 export const saveList = createAction("STORE_LIST")
@@ -27,6 +27,7 @@ const CONSTANTS = createConstants('searchTalents', [
   'fetch_success',
   'fetch_failure',
 ])
+
 export default CONSTANTS
 //TODO: 调整命名及常量定义
 
@@ -71,13 +72,21 @@ export function itemAction(value) {
   }
 }
 // 邀请投递
-export function invateForDeliveryAction(value) {
+export function invateForDeliveryAction(value,params) {
   return (dispatch, getState) => {
       dispatch(fetchRequest('formSpin'))
-      console.log(value,"==value")
       return new API().fetchInvateForDelivery(value).then(json => {
-        dispatch(fetchSuccess('formSpin',true))
+          dispatch(fetchSuccess('formSpin',true,'邀请发送成功'))
           dispatch(invateForDelivery(json))
+          // 区分拉取哪个list
+          if(window.location.href.indexOf('searchTalents') >-1){
+             dispatch(listRealAction(params))
+          }else{
+            dispatch(listCountAction())
+            dispatch(inviteListRealAction(params))
+          }
+          // dispatch(itemAction({id:value.id}))
+
       }).catch(ex => {
           return dispatch(fetchFailure('formSpin',ex))
       })

@@ -56,7 +56,7 @@ let Routes = (
     <IndexRedirect to="company" />
 
     <Route path="companyCard" components={CompanyCardContainer} breadcrumbName="企业名片设置">
-       <Route path="preview" components={CardProviewContainer} breadcrumbName="名片预览" />
+       <Route path="preview"  components={CardProviewContainer} breadcrumbName="名片预览" />
     </Route>
     <Route path="remind" components={RemindContainer} breadcrumbName="提醒设置" />
     <Route path="field" components={CustomSystemFieldContainer} breadcrumbName="系统字段">

@@ -11,13 +11,13 @@ import { LocaleProvider } from 'antd'
 import zh_CN from 'antd/es/locale-provider/zh_CN'
 
 var AppRouter = (
-  <Router path="/interview" >
+  <Router path="/schoolRecruit" >
     {Routes.props.children}
   </Router>
 )
 
 // console.log(AppRouter)
-injectReducer(store,{key:'interviewReducer',reducer:reducer})
+injectReducer(store,{key:'schoolRecruitReducer',reducer:reducer})
 
 ReactDOM.render(
   <LocaleProvider locale={zh_CN}>

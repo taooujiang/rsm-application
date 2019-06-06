@@ -112,7 +112,7 @@ export default class LinkagePullDown extends Component{
                     {this.renderOption("min")}
                 </Select>
                 <Input style={{ borderRight: "0",borderLeft:"0",padding:"0",pointerEvents: 'none', backgroundColor: '#fff',width:"10px", flexShrink:0 }} placeholder="~" readOnly />
-                <Select className="linkageRightSelect" style={{width:"50%"}} allowClear onChange={this.handleChange.bind(this,"max")} value={value&&value[1]?value[1]+"":""} getPopupContainer={()=>ReactDOM.findDOMNode(this)} rules={rules}>
+                <Select className="linkageRightSelect" style={{width:"50%",...style}} allowClear onChange={this.handleChange.bind(this,"max")} value={value&&value[1]?value[1]+"":""} getPopupContainer={()=>ReactDOM.findDOMNode(this)} rules={rules}>
                     {this.renderOption("max")}
                 </Select>
             </InputGroup>

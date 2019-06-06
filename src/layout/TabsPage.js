@@ -37,7 +37,6 @@ export default class TabsPage extends Component {
     const { actions, tabList } = this.props;
     let delIndex;
     let activeKey;
-
     if (targetKey === tabList.activeKey) {
       tabList.list.map((tab, index) => {
         tab.key === targetKey ? (delIndex = index) : null;
@@ -199,12 +198,12 @@ class MultiTab extends Component {
       },
       '/soundlist/soundlist': {
         title: "通话记录",
-        key: "soundlist",
+        key: "/soundlist/soundlist",
         src: "/static/js/client/main.html#/soundlist/soundlist"
       },
       '/soundlist/messageList': {
-        title: "通话记录",
-        key: "messageList",
+        title: "短信记录",
+        key: "/soundlist/messageList",
         src: "/static/js/client/main.html#/soundlist/messageList"
       },
       '/settings': {
@@ -216,7 +215,18 @@ class MultiTab extends Component {
         title: "统计分析",
         key: "report",
         src: "/static/js/client/main.html#/report"
+      },
+      '/schoolRecruit/searchTalents': {
+        title: "搜索人才",
+        key: "/schoolRecruit/searchTalents",
+        src: "/static/js/client/main.html#/schoolRecruit/searchTalents"
+      },
+      '/schoolRecruit/inviteRecord': {
+        title: "邀请记录",
+        key: "schoolRecruit/inviteRecord",
+        src: "/static/js/client/main.html#/schoolRecruit/inviteRecord"
       }
+      
     };
     console.log(window.location.href);
     let href = window.location.href;
@@ -229,12 +239,13 @@ class MultiTab extends Component {
       window.addTab && window.addTab(panes["elite"]);
     } else if (pathname.indexOf("settings")>-1) {
       window.addTab && window.addTab(panes["settings"]);
-    } else {
+    }else {
       window.addTab && window.addTab(panes[pathname]);
     }
   };
 
   onChange = activeKey => {
+    console.log(this.state.activeKey,activeKey,'---this.state.activeKey,activeKey')
     const panes = this.state.panes;
     if (this.state.activeKey!= activeKey&& activeKey == 'dashboard') {
       document.body
@@ -245,6 +256,7 @@ class MultiTab extends Component {
   };
 
   onEdit = (targetKey, action) => {
+    console.log(targetKey, action,'---targetKey, action')
     this[action](targetKey);
   };
 

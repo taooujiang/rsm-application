@@ -12,11 +12,8 @@ export default class SchoolRecruit extends BaseModel {
       super(opts)
   }
 
-
-
-
   static fields={}
-  static modelName = 'searchTalents'
+  static modelName = 'schoolRecruit'
 }
 
 

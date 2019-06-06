@@ -253,7 +253,19 @@ class FormItem extends Component{
 }
 
 let customRules={
+   urlRule: (rule, value, callback)=>{
+    // /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
+    var rexp=/((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/
+     if(value.trim().length > 0){
+      console.log(value,rexp.test(value),'---rule')
+        if (!rexp.test(value)) {
+          callback('请输入正确的网址！')
+        }
+     }
+      // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+      callback()
 
+   },
    checkWeekPassword: (rule, value, callback) =>{
 
      if (/^\d{6}$/.test(value)) {

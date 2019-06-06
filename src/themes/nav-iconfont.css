@@ -93,6 +93,14 @@
 
 .anticon-icon-channel20:before { content: "\e606"; }/*校园招聘*/
 
+.anticon-icon-quxiao-:before {content: "\e676";}
+
+.anticon-icon-nansheng:before { content: "\e660";}
+
+.anticon-icon-nvsheng:before {content: "\e70b";}
+.anticon-icon-weixin:before {content: "\e65f";}
+.anticon-icon-dianhua:before { content: "\e600";}
+
 /*add(tubiao是跟进图标)*/
 
 .anticon-icon-tubiao:before { content: "\e636"; }

@@ -108,7 +108,7 @@ export default class ApplyFormView extends Component {
 		}) : null
 	}
 	render() {
-		let {info, handlePrinter} = this.props
+		let {info, handlePrinter,handleDowload} = this.props
 		let relationshipCol = [
 			{
 				title: '称谓',
@@ -197,6 +197,7 @@ export default class ApplyFormView extends Component {
 								: undefined).format("YYYY-MM-DD HH:mm")
 						}</span>
 					<Icon onClick={handlePrinter} type='printer' className="printerBtn"/>
+					<Icon  className="downloadBtn" type="download" title='下载信息登记表' onClick={handleDowload}/>&#x3000;
 				</div>
 			</div>
 			<div className="content">

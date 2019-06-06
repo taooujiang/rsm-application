@@ -164,7 +164,7 @@ export class ImgUploadList extends FileUpload{
             onPreview={handlePreview}  listType={listType}   onSuccess={onSuccess}  onRemove={onRemove}  fileList= {fileList} beforeUpload={beforeUpload} disabled={disabled} action={"/fileUpload/file/upload?type=" + type} withCredentials={true} onChange={this.handleChange.bind(this)} locale={locale}>
              {uploadButton2}
           </Upload>
-          {tipText ? <span style={imgNum == 1  && fileList.length != 0 ? {height: '110px',display: 'inline-block',lineHeight: '15'}:{}}>{tipText}</span> : null}
+          {tipText ? <span style={imgNum === 1  && fileList.length !== 0 ? {height: '110px',display: 'inline-block',lineHeight: '15'}:{display:'inline-block',width: '100%'}}>{tipText}</span> : null}
       </div>
        
       )

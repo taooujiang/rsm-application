@@ -271,7 +271,7 @@ export default class HeaderSide extends React.Component {
               <Menu.Item key="11-1">
               <Link
                 to={{
-                  pathname: "schoolRecruit/list"
+                  pathname: "schoolRecruit/searchTalents"
                   // state: { breadcrumbName: "通话记录" }
                 }}
               >
@@ -282,14 +282,14 @@ export default class HeaderSide extends React.Component {
                 <Menu.Item key="11-2">
                   <Link
                     to={{
-                      pathname: "schoolRecruit/record"
+                      pathname: "schoolRecruit/inviteRecord"
                       // state: { breadcrumbName: "员工管理" }
                     }}
                   >
                     <span>邀请记录</span>
                   </Link>
                 </Menu.Item>,
-                "invitedRecord"
+                "inviteRecord"
               )}
 
             </Menu.SubMenu>,

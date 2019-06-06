@@ -5,7 +5,7 @@ import SmartLink from 'app/components/SmartLink'
 import moment from 'moment'
 import DictUtils from 'app/utils/DictUtils'
 import styles from './style.less'
-
+import { message } from 'antd'
 function filterNull(arr) {
 	return arr.filter((it, idx) => it != "" && it != undefined && it != undefined + " - " + undefined)
 }
@@ -29,8 +29,12 @@ export default class Intro extends Component {
 		let arr = rest.filter((it, idx) => it != "" && it != undefined && it != undefined + " - " + undefined && it != " - ")
 		return arr.length > 0
 	}
+	 spanClick(){
+		let {item,isWarning,warnText} = this.props
+		message.warning(`${warnText}`)
+	}
 	render() {
-        let {item} = this.props
+        let {item,isWarning,warnText} = this.props
 		// let itAge =(item.age != "" && item.age != undefined)  ?  item.age + '岁'  : null
 		// itAge,item.education,
 		// , item.ownerName
@@ -47,14 +51,21 @@ export default class Intro extends Component {
 				<span className="name" style={{
 						marginRight: 10
 					}}>
-					<SmartLink style={{
-							color: '#323232'
-						}} to={{
-							pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
-							state: {
-								orgin: this.props.pathname
-							}
-						}}>{item.name}</SmartLink>
+					{
+						isWarning ?
+						<span onClick={this.spanClick.bind(this)} style={{cursor:'pointer',color: '#323232'}} >
+								 {item.name}
+						</span>
+						:
+						<SmartLink style={{
+							  color: '#323232'
+						  }} to={{
+							  pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
+							  state: {
+								  orgin: this.props.pathname
+							  }
+						  }}>{item.name}</SmartLink>
+					}
 				</span>
 				<Tooltip title={titleInfo}>{titleInfo}</Tooltip>
 			</div>
@@ -63,18 +74,29 @@ export default class Intro extends Component {
 					? <div style={{
 								color: '#808080'
 							}} className="edu-info">
-							<SmartLink style={{
-									color: '#323232'
-								}} to={{
-									pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
-									state: {
-										orgin: this.props.pathname
-									}
-								}}><Icon type="book" style={{
-								marginRight: '5px'
-							}}/>
-								<Tooltip title={eduInfo}>{eduInfo}</Tooltip>
-							</SmartLink>
+							{
+									isWarning ?
+									<span onClick={this.spanClick.bind(this)} style={{cursor:'pointer',color: '#323232'}} >
+										<Icon type="book" style={{
+										marginRight: '5px'
+									}}/>
+										<Tooltip title={eduInfo}>{eduInfo}</Tooltip>
+									</span>
+									:
+									<SmartLink style={{
+										color: '#323232'
+										}} to={{
+											pathname: `${item.graduateId ? item.graduateId: item.id}/detail`,
+											state: {
+												orgin: this.props.pathname
+											}
+										}}><Icon type="book" style={{
+										marginRight: '5px'
+									}}/>
+										<Tooltip title={eduInfo}>{eduInfo}</Tooltip>
+									</SmartLink>
+								}
+						
 						</div>
 					: null
 			} 

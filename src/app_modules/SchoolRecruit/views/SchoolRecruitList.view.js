@@ -38,24 +38,28 @@ export default class RecordListView extends PageView {
   componentDidMount() {
     let {actions,router,children} = this.props;
     let params = {status:1}
+    actions.listAction(params)//参数
     actions.listRealAction(params)
   }
   componentWillReceiveProps(nextProps){
     let {actions} = this.props
     if(this.props.reduce.params !== nextProps.reduce.params){
       let {actions,router,children} = this.props;
+      // actions.listAction(nextProps.reduce.params)//参数
       actions.listRealAction(nextProps.reduce.params)
     }
-    if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
-      if(nextProps.location.state && nextProps.location.state.key=="reload"){
-        actions.listRealAction(nextProps.reduce.params)
-      }
-    }
+    // if(JSON.stringify(nextProps.location.state) !== JSON.stringify(this.props.location.state)){
+    //   if(nextProps.location.state && nextProps.location.state.key=="reload"){
+        // actions.listAction(nextProps.reduce.params)//参数
+      //   actions.listRealAction(nextProps.reduce.params)
+      // }
+    // }
   }
 
   handleFilter(values){
     // console.log(values)
     let {actions} = this.props
+    actions.listAction(values)//参数
     actions.listRealAction(values)
   }
 
@@ -76,13 +80,13 @@ export default class RecordListView extends PageView {
     ]
     return (
         <AdvancedSearchForm isCircle={false} autoSubmitForm={false} showConfig={false}  filterSubmitHandler={this.handleFilter.bind(this)} >
-            <Input name="expectedJobTitle" label="期望职位" placeholder="请选择" style={{ width: '300px' }} />
-            <Input name="school" label="就读院校" style={{ width: '300px' }}  />
-            <LinkagePullDown name="degrees" label="最低学历"  style={{ width: '300px' }} options={DictUtils.getDictByType("education")} />
+            <Input name="expectedJobTitle" label="期望职位" placeholder="请输入期望职位" style={{ width: '300px' }} />
+            <Input name="school" label="就读院校" placeholder="请输入就读院校" style={{ width: '300px' }}  />
+            <LinkagePullDown name="degrees" label="最低学历" style={{width:'150px'}} options={DictUtils.getDictByType("education")} />
             {/* <Select name="degreeLow" label="最低学历" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} style={{ width: '120px' }} />
             <Select name="degreeHeight" label="" placeholder="请选择" fetch={DictUtils.getDictByType("education")} renderItem={this.renderSelectOption} style={{ width: '120px' }} /> */}
-            <Input name="marjor" label="就读专业" style={{ width: '300px' }}  />
-            <Select name="gender" label="性别&#x3000;&#x3000;" placeholder="不限" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} style={{ width: '300px' }} />
+            <Input name="marjor" label="就读专业"  placeholder="请输入就读专业"style={{ width: '300px' }}  />
+            <Select name="gender" placeholder="请选择性别" label="性别&#x3000;&#x3000;" placeholder="不限" fetch={DictUtils.getDictByType("sex")} renderItem={this.renderSelectOption} style={{ width: '300px' }} />
             {/* <Select name="school" label="院校类别" placeholder="请选择" defaultValue={1} fetch={[{ keyName: '禁用', keyValue: 0 }, { keyName: '启用', keyValue: 1 }]} renderItem={this.renderSelectOption} style={{ width: '268px' }} /> */}
         </AdvancedSearchForm>
     )
@@ -128,12 +132,12 @@ export default class RecordListView extends PageView {
             width: 150,
             render:(val,row)=>{
               let arr=[
-                {status:0,statusText:'未投递',style:{color:'#D67794',fontSize:'15px'}},
-                {status:1,statusText:'已发送',style:{color:'#6BD0BE',fontSize:'15px'}},
-                {status:2,statusText:'已查看',style:{color:'#DA947E',fontSize:'15px'}},
-                {status:3,statusText:'已投递',style:{color:'#DA947E',fontSize:'15px'}}
+                {status:0,statusText:'未投递',style:{color:'#F17BA3'}},
+                {status:1,statusText:'已发送',style:{color:'#6BD0BE'}},
+                {status:2,statusText:'已查看',style:{color:'#DA947E'}},
+                {status:3,statusText:'已投递',style:{color:'#DA947E'}}
               ]
-              let style =   row.inviteStatus == '1' ?  {color:'#D67794'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
+              let style =   row.inviteStatus == '1' ?  {color:'#F17BA3'} :  (row.inviteStatus == '2' ?  {color:'#6BD0BE'} :  {color:'#DA947E'})
               return   <span style={arr[row.inviteStatus].style}>{arr[row.inviteStatus].statusText}</span>
             }
         }

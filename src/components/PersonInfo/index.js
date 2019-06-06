@@ -276,10 +276,9 @@ function export_raw(name, data) {
 	save_link.download = name;
 	fake_click(save_link);
 }
-function changeFrameHeight(){
-	  var ifm= document.getElementById("iframepage") || {}; 
-	  ifm.height=document.documentElement.clientHeight;
-	
+function Img(i) {
+	var imgs = document.getElementsByTagName('img');
+	for(var i=0;i<imgs.length;i++)imgs[i].style.width='100%'
 }
 /* tabs组件开始 */
 export class PersonTabBaseInfo extends Component {
@@ -336,6 +335,8 @@ export class PersonTabBaseInfo extends Component {
 				: 1
 		})
 	}
+
+	
 	// 标准简历下载
 	handleDownload2(){
 		let {
@@ -363,7 +364,9 @@ export class PersonTabBaseInfo extends Component {
 				}
 			}
 		} = this.props
-		var test = '<!DOCTYPE html><html><body style="width:750px;margin:20px auto;"><iframe id="iframepage"  name="iframepage" width="800"  height="900"    scrolling="auto"  hspace="-100" vspace="-150" src="' + sourceUrl + '" ></iframe></body></html>'
+		var test = '<!DOCTYPE html><html>'
+    + '<style>img{width:100%;height:auto;}</style>'
+		+ '<body style="width:100%;margin:20px auto;"><iframe " id="iframepage"  name="iframepage" width="100%"  height="900"    scrolling="auto"  hspace="-100" vspace="-150" src="' + sourceUrl + '" ></iframe></body></html>'
 	    let htmlName = name + '的原始简历.html'
 	    export_raw(htmlName, test);
 
@@ -2151,6 +2154,21 @@ export class ExtraInformation extends Component {
 			actions.fetchAdditionInfoAction({"resumeId": resumeId})
 		})
 	}
+		// 登记表下载
+		handleDownload3(){
+			let {
+				info: {
+					files
+				}
+			} = this.props
+			console.log(this.props,"===name")
+			let stylesText = '<style>body{font-size:12px;background-color:#fff;width:100%;overflow:auto;padding:0 20px}body li,body ul{margin:0;padding:0;list-style:none}body .content{margin:10px 20px}body .content .ant-col-12{width:50%;float:left}body .content .ant-col-12:nth-of-type(10n+1):not(:nth-of-type(1)):not(:nth-of-type(2)),body .content .ant-col-12:nth-of-type(10n+2):not(:nth-of-type(1)):not(:nth-of-type(2)){margin-top:20px}body .content .contentBase{font-size:12px;line-height:24px}body .content .contentBase label{color:grey}body .content .contentBase span{color:#333}body .title{text-align:center;font-size:20px}body .form-subtitle{background-color:#f7f7f7;height:50px;line-height:50px;font-size:15px;padding:0 20px}body .form-subtitle .interview-info{margin:0 auto;position:relative}body .form-subtitle .interview-info .interview-date{position:absolute;right:30px}body .form-subtitle .interview-info .printerBtn{position:absolute;right:0;font-size:16px;top:50%;margin-top:-8px;cursor:pointer}body .studylist-box,body .tips-title,body .worklist-box{line-height:24px;margin:10px}body .ant-table-wrapper{display:block;flex:none}body .ant-table-wrapper .ant-table-placeholder{display:none}body .studylist-box>li,body .worklist-box>li{display:flex}body .studylist-box>li>span,body .worklist-box>li>span{flex:1}body .studylist-box>li>span:first-of-type,body .worklist-box>li>span:first-of-type{flex:0 0 180px}body .apply-show-table .ant-table-title,body .part-title{font-size:16px;font-weight:700;margin:20px 0}body .apply-show-table .ant-table-thead{display:none}</style>'
+			var test = '<!DOCTYPE html><html>' 
+				+ stylesText
+				+ '<body> <div style="width:1100px;margin:20px auto;border:solid 1px #e6e6e6">' + document.getElementById("apply-form-box").innerHTML + ' </div></body></html>'
+				let htmlName = files[0].name +  '.html'
+				export_raw(htmlName, test);
+		}
 	printerApplyForm() {
 		var LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'))
 		LODOP.PRINT_INIT("打印面试登记表")
@@ -2189,7 +2207,7 @@ export class ExtraInformation extends Component {
 					maskClosable: true,
 					centered: true,
 					width: '1100px',
-					content: (<ApplyFormView info={json} handlePrinter={that.printerApplyForm.bind(this)}/>)
+					content: (<ApplyFormView info={json} handleDowload={that.handleDownload3.bind(this)} handlePrinter={that.printerApplyForm.bind(this)}/>)
 				})
 			});
 
@@ -2216,6 +2234,7 @@ export class ExtraInformation extends Component {
 			return false
 		}
 	}
+
 	renderUploadList() {
 		const {actions, resumeId, info, detailType} = this.props
 		// let data=[{fileName:"abc.jpg",url:"http://www.baidu.com",type:"jpg"},{fileName:"信息登记表",url:"http://www.baidu.com",type:"rar"}]
@@ -2227,10 +2246,14 @@ export class ExtraInformation extends Component {
 					<Button>上传信息登记表</Button>
 				</FileUpload>} dataSource={info.files} renderItem={item => (<List.Item actions={detailType == 10
 					? null //员工无操作
-					: [<Popconfirm onConfirm={this.handlerAdditionDelete.bind(this, item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
-						<Icon type="delete"/>
-					</Popconfirm>
-						]}>
+					: 	[	<span>
+								<Popconfirm onConfirm={this.handlerAdditionDelete.bind(this, item.id)} title="是否确定删除这条数据" okText="是" cancelText="否">
+										<Icon type="delete"  />
+								</Popconfirm>
+						</span>
+					]
+				
+				}>
 				<span onClick={this.handleImg.bind(this, item.fileUrl, item)} style={{
 						cursor: "pointer"
 					}}>{item.name}</span>

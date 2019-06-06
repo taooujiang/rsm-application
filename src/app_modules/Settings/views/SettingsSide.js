@@ -26,12 +26,16 @@ export default class SettingsSide extends React.Component {
   }
 
   render() {
-    // console.log(t)
-
+  
     let [openKeys, selectedKey] = ['sub1', 'company']
+    // let [openKeys, selectedKey] = ['sub1', '']
+  
     let { location } = this.props
+    console.log( location,"=== location")
     if (location.state && location.state.keyPath) {
       [openKeys, selectedKey] = location.state.keyPath
+    }else if(location.pathname.indexOf("companyCard") != -1){
+      [openKeys, selectedKey] =  ['sub1', 'companyCard']
     }
     return (
       <Menu

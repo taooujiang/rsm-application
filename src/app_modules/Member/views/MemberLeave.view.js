@@ -23,8 +23,8 @@ import ModalView from 'app/components/Modal.view'
 @WrapperComponent(ModalView)
 export default class MemberLeaveForm extends FormPage{
   handleSubmit(value){
-    let {actions,router} = this.props
-    actions.dissmissMemberAction(value)
+    let {actions,router,reduce:{page,params}} = this.props
+    actions.dissmissMemberAction(value,params)
     actions.backRoute(router)
   }
   render() {

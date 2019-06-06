@@ -202,17 +202,29 @@ const panes = {
     key: "member/interpol",
     src: "/static/js/client/main.html#/member/interpol"
   },
-  "/soundlist/soundlist": {
+  "soundlist/soundlist": {
     title: "通话记录",
     refresh: true,
-    key: "soundlist",
+    key: "/soundlist/soundlist",
     src: "/static/js/client/main.html#/soundlist/soundlist"
   },
-  "/soundlist/messageList": {
+  "soundlist/messageList": {
     title: "短信记录",
     refresh: true,
-    key: "messageList",
+    key: "/soundlist/messageList",
     src: "/static/js/client/main.html#/soundlist/messageList"
+  },
+  "schoolRecruit/searchTalents": {
+    title: "搜索人才",
+    refresh: true,
+    key: "/schoolRecruit/searchTalents",
+    src: "/static/js/client/main.html#/schoolRecruit/searchTalents"
+  },
+  "schoolRecruit/inviteRecord": {
+    title: "邀请记录",
+    refresh: true,
+    key: "/schoolRecruit/inviteRecord",
+    src: "/static/js/client/main.html#/schoolRecruit/inviteRecord"
   },
   settings: {
     title: "系统设置",

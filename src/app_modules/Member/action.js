@@ -200,14 +200,14 @@ export function saveAction(value, page) {
   }
 }
 
-export function dissmissMemberAction(value) {
+export function dissmissMemberAction(value, page) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchDissmissMember(value).then(json => {
       dispatch(fetchSuccess('formSpin', true, "操作成功！"))
       dispatch(memberUpdate(Object.assign({},value,{status:3})))
       dispatch(currentMemberSave(Object.assign({},value,{status:3})))
-      // dispatch(listAction())
+      dispatch(listAction(page))
     }).catch(ex => {
       return dispatch(fetchFailure('formSpin', ex))
     })
@@ -219,7 +219,10 @@ export function deleteAction(value, page) {
     dispatch(fetchRequest('tableSpin'))
     return new API().fetchChangeStatus(value).then(json => {
       if (value.status) {
+        console.log(page,"==deleteAction=page")
         dispatch(fetchSuccess('tableSpin', true, "转正成功！"))
+        // dispatch(listAction(page))
+        dispatch(routerActions.goBack())
       } else {
         dispatch(fetchSuccess('tableSpin', true, "删除成功！"))
         dispatch(routerActions.goBack())
@@ -227,7 +230,6 @@ export function deleteAction(value, page) {
       dispatch(currentMemberSave(value))
       //console.log(json.list)
       // dispatch(removeItem(json))
-      dispatch(listAction(page))
     }).catch(ex => {
       return dispatch(fetchFailure('tableSpin', ex))
     })

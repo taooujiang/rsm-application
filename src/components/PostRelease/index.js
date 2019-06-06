@@ -482,6 +482,17 @@ class JobResponsibility extends Component {
 }
 /* 简历发布  接收规则组件 */
 class ChannelAdJobRule extends Component {
+	// componentDidMount() {
+	// 	new FetchAPI().fetchPost('/sysSetOfferApproval/listJson', {body: {}}).then(res => {
+	// 		this.setState({
+	// 			listOption: res.list,
+	// 			defaultCheck: res.list[0]
+	// 				? res.list[0].id
+	// 				: "",
+	// 			over: true
+	// 		})
+	// 	})
+	// }
 	changeCheck(sign,checked) {
 		// e.persist();
 		console.log(sign,checked,"==sign,checked")
@@ -506,20 +517,27 @@ class ChannelAdJobRule extends Component {
 		let {item,item: {
 				isWebsite,isSchoolRecruit
 			}} = this.props
-		// console.log(	isWebsite,isSchoolRecruit)
+			// componentWillReceiveProps(nextProps) {
+			// 	console.log(this.props,nextProps,"===nextProps")
+			// 	if(JSON.stringify(nextProps.reduce.list) != JSON.stringify(this.props.reduce.list) ){
+					
+			// 	}
+		
+			// }
+		console.log('this.props,,',isWebsite,isSchoolRecruit)
 		return (<div className="thirdStep-box">
 			{/* <ChannelList dataSource={DictUtils.getDictByType("channel")}/> */}
 			<div className='baseFromSwitchs'>
 					<BaseInfoItem label="发布到内推官网" info={<span > {
 							item
-								? <Switch defaultChecked={isWebsite == 1} className='isWebsite' onChange={this.recommendSwitch.bind(this)}/>
+								? <Switch defaultChecked={isWebsite === 1} checked={isWebsite === 1}  className='isWebsite' onChange={this.recommendSwitch.bind(this)}/>
 								: null
 						}<div>请到遇仁公众号中查看内推职位</div>
 					</span>
 					}/>
 					<BaseInfoItem label="发布到企业校招" info={<span > {
 							item
-								? <Switch defaultChecked={isSchoolRecruit == 1} className='isSchoolRecruit' onChange={this.schoolSwitch.bind(this)}/>
+								? <Switch defaultChecked={isSchoolRecruit === 1} checked={isSchoolRecruit === 1} className='isSchoolRecruit' onChange={this.schoolSwitch.bind(this)}/>
 								: null
 						}<div>请到遇仁招聘企业版小程序中查看校招职位</div>
 					</span>
@@ -639,7 +657,29 @@ export default class PostRelease extends Component {
 			})
 		})
 	}
+	componentWillReceiveProps(nextProps) {
+		console.log(this.props,nextProps,"===nextProps")
+		new FetchAPI().fetchPost('/sysSetOfferApproval/listJson', {body: {}}).then(res => {
+			this.setState({
+				listOption: res.list,
+				defaultCheck: res.list[0]
+					? res.list[0].id
+					: "",
+				over: true
+			})
+		})
+		// if(JSON.stringify(nextProps.reduce.list) != JSON.stringify(this.props.reduce.list) ){
+				
+		// 		this.setState({
+		// 				initData:nextProps.reduce.list[0],
+		// 				btnState:nextProps.reduce.list  && nextProps.reduce.list[0].status ?  '' : 'edit'
+		// 		})
+		// 		this.form.setFieldsValue({
+		// 			 welfares:nextProps.reduce.list[0].welfares
+		// 		})
+		// }
 
+	}
 	handleChangePanel(actionkey) {
 		let {router, params, dispatch} = this.props
 		let currRoute = router.getCurrentLocation().pathname

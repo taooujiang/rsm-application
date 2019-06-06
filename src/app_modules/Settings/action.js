@@ -653,11 +653,11 @@ export function companyCardListSaveAction(value) {
     dispatch(fetchRequest('formSpin'))
     return new API().fetchCompanyCardListSave(value).then(json => {
       dispatch(fetchSuccess('formSpin'),true)
-      dispatch(companyCardList({list:[{...json}]}))
+      // dispatch(companyCardList({list:[{...json}]}))
+      dispatch(companyCardListAction());
       message.warning(`保存成功`);
     }).catch(ex => {
       dispatch(companyCardListAction());
-      message.warning(`保存失败`);
       return dispatch(fetchFailure('formSpin', ex))
     })
   }
@@ -666,12 +666,16 @@ export function companyCardRemoveTagAction(index) {
   return (dispatch, getState) => {
     getState().settingsReducer.list[0].welfares.splice(index,1)
     console.log(getState().settingsReducer.list[0].welfares,"=getState().settingsReducer.list[0].welfares")
-      dispatch(companyCardRemoveTag({welfares:getState().settingsReducer.list[0].welfares}))
+     dispatch(companyCardRemoveTag({welfares:getState().settingsReducer.list[0].welfares}))
   }
 }
 export function companyCardAddTagAction(item) {
+ 
   return (dispatch, getState) => {
-      dispatch(companyCardAddTag({welfares:getState().settingsReducer.list[0].welfares.push(item)}))
+    let arr =[...getState().settingsReducer.list[0].welfares]
+    arr.push(item)
+    console.log(item,'-companyCardAddTagAction-item',arr,'---arr')
+    dispatch(companyCardAddTag({welfares:arr}))
   }
 }
 

@@ -35,22 +35,22 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 let Container = connect((state)=>({
-    items:reducerListSelector(state.ORMReducer,"searchTalents"),
+    items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
     reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(SchoolRecruitListView)
 
 let RecordContainer = connect((state)=>({
-    items:reducerListSelector(state.ORMReducer,"searchTalents"),
+    items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
     reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(RecordView)
 
 let DetailContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"searchTalents"),
+  items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
   reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalDetailSmallView)(DeatilView))
 
 let SendContainer = connect((state)=>({
-  items:reducerListSelector(state.ORMReducer,"searchTalents"),
+  items:reducerListSelector(state.ORMReducer,"schoolRecruit"),
   reduce:state.schoolRecruitReducer
 }), mapDispatchToProps, null, {pure: false})(WrapperComponent(ModalView)(SendView))
 

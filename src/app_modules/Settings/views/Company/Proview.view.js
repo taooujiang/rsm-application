@@ -23,6 +23,9 @@ export default class ProviewView extends FormPage{
     // })
   }
   render() {
-    return (<img src={this.state.imgUrl} className='recodeJpg' />) 
+    return (<div style={{height:'380px'}}>
+      <img src={this.state.imgUrl} className='recodeJpg' />
+      <p style={{textAlign:'center',fontSize:'15px'}}><span style={{color:'red',}}>温馨提示：</span>使用微信扫码查看企业名片效果</p>
+      </div>) 
   }
 }
