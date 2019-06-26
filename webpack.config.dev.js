@@ -269,7 +269,6 @@ var webpackConfig = {
         changeOrigin: true,
         target: "http://192.168.1.75:8082"
       },
-    
 
       
      

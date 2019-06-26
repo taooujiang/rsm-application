@@ -22,6 +22,7 @@ import {
 import Permission from "components/Permission";
 import ConfigUtils, { hasPermission } from "utils/ConfigUtils";
 import { Link } from "react-router";
+import * as actions from './action'
 const { Meta } = Card;
 
 export default class HeaderSide extends React.Component {
@@ -30,7 +31,21 @@ export default class HeaderSide extends React.Component {
     collapsed: true,
     openKeys: ["0"]
   };
+  componentDidMount() {
+    // console.log('this.props', this.props,"=====header=====");
+    // let {actions} = this.props;
+    // console.log(actions)
 
+    /**
+     * updateLocalFileChannel
+     * 实时更新本地存储的渠道
+     */
+
+    // console.log("HeaderSide 调用初始化渠道")
+    // setTimeout(function(){
+    //   actions.updateLocalFileChannel()
+    // },2000)
+  }
   onOpenChange = openKeys => {
     const latestOpenKey = openKeys.find(
       key => this.state.openKeys.indexOf(key) === -1

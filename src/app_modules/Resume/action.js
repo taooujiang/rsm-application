@@ -161,7 +161,13 @@ export function listAction(value) {
     dispatch(saveParams(value))
   }
 }
-
+export function exportAction(url, value) {
+  return (dispatch, getState) => {
+    return new API().fetchExport(url, value).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 export function approvalRealAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))

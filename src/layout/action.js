@@ -57,3 +57,27 @@ export function fetchInitConfig(){
     //  return dispatch(fetchFailure('noticeSpin',ex))
   }
 }
+
+//实时获取当前渠道信息。刷新本地文件存储的渠道登录信息。
+export function updateLocalFileChannel(){
+  return (dispatch, getState) => {
+    //  dispatch(fetchRequest('noticeSpin'))
+    return Promise.all([new API().fetchConst()]).then(([jsonConst]) => {
+     //  dispatch(fetchSuccess('noticeSpin'))
+    //  console.log(jsonConst,jsonMenu)
+
+      // dispatch(saveMenuList({list:jsonMenu.resourceList}))
+
+      dispatch(saveDicts({list:jsonConst}))
+      dispatch(initChannel(jsonConst.channel))
+      // console.log(jsonConst.channel.map(c=>c.id))
+      console.log("type","isLogin_auto",jsonConst.channel.map(c=>c.id))
+      new ClientAPI().JsToPython({
+        type:'isLogin_auto',
+        channels:jsonConst.channel.map(c=>c.id)
+      })
+      // console.log("dict",DictUtils.getDictByType("channel"))
+    }).catch(ex => {})
+    //  return dispatch(fetchFailure('noticeSpin',ex))
+  }
+}

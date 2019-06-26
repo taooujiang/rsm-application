@@ -281,7 +281,7 @@ class BaseInfoEdit extends FormPage {
 				</Col>
 				<Col span={24}>
 					<FormItem>
-						{/*<TextArea label="职位描述" name="jobDescription" defaultValue={item.jobDescription} autosize={{
+						<TextArea label="职位描述" name="jobDescription" defaultValue={item.jobDescription} autosize={{
 								minRows: 4
 							}} rules={[
 								{
@@ -292,15 +292,15 @@ class BaseInfoEdit extends FormPage {
 								}, {
 									validator: customRules.spacialStr
 								}
-							]}/>*/}
-						<EditableRichEditor label="职位描述" name="jobDescription" rows={4} defaultValue={item.jobDescription} extBar={false} type='html' rules={[
+							]}/>
+						{/* <EditableRichEditor label="职位描述" name="jobDescription" rows={4} defaultValue={item.jobDescription} extBar={false} type='html' rules={[
 							{
 								required: true,
 								message: "职位描述不可为空"
 							}, {
 								validator: customRules.required
 							}
-						]}/>
+						]}/> */}
 					</FormItem>
 				</Col>
 			</Row>

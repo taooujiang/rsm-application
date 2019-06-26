@@ -61,6 +61,7 @@ class MemberImport extends Component{
   downloadTemplate() {
     let {actions} = this.props
     actions.exportAction(`${APP_SERVER}/fileUpload/expTempExcel`)
+    // actions.exportAction(`${APP_SERVER}/fileUpload/resume/expTempExcel`)
   }
 
   renderSelectOption(data,idx){
@@ -153,6 +154,7 @@ class MemberImport extends Component{
     const props = {
       name: 'file',
       action: '/fileUpload/member/match',
+      // action: '/fileUpload/resume/match',
       accept:'.xls,.xlsx',
       // showUploadList:false,
       // accept: "application/json",
