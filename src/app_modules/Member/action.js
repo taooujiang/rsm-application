@@ -33,13 +33,16 @@ let {
 
 export const memberListSave = createAction("STORE_MEMBER")
 export const interpolListSave = createAction("STORE_INTERPOL")
+export const recordListSave = createAction("STORE_RECORD")
+export const optionSaveList = createAction("STORE_SYSTEMOPTION")
 export const interpolSave = createAction("UPSERT_INTERPOL")
 export const memberSave = createAction("UPSERT_MEMBER")
 export const currentMemberSave = createAction("UPSERT_CURRENTMEMBER")
 export const clearCurrentMember = createAction("CLEAR_CURRENTMEMBER")
 
+export const templateSaveList = createAction('STORE_TEMPLATE')
 export const memberUpdate = createAction("UPDATE_MEMBER")
-
+export const templateSave = createAction('UPSERT_TEMPLATE')
 export const memberItemSave = createAction("SAVE_MEMBERITEM")
 
 export const saveFeedData = createAction("SAVE_FEEDDATA")
@@ -47,6 +50,39 @@ export const saveBaseInfo = createAction("SAVE_BASEINFO")
 
 let { backRoute, listRoute,addRoute, editRoute, backShouldReloadRoute } = createActionRoute()
 export { backRoute,listRoute, addRoute, editRoute, backShouldReloadRoute }
+
+export function editonlyDepartureDateAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/editonlyDepartureDate`))
+}
+export function deitOnlyPositiveAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/deitOnlyPositive`))
+}
+export function onlyPositiveAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/onlyPositive`))
+}
+export function batchPositiveAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/batchPositive`))
+}
+export function editPositiveAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/editPositive`))
+}
+export function addContractInformationAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/addContractInformation`))
+}
+export function bulkDeparturesAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/bulkDepartures`))
+}
+export function editDepartureDateAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/editDepartureDate`))
+}
+export function practicePositiveAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/practicePositive`))
+}
+export function internship2ProbationAction(data,router) {
+  return dispatch => dispatch(routerActions.push(`${router.location.pathname}/internship2Probation`))
+}
+
+
 
 export function exportRoute(id) {
   return dispatch => dispatch(routerActions.push(`/member/list/export`))
@@ -86,8 +122,29 @@ export function leaveMemberRoute(id,item) {
 //   // let hash=router.createLocation(newLocation)
 //   // return dispatch => dispatch(routerActions.push(hash))
 // }
+export function fetchTemplateItemAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('formSpin'))
+    return new API().fetchTemplateItem(value).then(json => {
+      dispatch(fetchSuccess('formSpin'))
+      dispatch(templateSave(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('formSpin', ex))
+    })
+  }
+}
 
-
+export function approvalRealAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchApprovalList(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+       dispatch(saveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 function saveSysFieldList(list) {
   return { type: CONSTANTS.SAVE_SYS_FIELD_LIST, payload: list }
 }
@@ -116,6 +173,19 @@ export function listAction(value) {
   }
 }
 
+export function templateListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('templateSpin'))
+    return new API().fetchTemplateList(value).then(json => {
+      dispatch(fetchSuccess('templateSpin'))
+      let { list, ...page } = json
+      dispatch(templateSaveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('templateSpin', ex))
+    })
+  }
+}
+
 // interpol
 export function interpolListAction(value) {
   return (dispatch, getState) => {
@@ -132,7 +202,33 @@ export function interpolListAction(value) {
     })
   }
 }
+export function recordListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchRecordlList(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      //console.log(json.list)
+      let { list, ...page } = json
+      dispatch(saveParams(value))
+      dispatch(recordListSave(json))
 
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+export function optionListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchOptionList(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      let { list, ...page } = json
+      dispatch(optionSaveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 export function interpolExchangeAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('tableSpin'))
@@ -159,7 +255,17 @@ export function personBaseAction(value) {
     })
   }
 }
-
+export function approvalReportAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchApprovalCount(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(saveCount(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 export function getFeedDataAction(value) {
   return (dispatch, getState) => {
     dispatch(fetchRequest('formSpin'))

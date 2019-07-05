@@ -10,7 +10,7 @@
 
 
 import {newList,newItem,saveList,saveItem,removeItem,fetchRequest,fetchSuccess,fetchFailure,saveParams} from 'app-utils/reducerUtils'
-import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave,clearCurrentMember,interpolListSave} from './action'
+import CONSTANTS,{memberItemSave,saveBaseInfo,saveFeedData,memberListSave,currentMemberSave,clearCurrentMember,recordListSave,interpolListSave} from './action'
 import {handleActions} from 'redux-actions'
 // TODO: 调整本地数据结构
 let initialState = {
@@ -130,6 +130,19 @@ actions[interpolListSave]= (state,action)=>{
     }
   }
 }
+actions[recordListSave]= (state,action)=>{
+  let {list,item,page,pageSize,totalRecord}=action.payload
+  return {
+    ...state,
+    items:list,
+    page:{
+      current:page,
+      pageSize,
+      total:totalRecord
+    }
+  }
+}
+
 actions[CONSTANTS.SAVE_SYS_FIELD_LIST]=(state, action)=>{
 	var sortArray=action.payload.filter(it=>it.enable==1)
 	sortArray=sortArray.sort((a,b)=>{return a.sort - b.sort})

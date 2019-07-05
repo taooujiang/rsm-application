@@ -226,6 +226,24 @@ const panes = {
     key: "/schoolRecruit/inviteRecord",
     src: "/static/js/client/main.html#/schoolRecruit/inviteRecord"
   },
+  "organization/construction": {
+    title: "组织结构",
+    refresh: true,
+    key: "/organization/construction",
+    src: "/static/js/client/main.html#/organization/construction"
+  },
+  "organization/jobs": {
+    title: "岗位管理",
+    refresh: true,
+    key: "/organization/jobs",
+    src: "/static/js/client/main.html#/organization/jobs"
+  },
+  "organization/position": {
+    title: "职位管理",
+    refresh: true,
+    key: "/organization/position",
+    src: "/static/js/client/main.html#/organization/position"
+  },
   settings: {
     title: "系统设置",
     key: "settings",

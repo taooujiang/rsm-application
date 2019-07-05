@@ -49,7 +49,7 @@ class MemberImportResultView extends FormPage{
   //请求远程数据接口
   componentWillMount() {
     let {actions,params} = this.props
-    actions.importResultListAction()
+    actions.importResultListAction({type:1})
   }
 
   render() {

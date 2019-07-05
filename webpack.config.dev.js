@@ -269,8 +269,19 @@ var webpackConfig = {
         changeOrigin: true,
         target: "http://192.168.1.75:8082"
       },
-
-      
+      "/postManage":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+      "/logMemberChangesRecord":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+      "/postCategory":{
+        changeOrigin: true,
+        target: "http://192.168.1.75:8082"
+      },
+     
      
     }
   },

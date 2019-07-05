@@ -12,8 +12,13 @@ import {
   Select,
   Modal,
   Popconfirm,
-  Card
+  Card,
+  Radio,
+  Checkbox
 } from "antd";
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+const CheckboxGroup = Checkbox.Group;
 import NestedComponent from "app/decorators/NestedComponent";
 import moment from "moment";
 import Ellipsis from 'app/components/Ellipsis'
@@ -38,7 +43,7 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 const confirm = Modal.confirm;
 
-export class MemberSide extends Component {
+export class MemberRosterSlide extends Component {
   handleFilter(values) {
     let { actions } = this.props;
     actions.listAction(values);
@@ -177,6 +182,7 @@ export default class MemberListView extends PageView {
     });
     return optionName.join(",");
   }
+
   renderTableList() {
     let self = this;
     let { reduce, items } = this.props;
@@ -202,30 +208,30 @@ export default class MemberListView extends PageView {
       // 	}
       // },
       columns: [
-        {
-          title: "操作",
-          key: "config",
-          dataIndex: "config",
-          width: 50,
-          fixed: "right",
-          visible: true,
-          render: (text, record, index) => {
-            // console.log(data)
-            return (
-              <ButtonGroups
-                handleClick={this.handlerMenu.bind(this, record.id)}
-              >
-                <Button
-                  icon="user-add"
-                  title="转正"
-                  actionkey="add"
-                  confirm={"是否确认" + record.name + "于今日转正"}
-                  disabled={record.status > 1  && record.status < 4? true : false}
-                />
-              </ButtonGroups>
-            );
-          }
-        }
+        // {
+        //   title: "操作",
+        //   key: "config",
+        //   dataIndex: "config",
+        //   width: 50,
+        //   fixed: "right",
+        //   visible: true,
+        //   render: (text, record, index) => {
+        //     // console.log(data)
+        //     return (
+        //       <ButtonGroups
+        //         handleClick={this.handlerMenu.bind(this, record.id)}
+        //       >
+        //         <Button
+        //           icon="user-add"
+        //           title="转正"
+        //           actionkey="add"
+        //           confirm={"是否确认" + record.name + "于今日转正"}
+        //           disabled={record.status > 1  && record.status < 4? true : false}
+        //         />
+        //       </ButtonGroups>
+        //     );
+        //   }
+        // }
       ]
     };
     let dynamicColumns = [];
@@ -307,8 +313,66 @@ export default class MemberListView extends PageView {
   handlerButtonGroups(actionType) {
     let { actions, router } = this.props;
     actions[actionType].call(this, router);
-    console.log(actionType,"=actionType")
+    console.log(actionType,router,actions,"=actionType")
   }
+  renderSearchBar() {
+		let {
+			reduce: {
+				count,
+				checks
+			},
+			params
+		} = this.props
+		return (<div style={{'textAlign':'right'}}>
+          <ButtonGroups showSize='10' handleClick={this.handlerButtonGroups.bind(this)}>
+          <Button
+          type="ghost"
+          icon="qrcode"
+          permission="importMembers"
+          actionkey="importRoute"
+          type="primary" 
+        >
+          微信二维码
+        </Button>
+        <Button type="ghost" icon="notification" actionkey="importResultRoute">
+          批量通知
+        </Button>
+      <Button icon="plus" actionkey="addRoute">
+        添加
+      </Button>
+      <Button
+        type="ghost"
+        icon="download"
+        permission="importMembers"
+        actionkey="importRoute"
+      >
+        导入
+      </Button>
+      <Button type="ghost" icon="upload" actionkey="importResultRoute">
+        导入结果
+      </Button>
+      <Button
+        type="ghost"
+        icon="file-excel"
+        permission="exportMembers"
+        actionkey="exportRoute"
+      >
+        导出Excel
+      </Button>
+    </ButtonGroups>
+      <AdvancedSearchForm classNames="radioGroupResetFormItem" autoSubmitForm={false} filterSubmitHandler={this.handleFilter} isSearchBtnHide={true} ref={this.formRef}>
+			<RadioGroup className="resumeStatus radioGroupReset" name="type" onChange={this.handleRadioChange} defaultValue={1}>
+				<RadioButton value="1">在职<span className="count">{ 0}</span>
+                {/* <RadioButton value="1">待审批<span className="count">{count.dclNum || 0}</span> */}
+				</RadioButton>
+                {/* <RadioButton value="2">已审批<span className="count">{count.yclNum || 0}</span> */}
+				<RadioButton value="2">离职<span className="count">{0}</span>
+				</RadioButton>
+			</RadioGroup>
+    </AdvancedSearchForm>
+</div>
+    )
+	}
   renderToolbar() {
     let { actions } = this.props;
     return (
@@ -340,17 +404,12 @@ export default class MemberListView extends PageView {
   }
   render() {
     let props = this.props;
+    //  extra={this.renderToolbar()}
     return (
       <Card
         type="inner"
-        title={
-          <div>
-            <h3 className="card-title">员工列表</h3>
-          </div>
-        }
-        extra={this.renderToolbar()}
+        title={this.renderSearchBar()}
       >
-        {/* this.renderSearchBar() */}
         {this.renderTableList()}
       </Card>
     );

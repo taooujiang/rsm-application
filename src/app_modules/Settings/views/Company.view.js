@@ -12,7 +12,6 @@ export default class CompanyView extends PageView {
 		let { actions, } = this.props;
 		actions.companyListAction()
 	}
-
 	renderToolbar() {
 		return (
 			<ButtonGroups handleClick={this.handleAddMenu.bind(this)}>

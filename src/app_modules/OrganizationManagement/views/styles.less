@@ -1,0 +1,218 @@
+// .ant-card-wider-padding .ant-card-body{
+//   padding: 0 !important;
+// }
+.side-menu.report-side{
+  width:250px;
+  padding-top: 20px;
+			.ant-menu-item{
+				text-align: center;
+				padding: 0!important;
+				margin: 0px;
+			}
+}
+.ant-menu.side-menu.report-side.ant-menu-light.ant-menu-root.ant-menu-inline .ant-menu-item{
+	font-size: 14px
+}
+  .resumeType{
+    margin: 0 20px 10px 20px;
+    height:20px;
+    >label.ant-checkbox-wrapper{
+      margin-right: 10px;
+
+      .reportNumber{
+        margin-left:5px;
+      }
+    }
+  }
+
+
+  /*
+    * 待分配简历头部提示信息
+  */
+.distrbuted-title{
+  padding: 10px ;
+  background-color: #e2eff8;
+  margin-top: 10px;
+
+  .anticon{
+    margin-right: 5px;
+    font-size: 16px;
+    color: #2e99ef;
+  }
+}
+/*推荐人温馨提示*/
+.referrerman{
+  font-size: 12px;
+  display: block;
+  margin-top: 24px;
+  i{
+    font-style: normal;
+    color: red;
+  }
+}
+/**面试安排完提示样式*/
+.feedForm-box{
+  .feed-disabled{
+    position: absolute;
+    font-size: 12px;
+    color: red;
+    left: 100px;
+    bottom: 0;
+    line-height: 12px;
+  }
+  /*面试安排提醒样式*/
+  .bindWeChat-tips{
+    display:block;
+    color:red;
+    margin:0px 10px 12px 100px;
+  }
+  .open-tip{
+    display:block;
+    margin:0 10px 12px 100px;
+    color:#bfbfbf;
+  }
+}
+/*删除特殊处理单选**/
+.spacial-radio .ant-form-item-control{
+  margin-left: -100px;
+  .ant-radio-wrapper{
+    width: 100%;
+    margin-bottom: 16px;
+    >span:not(.ant-radio){
+      width: 90%;
+      display: inline-block;
+      white-space: initial;
+      .radio-content>span{
+        display: inline-block;
+        &.title{
+          width:20%;
+        }
+        &:not(.title){
+          float: right;
+          width: 70%;
+        }
+      }
+    }
+    .ant-radio{
+      vertical-align: top;
+    }
+  }
+}
+
+/*疑似简历*/
+.sameDetail-box{
+  background-color: #fff;
+  ul,li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sameDetail-inner{
+    width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    >li{
+      float: left;
+      width: 20%;
+      line-height: 24px;
+      cursor: pointer;
+      padding: 20px 0;
+      position: relative;
+      height: 88px;
+      &.choose{
+        background-color: #f2f2f2;
+      }
+      >div{
+        margin-left: 60px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      >div.icon{
+        margin: 0;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        text-align: center;
+        line-height: 40px;
+        top: 50%;
+        margin-top: -20px;
+        background-color: #36c7a8;
+        color: #fff;
+        left: 10px;
+      }
+      .name{
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+
+/*简历导入*/
+.resume-import-form{
+  display: flex;
+  flex: 1;
+  .resume-import{
+    background-color: #fff;
+    >.layout-pane{
+      background-color: #f4f4f6;
+      .fileUploadItem{
+        width: 100%;
+        padding: 0 10px;
+        text-align: center;
+        display: flex;
+        >.ant-form-item-control-wrapper{
+          align-self: center;
+          width: 100%;
+        }
+        .ant-btn{
+          padding: 12px 24px;
+          height: auto;
+          border-radius: 7px;
+          color: #484848;
+        }
+      }
+      >span{
+        margin: 0 auto;
+      }
+    }
+    >.layout-fixed{
+      border-left: 2px solid #d9d9d9;
+      padding: 50px 30px;
+    }
+  }
+}
+/*标签样式调整*/
+.tag-form .ant-tag-checkable.checkTag-item{
+  margin: 5px;
+  background-color: #e4f0fc;
+  color: #2186e8;
+  border-radius: 10px;
+  padding: 0 5px;
+  &.ant-tag-checkable-checked{
+    background-color: #3391eb;
+    color: #fff;
+  }
+}
+/*发送短信定制样式*/
+.sendMsg-form{
+  .EditableRichEditor{
+    .charcount{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+    }
+    .RichEditor-editor .public-DraftEditor-content{
+      min-height: 100px;
+    }
+  }
+
+  .sendMsg-tips{
+    margin-left: 100px;
+  }
+}

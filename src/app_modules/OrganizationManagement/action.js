@@ -75,6 +75,7 @@ export const saveInterviwPlan = createAction("SAVE_INTVERVIEW")
 export const saveLink = createAction("SAVE_LINK")
 export const removeLink = createAction("REMOVE_LINK")
 export const saveListLink = createAction("SAVE_LISTLINK")
+export const saveTreeList = createAction("SAVE_TREELIST")
 
 export const saveAdditionInfo = createAction("SAVE_LIST_ADDITIONINFO")
 
@@ -127,7 +128,7 @@ let {
   joinAction,
   openRejectAppro,
   recoAction,
-  entryInfoAction
+  entryInfoAction,
 } = createResumeRoute()
 export {
   feedAction,
@@ -155,10 +156,89 @@ export {
 export {
   urgeFeedbackAction
 }
+export function delateJobCategoryAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchdelateJobCategory(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
 
 export function listAction(value) {
   return (dispatch, getState) => {
     dispatch(saveParams(value))
+  }
+}
+export function jobsDetailAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchjobsDetail(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      dispatch(saveDetail(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+export function jobsDelateAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchjobsDelate(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+export function JobCategoryAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchJobCategory(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      // dispatch(saveParams(value))
+      let {list,...page} = json
+      dispatch(saveTreeList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin',ex))
+    })
+  }
+}
+export function constructionAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchConstruction(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      // dispatch(saveParams(value))
+      let {list,...page} = json
+      dispatch(saveTreeList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin',ex))
+    })
+  }
+}
+export function jobsAddEditAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchjobsAddEdit(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+      // dispatch(saveDetail(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
+  }
+}
+export function jobsListAction(value) {
+  return (dispatch, getState) => {
+    dispatch(fetchRequest('tableSpin'))
+    return new API().fetchJobsList(value).then(json => {
+      dispatch(fetchSuccess('tableSpin'))
+       dispatch(saveList(json))
+    }).catch(ex => {
+      return dispatch(fetchFailure('tableSpin', ex))
+    })
   }
 }
 

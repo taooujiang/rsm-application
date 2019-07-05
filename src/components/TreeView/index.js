@@ -102,7 +102,7 @@ export class TreeSelectPicker extends Component {
 		if(allowClear==true){
 			return (<TreeSelect {...setProps} {...otherProps} defaultValue={this.state.value}  treeData={treeData} allowClear={allowClear} onChange={onChange}	onSelect={this.onChange.bind(this)} />)
 		}else{
-			return (<TreeSelect {...setProps}	 {...otherProps} value={this.state.value} treeData={treeData}	onSelect={this.onChange.bind(this)} />)
+			return (<TreeSelect {...setProps} {...otherProps} value={this.state.value} treeData={treeData}	onSelect={this.onChange.bind(this)} />)
 		}
 		// return React.createElement(TreeSelect,Object.assign({},otherProps))
 	}

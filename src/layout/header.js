@@ -100,19 +100,31 @@ export default class HeaderSide extends React.Component {
               <span>首页</span>
             </Link>
           </Menu.Item>
-          {/*this.renderAuthMenuItem(
-            <Menu.Item key="2">
-              <Link
-                to={{
-                  pathname: "resume/list"
-                  //   state: { breadcrumbName: "候选人管理" }
-                }}
-              >
-                <span>候选人管理</span>
-              </Link>
-            </Menu.Item>,
-            "resume"
-          )*/}
+          {this.renderAuthMenuItem(
+            <Menu.SubMenu key="12" title={<span>组织管理</span>}>
+              <Menu.Item key="12-1">
+                <Link
+                  to={{
+                    pathname: "organization/construction"
+                    //   state: { breadcrumbName: "候选人管理" }
+                  }}
+                >
+                  <span>组织结构</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="12-2">
+                <Link
+                  to={{
+                    pathname: "organization/jobs"
+                    //   state: { breadcrumbName: "候选人管理" }
+                  }}
+                >
+                  <span>岗位管理</span>
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>,
+            "organization"
+          )}
           {this.renderAuthMenuItem(
             <Menu.SubMenu key="2" title={<span>候选人管理</span>}>
               <Menu.Item key="2-1">
@@ -277,7 +289,66 @@ export default class HeaderSide extends React.Component {
                 </Menu.Item>,
                 "memberInterpolae"
               )}
-
+                <Menu.Item key="5-3">
+                  <Link
+                    to={{
+                      pathname: "member/roster"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>员工花名册</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="5-4">
+                  <Link
+                    to={{
+                      pathname: "member/relation/1"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>员工关系</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="5-5">
+                  <Link
+                    to={{
+                      pathname: "member/record"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>人员异动记录</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="5-6">
+                  <Link
+                    to={{
+                      pathname: "member/archives"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>员工档案</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="5-7">
+                  <Link
+                    to={{
+                      pathname: "member/setting/filds"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>员工设置</span>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="5-8">
+                  <Link
+                    to={{
+                      pathname: "member/templateSet"
+                      // state: { breadcrumbName: "员工管理" }
+                    }}
+                  >
+                    <span>人事模板设置</span>
+                  </Link>
+                </Menu.Item>
             </Menu.SubMenu>,
             "member"
           )}

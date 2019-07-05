@@ -250,9 +250,7 @@ class MemberImport extends Component{
               <span>匹配字段</span>
               <span>首条数据</span>
             </div>
-
             {this.renderTableList()}
-
           </div>
         </div>
       ),

@@ -21,13 +21,43 @@ export default class MemberAPI extends FetchAPI {
       body: params
     })
   }
-
+  fetchApprovalCount(params) {
+    return this.fetchPostList(`${APP_SERVER}/resumeOfferApproval/statusNum`, {
+      body: params
+    })
+  }
+  
+  fetchTemplateItem(params) {
+    return this.fetchPost(`${APP_SERVER}/template/infoJson`, {
+      body: params
+    })
+  }
+  fetchTemplateList(params) {
+    return this.fetchPostList(`${APP_SERVER}/template/listJson`, {
+      body: params
+    })
+  }
+  fetchApprovalList(params) {
+    return this.fetchPostList(`${APP_SERVER}/resumeOfferApproval/listPageJson`, {
+      body: params
+    })
+  }
   fetchInterpolList(params) {
     return this.fetchPostList(`${APP_SERVER}/memberInterpolate/listPageJson`, {
       body: params
     })
   }
-
+  fetchOptionList(params) {
+    return this.fetchGet(`${APP_SERVER}/option/optionListJson`, {
+      body: params
+    })
+  }
+  fetchRecordlList(params) {
+    return this.fetchPostList(`${APP_SERVER}/logMemberChangesRecord/listPageJson`, {
+      body: params
+    })
+  }
+  
 	fetchPersonBase(params){
 		return this.fetchGet(`${APP_SERVER}/resumeLibrary/detailInfoJson`, {body: params})
 	}
@@ -64,7 +94,7 @@ export default class MemberAPI extends FetchAPI {
   }
 
   fetchImportResultList(params) {
-    return this.fetchPostList(`${APP_SERVER}/memberImportResult/listPageJson`, {
+    return this.fetchPost(`${APP_SERVER}/memberImportResult/listPageJson`, {
       body: params
     })
   }

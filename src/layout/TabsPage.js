@@ -225,6 +225,21 @@ class MultiTab extends Component {
         title: "邀请记录",
         key: "schoolRecruit/inviteRecord",
         src: "/static/js/client/main.html#/schoolRecruit/inviteRecord"
+      },
+      '/organization/construction': {
+        title: "组织结构",
+        key: "/organization/construction",
+        src: "/static/js/client/main.html#/organization/construction"
+      },
+      '/organization/jobs': {
+        title: "岗位管理",
+        key: "organization/jobs",
+        src: "/static/js/client/main.html#/organization/jobs"
+      },
+      '/organization/position': {
+        title: "职位管理",
+        key: "/organization/position",
+        src: "/static/js/client/main.html#/organization/position"
       }
       
     };

@@ -124,7 +124,16 @@ if(process.env.NODE_ENV === 'development'){
 		note:'searchTalents',
 	},{
 		note:'inviteRecord',
+	},{
+		note:'organization'
+	},{
+		note:'jobs'
+	},{
+		note:'position'
+	},{
+		note:'construction'
 	}
+
 ]
 	user = {
     "orgId":"5b0af4112b5e47b1b465c5badbc189a5",

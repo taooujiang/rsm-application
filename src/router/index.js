@@ -173,6 +173,17 @@ function RootRoutes() {
               import("app_modules/SchoolRecruit"),
               "schoolRecruitReducer"
             )
+        }, {
+          path: "organization",
+          breadcrumbName: "组织管理",
+          onEnter: authLogin.bind(this,'organization'),
+          getChildRoutes: (partialNextState, cb) =>
+            dynamicRouter(
+              partialNextState,
+              cb,
+              import("app_modules/OrganizationManagement"),
+              "organizationReducer"
+            )
         },
         {
           path: "settings",
