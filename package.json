@@ -57,7 +57,7 @@
     "html-webpack-plugin": "^2.8.1",
     "jest": "^20.0.4",
     "jest-fetch-mock": "^1.4.0",
-    "jsdom": "^8.0.4",
+    "jsdom": "^16.5.0",
     "json-loader": "^0.5.7",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
