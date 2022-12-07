@@ -87,7 +87,7 @@
     "lodash-decorators": "^4.5.0",
     "mockjs": "^1.0.1-beta3",
     "numeral": "^2.0.6",
-    "qs": "^6.5.1",
+    "qs": "^6.5.3",
     "react": "16.0.0",
     "react-document-title": "^2.0.3",
     "react-dom": "16.0.0",
